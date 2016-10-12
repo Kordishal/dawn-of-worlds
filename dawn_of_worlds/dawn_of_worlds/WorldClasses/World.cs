@@ -14,14 +14,14 @@ namespace dawn_of_worlds.WorldClasses
 
         public Area[,] AreaGrid { get; set; }
 
-        public World(string world_name, int min_regions, int max_regions, int min_areas, int max_areas)
+        public World(string world_name, int num_regions, int num_areas)
         {
             WorldRegions = new List<Region>();
             Name = world_name;
 
-            for (int i = 0; i < Main.MainLoop.RND.Next(min_regions, max_regions); i++)
+            for (int i = 0; i < num_regions; i++)
             {
-                WorldRegions.Add(new Region(min_areas, max_areas));
+                WorldRegions.Add(new Region(this, num_areas));
             }
 
             int total_areas = 0;
@@ -30,7 +30,7 @@ namespace dawn_of_worlds.WorldClasses
                 total_areas += r.RegionAreas.Count;
             }
 
-            AreaGrid = new Area[total_areas / 2, total_areas - (total_areas / 2)];
+            AreaGrid = new Area[5, 5];
 
 
             int x_length = AreaGrid.GetLength(0);
@@ -57,19 +57,18 @@ namespace dawn_of_worlds.WorldClasses
                 for (int j = 1; j < WorldRegions[i].RegionAreas.Count; j++)
                 {
                     List<int> direction = new List<int>() { 0, 1, 2, 3};
+                    has_valid_neighbour = false;
                     while (!has_valid_neighbour)
                     {
-                        switch (direction[Main.MainLoop.RND.Next(direction.Count)])
+                        switch (direction.Count > 0 ? direction[Main.MainLoop.RND.Next(direction.Count)] : 4)
                         {
                             case 0:
                                 if (y + 1 < y_length)
                                 {
-                                    if (AreaGrid[x, y].North == null)
+                                    if (AreaGrid[x, y + 1] == null)
                                     {
                                         has_valid_neighbour = true;
-                                        AreaGrid[x, y].North = WorldRegions[i].RegionAreas[j];
                                         AreaGrid[x, y + 1] = WorldRegions[i].RegionAreas[j];
-                                        WorldRegions[i].RegionAreas[j].South = AreaGrid[x, y];
                                         y += 1;
                                     }
                                 }
@@ -78,40 +77,34 @@ namespace dawn_of_worlds.WorldClasses
                             case 1:
                                 if (x + 1 < x_length)
                                 {
-                                    if (AreaGrid[x, y].East == null)
+                                    if (AreaGrid[x + 1, y] == null)
                                     {
                                         has_valid_neighbour = true;
-                                        AreaGrid[x, y].East = WorldRegions[i].RegionAreas[j];
                                         AreaGrid[x + 1, y] = WorldRegions[i].RegionAreas[j];
-                                        WorldRegions[i].RegionAreas[j].West = AreaGrid[x, y];
                                         x += 1;
                                     }
                                 }
                                 direction.Remove(1);
                                 break;
                             case 2:
-                                if (y - 1 > 0)
+                                if (y - 1 >= 0)
                                 {
-                                    if (AreaGrid[x, y].South == null)
+                                    if (AreaGrid[x, y - 1] == null)
                                     {
                                         has_valid_neighbour = true;
-                                        AreaGrid[x, y].South = WorldRegions[i].RegionAreas[j];
                                         AreaGrid[x, y - 1] = WorldRegions[i].RegionAreas[j];
-                                        WorldRegions[i].RegionAreas[j].North = AreaGrid[x, y];
                                         y -= 1;
                                     }
                                 }
                                 direction.Remove(2);
                                 break;
                             case 3:
-                                if (x - 1 > 0)
+                                if (x - 1 >= 0)
                                 {
-                                    if (AreaGrid[x, y].West == null)
+                                    if (AreaGrid[x - 1, y] == null)
                                     {
                                         has_valid_neighbour = true;
-                                        AreaGrid[x, y].West = WorldRegions[i].RegionAreas[j];
                                         AreaGrid[x - 1, y] = WorldRegions[i].RegionAreas[j];
-                                        WorldRegions[i].RegionAreas[j].East = AreaGrid[x, y];
                                         x -= 1;
                                     }
                                 }
@@ -129,10 +122,12 @@ namespace dawn_of_worlds.WorldClasses
                                         has_valid_starter_coordinates = true;
                                     }
                                 }
+
+                                AreaGrid[x, y] = WorldRegions[i].RegionAreas[j];
+                                has_valid_neighbour = true;
                                 break;
                         }
                     }
-                
                 }
             }
         }

@@ -22,7 +22,7 @@ namespace dawn_of_worlds.Main
 
         public void Initialize()
         {
-            MainWorld = new World("New World", 4, 6, 10, 20);
+            MainWorld = new World("New World", 5, 5);
            
             Deities = new List<Deity>();
 

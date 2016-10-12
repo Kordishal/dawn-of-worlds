@@ -8,17 +8,24 @@ namespace dawn_of_worlds.WorldClasses
 {
     class Area
     {
+
+        private static int id = 0;
+
         public string Name { get; set; }
 
-        public Area North { get; set; }
-        public Area East { get; set; }
-        public Area South { get; set; }
-        public Area West { get; set; }
+        public Region AreaRegion { get; set; }
 
-        public Area()
+        public Area(Region region)
         {
-            
+            Name = id.ToString();
+            id += 1;
+            AreaRegion = region;
         }
 
+
+        public override string ToString()
+        {
+            return "Area: " + Name;
+        }
     }
 }
