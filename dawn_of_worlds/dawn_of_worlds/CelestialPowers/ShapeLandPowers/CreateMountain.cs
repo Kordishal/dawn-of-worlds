@@ -14,6 +14,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
+            // Needs at least one Mountainrange it can be added to.
             foreach (Area a in current_world.AreaGrid)
             {
                 if (a.MountainRanges != null)
@@ -41,6 +42,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     mountain.Range = location.MountainRanges;
                 }
             }
+        }
+
+
+        public CreateMountain()
+        {
+            Name = "Create Mountain";
         }
     }
 }

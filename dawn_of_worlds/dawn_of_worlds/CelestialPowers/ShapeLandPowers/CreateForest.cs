@@ -43,5 +43,15 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 }
             }    
         }
+
+        public override int Weight(World current_world, Deity creator, int current_age)
+        {
+            return base.Weight(current_world, creator, current_age) + 20;
+        }
+
+        public CreateForest()
+        {
+            Name = "Create Forest";
+        }
     }
 }

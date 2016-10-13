@@ -127,6 +127,28 @@ namespace dawn_of_worlds.WorldClasses
                                 has_valid_neighbour = true;
                                 break;
                         }
+
+                        if (x + 1 < x_length && AreaGrid[x + 1, y] != null)
+                        {
+                            AreaGrid[x, y].North = AreaGrid[x + 1, y];
+                            AreaGrid[x + 1, y].South = AreaGrid[x, y];
+                        }
+                        if (x - 1 >= 0 && AreaGrid[x - 1, y] != null)
+                        {
+                            AreaGrid[x, y].South = AreaGrid[x - 1, y];
+                            AreaGrid[x - 1, y].North = AreaGrid[x, y];
+                        }
+                        if (y + 1 < y_length && AreaGrid[x, y + 1] != null)
+                        {
+                            AreaGrid[x, y].East = AreaGrid[x, y + 1];
+                            AreaGrid[x, y + 1].West = AreaGrid[x, y];
+                        }
+                        if (y - 1 >= 0 && AreaGrid[x, y - 1] != null)
+                        {
+                            AreaGrid[x, y].West = AreaGrid[x, y - 1];
+                            AreaGrid[x, y - 1].East = AreaGrid[x, y];
+                        }
+
                     }
                 }
             }

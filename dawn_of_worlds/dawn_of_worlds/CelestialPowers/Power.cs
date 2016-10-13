@@ -10,6 +10,14 @@ namespace dawn_of_worlds.CelestialPowers
 {
     abstract class Power
     {
+        public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+
         virtual public int Cost(int current_age)
         {
             return 10;

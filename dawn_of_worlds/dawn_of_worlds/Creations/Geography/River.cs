@@ -23,7 +23,9 @@ namespace dawn_of_worlds.Creations.Geography
 
         public River(string name, Area location, Deity creator) : base(name, location, creator)
         {
-
+            Riverbed = new List<Area>();
+            ConnectedLakes = new List<Lake>();
+            SourceRivers = new List<River>();
         }
     }
 }

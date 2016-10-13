@@ -42,5 +42,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 }
             }
         }
+
+        public CreateMountainRange()
+        {
+            Name = "Create Mountain Range";
+        }
     }
 }

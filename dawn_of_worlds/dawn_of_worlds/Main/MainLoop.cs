@@ -29,7 +29,7 @@ namespace dawn_of_worlds.Main
            
             Deities = new List<Deity>();
 
-            for (int i = 0; i < RND.Next(5, 10); i++)
+            for (int i = 0; i < 1; i++)
             {
                 Deities.Add(new Deity());
             }
@@ -40,11 +40,21 @@ namespace dawn_of_worlds.Main
             CurrentAge = 1;
             for (int i = 0; i < 30; i++)
             {
+                Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@ TURN " + i.ToString() + " @@@@@@@@@@@@@@@@@@@@@@@@@@@");
                 foreach (Deity deity in Deities)
                 {
-                    deity.Turn(MainWorld, CurrentAge);
+                    deity.AddPower();
                 }
 
+
+                for (int j = 0; j < 10; j++)
+                {
+                    foreach (Deity deity in Deities)
+                    {
+                        deity.Turn(MainWorld, CurrentAge);
+                    }
+                }
+               
                 if (i == 10)
                     CurrentAge += 1;
 

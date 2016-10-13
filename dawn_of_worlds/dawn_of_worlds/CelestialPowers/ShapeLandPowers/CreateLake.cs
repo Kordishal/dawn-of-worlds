@@ -11,6 +11,21 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateLake : ShapeLand
     {
+
+        public override bool Precondition(World current_world, Deity creator, int current_age)
+        {
+            // Needs at least one River it can be connected to.
+            foreach (Area a in current_world.AreaGrid)
+            {
+                if (a.Rivers.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public override void Effect(World current_world, Deity creator, int current_age)
         {
             bool not_found_valid_area = true;
@@ -19,29 +34,26 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             {
                 Area location = current_world.AreaGrid[Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_X), Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_Y)];
 
-                if (location.AreaRegion.Landmass)
+                if (location.AreaRegion.Landmass && location.Rivers.Count > 0)
                 {
+                    Lake lake = new Lake("Lake Titicaca", location, creator);
+
                     not_found_valid_area = false;
-                    if (location.Lakes.Count > 0)
+                    if (location.Rivers.Count == 1)
                     {
-                        if (Main.MainLoop.RND.Next(100) < 50)
-                        {
-                            Lake lake = location.Lakes[Main.MainLoop.RND.Next(location.Lakes.Count)];
-                            lake.Size += Main.MainLoop.RND.Next(5);
-                        }
-                        else
-                        {
-                            Lake lake = new Lake("Lake Titicaca", location, creator);
-                            location.Lakes.Add(lake);
-                        }
+                        location.Rivers[0].ConnectedLakes.Add(lake);
+                        lake.SourceRivers.Add(location.Rivers[0]);
+                        lake.OutGoingRiver = location.Rivers[0];
                     }
-                    else
-                    {
-                        Lake lake = new Lake("Lake Victoria", location, creator);
-                        location.Lakes.Add(lake);
-                    }
+                    location.Lakes.Add(lake);
                 }
             }
+        }
+
+
+        public CreateLake()
+        {
+            Name = "Create Lake";
         }
     }
 }

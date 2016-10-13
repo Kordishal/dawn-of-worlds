@@ -20,19 +20,30 @@ namespace dawn_of_worlds.Actors
         {
             PowerPoints = 0;
             Powers = new List<Power>();
+
+            // Shape Land
             Powers.Add(new CreateForest());
             Powers.Add(new CreateLake());
+            Powers.Add(new CreateRiver());
             Powers.Add(new CreateMountainRange());
             Powers.Add(new CreateMountain());
         }
 
-        public void Turn(World current_world, int current_age)
+
+        public void AddPower()
         {
+            Console.WriteLine("PowerPoints before new Turn: " + PowerPoints);
+
             if (PowerPoints < 5)
                 PowerPoints = PowerPoints + (5 - PowerPoints);
 
             PowerPoints = PowerPoints + Main.MainLoop.RND.Next(12);
 
+            Console.WriteLine("PowerPoints after adding turn gain: " + PowerPoints);
+        }
+
+        public void Turn(World current_world, int current_age)
+        {
             List<Power> possible_powers = new List<Power>();
             int total_weight = 0;
 
@@ -48,6 +59,8 @@ namespace dawn_of_worlds.Actors
                 }                    
             }
 
+            Console.WriteLine("Possible Actions Count: " + possible_powers.Count);
+
             int chance = Main.MainLoop.RND.Next(total_weight);
             int prev_weight = 0, current_weight = 0;
             foreach (Power p in possible_powers)
@@ -55,19 +68,16 @@ namespace dawn_of_worlds.Actors
                 current_weight += p.Weight(current_world, this, current_age);
                 if (prev_weight <= chance && chance < current_weight)
                 {
+                    Console.WriteLine("TAKE ACTION");
+                    Console.WriteLine("Action: " + p);
+                    Console.WriteLine("Cost: " + p.Cost(current_age));
+                    Console.WriteLine("PowerPoints: " + PowerPoints);
                     p.Effect(current_world, this, current_age);
                     PowerPoints = PowerPoints - p.Cost(current_age);
-                    if (PowerPoints < 0)
-                    {
-                        Console.WriteLine("_____________________________________________________");
-                        Console.WriteLine("PowerPoints Below Zero: " + PowerPoints.ToString());
-                        Console.WriteLine("Current Age: " + current_age);
-                        Console.WriteLine("Action Taken: " + p.ToString());
-                    }
-                    continue;
+                    break;
                 }
 
-                prev_weight = current_weight;
+                prev_weight += p.Weight(current_world, this, current_age);
             }
         }
     }
