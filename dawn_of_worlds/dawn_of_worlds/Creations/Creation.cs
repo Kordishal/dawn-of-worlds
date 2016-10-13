@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dawn_of_worlds.Actors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,31 @@ namespace dawn_of_worlds.Creations
 {
     abstract class Creation
     {
+        private static int id = 0;
+
+        private int _identifier { get; set; }
         public string Name { get; set; }
 
+        public int Size { get; set; }
 
-        public Creation(string name)
+        public Deity Creator { get; set; }
+
+
+        public Creation(string name, Deity creator)
         {
+            _identifier = id;
+            id++;
+
             Name = name;
+            Creator = creator;
+            Size = 5;
+        }
+
+
+
+        public override string ToString()
+        {
+            return this.GetType().ToString().Split('.').Last() + ": " + Name + "(" + _identifier.ToString() + ")";
         }
     }
 }

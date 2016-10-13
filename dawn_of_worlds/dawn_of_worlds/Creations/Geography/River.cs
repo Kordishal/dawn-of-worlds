@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class River : GeographcialCreations
+    class River : GeographcialCreation
     {
         public MountainRange Spring { get; set; }
 
@@ -20,7 +21,7 @@ namespace dawn_of_worlds.Creations.Geography
         public List<Lake> ConnectedLakes { get; set; }
         public List<River> SourceRivers { get; set; }
 
-        public River(string name, Area location) : base(name, location)
+        public River(string name, Area location, Deity creator) : base(name, location, creator)
         {
 
         }

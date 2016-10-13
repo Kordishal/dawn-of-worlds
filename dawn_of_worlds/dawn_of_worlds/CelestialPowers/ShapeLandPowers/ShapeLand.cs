@@ -22,12 +22,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 return 12;
         }
 
-        public override bool Precondition(World current_world, Deity deity, int current_age)
+        public override bool Precondition(World current_world, Deity creator, int current_age)
         {
             return true;
         }
 
-        public override int Weight(World current_world, Deity deity, int current_age)
+        public override int Weight(World current_world, Deity creator, int current_age)
         {
             return 50 - (current_age * 10);
         }

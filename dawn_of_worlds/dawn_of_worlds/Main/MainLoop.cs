@@ -10,6 +10,9 @@ namespace dawn_of_worlds.Main
 {
     class MainLoop
     {
+
+        public const int AREA_GRID_X = 5;
+        public const int AREA_GRID_Y = 5;
         static public Random RND = new Random(100);
 
         public int CurrentAge { get; set; }

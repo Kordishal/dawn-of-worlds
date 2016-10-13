@@ -53,7 +53,7 @@
     <Compile Include="CelestialPowers\ShapeLandPowers\ShapeLand.cs" />
     <Compile Include="Creations\Creation.cs" />
     <Compile Include="Creations\Geography\Forest.cs" />
-    <Compile Include="Creations\Geography\GeographcialCreations.cs" />
+    <Compile Include="Creations\Geography\GeographcialCreation.cs" />
     <Compile Include="Creations\Geography\Lake.cs" />
     <Compile Include="Creations\Geography\Mountain.cs" />
     <Compile Include="Creations\Geography\MountainRange.cs" />

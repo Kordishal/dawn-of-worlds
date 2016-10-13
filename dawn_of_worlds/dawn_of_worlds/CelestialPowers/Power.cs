@@ -15,17 +15,17 @@ namespace dawn_of_worlds.CelestialPowers
             return 10;
         }
 
-        virtual public int Weight(World current_world, Deity deity, int current_age)
+        virtual public int Weight(World current_world, Deity creator, int current_age)
         {
             return 0;
         }
 
-        virtual public bool Precondition(World current_world, Deity deity, int current_age)
+        virtual public bool Precondition(World current_world, Deity creator, int current_age)
         {
             return true;
         }
 
-        abstract public void Effect(World current_world, Deity deity, int current_age);
+        abstract public void Effect(World current_world, Deity creator, int current_age);
 
     }
 }

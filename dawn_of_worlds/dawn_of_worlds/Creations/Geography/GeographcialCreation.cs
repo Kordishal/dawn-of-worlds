@@ -1,4 +1,5 @@
-﻿using dawn_of_worlds.WorldClasses;
+﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class GeographcialCreations : Creation
+    class GeographcialCreation : Creation
     {
         public Area Location { get; set; }
 
-        public GeographcialCreations(string name, Area location) : base(name)
+        public GeographcialCreation(string name, Area location, Deity creator) : base(name, creator)
         {
             Location = location;
         }

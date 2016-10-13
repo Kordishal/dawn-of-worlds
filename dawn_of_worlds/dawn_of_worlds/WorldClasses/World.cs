@@ -30,7 +30,7 @@ namespace dawn_of_worlds.WorldClasses
                 total_areas += r.RegionAreas.Count;
             }
 
-            AreaGrid = new Area[5, 5];
+            AreaGrid = new Area[Main.MainLoop.AREA_GRID_X, Main.MainLoop.AREA_GRID_Y];
 
 
             int x_length = AreaGrid.GetLength(0);

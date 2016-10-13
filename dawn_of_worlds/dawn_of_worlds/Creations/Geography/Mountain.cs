@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class Mountain : GeographcialCreations
+    class Mountain : GeographcialCreation
     {
-        public Mountain(string name, Area location) : base(name, location)
+
+        public MountainRange Range { get; set; }
+
+        public Mountain(string name, Area location, Deity creator) : base(name, location, creator)
         {
         }
     }
