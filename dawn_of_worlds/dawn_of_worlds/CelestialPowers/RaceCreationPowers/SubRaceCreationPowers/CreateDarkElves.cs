@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPowers
 {
@@ -33,7 +34,9 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPower
                 {
                     not_found_valid_area = false;
 
-                    Race dark_elves = new Race("Dark Elves", creator, location);
+                    Organisation creator_worhip_order = new Organisation("Dark Elves Creator Worshippers", creator, OrganisationType.ReligiousOrder, OrganisationPurpose.WorshipCreator);
+
+                    Race dark_elves = new Race("Dark Elves", creator, location, creator_worhip_order);
                     location.Inhabitants.Add(dark_elves);
                     dark_elves.isSubRace = true;
 
@@ -48,7 +51,10 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPower
                             }
                         }
                     }
-                     
+
+                    creator.CreatedRaces.Add(dark_elves);
+                    creator.CreatedOrganisations.Add(creator_worhip_order);
+
                     notCreatedDarkElves = false;
 
                 }

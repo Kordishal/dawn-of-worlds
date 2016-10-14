@@ -76,6 +76,7 @@
     <Compile Include="Creations\Geography\MountainRange.cs" />
     <Compile Include="Creations\Geography\River.cs" />
     <Compile Include="Creations\Inhabitants\Race.cs" />
+    <Compile Include="Creations\Organisations\Organisation.cs" />
     <Compile Include="Main\MainLoop.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPowers
 {
@@ -33,7 +34,9 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPower
                 {
                     not_found_valid_area = false;
 
-                    Race hill_giants = new Race("Hill Giants", creator, location);
+                    Organisation creator_worhip_order = new Organisation("Hill Giant Creator Worshippers", creator, OrganisationType.ReligiousOrder, OrganisationPurpose.WorshipCreator);
+
+                    Race hill_giants = new Race("Hill Giants", creator, location, creator_worhip_order);
                     location.Inhabitants.Add(hill_giants);
                     hill_giants.isSubRace = true;
 
@@ -48,6 +51,9 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPower
                             }
                         }
                     }
+
+                    creator.CreatedRaces.Add(hill_giants);
+                    creator.CreatedOrganisations.Add(creator_worhip_order);
 
                     notCreatedHillGiants = false;
 

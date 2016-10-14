@@ -40,6 +40,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     Mountain mountain = new Mountain("Mount Special", location, creator);
                     location.MountainRanges.Mountains.Add(mountain);
                     mountain.Range = location.MountainRanges;
+
+                    creator.Creations.Add(mountain);
                 }
             }
         }

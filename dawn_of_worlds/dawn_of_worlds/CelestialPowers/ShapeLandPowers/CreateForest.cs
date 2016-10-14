@@ -21,27 +21,13 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
                 if (location.AreaRegion.Landmass)
                 {
-                    not_found_valid_area = false;
-                    if (location.Forests.Count > 0)
-                    {
-                        if (Main.MainLoop.RND.Next(100) < 50)
-                        {
-                            Forest temp = location.Forests[Main.MainLoop.RND.Next(location.Forests.Count)];
-                            temp.Size += Main.MainLoop.RND.Next(5);
-                        }
-                        else
-                        {
-                            Forest forest = new Forest("Dark Wood 02", location, creator);
-                            location.Forests.Add(forest);
-                        }
-                    }
-                    else
-                    {
-                        Forest forest = new Forest("Dark Wood 01", location, creator);
-                        location.Forests.Add(forest);
-                    }
+                    not_found_valid_area = false; 
+                                 
+                    Forest forest = new Forest("Dark Wood 01", location, creator);
+                    location.Forests.Add(forest);
+                    creator.Creations.Add(forest);
                 }
-            }    
+            }
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)

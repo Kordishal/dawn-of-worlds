@@ -3,6 +3,9 @@ using dawn_of_worlds.CelestialPowers.RaceCreationPowers;
 using dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPowers;
 using dawn_of_worlds.CelestialPowers.ShapeClimatePowers;
 using dawn_of_worlds.CelestialPowers.ShapeLandPowers;
+using dawn_of_worlds.Creations;
+using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -19,10 +22,22 @@ namespace dawn_of_worlds.Actors
 
         public List<Power> Powers { get; set; }
 
+        public List<Creation> Creations { get; set; }
+        public List<Race> CreatedRaces { get; set; }
+        public List<Organisation> CreatedOrganisations { get; set; }
+
+        public List<string> ActionLog { get; set; }
+
+
         public Deity()
         {
             PowerPoints = 0;
             Powers = new List<Power>();
+            Creations = new List<Creation>();
+            CreatedRaces = new List<Race>();
+            CreatedOrganisations = new List<Organisation>();
+
+            ActionLog = new List<string>();
 
             // Shape Land
             Powers.Add(new CreateForest());

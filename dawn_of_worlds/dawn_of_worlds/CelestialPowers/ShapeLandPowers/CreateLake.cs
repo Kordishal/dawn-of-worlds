@@ -32,20 +32,21 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             while (not_found_valid_area)
             {
+   
                 Area location = current_world.AreaGrid[Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_X), Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_Y)];
 
                 if (location.AreaRegion.Landmass && location.Rivers.Count > 0)
                 {
                     Lake lake = new Lake("Lake Titicaca", location, creator);
-
                     not_found_valid_area = false;
-                    if (location.Rivers.Count == 1)
-                    {
-                        location.Rivers[0].ConnectedLakes.Add(lake);
-                        lake.SourceRivers.Add(location.Rivers[0]);
-                        lake.OutGoingRiver = location.Rivers[0];
-                    }
+
+                    River river = location.Rivers[Main.MainLoop.RND.Next(location.Rivers.Count)];
+                    river.ConnectedLakes.Add(lake);
+                    lake.SourceRivers.Add(river);
+                    lake.OutGoingRiver = river;
                     location.Lakes.Add(lake);
+
+                    creator.Creations.Add(lake);
                 }
             }
         }

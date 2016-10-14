@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
 {
@@ -30,9 +31,14 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
                 {
                     not_found_valid_area = false;
 
-                    Race humans = new Race("Humans", creator, location);
+                    Organisation creator_worhip_order = new Organisation("Humans Creator Worshippers", creator, OrganisationType.ReligiousOrder, OrganisationPurpose.WorshipCreator);
+
+                    Race humans = new Race("Humans", creator, location, creator_worhip_order);
                     location.Inhabitants.Add(humans);
                     notCreatedHumans = false;
+
+                    creator.CreatedRaces.Add(humans);
+                    creator.CreatedOrganisations.Add(creator_worhip_order);
 
                 }
             }

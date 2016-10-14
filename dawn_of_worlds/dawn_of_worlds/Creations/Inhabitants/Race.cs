@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,13 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
         public List<Race> SubRaces { get; set; }
 
-        public Race(string name, Deity creator, Area home) : base(name, creator)
+        public Organisation OriginOrder { get; set; }
+
+        public Race(string name, Deity creator, Area home, Organisation originorder) : base(name, creator)
         {
             HomeArea = home;
             SubRaces = new List<Race>();
+            OriginOrder = originorder;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPowers
 {
@@ -33,7 +34,9 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPower
                 {
                     not_found_valid_area = false;
 
-                    Race deep_dwarves = new Race("Deep Dwarves", creator, location);
+                    Organisation creator_worhip_order = new Organisation("Deep Dwarves Creator Worshippers", creator, OrganisationType.ReligiousOrder, OrganisationPurpose.WorshipCreator);
+
+                    Race deep_dwarves = new Race("Deep Dwarves", creator, location, creator_worhip_order);
                     location.Inhabitants.Add(deep_dwarves);
                     deep_dwarves.isSubRace = true;
 
@@ -48,6 +51,9 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPower
                             }
                         }
                     }
+
+                    creator.CreatedRaces.Add(deep_dwarves);
+                    creator.CreatedOrganisations.Add(creator_worhip_order);
 
                     notCreatedDeepDwarves = false;
 

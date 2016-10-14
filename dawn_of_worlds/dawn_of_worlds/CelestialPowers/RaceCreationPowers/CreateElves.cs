@@ -1,5 +1,6 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,14 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
                 {
                     not_found_valid_area = false;
 
-                    Race elves = new Race("Elves", creator, location);
+                    Organisation creator_worhip_order = new Organisation("Elves Creator Worshippers", creator, OrganisationType.ReligiousOrder, OrganisationPurpose.WorshipCreator);
+
+                    Race elves = new Race("Elves", creator, location, creator_worhip_order);
                     location.Inhabitants.Add(elves);
                     notCreatedElves = false;
+
+                    creator.CreatedRaces.Add(elves);
+                    creator.CreatedOrganisations.Add(creator_worhip_order);
 
                 }
             }
