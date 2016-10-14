@@ -45,6 +45,18 @@
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
     <Compile Include="CelestialPowers\Power.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\CreateDragons.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\CreateDwarves.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\CreateElves.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\CreateGiants.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\CreateHumans.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\CreateRace.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\SubRaceCreationPowers\CreateColdHumans.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\SubRaceCreationPowers\CreateDarkElves.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\SubRaceCreationPowers\CreateDeepDwarves.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\SubRaceCreationPowers\CreateFireDragons.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\SubRaceCreationPowers\CreateHillGiants.cs" />
+    <Compile Include="CelestialPowers\RaceCreationPowers\SubRaceCreationPowers\CreateSubRace.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\DecreaseHumidity.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\DecreaseTemperature.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\IncreaseHumidity.cs" />
@@ -63,6 +75,7 @@
     <Compile Include="Creations\Geography\Mountain.cs" />
     <Compile Include="Creations\Geography\MountainRange.cs" />
     <Compile Include="Creations\Geography\River.cs" />
+    <Compile Include="Creations\Inhabitants\Race.cs" />
     <Compile Include="Main\MainLoop.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Creations.Inhabitants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,6 +117,8 @@ namespace dawn_of_worlds.WorldClasses
 
         public MountainRange MountainRanges { get; set; }
 
+        public List<Race> Inhabitants { get; set; }
+
         public Area(Region region)
         {
             Name = id.ToString();
@@ -126,6 +129,7 @@ namespace dawn_of_worlds.WorldClasses
             Rivers = new List<River>();
             Neighbours = new Area[4];
             AreaClimate = new Climate();
+            Inhabitants = new List<Race>();
         }
 
 

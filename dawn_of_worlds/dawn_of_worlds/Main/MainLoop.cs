@@ -29,7 +29,7 @@ namespace dawn_of_worlds.Main
            
             Deities = new List<Deity>();
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Deities.Add(new Deity());
             }
