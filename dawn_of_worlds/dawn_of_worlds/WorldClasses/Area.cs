@@ -126,8 +126,6 @@ namespace dawn_of_worlds.WorldClasses
             Rivers = new List<River>();
             Neighbours = new Area[4];
             AreaClimate = new Climate();
-            AreaClimate.AverageTemperature = 20;
-            AreaClimate.Humidity = 75m;
         }
 
 

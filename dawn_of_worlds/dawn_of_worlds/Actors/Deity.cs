@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.CelestialPowers;
+using dawn_of_worlds.CelestialPowers.ShapeClimatePowers;
 using dawn_of_worlds.CelestialPowers.ShapeLandPowers;
 using dawn_of_worlds.WorldClasses;
 using System;
@@ -27,6 +28,12 @@ namespace dawn_of_worlds.Actors
             Powers.Add(new CreateRiver());
             Powers.Add(new CreateMountainRange());
             Powers.Add(new CreateMountain());
+
+            // Shape Climate
+            Powers.Add(new IncreaseTemperature());
+            Powers.Add(new DecreaseTemperature());
+            Powers.Add(new IncreaseHumidity());
+            Powers.Add(new DecreaseHumidity());
         }
 
 

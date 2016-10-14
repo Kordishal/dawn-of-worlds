@@ -29,7 +29,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 
         public override int Weight(World current_world, Deity creator, int current_age)
         {
-            return 50 - (current_age * 10);
+            return 30 - (current_age * 10);
         }
     }
 }
