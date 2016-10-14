@@ -14,6 +14,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public string Name { get; set; }
 
+        public Climate AreaClimate { get; set; }
 
         public Area[] Neighbours { get; set; }
         public Area[] RandomizedDirections()
@@ -124,6 +125,9 @@ namespace dawn_of_worlds.WorldClasses
             Lakes = new List<Lake>();
             Rivers = new List<River>();
             Neighbours = new Area[4];
+            AreaClimate = new Climate();
+            AreaClimate.AverageTemperature = 20;
+            AreaClimate.Humidity = 75m;
         }
 
 

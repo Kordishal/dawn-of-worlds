@@ -45,6 +45,11 @@
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
     <Compile Include="CelestialPowers\Power.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\DecreaseHumidity.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\DecreaseTemperature.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\IncreaseHumidity.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\IncreaseTemperature.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\ShapeClimate.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateForest.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateLake.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateMountain.cs" />
@@ -62,6 +67,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorldClasses\Area.cs" />
+    <Compile Include="WorldClasses\Climate.cs" />
     <Compile Include="WorldClasses\Region.cs" />
     <Compile Include="WorldClasses\World.cs" />
   </ItemGroup>
