@@ -14,8 +14,6 @@ namespace dawn_of_worlds.Creations
         private int _identifier { get; set; }
         public string Name { get; set; }
 
-        public int Size { get; set; }
-
         public Deity Creator { get; set; }
 
 
@@ -26,7 +24,6 @@ namespace dawn_of_worlds.Creations
 
             Name = name;
             Creator = creator;
-            Size = 5;
         }
 
 

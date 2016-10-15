@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\CommandRace.cs" />
+    <Compile Include="CelestialPowers\CommandRacePowers\FoundNation.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\SettleArea.cs" />
     <Compile Include="CelestialPowers\Power.cs" />
     <Compile Include="CelestialPowers\RaceCreationPowers\CreateRace.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Creations\Geography\MountainRange.cs" />
     <Compile Include="Creations\Geography\River.cs" />
     <Compile Include="Creations\Inhabitants\Race.cs" />
+    <Compile Include="Creations\Organisations\Nation.cs" />
     <Compile Include="Creations\Organisations\Organisation.cs" />
     <Compile Include="Main\MainLoop.cs" />
     <Compile Include="Program.cs" />

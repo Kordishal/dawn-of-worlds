@@ -7,6 +7,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.CelestialPowers.CommandRacePowers;
 
 namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
 {
@@ -55,6 +56,9 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
 
                     creator.CreatedRaces.Add(_created_race);
                     creator.CreatedOrganisations.Add(creator_worhip_order);
+
+                    creator.Powers.Add(new SettleArea(_created_race));
+                    creator.Powers.Add(new FoundNation(_created_race));
 
                     foreach (Deity d in current_world.Deities)
                     {

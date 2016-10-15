@@ -24,7 +24,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     not_found_valid_area = false;
                     if (location.MountainRanges != null)
                     {
-                        location.MountainRanges.Size += 5;
                         Mountain mountain = new Mountain("Mountain First", location, creator);
                         location.MountainRanges.Mountains.Add(mountain);
                         mountain.Range = location.MountainRanges;

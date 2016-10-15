@@ -24,6 +24,7 @@ namespace dawn_of_worlds.Actors
         public List<Creation> Creations { get; set; }
         public List<Race> CreatedRaces { get; set; }
         public List<Organisation> CreatedOrganisations { get; set; }
+        public List<Nation> FoundedNations { get; set; }
 
         public List<string> ActionLog { get; set; }
 
@@ -35,6 +36,7 @@ namespace dawn_of_worlds.Actors
             Creations = new List<Creation>();
             CreatedRaces = new List<Race>();
             CreatedOrganisations = new List<Organisation>();
+            FoundedNations = new List<Nation>();
 
             ActionLog = new List<string>();
 
@@ -95,10 +97,11 @@ namespace dawn_of_worlds.Actors
 
         public void Turn(World current_world, int current_age)
         {
+            List<Power> current_powers = new List<Power>(Powers);
             List<Power> possible_powers = new List<Power>();
             int total_weight = 0;
 
-            foreach (Power p in Powers)
+            foreach (Power p in current_powers)
             {
                 if (PowerPoints - p.Cost(current_age) >= 0)
                 {

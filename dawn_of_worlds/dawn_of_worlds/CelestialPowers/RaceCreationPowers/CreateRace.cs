@@ -7,6 +7,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.CelestialPowers.CommandRacePowers;
 
 namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
 {
@@ -52,14 +53,19 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
                     // Tells the Area that someone is living here.
                     location.Inhabitants.Add(_created_race);
 
-                    // Tells the creator what they have created.
+                    // Tells the creator what they have created and adds the powers to command this race.
                     creator.CreatedRaces.Add(_created_race);
                     creator.CreatedOrganisations.Add(creator_worhip_order);
 
+                    creator.Powers.Add(new SettleArea(_created_race));
+                    creator.Powers.Add(new FoundNation(_created_race));
+
+                   
                     // Remove this power from all deities, as every race can only be created once.
                     foreach (Deity d in current_world.Deities)
                     {
                         d.Powers.Remove(this);
+                        // add the powers to create all the subraces of this main race to all the deities.
                         foreach (Race r in _created_race.PossibleSubRaces)
                         {
                             d.Powers.Add(new CreateSubRace(r, _created_race));

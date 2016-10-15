@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,9 @@ namespace dawn_of_worlds.Creations.Geography
 {
     class GeographcialCreation : Creation
     {
+
+        public Nation Owner { get; set; }
+
         public Area Location { get; set; }
 
         public GeographcialCreation(string name, Area location, Deity creator) : base(name, creator)
