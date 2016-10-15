@@ -19,20 +19,12 @@ namespace dawn_of_worlds.Main
 
         public World MainWorld { get; set; }
 
-        public List<Deity> Deities { get; set; }
 
         public MainLoop() { }
 
         public void Initialize()
         {
-            MainWorld = new World("New World", 5, 5);
-           
-            Deities = new List<Deity>();
-
-            for (int i = 0; i < 5; i++)
-            {
-                Deities.Add(new Deity());
-            }
+            MainWorld = new World("New World", 5, 5);            
         }
 
         public void Run()
@@ -41,15 +33,15 @@ namespace dawn_of_worlds.Main
             for (int i = 0; i < 30; i++)
             {
                 Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@ TURN " + i.ToString() + " @@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                foreach (Deity deity in Deities)
+                foreach (Deity deity in MainWorld.Deities)
                 {
-                    deity.AddPower();
+                    deity.AddPowerPoints();
                 }
 
 
                 for (int j = 0; j < 10; j++)
                 {
-                    foreach (Deity deity in Deities)
+                    foreach (Deity deity in MainWorld.Deities)
                     {
                         deity.Turn(MainWorld, CurrentAge);
                     }

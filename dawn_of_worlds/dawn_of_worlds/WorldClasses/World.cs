@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dawn_of_worlds.Actors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace dawn_of_worlds.WorldClasses
     {
         public string Name { get; set; }
 
+        public List<Deity> Deities { get; set; }
+
         public List<Region> WorldRegions { get; set; }
 
         public Area[,] AreaGrid { get; set; }
@@ -17,6 +20,7 @@ namespace dawn_of_worlds.WorldClasses
         public World(string world_name, int num_regions, int num_areas)
         {
             WorldRegions = new List<Region>();
+            Deities = new List<Deity>();
             Name = world_name;
 
             for (int i = 0; i < num_regions; i++)
@@ -151,6 +155,12 @@ namespace dawn_of_worlds.WorldClasses
 
                     }
                 }
+            }
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                Deities.Add(new Deity());
             }
         }
     }

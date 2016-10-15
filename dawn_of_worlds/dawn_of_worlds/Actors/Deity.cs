@@ -1,6 +1,5 @@
 ﻿using dawn_of_worlds.CelestialPowers;
 using dawn_of_worlds.CelestialPowers.RaceCreationPowers;
-using dawn_of_worlds.CelestialPowers.RaceCreationPowers.SubRaceCreationPowers;
 using dawn_of_worlds.CelestialPowers.ShapeClimatePowers;
 using dawn_of_worlds.CelestialPowers.ShapeLandPowers;
 using dawn_of_worlds.Creations;
@@ -52,23 +51,37 @@ namespace dawn_of_worlds.Actors
             Powers.Add(new IncreaseHumidity());
             Powers.Add(new DecreaseHumidity());
 
-            // Create Races
-            Powers.Add(new CreateHumans());
-            Powers.Add(new CreateElves());
-            Powers.Add(new CreateDwarves());
-            Powers.Add(new CreateDragons());
-            Powers.Add(new CreateGiants());
+            Race Humans = new Race("Human", this);
+            Race Elves = new Race("Elves", this);
+            Race Giants = new Race("Giants", this);
+            Race Dragons = new Race("Dragons", this);
+            Race Dwarves = new Race("Dwarves", this);
 
-            // Create Subraces
-            Powers.Add(new CreateColdHumans());
-            Powers.Add(new CreateHillGiants());
-            Powers.Add(new CreateFireDragons());
-            Powers.Add(new CreateDeepDwarves());
-            Powers.Add(new CreateDarkElves());
+            // Create Races
+            Powers.Add(new CreateRace(Humans));
+            Powers.Add(new CreateRace(Elves));
+            Powers.Add(new CreateRace(Giants));
+            Powers.Add(new CreateRace(Dragons));
+            Powers.Add(new CreateRace(Dwarves));
+
+            Race ColdHumans = new Race("Cold Humans", this);
+            Humans.PossibleSubRaces.Add(ColdHumans);
+
+            Race FireDragons = new Race("Fire Dragons", this);
+            Dragons.PossibleSubRaces.Add(FireDragons);
+
+            Race DarkElves = new Race("Dark Elves", this);
+            Elves.PossibleSubRaces.Add(DarkElves);
+
+            Race DeepDwarves = new Race("Deep Dwarves", this);
+            Dwarves.PossibleSubRaces.Add(DeepDwarves);
+
+            Race HillGiants = new Race("Hill Giants", this);
+            Giants.PossibleSubRaces.Add(HillGiants);
         }
 
 
-        public void AddPower()
+        public void AddPowerPoints()
         {
             Console.WriteLine("PowerPoints before new Turn: " + PowerPoints);
 

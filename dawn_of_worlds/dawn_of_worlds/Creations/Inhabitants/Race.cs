@@ -12,19 +12,33 @@ namespace dawn_of_worlds.Creations.Inhabitants
     class Race : Creation
     {
         public Area HomeArea { get; set; }
+        public List<Area> SettledAreas { get; set; }
+
 
         public bool isSubRace { get; set; }
         public Race MainRace { get; set; }
 
         public List<Race> SubRaces { get; set; }
+        public List<Race> PossibleSubRaces { get; set; }
 
         public Organisation OriginOrder { get; set; }
 
-        public Race(string name, Deity creator, Area home, Organisation originorder) : base(name, creator)
+        public Race(string name, Deity creator) : base(name, creator)
         {
-            HomeArea = home;
             SubRaces = new List<Race>();
-            OriginOrder = originorder;
+            PossibleSubRaces = new List<Race>();
+            SettledAreas = new List<Area>();
+        }
+
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return GetHashCode() == obj.GetHashCode();
         }
     }
 }
