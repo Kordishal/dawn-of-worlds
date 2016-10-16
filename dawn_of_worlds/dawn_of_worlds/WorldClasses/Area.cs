@@ -1,5 +1,6 @@
 ﻿using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,6 +111,12 @@ namespace dawn_of_worlds.WorldClasses
 
         public Region AreaRegion { get; set; }
 
+        public List<Nation> Nations { get; set; }
+        public List<Army> Armies { get; set; }
+
+        public List<GeographicalFeature> GeographicalFeatures { get; set; }
+        public List<GeographicalFeature> UnclaimedTerritory { get; set; }
+
         public List<Forest> Forests { get; set; }
 
         public List<Lake> Lakes { get; set; }
@@ -124,12 +131,16 @@ namespace dawn_of_worlds.WorldClasses
             Name = id.ToString();
             id += 1;
             AreaRegion = region;
+            GeographicalFeatures = new List<GeographicalFeature>();
+            UnclaimedTerritory = new List<GeographicalFeature>();
             Forests = new List<Forest>();
             Lakes = new List<Lake>();
             Rivers = new List<River>();
             Neighbours = new Area[4];
             AreaClimate = new Climate();
             Inhabitants = new List<Race>();
+            Armies = new List<Army>();
+            Nations = new List<Nation>();
         }
 
 

@@ -1,4 +1,6 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,10 @@ namespace dawn_of_worlds.WorldClasses
         public string Name { get; set; }
 
         public List<Deity> Deities { get; set; }
+        public List<Race> Races { get; set; }
+        public List<Nation> Nations { get; set; }
+        public List<City> Cities { get; set; }
+        public List<Organisation> Organisations { get; set; }
 
         public List<Region> WorldRegions { get; set; }
 
@@ -19,8 +25,12 @@ namespace dawn_of_worlds.WorldClasses
 
         public World(string world_name, int num_regions, int num_areas)
         {
+            Races = new List<Race>();
             WorldRegions = new List<Region>();
             Deities = new List<Deity>();
+            Nations = new List<Nation>();
+            Cities = new List<City>();
+            Organisations = new List<Organisation>();
             Name = world_name;
 
             for (int i = 0; i < num_regions; i++)

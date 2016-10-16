@@ -26,6 +26,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     {
                         Mountain mountain = new Mountain("Mountain First", location, creator);
                         location.MountainRanges.Mountains.Add(mountain);
+                        location.GeographicalFeatures.Add(mountain);
+                        location.UnclaimedTerritory.Add(mountain);
                         mountain.Range = location.MountainRanges;
 
                         creator.Creations.Add(mountain);

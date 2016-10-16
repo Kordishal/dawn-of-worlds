@@ -9,22 +9,23 @@ using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.CelestialPowers.CommandRacePowers;
 
-namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
+namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 {
-    class CreateRace : Power
+    class CreateSubRace : Power
     {
         private Race _created_race;
+        private Race _main_race;
 
         public override int Cost(int current_age)
         {
             switch (current_age)
             {
                 case 1:
-                    return 22;
+                    return 12;
                 case 2:
-                    return 6;
+                    return 4;
                 case 3:
-                    return 15;
+                    return 10;
                 default:
                     return 40;
             }
@@ -38,42 +39,52 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
             {
                 Area location = current_world.AreaGrid[Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_X), Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_Y)];
 
-                if (location.AreaRegion.Landmass)
+                if (location.AreaRegion.Landmass && neighbourAreaHasMainRace(location.Neighbours))
                 {
                     not_found_valid_area = false;
-                    
-                    // Each race has an order dedicated to worship their creator.
-                    Organisation creator_worhip_order = new Organisation(_created_race.Name + " Worship Order", creator, OrganisationType.ReligiousOrder, OrganisationPurpose.WorshipCreator);
-                    _created_race.OriginOrder = creator_worhip_order;
 
-                    // The created race is settled 
-                    _created_race.HomeArea = location;
-                    _created_race.SettledAreas.Add(location);
-                    
-                    // Tells the Area that someone is living here.
+                    Organisation creator_worhip_order = new Organisation(_created_race.Name + "Creator Worshippers", creator, OrganisationType.ReligiousOrder, OrganisationPurpose.WorshipCreator);
+
                     location.Inhabitants.Add(_created_race);
 
-                    // Tells the creator what they have created and adds the powers to command this race.
+                    _created_race.HomeArea = location;
+                    _created_race.SettledAreas.Add(location);
+                    _created_race.isSubRace = true;
+                    _created_race.MainRace = _main_race;
+
+                    _main_race.SubRaces.Add(_created_race);
+
                     creator.CreatedRaces.Add(_created_race);
                     creator.CreatedOrganisations.Add(creator_worhip_order);
 
                     creator.Powers.Add(new SettleArea(_created_race));
                     creator.Powers.Add(new FoundNation(_created_race));
 
-                   
-                    // Remove this power from all deities, as every race can only be created once.
                     foreach (Deity d in current_world.Deities)
                     {
                         d.Powers.Remove(this);
-                        // add the powers to create all the subraces of this main race to all the deities.
-                        foreach (Race r in _created_race.PossibleSubRaces)
-                        {
-                            d.Powers.Add(new CreateSubRace(r, _created_race));
-                        }
                     }
-
                 }
             }
+        }
+
+        private bool neighbourAreaHasMainRace(Area[] neighbours)
+        {
+            foreach (Area a in neighbours)
+            {
+                if (a != null)
+                {
+                    foreach (Race r in a.Inhabitants)
+                    {
+                        if (r.Equals(_main_race))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)
@@ -91,10 +102,12 @@ namespace dawn_of_worlds.CelestialPowers.RaceCreationPowers
             }
         }
 
-        public CreateRace(Race created_race)
+
+        public CreateSubRace(Race created_race, Race main_race)
         {
-            Name = "Create Race: " + created_race.Name;
+            Name = "Create Subrace: " + created_race.Name;
             _created_race = created_race;
+            _main_race = main_race;
         }
     }
 }

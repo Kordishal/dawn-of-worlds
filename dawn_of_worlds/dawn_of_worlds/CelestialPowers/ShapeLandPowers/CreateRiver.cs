@@ -52,11 +52,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                         // Check if there are any lakes and/or rivers in this area, then let this new river flow into a random one.
                         if (current_location.Lakes.Count > 0 || current_location.Rivers.Count > 0)
                         {
-                            List<GeographcialCreation> lakes_and_rivers = new List<GeographcialCreation>();
+                            List<GeographicalFeature> lakes_and_rivers = new List<GeographicalFeature>();
                             lakes_and_rivers.AddRange(current_location.Lakes);
                             lakes_and_rivers.AddRange(current_location.Rivers);
 
-                            GeographcialCreation destination = lakes_and_rivers[Main.MainLoop.RND.Next(lakes_and_rivers.Count)];
+                            GeographicalFeature destination = lakes_and_rivers[Main.MainLoop.RND.Next(lakes_and_rivers.Count)];
 
                             if (typeof(Lake) == destination.GetType())
                             {
@@ -116,6 +116,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     foreach (Area a in river.Riverbed)
                     {
                         a.Rivers.Add(river);
+                        a.GeographicalFeatures.Add(river);
+                        a.UnclaimedTerritory.Add(river);
                     }
 
                     creator.Creations.Add(river);

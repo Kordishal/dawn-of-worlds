@@ -8,58 +8,65 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.CelestialPowers.CommandNationPowers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
     class FoundNation : CommandRace
     {
+
+        public override bool Precondition(World current_world, Deity creator, int current_age)
+        {
+            foreach (Area a in _commanded_race.SettledAreas)
+            {
+                if (a.UnclaimedTerritory.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public override void Effect(World current_world, Deity creator, int current_age)
         {
+
+            // Find an area with unclaimed space of the settled areas. 
             Area location = null;
-            bool not_found_valid_area = true;
-
-            while (not_found_valid_area)
+            while (location == null)
             {
-                location = current_world.AreaGrid[Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_X), Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_Y)];
-
-                if (location.AreaRegion.Landmass && location.Inhabitants.Contains(_commanded_race))
-                {
-                    not_found_valid_area = false;
-                }
+                location = _commanded_race.SettledAreas[Main.MainLoop.RND.Next(_commanded_race.SettledAreas.Count)];
+                // At least one unclaimed territory necessary to found a nation.
+                if (location.UnclaimedTerritory.Count == 0)
+                    location = null;
             }
 
+            // The nation to be founded.
             Nation founded_nation = new Nation("Nation of " + _commanded_race.Name, creator);
-
             founded_nation.FoundingRace = _commanded_race;
 
-            List<GeographcialCreation> possible_territories = new List<GeographcialCreation>();
-            possible_territories.AddRange(location.Forests);
-            possible_territories.AddRange(location.Lakes);
-            if (location.MountainRanges != null)
-                possible_territories.AddRange(location.MountainRanges.Mountains);
-            possible_territories.AddRange(location.Rivers);
-
-            bool not_found_valid_founding_territory = true;
-            int counter = 0;
-            while (not_found_valid_founding_territory)
+            // Decide on the territory it should be settled on. Currently random.
+            GeographicalFeature territory = null;
+            while (territory == null)
             {
-                GeographcialCreation current = possible_territories[Main.MainLoop.RND.Next(possible_territories.Count)];
-                if (current.Owner == null)
-                {
-                    founded_nation.Territory.Add(current);
-                    current.Owner = founded_nation;
-                }
-                counter += 1;
-
-                if (counter >= 100)
-                {
-                    Console.WriteLine("Could not find a valid founding territory for " + founded_nation.Name + " in " + location.Name + ".");
-                    break;
-                }
+                territory = location.UnclaimedTerritory[Main.MainLoop.RND.Next(location.UnclaimedTerritory.Count)];      
             }
+            founded_nation.Territory.Add(territory);
+            founded_nation.TerritoryAreas.Add(location);
+            location.UnclaimedTerritory.Remove(territory);
+            territory.Owner = founded_nation;
 
+
+            // Add nation to the creator and Powers related to this nation.
             creator.FoundedNations.Add(founded_nation);
+            creator.Powers.Add(new ExpandTerritory(founded_nation));
+            creator.Powers.Add(new CreateCity(founded_nation));
+            creator.Powers.Add(new RaiseArmy(founded_nation));
+            creator.Powers.Add(new FormAlliance(founded_nation));
 
+            // Add nation to world overview
+            current_world.Nations.Add(founded_nation);
+            location.Nations.Add(founded_nation);
         }
 
         public FoundNation (Race command_race) : base(command_race)

@@ -25,6 +25,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                                  
                     Forest forest = new Forest("Dark Wood 01", location, creator);
                     location.Forests.Add(forest);
+                    location.GeographicalFeatures.Add(forest);
+                    location.UnclaimedTerritory.Add(forest);
                     creator.Creations.Add(forest);
                 }
             }

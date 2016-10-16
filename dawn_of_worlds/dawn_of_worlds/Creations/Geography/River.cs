@@ -8,7 +8,7 @@ using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class River : GeographcialCreation
+    class River : GeographicalFeature
     {
         public MountainRange Spring { get; set; }
 

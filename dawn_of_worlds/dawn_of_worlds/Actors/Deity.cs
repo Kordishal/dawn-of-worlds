@@ -1,5 +1,5 @@
 ﻿using dawn_of_worlds.CelestialPowers;
-using dawn_of_worlds.CelestialPowers.RaceCreationPowers;
+using dawn_of_worlds.CelestialPowers.CreateRacePowers;
 using dawn_of_worlds.CelestialPowers.ShapeClimatePowers;
 using dawn_of_worlds.CelestialPowers.ShapeLandPowers;
 using dawn_of_worlds.Creations;
@@ -25,6 +25,7 @@ namespace dawn_of_worlds.Actors
         public List<Race> CreatedRaces { get; set; }
         public List<Organisation> CreatedOrganisations { get; set; }
         public List<Nation> FoundedNations { get; set; }
+        public List<City> FoundedCities { get; set; }
 
         public List<string> ActionLog { get; set; }
 
@@ -37,6 +38,7 @@ namespace dawn_of_worlds.Actors
             CreatedRaces = new List<Race>();
             CreatedOrganisations = new List<Organisation>();
             FoundedNations = new List<Nation>();
+            FoundedCities = new List<City>();
 
             ActionLog = new List<string>();
 

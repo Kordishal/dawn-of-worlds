@@ -45,7 +45,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     lake.SourceRivers.Add(river);
                     lake.OutGoingRiver = river;
                     location.Lakes.Add(lake);
-
+                    location.GeographicalFeatures.Add(lake);
+                    location.UnclaimedTerritory.Add(lake);
                     creator.Creations.Add(lake);
                 }
             }

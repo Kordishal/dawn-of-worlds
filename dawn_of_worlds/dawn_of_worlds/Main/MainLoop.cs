@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,11 @@ namespace dawn_of_worlds.Main
                 foreach (Deity deity in MainWorld.Deities)
                 {
                     deity.AddPowerPoints();
+
+                    foreach (City city in deity.FoundedCities)
+                    {
+                        city.not_hasRaisedArmy = true;
+                    }
                 }
 
 

@@ -39,6 +39,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     not_found_valid_area = false;
                     Mountain mountain = new Mountain("Mount Special", location, creator);
                     location.MountainRanges.Mountains.Add(mountain);
+                    location.GeographicalFeatures.Add(mountain);
+                    location.UnclaimedTerritory.Add(mountain);
                     mountain.Range = location.MountainRanges;
 
                     creator.Creations.Add(mountain);

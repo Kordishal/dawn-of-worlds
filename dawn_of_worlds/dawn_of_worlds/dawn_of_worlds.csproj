@@ -44,12 +44,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\CommandNation.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\CreateCity.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\DeclareWar.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\ExpandTerritory.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\FormAlliance.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\RaiseArmy.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\CommandRace.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\FoundNation.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\SettleArea.cs" />
     <Compile Include="CelestialPowers\Power.cs" />
-    <Compile Include="CelestialPowers\RaceCreationPowers\CreateRace.cs" />
-    <Compile Include="CelestialPowers\RaceCreationPowers\CreateSubRace.cs" />
+    <Compile Include="CelestialPowers\CreateRacePowers\CreateRace.cs" />
+    <Compile Include="CelestialPowers\CreateRacePowers\CreateSubRace.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\DecreaseHumidity.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\DecreaseTemperature.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\IncreaseHumidity.cs" />
@@ -61,14 +67,19 @@
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateMountainRange.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateRiver.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\ShapeLand.cs" />
+    <Compile Include="Creations\Conflict\Battle.cs" />
     <Compile Include="Creations\Creation.cs" />
+    <Compile Include="Creations\Diplomacy\Alliance.cs" />
+    <Compile Include="Creations\Diplomacy\War.cs" />
     <Compile Include="Creations\Geography\Forest.cs" />
-    <Compile Include="Creations\Geography\GeographcialCreation.cs" />
+    <Compile Include="Creations\Geography\GeographicalFeature.cs" />
     <Compile Include="Creations\Geography\Lake.cs" />
     <Compile Include="Creations\Geography\Mountain.cs" />
     <Compile Include="Creations\Geography\MountainRange.cs" />
     <Compile Include="Creations\Geography\River.cs" />
     <Compile Include="Creations\Inhabitants\Race.cs" />
+    <Compile Include="Creations\Organisations\Army.cs" />
+    <Compile Include="Creations\Organisations\City.cs" />
     <Compile Include="Creations\Organisations\Nation.cs" />
     <Compile Include="Creations\Organisations\Organisation.cs" />
     <Compile Include="Main\MainLoop.cs" />

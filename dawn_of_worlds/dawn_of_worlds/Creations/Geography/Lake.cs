@@ -8,7 +8,7 @@ using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class Lake : GeographcialCreation
+    class Lake : GeographicalFeature
     {
 
         public River OutGoingRiver { get; set; }

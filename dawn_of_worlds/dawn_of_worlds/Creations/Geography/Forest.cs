@@ -8,7 +8,7 @@ using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class Forest : GeographcialCreation
+    class Forest : GeographicalFeature
     {
         public Forest(string name, Area location, Deity creator) : base(name, location, creator)
         {
