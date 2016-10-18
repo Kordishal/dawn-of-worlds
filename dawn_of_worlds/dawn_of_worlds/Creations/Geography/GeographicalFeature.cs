@@ -9,14 +9,16 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class GeographcialCreation : Creation
+    class GeographicalFeature : Creation
     {
 
         public Nation Owner { get; set; }
 
+        public City City { get; set; }
+
         public Area Location { get; set; }
 
-        public GeographcialCreation(string name, Area location, Deity creator) : base(name, creator)
+        public GeographicalFeature(string name, Area location, Deity creator) : base(name, creator)
         {
             Location = location;
         }
