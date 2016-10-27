@@ -25,7 +25,10 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<City> Cities { get; set; }
 
         // Diplomacy
+        public List<Army> Armies { get; set; }
+
         public List<Alliance> Alliances { get; set; }
+        public List<War> Wars { get; set; }
 
 
         public Nation(string name, Deity creator) :base(name, creator)
@@ -34,6 +37,7 @@ namespace dawn_of_worlds.Creations.Organisations
             TerritoryAreas = new List<Area>();
             Cities = new List<City>();
             Alliances = new List<Alliance>();
+            Armies = new List<Army>();
         }
     }
 }

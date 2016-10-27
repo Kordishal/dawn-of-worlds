@@ -17,8 +17,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
+            // cannot make new alliances while at war.
+            if (_commanded_nation.Wars.Count > 0)
+                return false;
+
             compile_candidate_nations();
-            // can only be used if the commanded nation is not at war.
 
             // needs a nation it can ally with.
             if (candidate_nations.Count > 0)

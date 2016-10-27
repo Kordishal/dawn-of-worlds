@@ -46,6 +46,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             army.ArmyLocation = garrison_city.CityLocation.Location;
             army.ArmyLocation.Armies.Add(army);
 
+            _commanded_nation.Armies.Add(army);
+
             garrison_city.not_hasRaisedArmy = false;     
         }
 
