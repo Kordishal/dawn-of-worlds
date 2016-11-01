@@ -51,17 +51,28 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             {
                 territory = location.UnclaimedTerritory[Main.MainLoop.RND.Next(location.UnclaimedTerritory.Count)];      
             }
-            founded_nation.Territory.Add(territory);
-            founded_nation.TerritoryAreas.Add(location);
+
+            // Mark territory as claimed.
             location.UnclaimedTerritory.Remove(territory);
+
+            // A nation can only be founded by creating a city. Which will be the capital.
+            founded_nation.Cities.Add(new City("Capital City of " + founded_nation.Name, creator));
+
+            founded_nation.CapitalCity.CityLocation = territory;
+            founded_nation.CapitalCity.Owner = founded_nation;
+
+            // Add territory to founded Nation.
+            founded_nation.TerritoryAreas.Add(location);
+
+            // Tell territory by whom it is ownd and if there is a city.
             territory.Owner = founded_nation;
+            territory.SphereOfInfluenceCity = founded_nation.CapitalCity;
+            territory.City = founded_nation.CapitalCity;
 
 
             // Add nation to the creator and Powers related to this nation.
             creator.FoundedNations.Add(founded_nation);
-            creator.Powers.Add(new ExpandTerritory(founded_nation));
             creator.Powers.Add(new CreateCity(founded_nation));
-            creator.Powers.Add(new RaiseArmy(founded_nation));
             creator.Powers.Add(new FormAlliance(founded_nation));
 
             // Add nation to world overview

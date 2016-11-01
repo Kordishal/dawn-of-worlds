@@ -44,12 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
+    <Compile Include="CelestialPowers\CommandCityPowers\CommandCity.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CommandNation.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CreateCity.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\DeclareWar.cs" />
-    <Compile Include="CelestialPowers\CommandNationPowers\ExpandTerritory.cs" />
+    <Compile Include="CelestialPowers\CommandCityPowers\ExpandCityInfluence.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\FormAlliance.cs" />
-    <Compile Include="CelestialPowers\CommandNationPowers\RaiseArmy.cs" />
+    <Compile Include="CelestialPowers\CommandCityPowers\RaiseArmy.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\SurrenderWar.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\CommandRace.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\FoundNation.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\SettleArea.cs" />
@@ -69,7 +71,6 @@
     <Compile Include="CelestialPowers\ShapeLandPowers\ShapeLand.cs" />
     <Compile Include="Creations\Conflict\Battle.cs" />
     <Compile Include="Creations\Creation.cs" />
-    <Compile Include="Creations\Diplomacy\Alliance.cs" />
     <Compile Include="Creations\Diplomacy\War.cs" />
     <Compile Include="Creations\Geography\Forest.cs" />
     <Compile Include="Creations\Geography\GeographicalFeature.cs" />

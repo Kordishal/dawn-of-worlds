@@ -7,6 +7,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.CelestialPowers.CommandCityPowers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -42,12 +43,19 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // The city is created and placed in the world. The nation is defined as the city owner.
             City founded_city = new City("THE ONE CITY", creator);
             founded_city.CityLocation = location;
+            founded_city.CitySphereOfÌnfluence.Add(location);
             founded_city.Owner = _commanded_nation;
 
-            // The city is stored where it is placed, by whom it is owned and created.
+            // Tell the location, that it now has a city.
             location.City = founded_city;
+
+            // add the city to the list of cities owned by the nation.
             _commanded_nation.Cities.Add(founded_city);
+
+            // Add city related powers and the creator
             creator.FoundedCities.Add(founded_city);
+            creator.Powers.Add(new ExpandCityInfluence(founded_city));
+            creator.Powers.Add(new RaiseArmy(founded_city));
         }
 
 

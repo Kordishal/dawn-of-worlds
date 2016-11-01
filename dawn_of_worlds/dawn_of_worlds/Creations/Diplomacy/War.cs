@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Organisations;
 using System;
 using System.Collections.Generic;
@@ -26,21 +27,13 @@ namespace dawn_of_worlds.Creations.Diplomacy
 
     struct WarGoal
     {
+        public Nation Winner { get; set; }
         public City WarGoalCity { get; set; }
-        public List<Geography.GeographicalFeature> WarGoalTerritory { get; set; }
 
-        public WarGoal(City city, List<Geography.GeographicalFeature> territory)
+        public WarGoal(Nation winner, City city)
         {
+            Winner = winner;
             WarGoalCity = city;
-            WarGoalTerritory = territory;
-
-            if (WarGoalTerritory == null)
-                WarGoalTerritory = new List<Geography.GeographicalFeature>();
-
-            if (WarGoalCity != null)
-            {
-                WarGoalTerritory.Add(WarGoalCity.CityLocation);
-            }
         }
     }
 }

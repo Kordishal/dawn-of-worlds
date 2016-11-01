@@ -17,27 +17,67 @@ namespace dawn_of_worlds.Creations.Organisations
         // Inhabitants
         public Race FoundingRace { get; set; }
 
-        // Territory
-        public List<Area> TerritoryAreas { get; set; }
-        public List<GeographicalFeature> Territory { get; set; }
-
         // Cities
+        public City CapitalCity
+        {
+            get
+            {
+                return Cities[0];
+            }
+        }
         public List<City> Cities { get; set; }
 
-        // Diplomacy
+        // Territory
+        public List<Area> TerritoryAreas { get; set; }
+
+        // Conflict 
         public List<Army> Armies { get; set; }
 
-        public List<Alliance> Alliances { get; set; }
+        // Diplomacy
+        public List<Nation> AlliedNations { get; set; }
         public List<War> Wars { get; set; }
+
+
+        public void DestroyNation()
+        {
+            this.Creator.FoundedNations.Remove(this);
+
+            foreach (Area a in TerritoryAreas)
+            {
+                a.Nations.Remove(this);
+            }
+
+            foreach (Army a in Armies)
+            {
+                a.ArmyLocation.Armies.Remove(a);
+            }
+            Armies.Clear();
+
+            foreach (Nation n in AlliedNations)
+            {
+                n.AlliedNations.Remove(this);
+            }
+
+            foreach (War w in Wars)
+            {
+                if (w.Attackers.Contains(this))
+                {
+                    //if (w.Attackers[0] == w.)
+                }
+            }
+        }
 
 
         public Nation(string name, Deity creator) :base(name, creator)
         {
-            Territory = new List<GeographicalFeature>();
-            TerritoryAreas = new List<Area>();
             Cities = new List<City>();
-            Alliances = new List<Alliance>();
+
+            TerritoryAreas = new List<Area>();
+            
             Armies = new List<Army>();
+
+            AlliedNations = new List<Nation>();
+            Wars = new List<War>();          
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using System;
@@ -19,7 +20,6 @@ namespace dawn_of_worlds.Main
         public int CurrentAge { get; set; }
 
         public World MainWorld { get; set; }
-
 
         public MainLoop() { }
 
@@ -51,6 +51,12 @@ namespace dawn_of_worlds.Main
                     {
                         deity.Turn(MainWorld, CurrentAge);
                     }
+                }
+
+                // A war ends if one side has no longer any armies left. Then the founder deity gets a free use of the SurrenderWar Power.
+                foreach (War ongoing_war in MainWorld.OngoingWars)
+                {
+
                 }
                
                 if (i == 10)

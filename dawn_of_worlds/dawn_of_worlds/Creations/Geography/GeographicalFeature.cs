@@ -15,6 +15,7 @@ namespace dawn_of_worlds.Creations.Geography
         public Nation Owner { get; set; }
 
         public City City { get; set; }
+        public City SphereOfInfluenceCity { get; set; }
 
         public Area Location { get; set; }
 

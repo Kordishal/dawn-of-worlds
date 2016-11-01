@@ -8,14 +8,14 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
 
-namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
+namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 {
-    class ExpandTerritory : CommandNation
+    class ExpandCityInfluence : CommandCity
     {
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            foreach (Area a in _commanded_nation.TerritoryAreas)
+            foreach (Area a in _commanded_city.Owner.TerritoryAreas)
             {
                 if (a.UnclaimedTerritory.Count > 0)
                 {
@@ -31,32 +31,34 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             List<GeographicalFeature> unclaimed_territory = new List<GeographicalFeature>();
 
-            foreach (Area a in _commanded_nation.TerritoryAreas)
+            foreach (Area a in _commanded_city.Owner.TerritoryAreas)
             {
                 unclaimed_territory.AddRange(a.UnclaimedTerritory);
             }
 
-
+            // Add territory to city and nation
             GeographicalFeature new_territory = unclaimed_territory[Main.MainLoop.RND.Next(unclaimed_territory.Count)];
+            _commanded_city.CitySphereOfÌnfluence.Add(new_territory);
+            _commanded_city.Owner.Territory.Add(new_territory);
 
-            _commanded_nation.Territory.Add(new_territory);
-            new_territory.Owner = _commanded_nation;
+            // Tell territory to whom it belongs now.
+            new_territory.Owner = _commanded_city.Owner;
+            new_territory.SphereOfInfluenceCity = _commanded_city;
 
-            foreach (Area a in _commanded_nation.TerritoryAreas)
+            // Remove territory from the unclaimed list.
+            foreach (Area a in _commanded_city.Owner.TerritoryAreas)
             {
                 if (a.UnclaimedTerritory.Contains(new_territory))
                 {
                     a.UnclaimedTerritory.Remove(new_territory);
                 }
             }
-
-
         }
 
 
-        public ExpandTerritory(Nation commanded_nation) : base(commanded_nation)
+        public ExpandCityInfluence(City comanded_city) : base(comanded_city)
         {
-            Name = "Expand Territory: " + commanded_nation.Name;
+            Name = "Expand City Influence: " + comanded_city.Name;
         }
     }
 }

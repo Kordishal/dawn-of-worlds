@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using System;
@@ -18,6 +19,8 @@ namespace dawn_of_worlds.WorldClasses
         public List<Nation> Nations { get; set; }
         public List<City> Cities { get; set; }
         public List<Organisation> Organisations { get; set; }
+
+        public List<War> OngoingWars { get; set; }
 
         public List<Region> WorldRegions { get; set; }
 

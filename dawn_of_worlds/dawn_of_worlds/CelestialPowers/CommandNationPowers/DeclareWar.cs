@@ -54,9 +54,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             foreach (Area area in considered_areas)
             {
                 bool is_at_war = false;
+                bool is_in_alliance = false;
                 foreach (Nation nation in area.Nations)
                 {
-                    // Checks whether the nation is already in an alliance with the commanded nation.
+                    // Checks whether the nation is already in a War with the commanded nation.
                     is_at_war = false;
                     foreach (War war in _commanded_nation.Wars)
                     {
@@ -67,6 +68,19 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                     }
 
                     if (!is_at_war)
+                        candidate_nations.Add(nation);
+
+                    // Checks whether the nation is in an alliance with the commanded nation
+                    is_in_alliance = false;
+                    foreach (Nation allied_nation in _commanded_nation.AlliedNations)
+                    {
+                        if (allied_nation.Equals(nation))
+                        {
+                            is_in_alliance = true;
+                        }
+                    }
+
+                    if (!is_in_alliance)
                         candidate_nations.Add(nation);
 
                 }
@@ -83,74 +97,41 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 war_target = candidate_nations[Main.MainLoop.RND.Next(candidate_nations.Count)];
             }
 
+            // The war to be declared.
             War declared_war = new War("War of " + _commanded_nation.Name + " vs. " + war_target.Name, creator);
             declared_war.Attackers.Add(_commanded_nation);
             declared_war.Defenders.Add(war_target);
 
-            _commanded_nation.Wars.Add(declared_war);
-            war_target.Wars.Add(declared_war);
+            // Add allies to the war. The order is important as all nations which are allied to both nations will side with the defender.
+            declared_war.Defenders.AddRange(war_target.AlliedNations);
 
-            declared_war.Attackers.AddRange(add_allies(_commanded_nation));
-            declared_war.Defenders.AddRange(add_allies(war_target));
-            
-
-            if (war_target.Cities.Count == 0)
+            foreach (Nation n in _commanded_nation.AlliedNations)
             {
-                declared_war.WarGoalAttackers = new WarGoal(null, war_target.Territory);
-            }
-            else
-            {
-                declared_war.WarGoalAttackers = new WarGoal(war_target.Cities[Main.MainLoop.RND.Next(war_target.Cities.Count)], null);
+                if (!declared_war.Defenders.Contains(n))
+                    declared_war.Attackers.Add(n);
             }
 
-            if (_commanded_nation.Cities.Count == 0)
-            {
-                declared_war.WarGoalDefenders = new WarGoal(null, _commanded_nation.Territory);
-            }
-            else
-            {
-                declared_war.WarGoalDefenders = new WarGoal(_commanded_nation.Cities[Main.MainLoop.RND.Next(_commanded_nation.Cities.Count)], null);
-            }
+            // Define war goals
+            declared_war.WarGoalAttackers = new WarGoal(_commanded_nation, war_target.Cities[Main.MainLoop.RND.Next(war_target.Cities.Count)]);
+            declared_war.WarGoalDefenders = new WarGoal(war_target, _commanded_nation.Cities[Main.MainLoop.RND.Next(_commanded_nation.Cities.Count)]);
 
-            bool has_no_armies = true;
+            // Add war to each nation
+            foreach (Nation n in declared_war.Attackers)
+            {
+                n.Wars.Add(declared_war);
+            }
             foreach (Nation n in declared_war.Defenders)
             {
-                if (n.Armies.Count > 0)
-                {
-                    has_no_armies = false;
-                }
+                n.Wars.Add(declared_war);
             }
 
-            // if the defenders have no armies the attacker wins by default.
-            if (has_no_armies)
-            {
-
-            }
-
-        }
-
-
-        private List<Nation> add_allies(Nation nation)
-        {
-            List<Nation> allies = new List<Nation>();
-
-            foreach (Alliance alliance in nation.Alliances)
-            {
-                foreach (Nation n in alliance.Members)
-                {
-                    if (!n.Equals(nation))
-                    {
-                        allies.Add(n);
-                    }
-                }
-            }
-
-            return allies;
+            // Add war to the list of ongoing conflicts.
+            current_world.OngoingWars.Add(declared_war);
         }
 
         public DeclareWar(Nation commanded_nation) : base(commanded_nation)
         {
-
+            Name = "Declare War: " + commanded_nation.Name;
         }
     }
 }

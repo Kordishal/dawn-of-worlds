@@ -34,6 +34,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             candidate_nations.Clear();
 
+            // Alliances can only be formed with nations within the same area.
             List<Area> considered_areas = new List<Area>();
             foreach (Area settled_area in _commanded_nation.TerritoryAreas)
             {
@@ -47,24 +48,13 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 }
             }
 
+            // Alliances can only be formed with nations they are not allied with.
             foreach (Area area in considered_areas)
             {
-                bool is_allied = false;
                 foreach (Nation nation in area.Nations)
                 {
-                    // Checks whether the nation is already in an alliance with the commanded nation.
-                    is_allied = false;
-                    foreach (Alliance alliance in _commanded_nation.Alliances)
-                    {
-                        if (alliance.Members.Contains(nation))
-                        {
-                            is_allied = true;
-                        }
-                    }
-
-                    if (!is_allied)
-                        candidate_nations.Add(nation);
-                        
+                    if (_commanded_nation.AlliedNations.Contains(nation))
+                        candidate_nations.Add(nation);                    
                 }
             }
 
@@ -72,19 +62,16 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
+            // The new ally will be chosen amongst the possible allies at random.
             Nation new_ally = null;
-
             while (new_ally == null)
             {
                 new_ally = candidate_nations[Main.MainLoop.RND.Next(candidate_nations.Count)];
             }
 
-            Alliance alliance = new Alliance("Alliance of " + _commanded_nation.Name + " and " + new_ally.Name, creator);
-            alliance.Members.Add(_commanded_nation);
-            alliance.Members.Add(new_ally);
-
-            _commanded_nation.Alliances.Add(alliance);
-            new_ally.Alliances.Add(alliance);                     
+            // Add nations to list of allied nations.
+            _commanded_nation.AlliedNations.Add(new_ally);
+            new_ally.AlliedNations.Add(_commanded_nation);                    
         }
 
 
