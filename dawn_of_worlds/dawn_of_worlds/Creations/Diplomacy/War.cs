@@ -11,6 +11,8 @@ namespace dawn_of_worlds.Creations.Diplomacy
 {
     class War : Creation
     {
+        public bool hasEnded { get; set; }
+
         public List<Nation> Attackers { get; set; }
         public List<Nation> Defenders { get; set; }
 
@@ -22,6 +24,7 @@ namespace dawn_of_worlds.Creations.Diplomacy
         {
             Attackers = new List<Nation>();
             Defenders = new List<Nation>();
+            hasEnded = false;
         }
     }
 

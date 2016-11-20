@@ -18,7 +18,7 @@ namespace dawn_of_worlds.WorldClasses
         public List<Race> Races { get; set; }
         public List<Nation> Nations { get; set; }
         public List<City> Cities { get; set; }
-        public List<Organisation> Organisations { get; set; }
+        public List<Order> Orders { get; set; }
 
         public List<War> OngoingWars { get; set; }
 
@@ -33,7 +33,8 @@ namespace dawn_of_worlds.WorldClasses
             Deities = new List<Deity>();
             Nations = new List<Nation>();
             Cities = new List<City>();
-            Organisations = new List<Organisation>();
+            Orders = new List<Order>();
+            OngoingWars = new List<War>();
             Name = world_name;
 
             for (int i = 0; i < num_regions; i++)

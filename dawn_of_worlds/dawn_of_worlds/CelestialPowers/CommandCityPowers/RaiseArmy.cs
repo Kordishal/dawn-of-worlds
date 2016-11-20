@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.CelestialPowers.CommandArmyPowers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 {
@@ -26,12 +27,16 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             Army army = new Army(_commanded_city.Name + " Army", creator);
             army.ArmyLocation = _commanded_city.CityLocation.Location;
             army.ArmyLocation.Armies.Add(army);
+            army.Owner = _commanded_city.Owner;
 
             // Add army to nation which owns the city.
             _commanded_city.Owner.Armies.Add(army);
 
             // City has raised an army and cannot do so until next turn.
-            _commanded_city.not_hasRaisedArmy = false;     
+            _commanded_city.not_hasRaisedArmy = false;
+
+            // Powers related to this army.
+            army.Creator.Powers.Add(new AttackArmy(army));
         }
 
 

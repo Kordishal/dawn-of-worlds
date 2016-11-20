@@ -31,6 +31,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<Area> TerritoryAreas { get; set; }
 
         // Conflict 
+        public bool isDestroyed { get; set; }
         public List<Army> Armies { get; set; }
 
         // Diplomacy
@@ -40,7 +41,7 @@ namespace dawn_of_worlds.Creations.Organisations
 
         public void DestroyNation()
         {
-            this.Creator.FoundedNations.Remove(this);
+            isDestroyed = true;
 
             foreach (Area a in TerritoryAreas)
             {
@@ -49,9 +50,8 @@ namespace dawn_of_worlds.Creations.Organisations
 
             foreach (Army a in Armies)
             {
-                a.ArmyLocation.Armies.Remove(a);
+                a.isScattered = true;
             }
-            Armies.Clear();
 
             foreach (Nation n in AlliedNations)
             {
@@ -60,10 +60,29 @@ namespace dawn_of_worlds.Creations.Organisations
 
             foreach (War w in Wars)
             {
-                if (w.Attackers.Contains(this))
+                // If this nation is the war leader in another war this war should end as well.
+                if (w.Attackers[0].Equals(this) || w.Defenders[0].Equals(this))
                 {
-                    //if (w.Attackers[0] == w.)
+                    foreach (Nation attacker in w.Attackers)
+                    {
+                        attacker.Wars.Remove(w);
+                    }
+                    foreach (Nation defender in w.Defenders)
+                    {
+                        defender.Wars.Remove(w);
+                    }
+
+                    this.TerritoryAreas[0].AreaRegion.RegionWorld.OngoingWars.Remove(w);
+                } // an attacker or defender ally is simply removed from the war.
+                else if (w.Attackers.Contains(this))
+                {
+                    w.Attackers.Remove(this);
                 }
+                else if (w.Defenders.Contains(this))
+                {
+                    w.Defenders.Remove(this);
+                }
+
             }
         }
 
@@ -77,7 +96,9 @@ namespace dawn_of_worlds.Creations.Organisations
             Armies = new List<Army>();
 
             AlliedNations = new List<Nation>();
-            Wars = new List<War>();          
+            Wars = new List<War>();
+
+            isDestroyed = false;       
         }
     }
 }

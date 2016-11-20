@@ -74,6 +74,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             creator.FoundedNations.Add(founded_nation);
             creator.Powers.Add(new CreateCity(founded_nation));
             creator.Powers.Add(new FormAlliance(founded_nation));
+            creator.Powers.Add(new DeclareWar(founded_nation));
 
             // Add nation to world overview
             current_world.Nations.Add(founded_nation);

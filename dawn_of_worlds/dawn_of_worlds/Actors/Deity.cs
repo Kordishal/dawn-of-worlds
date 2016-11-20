@@ -23,7 +23,7 @@ namespace dawn_of_worlds.Actors
 
         public List<Creation> Creations { get; set; }
         public List<Race> CreatedRaces { get; set; }
-        public List<Organisation> CreatedOrganisations { get; set; }
+        public List<Order> CreatedOrders { get; set; }
         public List<Nation> FoundedNations { get; set; }
         public List<City> FoundedCities { get; set; }
 
@@ -36,7 +36,7 @@ namespace dawn_of_worlds.Actors
             Powers = new List<Power>();
             Creations = new List<Creation>();
             CreatedRaces = new List<Race>();
-            CreatedOrganisations = new List<Organisation>();
+            CreatedOrders = new List<Order>();
             FoundedNations = new List<Nation>();
             FoundedCities = new List<City>();
 

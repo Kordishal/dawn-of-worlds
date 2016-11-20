@@ -1,24 +1,24 @@
-﻿using System;
+﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.WorldClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using dawn_of_worlds.Actors;
-using dawn_of_worlds.WorldClasses;
-using dawn_of_worlds.Creations.Organisations;
 
-namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
+namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
 {
-    abstract class CommandNation : Power
+    abstract class CommandArmy : Power
     {
+        protected Army _commanded_army { get; set; }
 
-        protected Nation _commanded_nation;
 
         public override bool isObsolete
         {
             get
             {
-                return _commanded_nation.isDestroyed;
+                return _commanded_army.isScattered;
             }
         }
 
@@ -52,9 +52,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
         }
 
-        public CommandNation(Nation commanded_nation)
+
+        public CommandArmy(Army commanded_army)
         {
-            _commanded_nation = commanded_nation;
+            _commanded_army = commanded_army;
         }
     }
 }

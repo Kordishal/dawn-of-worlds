@@ -15,9 +15,12 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
     {
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            foreach (GeographicalFeature gc in _commanded_nation.Territory)
+            if (isObsolete)
+                return false;
+
+            foreach (Area a in _commanded_nation.TerritoryAreas)
             {
-                if (gc.City == null)
+                if (a.UnclaimedTerritory.Count > 0)
                 {
                     return true;
                 }
@@ -30,11 +33,17 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         public override void Effect(World current_world, Deity creator, int current_age)
         {
             GeographicalFeature location = null;
+            List<GeographicalFeature> unclaimed_territory = new List<GeographicalFeature>();
+
+            foreach (Area area in _commanded_nation.TerritoryAreas)
+            {
+                unclaimed_territory.AddRange(area.UnclaimedTerritory);
+            }
 
             // Search for a valid city location. Each geographical feature can have one city.
             while (location == null)
             {
-                location = _commanded_nation.Territory[Main.MainLoop.RND.Next(_commanded_nation.Territory.Count)];
+                location = unclaimed_territory[Main.MainLoop.RND.Next(unclaimed_territory.Count)];
 
                 if (location.City != null)
                     location = null;
@@ -48,6 +57,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
             // Tell the location, that it now has a city.
             location.City = founded_city;
+            location.Location.UnclaimedTerritory.Remove(location);
 
             // add the city to the list of cities owned by the nation.
             _commanded_nation.Cities.Add(founded_city);

@@ -43,7 +43,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                     not_found_valid_area = false;
                     
                     // Each race has an order dedicated to worship their creator.
-                    Organisation creator_worhip_order = new Organisation(_created_race.Name + " Worship Order", creator, OrganisationType.ReligiousOrder, OrganisationPurpose.WorshipCreator);
+                    Order creator_worhip_order = new Order(_created_race.Name + " Creation Religion", creator, OrderType.Religion, OrderPurpose.WorshipFounder);
                     _created_race.OriginOrder = creator_worhip_order;
 
                     // The created race is settled 
@@ -55,7 +55,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 
                     // Tells the creator what they have created and adds the powers to command this race.
                     creator.CreatedRaces.Add(_created_race);
-                    creator.CreatedOrganisations.Add(creator_worhip_order);
+                    creator.CreatedOrders.Add(creator_worhip_order);
 
                     creator.Powers.Add(new SettleArea(_created_race));
                     creator.Powers.Add(new FoundNation(_created_race));

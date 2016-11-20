@@ -17,6 +17,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
+            // If nation no longer exists.
+            if (isObsolete)
+                return false;
+
             // A nation cannot declare a war while at war. (but can be called into one as an ally)
             if (_commanded_nation.Wars.Count > 0)
                 return false;
@@ -127,11 +131,20 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
             // Add war to the list of ongoing conflicts.
             current_world.OngoingWars.Add(declared_war);
+
+            // Add powers related to the war to connected deities.
+            // attacker related
+            creator.Powers.Add(new SurrenderWar(_commanded_nation, declared_war));
+
+            // defender related
+            declared_war.Defenders[0].Creator.Powers.Add(new SurrenderWar(declared_war.Defenders[0], declared_war));
+
         }
 
         public DeclareWar(Nation commanded_nation) : base(commanded_nation)
         {
             Name = "Declare War: " + commanded_nation.Name;
+            candidate_nations = new List<Nation>();
         }
     }
 }

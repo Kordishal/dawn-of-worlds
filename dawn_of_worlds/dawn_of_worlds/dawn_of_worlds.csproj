@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
+    <Compile Include="CelestialPowers\CommandArmyPowers\AttackArmy.cs" />
+    <Compile Include="CelestialPowers\CommandArmyPowers\CommandArmy.cs" />
     <Compile Include="CelestialPowers\CommandCityPowers\CommandCity.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CommandNation.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CreateCity.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="CelestialPowers\CommandRacePowers\CommandRace.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\FoundNation.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\SettleArea.cs" />
+    <Compile Include="CelestialPowers\CreateOrderPowers\CreateOrder.cs" />
     <Compile Include="CelestialPowers\Power.cs" />
     <Compile Include="CelestialPowers\CreateRacePowers\CreateRace.cs" />
     <Compile Include="CelestialPowers\CreateRacePowers\CreateSubRace.cs" />
@@ -82,7 +85,7 @@
     <Compile Include="Creations\Organisations\Army.cs" />
     <Compile Include="Creations\Organisations\City.cs" />
     <Compile Include="Creations\Organisations\Nation.cs" />
-    <Compile Include="Creations\Organisations\Organisation.cs" />
+    <Compile Include="Creations\Organisations\Order.cs" />
     <Compile Include="Main\MainLoop.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

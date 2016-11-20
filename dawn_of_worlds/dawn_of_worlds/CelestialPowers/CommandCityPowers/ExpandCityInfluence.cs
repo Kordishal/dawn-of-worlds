@@ -39,7 +39,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             // Add territory to city and nation
             GeographicalFeature new_territory = unclaimed_territory[Main.MainLoop.RND.Next(unclaimed_territory.Count)];
             _commanded_city.CitySphereOfÌnfluence.Add(new_territory);
-            _commanded_city.Owner.Territory.Add(new_territory);
 
             // Tell territory to whom it belongs now.
             new_territory.Owner = _commanded_city.Owner;

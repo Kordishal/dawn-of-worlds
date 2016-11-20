@@ -21,7 +21,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         public List<Race> SubRaces { get; set; }
         public List<Race> PossibleSubRaces { get; set; }
 
-        public Organisation OriginOrder { get; set; }
+        public Order OriginOrder { get; set; }
 
         public Race(string name, Deity creator) : base(name, creator)
         {

@@ -18,6 +18,14 @@ namespace dawn_of_worlds.CelestialPowers
         }
 
 
+        virtual public bool isObsolete
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         virtual public int Cost(int current_age)
         {
             return 10;

@@ -17,6 +17,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
+            // If nation no longer exists.
+            if (isObsolete)
+                return false;
+
             // cannot make new alliances while at war.
             if (_commanded_nation.Wars.Count > 0)
                 return false;

@@ -11,12 +11,17 @@ namespace dawn_of_worlds.Creations.Organisations
 {
     class Army : Creation
     {
+        public int ArmyStrenghtBonus { get; set; }
+
+        public Nation Owner { get; set; }
+
+        public bool isScattered { get; set; }
 
         public Area ArmyLocation { get; set; }
 
         public Army(string name, Deity creator) : base(name, creator)
         {
-
+            ArmyStrenghtBonus = 0;
         }
 
 

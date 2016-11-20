@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.CelestialPowers;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
@@ -53,10 +54,17 @@ namespace dawn_of_worlds.Main
                     }
                 }
 
-                // A war ends if one side has no longer any armies left. Then the founder deity gets a free use of the SurrenderWar Power.
-                foreach (War ongoing_war in MainWorld.OngoingWars)
-                {
 
+                foreach (Deity deity in MainWorld.Deities)
+                {
+                    for (int j = 0; j < deity.Powers.Count; j++)
+                    {
+                        if (deity.Powers[j].isObsolete)
+                        {
+                            deity.Powers.Remove(deity.Powers[j]);
+                            j -= 1;
+                        }
+                    }
                 }
                
                 if (i == 10)
