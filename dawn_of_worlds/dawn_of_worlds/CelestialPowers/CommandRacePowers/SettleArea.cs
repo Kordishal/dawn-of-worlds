@@ -15,6 +15,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
+            if (_commanded_race.Tags.Contains(RaceTags.RacialEpidemic))
+                return false;
+
             _possible_target_areas = new List<Area>();
 
             foreach (Area a in _commanded_race.SettledAreas)

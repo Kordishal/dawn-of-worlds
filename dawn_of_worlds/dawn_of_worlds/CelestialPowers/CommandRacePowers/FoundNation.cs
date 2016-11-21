@@ -9,6 +9,9 @@ using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.CelestialPowers.CommandNationPowers;
+using dawn_of_worlds.CelestialPowers.CreateOrderPowers;
+using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
+using dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
@@ -69,12 +72,36 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             territory.SphereOfInfluenceCity = founded_nation.CapitalCity;
             territory.City = founded_nation.CapitalCity;
 
+            // Add origin order -> church. This church is needed to be able to command this nation.
+            Order founder_origin_order = new Order("Church of " + founded_nation.Name, creator, OrderType.Church, OrderPurpose.WorshipFounder);
+            founder_origin_order.OrderNation = founded_nation;
+            founder_origin_order.OrderRace = null;
+
+            founded_nation.NationalOrders.Add(founder_origin_order);
+            creator.CreatedOrders.Add(founder_origin_order);
+
 
             // Add nation to the creator and Powers related to this nation.
             creator.FoundedNations.Add(founded_nation);
             creator.Powers.Add(new CreateCity(founded_nation));
             creator.Powers.Add(new FormAlliance(founded_nation));
             creator.Powers.Add(new DeclareWar(founded_nation));
+
+            foreach (Deity deity in current_world.Deities)
+            {
+                foreach (AvatarType type in Enum.GetValues(typeof(AvatarType)))
+                {
+                    deity.Powers.Add(new CreateAvatar(type, founded_nation.FoundingRace, founded_nation, null));
+                }
+
+                deity.Powers.Add(new VastGoldVeinFound(founded_nation));
+            }
+
+            foreach (Deity deity in current_world.Deities)
+            {
+                if (!(deity == creator))
+                    deity.Powers.Add(new CreateOrder(OrderType.Church, OrderPurpose.WorshipFounder, founded_nation, null));
+            }
 
             // Add nation to world overview
             current_world.Nations.Add(founded_nation);

@@ -75,7 +75,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
             // Add nations to list of allied nations.
             _commanded_nation.AlliedNations.Add(new_ally);
-            new_ally.AlliedNations.Add(_commanded_nation);                    
+            new_ally.AlliedNations.Add(_commanded_nation);
+
+            creator.LastCreation = null;
         }
 
 

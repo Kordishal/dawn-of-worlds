@@ -16,17 +16,27 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 
         public override int Cost(int current_age)
         {
+            int cost = 0;
             switch (current_age)
             {
                 case 1:
-                    return 6;
+                    cost += 6;
+                    break;
                 case 2:
-                    return 4;
+                    cost += 4;
+                    break;
                 case 3:
-                    return 2;
+                    cost += 2;
+                    break;
                 default:
-                    return 1;
+                    cost += 2;
+                    break;
             }
+
+            if (_commanded_city.Owner.Tags.Contains(NationalTags.VeryRich))
+                cost -= 2;
+
+            return cost;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)

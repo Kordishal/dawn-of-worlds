@@ -139,6 +139,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // defender related
             declared_war.Defenders[0].Creator.Powers.Add(new SurrenderWar(declared_war.Defenders[0], declared_war));
 
+            creator.LastCreation = declared_war;
         }
 
         public DeclareWar(Nation commanded_nation) : base(commanded_nation)

@@ -11,9 +11,10 @@ namespace dawn_of_worlds.Creations.Inhabitants
 {
     class Race : Creation
     {
+        public List<RaceTags> Tags { get; set; }
+
         public Area HomeArea { get; set; }
         public List<Area> SettledAreas { get; set; }
-
 
         public bool isSubRace { get; set; }
         public Race MainRace { get; set; }
@@ -28,6 +29,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
             SubRaces = new List<Race>();
             PossibleSubRaces = new List<Race>();
             SettledAreas = new List<Area>();
+            Tags = new List<RaceTags>();
         }
 
 
@@ -40,5 +42,10 @@ namespace dawn_of_worlds.Creations.Inhabitants
         {
             return GetHashCode() == obj.GetHashCode();
         }
+    }
+
+    enum RaceTags
+    {
+        RacialEpidemic,
     }
 }

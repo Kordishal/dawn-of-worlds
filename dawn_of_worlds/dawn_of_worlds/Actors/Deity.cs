@@ -16,27 +16,32 @@ namespace dawn_of_worlds.Actors
 {
     class Deity
     {
-
+        public string Name { get; set; }
         public int PowerPoints { get; set; }
 
+        public Power LastUsedPower { get; set; }
         public List<Power> Powers { get; set; }
 
+        public Creation LastCreation { get; set; }
         public List<Creation> Creations { get; set; }
         public List<Race> CreatedRaces { get; set; }
         public List<Order> CreatedOrders { get; set; }
+        public List<Avatar> CreatedAvatars { get; set; }
         public List<Nation> FoundedNations { get; set; }
         public List<City> FoundedCities { get; set; }
 
         public List<string> ActionLog { get; set; }
 
 
-        public Deity()
+        public Deity(string name)
         {
+            Name = name;
             PowerPoints = 0;
             Powers = new List<Power>();
             Creations = new List<Creation>();
             CreatedRaces = new List<Race>();
             CreatedOrders = new List<Order>();
+            CreatedAvatars = new List<Avatar>();
             FoundedNations = new List<Nation>();
             FoundedCities = new List<City>();
 
@@ -130,8 +135,11 @@ namespace dawn_of_worlds.Actors
                     Console.WriteLine("PowerPoints: " + PowerPoints);
                     p.Effect(current_world, this, current_age);
                     PowerPoints = PowerPoints - p.Cost(current_age);
+                    // For the Action Log entry.
+                    LastUsedPower = p;
                     break;
                 }
+
 
                 prev_weight += p.Weight(current_world, this, current_age);
             }

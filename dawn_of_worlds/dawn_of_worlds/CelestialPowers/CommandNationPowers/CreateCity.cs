@@ -13,6 +13,17 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class CreateCity : CommandNation
     {
+
+        public override int Cost(int current_age)
+        {
+            int cost = base.Cost(current_age);
+
+            if (_commanded_nation.Tags.Contains(NationalTags.VeryRich))
+                cost -= 2;
+
+            return cost;
+        }
+
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
             if (isObsolete)
@@ -66,6 +77,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             creator.FoundedCities.Add(founded_city);
             creator.Powers.Add(new ExpandCityInfluence(founded_city));
             creator.Powers.Add(new RaiseArmy(founded_city));
+
+            creator.LastCreation = founded_city;
         }
 
 

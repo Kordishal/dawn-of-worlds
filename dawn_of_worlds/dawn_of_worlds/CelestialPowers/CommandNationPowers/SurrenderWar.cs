@@ -68,6 +68,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             _surrendered_war.hasEnded = true;
+
+            creator.LastCreation = null;
         }
 
 

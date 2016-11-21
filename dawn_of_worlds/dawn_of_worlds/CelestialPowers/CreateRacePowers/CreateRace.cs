@@ -8,6 +8,8 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.CelestialPowers.CommandRacePowers;
+using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
+using dawn_of_worlds.CelestialPowers.EventPowers.RacialEvents;
 
 namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 {
@@ -43,7 +45,10 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                     not_found_valid_area = false;
                     
                     // Each race has an order dedicated to worship their creator.
-                    Order creator_worhip_order = new Order(_created_race.Name + " Creation Religion", creator, OrderType.Religion, OrderPurpose.WorshipFounder);
+                    Order creator_worhip_order = new Order(_created_race.Name + " Creation Church", creator, OrderType.Church, OrderPurpose.WorshipFounder);
+                    creator_worhip_order.OrderRace = _created_race;
+                    creator_worhip_order.OrderNation = null;
+
                     _created_race.OriginOrder = creator_worhip_order;
 
                     // The created race is settled 
@@ -60,7 +65,16 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                     creator.Powers.Add(new SettleArea(_created_race));
                     creator.Powers.Add(new FoundNation(_created_race));
 
-                   
+                    foreach (Deity deity in current_world.Deities)
+                    {
+                        foreach (AvatarType type in Enum.GetValues(typeof(AvatarType)))
+                        {
+                            deity.Powers.Add(new CreateAvatar(type, _created_race, null, null));
+                        }
+
+                        deity.Powers.Add(new RacialEpidemic(_created_race));
+                    }
+
                     // Remove this power from all deities, as every race can only be created once.
                     foreach (Deity d in current_world.Deities)
                     {

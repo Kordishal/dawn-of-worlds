@@ -16,6 +16,8 @@ namespace dawn_of_worlds.Creations.Organisations
 
         // Inhabitants
         public Race FoundingRace { get; set; }
+        public Avatar Leader { get; set; }
+        public List<Avatar> Subjects { get; set; }
 
         // Cities
         public City CapitalCity
@@ -38,6 +40,18 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<Nation> AlliedNations { get; set; }
         public List<War> Wars { get; set; }
 
+        // Orders
+        public Order OriginOrder
+        {
+            get
+            {
+                return NationalOrders[0];
+            }
+        }
+        public List<Order> NationalOrders { get; set; }
+
+        // Status
+        public List<NationalTags> Tags { get; set; }
 
         public void DestroyNation()
         {
@@ -58,47 +72,54 @@ namespace dawn_of_worlds.Creations.Organisations
                 n.AlliedNations.Remove(this);
             }
 
-            foreach (War w in Wars)
+            for(int i = 0; i < Wars.Count; i++)
             {
                 // If this nation is the war leader in another war this war should end as well.
-                if (w.Attackers[0].Equals(this) || w.Defenders[0].Equals(this))
+                if (Wars[i].Attackers[0].Equals(this) || Wars[i].Defenders[0].Equals(this))
                 {
-                    foreach (Nation attacker in w.Attackers)
+                    War war = Wars[i];
+                    foreach (Nation attacker in war.Attackers)
                     {
-                        attacker.Wars.Remove(w);
+                        attacker.Wars.Remove(war);
                     }
-                    foreach (Nation defender in w.Defenders)
+                    foreach (Nation defender in war.Defenders)
                     {
-                        defender.Wars.Remove(w);
+                        defender.Wars.Remove(war);
                     }
 
-                    this.TerritoryAreas[0].AreaRegion.RegionWorld.OngoingWars.Remove(w);
+                    this.TerritoryAreas[0].AreaRegion.RegionWorld.OngoingWars.Remove(war);
+                    war = null;
                 } // an attacker or defender ally is simply removed from the war.
-                else if (w.Attackers.Contains(this))
+                else if (Wars[i].Attackers.Contains(this))
                 {
-                    w.Attackers.Remove(this);
+                    Wars[i].Attackers.Remove(this);
                 }
-                else if (w.Defenders.Contains(this))
+                else if (Wars[i].Defenders.Contains(this))
                 {
-                    w.Defenders.Remove(this);
+                    Wars[i].Defenders.Remove(this);
                 }
-
+                // Wars are removed while removing them
+                i -= 1;
             }
         }
 
 
         public Nation(string name, Deity creator) :base(name, creator)
         {
+            Subjects = new List<Avatar>();
             Cities = new List<City>();
-
-            TerritoryAreas = new List<Area>();
-            
+            TerritoryAreas = new List<Area>();            
             Armies = new List<Army>();
-
             AlliedNations = new List<Nation>();
             Wars = new List<War>();
-
+            NationalOrders = new List<Order>();
+            Tags = new List<NationalTags>();
             isDestroyed = false;       
         }
+    }
+
+    enum NationalTags
+    {
+        VeryRich,
     }
 }

@@ -43,7 +43,11 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                 {
                     not_found_valid_area = false;
 
-                    Order creator_worhip_order = new Order(_created_race.Name + "Creator Worshippers", creator, OrderType.Religion, OrderPurpose.WorshipFounder);
+                    Order creator_worhip_order = new Order(_created_race.Name + "Creator Worshippers", creator, OrderType.Church, OrderPurpose.WorshipFounder);
+                    creator_worhip_order.OrderRace = _created_race;
+                    creator_worhip_order.OrderNation = null;
+
+                    _created_race.OriginOrder = creator_worhip_order;
 
                     location.Inhabitants.Add(_created_race);
 
