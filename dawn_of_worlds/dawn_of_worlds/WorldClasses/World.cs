@@ -174,7 +174,7 @@ namespace dawn_of_worlds.WorldClasses
 
             for (int i = 0; i < 5; i++)
             {
-                Deities.Add(new Deity());
+                Deities.Add(new Deity("Deity " + i));
             }
         }
     }

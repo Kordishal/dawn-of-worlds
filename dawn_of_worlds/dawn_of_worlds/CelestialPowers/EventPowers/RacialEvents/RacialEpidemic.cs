@@ -24,6 +24,8 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.RacialEvents
         public override void Effect(World current_world, Deity creator, int current_age)
         {
             _race.Tags.Add(RaceTags.RacialEpidemic);
+
+            creator.LastCreation = _race;
         }
     }
 }

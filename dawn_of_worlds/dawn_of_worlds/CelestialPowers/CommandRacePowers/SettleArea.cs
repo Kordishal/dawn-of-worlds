@@ -53,6 +53,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             new_settlement.Inhabitants.Add(_commanded_race);
             _commanded_race.SettledAreas.Add(new_settlement);
+
+            creator.LastCreation = null;
         }
 
 

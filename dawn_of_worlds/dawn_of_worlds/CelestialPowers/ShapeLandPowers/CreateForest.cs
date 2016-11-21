@@ -28,8 +28,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     location.GeographicalFeatures.Add(forest);
                     location.UnclaimedTerritory.Add(forest);
                     creator.Creations.Add(forest);
+
+                    creator.LastCreation = forest;
                 }
             }
+
+            
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)

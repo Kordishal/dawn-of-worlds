@@ -106,6 +106,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             // Add nation to world overview
             current_world.Nations.Add(founded_nation);
             location.Nations.Add(founded_nation);
+
+            creator.LastCreation = founded_nation;
         }
 
         public FoundNation (Race command_race) : base(command_race)

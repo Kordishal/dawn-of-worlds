@@ -52,6 +52,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
                     a.UnclaimedTerritory.Remove(new_territory);
                 }
             }
+
+            creator.LastCreation = null;
         }
 
 

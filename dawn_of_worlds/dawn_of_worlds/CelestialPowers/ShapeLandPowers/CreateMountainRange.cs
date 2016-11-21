@@ -31,6 +31,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                         mountain.Range = location.MountainRanges;
 
                         creator.Creations.Add(mountain);
+
+                        creator.LastCreation = mountain;
                     }
                     else
                     {
@@ -43,6 +45,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
                         creator.Creations.Add(mountain_range);
                         creator.Creations.Add(mountain);
+
+                        creator.LastCreation = mountain_range;
                     }
                 }
             }

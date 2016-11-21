@@ -75,6 +75,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
 
             Battle battle = new Battle(_commanded_army.Name + " vs. " + target_army.Name, creator, _commanded_army, target_army);
             battle.Fight();
+
+            creator.LastCreation = null;
         }
 
 

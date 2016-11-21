@@ -95,6 +95,8 @@
     <Compile Include="Creations\Organisations\City.cs" />
     <Compile Include="Creations\Organisations\Nation.cs" />
     <Compile Include="Creations\Organisations\Order.cs" />
+    <Compile Include="Log\ActionLog.cs" />
+    <Compile Include="Log\ActionLogEntry.cs" />
     <Compile Include="Main\MainLoop.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Log\Output\action.log" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

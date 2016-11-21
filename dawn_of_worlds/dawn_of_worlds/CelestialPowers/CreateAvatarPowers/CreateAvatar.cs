@@ -83,6 +83,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             }
 
             creator.CreatedAvatars.Add(created_avatar);
+
+            creator.LastCreation = created_avatar;
         }
 
         public override int Cost(int current_age)

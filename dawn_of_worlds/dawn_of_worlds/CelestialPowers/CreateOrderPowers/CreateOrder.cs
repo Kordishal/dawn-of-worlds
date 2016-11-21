@@ -82,6 +82,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
                     creator.Powers.Add(new CreateAvatar(AvatarType.HighPriest, created_order.hasRaceRestriction ? created_order.OrderRace : created_order.OrderNation.FoundingRace, created_order.OrderNation, created_order));
                 }
             }
+
+            creator.LastCreation = created_order;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)

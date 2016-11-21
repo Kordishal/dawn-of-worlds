@@ -121,7 +121,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     }
 
                     creator.Creations.Add(river);
-                }
+                    creator.LastCreation = river;
+                }               
             }
         }
 

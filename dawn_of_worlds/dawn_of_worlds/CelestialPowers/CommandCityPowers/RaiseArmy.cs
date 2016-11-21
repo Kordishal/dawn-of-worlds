@@ -37,6 +37,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 
             // Powers related to this army.
             army.Creator.Powers.Add(new AttackArmy(army));
+
+            creator.LastCreation = army;
         }
 
 

@@ -2,6 +2,7 @@
 using dawn_of_worlds.CelestialPowers;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Log;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,15 @@ namespace dawn_of_worlds.Main
 
         public int CurrentAge { get; set; }
 
+        public ActionLog Log { get; set; }
         public World MainWorld { get; set; }
 
         public MainLoop() { }
 
         public void Initialize()
         {
-            MainWorld = new World("New World", 5, 5);            
+            MainWorld = new World("New World", 5, 5);
+            Log = new ActionLog();        
         }
 
         public void Run()
@@ -51,6 +54,8 @@ namespace dawn_of_worlds.Main
                     foreach (Deity deity in MainWorld.Deities)
                     {
                         deity.Turn(MainWorld, CurrentAge);
+
+                        Log.Entries.Add(new ActionLogEntry(i, deity, deity.LastUsedPower, deity.LastCreation));
                     }
                 }
 
@@ -74,6 +79,10 @@ namespace dawn_of_worlds.Main
                     CurrentAge += 1;
             
             }
+
+
+            Log.Write();
         }
+
     }
 }

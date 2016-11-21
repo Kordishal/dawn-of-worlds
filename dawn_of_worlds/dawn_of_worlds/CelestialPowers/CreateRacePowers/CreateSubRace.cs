@@ -70,6 +70,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                     }
                 }
             }
+
+            creator.LastCreation = _created_race;
         }
 
         private bool neighbourAreaHasMainRace(Area[] neighbours)

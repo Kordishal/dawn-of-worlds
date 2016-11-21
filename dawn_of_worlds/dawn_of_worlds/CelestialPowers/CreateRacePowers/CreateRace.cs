@@ -88,6 +88,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 
                 }
             }
+
+            creator.LastCreation = _created_race;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)

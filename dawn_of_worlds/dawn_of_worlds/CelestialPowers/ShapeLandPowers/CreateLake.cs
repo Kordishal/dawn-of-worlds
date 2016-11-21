@@ -48,6 +48,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     location.GeographicalFeatures.Add(lake);
                     location.UnclaimedTerritory.Add(lake);
                     creator.Creations.Add(lake);
+
+                    creator.LastCreation = lake;
                 }
             }
         }
