@@ -7,6 +7,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Diplomacy;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -14,6 +15,23 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
     {
 
         private List<Nation> candidate_nations { get; set; }
+
+
+        public override int Weight(World current_world, Deity creator, int current_age)
+        {
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.War))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
+            if (creator.Domains.Contains(Domain.Battle))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
+            if (creator.Domains.Contains(Domain.Peace))
+                weight -= Constants.WEIGHT_STANDARD_CHANGE;
+
+            return weight >= 0 ? weight : 0;
+        }
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
@@ -98,7 +116,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
             while (war_target == null)
             {
-                war_target = candidate_nations[Main.MainLoop.RND.Next(candidate_nations.Count)];
+                war_target = candidate_nations[Main.Constants.RND.Next(candidate_nations.Count)];
             }
 
             // The war to be declared.
@@ -116,8 +134,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             // Define war goals
-            declared_war.WarGoalAttackers = new WarGoal(_commanded_nation, war_target.Cities[Main.MainLoop.RND.Next(war_target.Cities.Count)]);
-            declared_war.WarGoalDefenders = new WarGoal(war_target, _commanded_nation.Cities[Main.MainLoop.RND.Next(_commanded_nation.Cities.Count)]);
+            declared_war.WarGoalAttackers = new WarGoal(_commanded_nation, war_target.Cities[Main.Constants.RND.Next(war_target.Cities.Count)]);
+            declared_war.WarGoalDefenders = new WarGoal(war_target, _commanded_nation.Cities[Main.Constants.RND.Next(_commanded_nation.Cities.Count)]);
 
             // Add war to each nation
             foreach (Nation n in declared_war.Attackers)

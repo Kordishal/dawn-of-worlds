@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
@@ -32,26 +33,30 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         public override int Weight(World current_world, Deity creator, int current_age)
         {
             int weight = 0;
+
             switch (current_age)
             {
                 case 1:
-                    weight += 10;
+                    weight += Constants.WEIGHT_STANDARD_LOW;
                     break;
                 case 2:
-                    weight += 40;
+                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
                     break;
                 case 3:
-                    weight += 60;
+                    weight += Constants.WEIGHT_STANDARD_HIGH;
                     break;
                 default:
-                    weight += 100;
+                    weight += 0;
                     break;
             }
 
-            if (_commanded_race.Tags.Contains(RaceTags.RacialEpidemic))
-                weight = weight / 2;
+            int cost = Cost(current_age);
+            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
+                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
+            else
+                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
 
-            return weight;
+            return weight >= 0 ? weight : 0;
         }
 
         public CommandRace(Race commanded_race)

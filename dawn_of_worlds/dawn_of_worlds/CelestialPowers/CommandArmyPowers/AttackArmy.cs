@@ -8,6 +8,7 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Conflict;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
 {
@@ -15,6 +16,22 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
     {
 
         private List<Army> candidate_armies { get; set; }
+
+        public override int Weight(World current_world, Deity creator, int current_age)
+        {
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.Battle))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
+            if (creator.Domains.Contains(Domain.War))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
+            if (creator.Domains.Contains(Domain.Peace))
+                weight -= Constants.WEIGHT_STANDARD_CHANGE;
+
+            return weight >= 0 ? weight : 0;
+        }
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
@@ -62,7 +79,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
         public override void Effect(World current_world, Deity creator, int current_age)
         {
 
-            Army target_army = candidate_armies[Main.MainLoop.RND.Next(candidate_armies.Count)];
+            Army target_army = candidate_armies[Main.Constants.RND.Next(candidate_armies.Count)];
 
             // Move the armies into the same area.
             if (!target_army.ArmyLocation.Equals(_commanded_army.ArmyLocation))

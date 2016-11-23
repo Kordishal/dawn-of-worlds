@@ -12,11 +12,28 @@ using dawn_of_worlds.CelestialPowers.CommandNationPowers;
 using dawn_of_worlds.CelestialPowers.CreateOrderPowers;
 using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
 using dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
     class FoundNation : CommandRace
     {
+
+        public override int Weight(World current_world, Deity creator, int current_age)
+        {
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.Creation))
+                weight += Constants.WEIGHT_MANY_CHANGE;
+
+            if (creator.Domains.Contains(Domain.Community))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
+            if (_commanded_race.Tags.Contains(RaceTags.RacialEpidemic))
+                weight -= Constants.WEIGHT_STANDARD_CHANGE;
+
+            return weight >= 0 ? weight : 0;
+        }
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
@@ -38,7 +55,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             Area location = null;
             while (location == null)
             {
-                location = _commanded_race.SettledAreas[Main.MainLoop.RND.Next(_commanded_race.SettledAreas.Count)];
+                location = _commanded_race.SettledAreas[Main.Constants.RND.Next(_commanded_race.SettledAreas.Count)];
                 // At least one unclaimed territory necessary to found a nation.
                 if (location.UnclaimedTerritory.Count == 0)
                     location = null;
@@ -49,10 +66,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             founded_nation.FoundingRace = _commanded_race;
 
             // Decide on the territory it should be settled on. Currently random.
-            GeographicalFeature territory = null;
+            Terrain territory = null;
             while (territory == null)
             {
-                territory = location.UnclaimedTerritory[Main.MainLoop.RND.Next(location.UnclaimedTerritory.Count)];      
+                territory = location.UnclaimedTerritory[Main.Constants.RND.Next(location.UnclaimedTerritory.Count)];      
             }
 
             // Mark territory as claimed.
@@ -89,12 +106,15 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             foreach (Deity deity in current_world.Deities)
             {
+                // Add avatars
                 foreach (AvatarType type in Enum.GetValues(typeof(AvatarType)))
                 {
                     deity.Powers.Add(new CreateAvatar(type, founded_nation.FoundingRace, founded_nation, null));
                 }
 
-                deity.Powers.Add(new VastGoldVeinFound(founded_nation));
+                // Add Events
+                deity.Powers.Add(new VastGoldMineEstablised(founded_nation));
+                deity.Powers.Add(new VastGoldMineDepleted(founded_nation));
             }
 
             foreach (Deity deity in current_world.Deities)

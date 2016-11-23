@@ -6,12 +6,26 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
     class SettleArea : CommandRace
     {
         private List<Area> _possible_target_areas { get; set; }
+
+        public override int Weight(World current_world, Deity creator, int current_age)
+        {
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.Exploration))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
+            if (_commanded_race.Tags.Contains(RaceTags.RacialEpidemic))
+                weight -= Constants.WEIGHT_STANDARD_CHANGE;
+
+            return weight >= 0 ? weight : 0;
+        }
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
@@ -49,7 +63,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Area new_settlement = _possible_target_areas[Main.MainLoop.RND.Next(_possible_target_areas.Count)];
+            Area new_settlement = _possible_target_areas[Main.Constants.RND.Next(_possible_target_areas.Count)];
 
             new_settlement.Inhabitants.Add(_commanded_race);
             _commanded_race.SettledAreas.Add(new_settlement);

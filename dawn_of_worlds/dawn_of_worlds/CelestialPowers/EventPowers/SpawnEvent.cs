@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Main;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -35,23 +36,30 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers
         public override int Weight(World current_world, Deity creator, int current_age)
         {
             int weight = 0;
+
             switch (current_age)
             {
                 case 1:
-                    weight += 10;
+                    weight += Constants.WEIGHT_STANDARD_LOW;
                     break;
                 case 2:
-                    weight += 100;
+                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
                     break;
                 case 3:
-                    weight += 50;
+                    weight += Constants.WEIGHT_STANDARD_HIGH;
                     break;
                 default:
-                    weight += 100;
+                    weight += 0;
                     break;
             }
 
-            return weight;
+            int cost = Cost(current_age);
+            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
+                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
+            else
+                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
+
+            return weight >= 0 ? weight : 0;
         }
 
     }

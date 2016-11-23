@@ -7,6 +7,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 {
@@ -26,10 +27,20 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             return false;
         }
 
+        public override int Weight(World current_world, Deity creator, int current_age)
+        {
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.Conquest))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
+            return weight >= 0 ? weight : 0;
+        }
+
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            List<GeographicalFeature> unclaimed_territory = new List<GeographicalFeature>();
+            List<Terrain> unclaimed_territory = new List<Terrain>();
 
             foreach (Area a in _commanded_city.Owner.TerritoryAreas)
             {
@@ -37,7 +48,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             }
 
             // Add territory to city and nation
-            GeographicalFeature new_territory = unclaimed_territory[Main.MainLoop.RND.Next(unclaimed_territory.Count)];
+            Terrain new_territory = unclaimed_territory[Main.Constants.RND.Next(unclaimed_territory.Count)];
             _commanded_city.CitySphereOfÌnfluence.Add(new_territory);
 
             // Tell territory to whom it belongs now.

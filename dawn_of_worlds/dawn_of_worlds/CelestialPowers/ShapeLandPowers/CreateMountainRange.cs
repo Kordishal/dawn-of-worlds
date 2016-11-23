@@ -6,55 +6,48 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateMountainRange : ShapeLand
     {
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            bool not_found_valid_area = true;
+            // Only one mountain range per area.
+            if (_location.MountainRanges != null)
+                return false;
 
-            while (not_found_valid_area)
-            {
-                Area location = current_world.AreaGrid[Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_X), Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_Y)];
-
-                if (location.AreaRegion.Landmass)
-                {
-                    not_found_valid_area = false;
-                    if (location.MountainRanges != null)
-                    {
-                        Mountain mountain = new Mountain("Mountain First", location, creator);
-                        location.MountainRanges.Mountains.Add(mountain);
-                        location.GeographicalFeatures.Add(mountain);
-                        location.UnclaimedTerritory.Add(mountain);
-                        mountain.Range = location.MountainRanges;
-
-                        creator.Creations.Add(mountain);
-
-                        creator.LastCreation = mountain;
-                    }
-                    else
-                    {
-                        MountainRange mountain_range = new MountainRange("Mountain Range Halleluja", location, creator);
-                        location.MountainRanges = mountain_range;
-
-                        Mountain mountain = new Mountain("Mountain First", location, creator);
-                        mountain_range.Mountains.Add(mountain);
-                        mountain.Range = mountain_range;
-
-                        creator.Creations.Add(mountain_range);
-                        creator.Creations.Add(mountain);
-
-                        creator.LastCreation = mountain_range;
-                    }
-                }
-            }
+            return true;
         }
 
-        public CreateMountainRange()
+        public override int Weight(World current_world, Deity creator, int current_age)
         {
-            Name = "Create Mountain Range";
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.Earth))
+                weight += Constants.WEIGHT_MANY_CHANGE;
+
+            return weight >= 0 ? weight : 0;
+        }
+
+
+        public override void Effect(World current_world, Deity creator, int current_age)
+        {
+            // Create the mountainrange.
+            MountainRange mountain_range = new MountainRange("PlaceHolder", _location, creator);
+            
+            // Add mountain range as area mountain range
+            _location.MountainRanges = mountain_range;
+
+            // Add mountain range to deity
+            creator.Creations.Add(mountain_range);
+            creator.LastCreation = mountain_range;
+        }
+
+        public CreateMountainRange(Area location) : base (location)
+        {
+            Name = "Create Mountain Range in Area " + location.Name;
         }
     }
 }

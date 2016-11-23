@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -39,17 +40,31 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override int Weight(World current_world, Deity creator, int current_age)
         {
+            int weight = 0;
+
             switch (current_age)
             {
                 case 1:
-                    return 10;
+                    weight += Constants.WEIGHT_STANDARD_LOW;
+                    break;
                 case 2:
-                    return 40;
+                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
+                    break;
                 case 3:
-                    return 60;
+                    weight += Constants.WEIGHT_STANDARD_HIGH;
+                    break;
                 default:
-                    return 100;
+                    weight += 0;
+                    break;
             }
+
+            int cost = Cost(current_age);
+            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
+                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
+            else
+                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
+
+            return weight >= 0 ? weight : 0;
         }
 
         public CommandNation(Nation commanded_nation)

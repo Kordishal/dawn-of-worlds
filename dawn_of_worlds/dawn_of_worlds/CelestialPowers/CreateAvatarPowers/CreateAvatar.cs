@@ -12,6 +12,7 @@ using dawn_of_worlds.CelestialPowers.CommandCityPowers;
 using dawn_of_worlds.CelestialPowers.CommandRacePowers;
 using dawn_of_worlds.CelestialPowers.CommandNationPowers;
 using dawn_of_worlds.CelestialPowers.CreateOrderPowers;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
 {
@@ -104,17 +105,35 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
 
         public override int Weight(World current_world, Deity creator, int current_age)
         {
+            int weight = 0;
+
             switch (current_age)
             {
                 case 1:
-                    return 10;
+                    weight += Constants.WEIGHT_STANDARD_LOW;
+                    break;
                 case 2:
-                    return 100;
+                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
+                    break;
                 case 3:
-                    return 50;
+                    weight += Constants.WEIGHT_STANDARD_HIGH;
+                    break;
                 default:
-                    return 100;
+                    weight += 0;
+                    break;
             }
+
+            int cost = Cost(current_age);
+            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
+                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
+            else
+                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
+
+
+            if (creator.Domains.Contains(Domain.Creation))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
+            return weight >= 0 ? weight : 0;
         }
 
 

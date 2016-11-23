@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
@@ -14,50 +15,52 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // Needs at least one River it can be connected to.
-            foreach (Area a in current_world.AreaGrid)
-            {
-                if (a.Rivers.Count > 0)
-                {
-                    return true;
-                }
-            }
+            // Can't be created without a river.
+            if (_location.Rivers.Count == 0)
+                return false;
 
-            return false;
+            return true;
+        }
+
+        public override int Weight(World current_world, Deity creator, int current_age)
+        {
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.Water))
+                weight += Constants.WEIGHT_MANY_CHANGE;
+
+            if (creator.Domains.Contains(Domain.Drought))
+                weight -= Constants.WEIGHT_MANY_CHANGE;
+
+            return weight >= 0 ? weight : 0;
         }
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            bool not_found_valid_area = true;
+            // Create the lake
+            Lake lake = new Lake("PlaceHolder", _location, creator);
+            lake.BiomeType = BiomeType.PermanentFreshWaterLake;
 
-            while (not_found_valid_area)
-            {
-   
-                Area location = current_world.AreaGrid[Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_X), Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_Y)];
+            // Choose random river which the lake is connected to.
+            River river = _location.Rivers[Main.Constants.RND.Next(_location.Rivers.Count)];
+            river.ConnectedLakes.Add(lake);
+            lake.SourceRivers.Add(river);
+            lake.OutGoingRiver = river;
 
-                if (location.AreaRegion.Landmass && location.Rivers.Count > 0)
-                {
-                    Lake lake = new Lake("Lake Titicaca", location, creator);
-                    not_found_valid_area = false;
+            // Add lake to area lists
+            _location.Lakes.Add(lake);
+            _location.Terrain.Add(lake);
+            _location.UnclaimedTerritory.Add(lake);
 
-                    River river = location.Rivers[Main.MainLoop.RND.Next(location.Rivers.Count)];
-                    river.ConnectedLakes.Add(lake);
-                    lake.SourceRivers.Add(river);
-                    lake.OutGoingRiver = river;
-                    location.Lakes.Add(lake);
-                    location.GeographicalFeatures.Add(lake);
-                    location.UnclaimedTerritory.Add(lake);
-                    creator.Creations.Add(lake);
-
-                    creator.LastCreation = lake;
-                }
-            }
+            // Add lake to deity lists
+            creator.Creations.Add(lake);
+            creator.LastCreation = lake;          
         }
 
 
-        public CreateLake()
+        public CreateLake(Area location) : base (location)
         {
-            Name = "Create Lake";
+            Name = "Create Lake " + location.Name;
         }
     }
 }

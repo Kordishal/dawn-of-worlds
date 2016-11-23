@@ -18,6 +18,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandAvatarPowers
             return _power.Precondition(current_world, creator, current_age);
         }
 
+        public override int Weight(World current_world, Deity creator, int current_age)
+        {
+            return _power.Weight(current_world, creator, current_age);
+        }
+
         public override bool isObsolete
         {
             get

@@ -6,44 +6,74 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateForest : ShapeLand
     {
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            bool not_found_valid_area = true;
+            // no forests in oceans.
+            if (!_location.AreaRegion.Landmass)
+                return false;
 
-            while (not_found_valid_area)
+            // no forests in arctic regions
+            if (_location.AreaClimate == Climate.Arctic)
+                return false;
+
+            return true;
+        }
+
+
+        public override void Effect(World current_world, Deity creator, int current_age)
+        {                                
+            Forest forest = new Forest("PlaceHolder", _location, creator);
+            
+            switch (_location.AreaClimate)
             {
-                Area location = current_world.AreaGrid[Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_X), Main.MainLoop.RND.Next(Main.MainLoop.AREA_GRID_Y)];
-
-                if (location.AreaRegion.Landmass)
-                {
-                    not_found_valid_area = false; 
-                                 
-                    Forest forest = new Forest("Dark Wood 01", location, creator);
-                    location.Forests.Add(forest);
-                    location.GeographicalFeatures.Add(forest);
-                    location.UnclaimedTerritory.Add(forest);
-                    creator.Creations.Add(forest);
-
-                    creator.LastCreation = forest;
-                }
+                case Climate.SubArctic:
+                    forest.BiomeType = BiomeType.BorealForest;
+                    break;
+                case Climate.Temperate:
+                    forest.BiomeType = BiomeType.TemperateDeciduousForest;
+                    break;
+                case Climate.SubTropical:
+                    forest.BiomeType = BiomeType.TropicalDryForest;
+                    break;
+                case Climate.Tropical:
+                    forest.BiomeType = BiomeType.TropicalRainforest;
+                    break;
             }
 
-            
+            forest.Name = Enum.GetName(typeof(BiomeType), forest.BiomeType) + _location.Name;
+
+            // Add forest to the area lists.
+            _location.Forests.Add(forest);
+            _location.Terrain.Add(forest);
+            _location.UnclaimedTerritory.Add(forest);
+
+            // Add forest to the deity.
+            creator.Creations.Add(forest);
+            creator.LastCreation = forest;            
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)
         {
-            return base.Weight(current_world, creator, current_age) + 20;
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.Nature))
+                weight += Constants.WEIGHT_MANY_CHANGE;
+
+            if (creator.Domains.Contains(Domain.Drought))
+                weight -= Constants.WEIGHT_MANY_CHANGE;
+
+            return weight >= 0 ? weight : 0;
         }
 
-        public CreateForest()
+        public CreateForest(Area location) : base (location)
         {
-            Name = "Create Forest";
+            Name = "Create Forest in " + location.Name;
         }
     }
 }

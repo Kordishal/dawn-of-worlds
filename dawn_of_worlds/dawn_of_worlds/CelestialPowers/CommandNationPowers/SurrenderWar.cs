@@ -8,6 +8,7 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -52,7 +53,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             war_goal.WarGoalCity.Owner = war_goal.Winner;
             war_goal.Winner.Cities.Add(war_goal.WarGoalCity);
             // Assign territory to victor
-            foreach (GeographicalFeature gc in war_goal.WarGoalCity.CitySphereOfÌnfluence)
+            foreach (Terrain gc in war_goal.WarGoalCity.CitySphereOfÌnfluence)
             {
                 gc.Owner = war_goal.Winner;
             }
@@ -75,22 +76,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override int Weight(World current_world, Deity creator, int current_age)
         {
-            int weight = 0;
-            switch (current_age)
-            {
-                case 1:
-                    weight += 10;
-                    break;
-                case 2:
-                    weight += 40;
-                    break;
-                case 3:
-                    weight += 60;
-                    break;
-                default:
-                    weight += 100;
-                    break;
-            }
+            int weight = base.Weight(current_world, creator, current_age);
+
+            if (creator.Domains.Contains(Domain.War))
+                weight -= Constants.WEIGHT_STANDARD_CHANGE;
+
+            if (creator.Domains.Contains(Domain.Peace))
+                weight += Constants.WEIGHT_STANDARD_CHANGE;
+
 
             int army_count_attacker = 0;
             int army_count_defender = 0;
@@ -160,8 +153,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 }
             }
 
-            
-            return weight;
+
+            return weight >= 0 ? weight : 0;
         }
 
         public SurrenderWar(Nation surrendering_nation, War surrendered_war) : base(surrendering_nation)
