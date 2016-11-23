@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
+    <Compile Include="Actors\Domain.cs" />
     <Compile Include="CelestialPowers\CommandArmyPowers\AttackArmy.cs" />
     <Compile Include="CelestialPowers\CommandArmyPowers\CommandArmy.cs" />
     <Compile Include="CelestialPowers\CommandAvatarPowers\CommandAvatar.cs" />
@@ -62,19 +78,23 @@
     <Compile Include="CelestialPowers\CreateAvatarPowers\CreateAvatar.cs" />
     <Compile Include="CelestialPowers\CreateOrderPowers\CreateOrder.cs" />
     <Compile Include="CelestialPowers\EventPowers\NationalEvents\NationalEvent.cs" />
-    <Compile Include="CelestialPowers\EventPowers\NationalEvents\VastGoldVineFound.cs" />
+    <Compile Include="CelestialPowers\EventPowers\NationalEvents\VastGoldMineDepleted.cs" />
+    <Compile Include="CelestialPowers\EventPowers\NationalEvents\VastGoldMineEstablished.cs" />
+    <Compile Include="CelestialPowers\EventPowers\RacialEvents\EndRacialEpidemic.cs" />
     <Compile Include="CelestialPowers\EventPowers\RacialEvents\RacialEpidemic.cs" />
     <Compile Include="CelestialPowers\EventPowers\RacialEvents\RacialEvent.cs" />
     <Compile Include="CelestialPowers\EventPowers\SpawnEvent.cs" />
     <Compile Include="CelestialPowers\Power.cs" />
     <Compile Include="CelestialPowers\CreateRacePowers\CreateRace.cs" />
-    <Compile Include="CelestialPowers\CreateRacePowers\CreateSubRace.cs" />
-    <Compile Include="CelestialPowers\ShapeClimatePowers\DecreaseHumidity.cs" />
-    <Compile Include="CelestialPowers\ShapeClimatePowers\DecreaseTemperature.cs" />
-    <Compile Include="CelestialPowers\ShapeClimatePowers\IncreaseHumidity.cs" />
-    <Compile Include="CelestialPowers\ShapeClimatePowers\IncreaseTemperature.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\MakeClimateColder.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\MakeClimateWarmer.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\ShapeClimate.cs" />
+    <Compile Include="CelestialPowers\ShapeLandPowers\CreateCave.cs" />
+    <Compile Include="CelestialPowers\ShapeLandPowers\CreateDesert.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateForest.cs" />
+    <Compile Include="CelestialPowers\ShapeLandPowers\CreateGrassland.cs" />
+    <Compile Include="CelestialPowers\ShapeLandPowers\CreateHill.cs" />
+    <Compile Include="CelestialPowers\ShapeLandPowers\CreateHillRange.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateLake.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateMountain.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateMountainRange.cs" />
@@ -83,13 +103,20 @@
     <Compile Include="Creations\Conflict\Battle.cs" />
     <Compile Include="Creations\Creation.cs" />
     <Compile Include="Creations\Diplomacy\War.cs" />
+    <Compile Include="Creations\Geography\Cave.cs" />
+    <Compile Include="Creations\Geography\Desert.cs" />
     <Compile Include="Creations\Geography\Forest.cs" />
-    <Compile Include="Creations\Geography\GeographicalFeature.cs" />
+    <Compile Include="Creations\Geography\Grassland.cs" />
+    <Compile Include="Creations\Geography\Hill.cs" />
+    <Compile Include="Creations\Geography\HillRange.cs" />
+    <Compile Include="Creations\Geography\Island.cs" />
+    <Compile Include="Creations\Geography\Terrain.cs" />
     <Compile Include="Creations\Geography\Lake.cs" />
     <Compile Include="Creations\Geography\Mountain.cs" />
     <Compile Include="Creations\Geography\MountainRange.cs" />
     <Compile Include="Creations\Geography\River.cs" />
     <Compile Include="Creations\Inhabitants\Avatar.cs" />
+    <Compile Include="Creations\Inhabitants\DefinedRaces.cs" />
     <Compile Include="Creations\Inhabitants\Race.cs" />
     <Compile Include="Creations\Organisations\Army.cs" />
     <Compile Include="Creations\Organisations\City.cs" />
@@ -97,6 +124,7 @@
     <Compile Include="Creations\Organisations\Order.cs" />
     <Compile Include="Log\ActionLog.cs" />
     <Compile Include="Log\ActionLogEntry.cs" />
+    <Compile Include="Main\Constants.cs" />
     <Compile Include="Main\MainLoop.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,7 +137,18 @@
     <None Include="App.config" />
     <None Include="Log\Output\action.log" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

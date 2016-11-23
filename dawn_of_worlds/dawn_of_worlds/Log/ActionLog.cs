@@ -24,6 +24,7 @@ namespace dawn_of_worlds.Log
             {
                 Writer.Write(entry.ToString());
             }
+            Writer.Close();
         }
 
     }

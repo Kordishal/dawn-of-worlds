@@ -22,6 +22,8 @@ namespace dawn_of_worlds.Actors
         public Power LastUsedPower { get; set; }
         public List<Power> Powers { get; set; }
 
+        public List<Domain> Domains { get; set; }
+
         public Creation LastCreation { get; set; }
         public List<Creation> Creations { get; set; }
         public List<Race> CreatedRaces { get; set; }
@@ -33,11 +35,12 @@ namespace dawn_of_worlds.Actors
         public List<string> ActionLog { get; set; }
 
 
-        public Deity(string name)
+        public Deity(string name, World current_world)
         {
             Name = name;
             PowerPoints = 0;
             Powers = new List<Power>();
+            Domains = new List<Domain>();
             Creations = new List<Creation>();
             CreatedRaces = new List<Race>();
             CreatedOrders = new List<Order>();
@@ -47,46 +50,29 @@ namespace dawn_of_worlds.Actors
 
             ActionLog = new List<string>();
 
-            // Shape Land
-            Powers.Add(new CreateForest());
-            Powers.Add(new CreateLake());
-            Powers.Add(new CreateRiver());
-            Powers.Add(new CreateMountainRange());
-            Powers.Add(new CreateMountain());
-
-            // Shape Climate
-            Powers.Add(new IncreaseTemperature());
-            Powers.Add(new DecreaseTemperature());
-            Powers.Add(new IncreaseHumidity());
-            Powers.Add(new DecreaseHumidity());
-
-            Race Humans = new Race("Human", this);
-            Race Elves = new Race("Elves", this);
-            Race Giants = new Race("Giants", this);
-            Race Dragons = new Race("Dragons", this);
-            Race Dwarves = new Race("Dwarves", this);
+            foreach (Area area in current_world.AreaGrid)
+            {
+                // Shape Land
+                Powers.Add(new CreateForest(area));
+                Powers.Add(new CreateGrassland(area));
+                Powers.Add(new CreateDesert(area));
+                Powers.Add(new CreateCave(area));
+                Powers.Add(new CreateLake(area));
+                Powers.Add(new CreateRiver(area));
+                Powers.Add(new CreateMountainRange(area));
+                Powers.Add(new CreateMountain(area));
+                Powers.Add(new CreateHillRange(area));
+                Powers.Add(new CreateHill(area));
+                // Shape Climate
+                Powers.Add(new MakeClimateWarmer(area));
+                Powers.Add(new MakeClimateColder(area));
+            }
 
             // Create Races
-            Powers.Add(new CreateRace(Humans));
-            Powers.Add(new CreateRace(Elves));
-            Powers.Add(new CreateRace(Giants));
-            Powers.Add(new CreateRace(Dragons));
-            Powers.Add(new CreateRace(Dwarves));
-
-            Race ColdHumans = new Race("Cold Humans", this);
-            Humans.PossibleSubRaces.Add(ColdHumans);
-
-            Race FireDragons = new Race("Fire Dragons", this);
-            Dragons.PossibleSubRaces.Add(FireDragons);
-
-            Race DarkElves = new Race("Dark Elves", this);
-            Elves.PossibleSubRaces.Add(DarkElves);
-
-            Race DeepDwarves = new Race("Deep Dwarves", this);
-            Dwarves.PossibleSubRaces.Add(DeepDwarves);
-
-            Race HillGiants = new Race("Hill Giants", this);
-            Giants.PossibleSubRaces.Add(HillGiants);
+            foreach (Race race in DefinedRaces.DefinedRacesList)
+            {
+                Powers.Add(new CreateRace(race));
+            }
         }
 
 
@@ -97,7 +83,7 @@ namespace dawn_of_worlds.Actors
             if (PowerPoints < 5)
                 PowerPoints = PowerPoints + (5 - PowerPoints);
 
-            PowerPoints = PowerPoints + Main.MainLoop.RND.Next(12);
+            PowerPoints = PowerPoints + Main.Constants.RND.Next(12);
 
             Console.WriteLine("PowerPoints after adding turn gain: " + PowerPoints);
         }
@@ -122,7 +108,7 @@ namespace dawn_of_worlds.Actors
 
             Console.WriteLine("Possible Actions Count: " + possible_powers.Count);
 
-            int chance = Main.MainLoop.RND.Next(total_weight);
+            int chance = Main.Constants.RND.Next(total_weight);
             int prev_weight = 0, current_weight = 0;
             foreach (Power p in possible_powers)
             {
