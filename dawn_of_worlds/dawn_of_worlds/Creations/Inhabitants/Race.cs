@@ -13,6 +13,14 @@ namespace dawn_of_worlds.Creations.Inhabitants
     {
         public List<RaceTags> Tags { get; set; }
 
+        public SpeciesType Type { get; set; }
+        public RacialHabitat Habitat { get; set; }
+        public List<RacialPreferredHabitatTerrain> PreferredTerrain { get; set; }
+        public List<RacialPreferredHabitatClimate> PreferredClimate { get; set; }
+        public RacialLifespan Lifespan { get; set; }
+        public List<PhysicalTrait> PhysicalTraits { get; set; }
+        public List<SocialCulturalCharacteristic> SocialCulturalCharacteristics { get; set; }
+
         public Area HomeArea { get; set; }
         public List<Area> SettledAreas { get; set; }
 
@@ -30,6 +38,11 @@ namespace dawn_of_worlds.Creations.Inhabitants
             PossibleSubRaces = new List<Race>();
             SettledAreas = new List<Area>();
             Tags = new List<RaceTags>();
+
+            PreferredTerrain = new List<RacialPreferredHabitatTerrain>();
+            PreferredClimate = new List<RacialPreferredHabitatClimate>();
+            PhysicalTraits = new List<PhysicalTrait>();
+            SocialCulturalCharacteristics = new List<SocialCulturalCharacteristic>();
         }
 
 
@@ -42,6 +55,64 @@ namespace dawn_of_worlds.Creations.Inhabitants
         {
             return GetHashCode() == obj.GetHashCode();
         }
+    }
+
+    enum SpeciesType
+    {
+        Humanoid,
+        Dragonoid,
+    }
+
+    enum RacialHabitat
+    {
+        Aviatic,
+        Aquatic,
+        Amphibious,
+        Terranean,
+        Subterranean
+    }
+
+    enum RacialPreferredHabitatTerrain
+    {
+        MountainDwellers,
+        CaveDwellers,
+        ForestDwellers,
+        HillDwellers,
+        PlainDwellers,
+        DesertDwellers,
+    }
+
+    enum RacialPreferredHabitatClimate
+    {
+        ColdAcclimated,
+        TemperateAcclimated,
+        HeatAcclimated,
+    }
+
+    enum RacialLifespan
+    {
+        Immortal,
+        EternalLife,
+        Venerable,
+        Enduring,
+        Average,
+        Fleeting,
+    }
+
+    enum PhysicalTrait
+    {
+        Winged,
+        Strong,
+        Weak,
+        NaturalArmour,
+        NaturalWeapons,
+    }
+
+    enum SocialCulturalCharacteristic
+    {
+        Communal,
+        Nomadic,
+        Sedentary,
     }
 
     enum RaceTags
