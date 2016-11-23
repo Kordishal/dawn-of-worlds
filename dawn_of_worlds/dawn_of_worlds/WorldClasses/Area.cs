@@ -11,17 +11,61 @@ namespace dawn_of_worlds.WorldClasses
 {
     class Area
     {
-
         private static int id = 0;
 
         public string Name { get; set; }
 
         public Climate AreaClimate { get; set; }
 
+        public Region AreaRegion { get; set; }
+
+        public List<Nation> Nations { get; set; }
+        public List<Army> Armies { get; set; }
+
+        public List<Terrain> Terrain { get; set; }
+        public List<Terrain> UnclaimedTerritory { get; set; }
+
+        public List<Forest> Forests { get; set; }
+        public List<Grassland> Grasslands { get; set; }
+        public List<Desert> Deserts { get; set; }
+
+        public List<Cave> Caves { get; set; }
+
+        public List<Lake> Lakes { get; set; }
+        public List<River> Rivers { get; set; }
+
+        public MountainRange MountainRanges { get; set; }
+        public HillRange HillRanges { get; set; }
+
+        public List<Race> Inhabitants { get; set; }
+
+
+        public Area(Region region)
+        {
+            Name = id.ToString();
+            id += 1;
+            AreaRegion = region;
+            Terrain = new List<Terrain>();
+            UnclaimedTerritory = new List<Terrain>();
+            Forests = new List<Forest>();
+            Lakes = new List<Lake>();
+            Rivers = new List<River>();
+            Neighbours = new Area[4];
+            AreaClimate = new Climate();
+            Inhabitants = new List<Race>();
+            Armies = new List<Army>();
+            Nations = new List<Nation>();
+            DiagonalNeighbours = new Area[4];
+            Grasslands = new List<Grassland>();
+            Deserts = new List<Desert>();
+            Caves = new List<Cave>();
+        }
+
         public Area[] Neighbours { get; set; }
+        public Area[] DiagonalNeighbours { get; set; }
         public Area[] RandomizedDirections()
         {
-            switch (Main.MainLoop.RND.Next(4))
+            switch (Main.Constants.RND.Next(4))
             {
                 case 0:
                     return new Area[4] { _north, _east, _south, _west };
@@ -107,46 +151,81 @@ namespace dawn_of_worlds.WorldClasses
                 _west = value;
                 Neighbours[3] = value;
             }
-        } 
-
-        public Region AreaRegion { get; set; }
-
-        public List<Nation> Nations { get; set; }
-        public List<Army> Armies { get; set; }
-
-        public List<GeographicalFeature> GeographicalFeatures { get; set; }
-        public List<GeographicalFeature> UnclaimedTerritory { get; set; }
-
-        public List<Forest> Forests { get; set; }
-
-        public List<Lake> Lakes { get; set; }
-        public List<River> Rivers { get; set; }
-
-        public MountainRange MountainRanges { get; set; }
-
-        public List<Race> Inhabitants { get; set; }
-
-        public Area(Region region)
-        {
-            Name = id.ToString();
-            id += 1;
-            AreaRegion = region;
-            GeographicalFeatures = new List<GeographicalFeature>();
-            UnclaimedTerritory = new List<GeographicalFeature>();
-            Forests = new List<Forest>();
-            Lakes = new List<Lake>();
-            Rivers = new List<River>();
-            Neighbours = new Area[4];
-            AreaClimate = new Climate();
-            Inhabitants = new List<Race>();
-            Armies = new List<Army>();
-            Nations = new List<Nation>();
         }
 
+        // X + 1 Y + 1
+        private Area _north_east;
+        public Area NorthEast
+        {
+            get
+            {
+                return _north_east;
+            }
+            set
+            {
+                _north_east = value;
+                DiagonalNeighbours[0] = value;
+            }
+        }
+        // X - 1 Y + 1
+        private Area _south_east;
+        public Area SouthEast
+        {
+            get
+            {
+                return _south_east;
+            }
+            set
+            {
+                _south_east = value;
+                DiagonalNeighbours[1] = value;
+            }
+        }
+        // X - 1 Y - 1
+        private Area _south_west;
+        public Area SouthWest
+        {
+            get
+            {
+                return _south_west;
+            }
+            set
+            {
+                _south_west = value;
+                DiagonalNeighbours[2] = value;
+            }
+        }
+        // X + 1 Y - 1
+        private Area _north_west;
+        public Area NorthWest
+        {
+            get
+            {
+                return _north_west;
+            }
+            set
+            {
+                _north_west = value;
+                DiagonalNeighbours[3] = value;
+            }
+        }
 
         public override string ToString()
         {
             return "Area: " + Name;
+        }
+    }
+
+
+    class WeightedArea
+    {
+        public Area Area { get; set; }
+        public int Weight { get; set; }
+
+        public WeightedArea(Area area)
+        {
+            Area = area;
+            Weight = 0;
         }
     }
 }
