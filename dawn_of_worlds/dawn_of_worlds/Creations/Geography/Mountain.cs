@@ -8,7 +8,7 @@ using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class Mountain : GeographicalFeature
+    class Mountain : Terrain
     {
 
         public MountainRange Range { get; set; }

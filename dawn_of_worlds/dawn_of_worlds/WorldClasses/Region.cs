@@ -20,7 +20,7 @@ namespace dawn_of_worlds.WorldClasses
         {
             RegionWorld = world;
             RegionAreas = new List<Area>();
-            Landmass = Main.MainLoop.RND.Next(20) < 15 ? true : false;
+            Landmass = Main.Constants.RND.Next(20) < 15 ? true : false;
 
             for (int j = 0; j < num_areas; j++)
             {
