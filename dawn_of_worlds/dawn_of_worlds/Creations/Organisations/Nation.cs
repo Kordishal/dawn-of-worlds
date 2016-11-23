@@ -121,5 +121,6 @@ namespace dawn_of_worlds.Creations.Organisations
     enum NationalTags
     {
         VeryRich,
+        GoldMine,
     }
 }
