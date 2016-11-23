@@ -90,7 +90,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             territory.City = founded_nation.CapitalCity;
 
             // Add origin order -> church. This church is needed to be able to command this nation.
-            Order founder_origin_order = new Order("Church of " + founded_nation.Name, creator, OrderType.Church, OrderPurpose.WorshipFounder);
+            Order founder_origin_order = new Order("Church of " + founded_nation.Name, creator, OrderType.Church, OrderPurpose.FounderWorship);
             founder_origin_order.OrderNation = founded_nation;
             founder_origin_order.OrderRace = null;
 
@@ -120,7 +120,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             foreach (Deity deity in current_world.Deities)
             {
                 if (!(deity == creator))
-                    deity.Powers.Add(new CreateOrder(OrderType.Church, OrderPurpose.WorshipFounder, founded_nation, null));
+                    deity.Powers.Add(new CreateOrder(OrderType.Church, OrderPurpose.FounderWorship, founded_nation, null));
             }
 
             // Add nation to world overview

@@ -15,6 +15,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
+            // can't be created in oceans
+            if (!_location.AreaRegion.Landmass)
+                return false;
+
             // Can't be created without a river.
             if (_location.Rivers.Count == 0)
                 return false;

@@ -3,6 +3,7 @@ using dawn_of_worlds.CelestialPowers;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Log;
+using dawn_of_worlds.Names;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -18,19 +19,22 @@ namespace dawn_of_worlds.Main
 
         public ActionLog Log { get; set; }
         public World MainWorld { get; set; }
+        public NameGenerator MainNameGenerator { get; set; }
+
 
         public MainLoop() { }
 
         public void Initialize()
         {
-            MainWorld = new World("New World", 5, 5);
-            Log = new ActionLog();        
+            MainNameGenerator = new NameGenerator();
+            MainWorld = new World(MainNameGenerator.GetName("world_names"), 5, 5);
+            Log = new ActionLog();                    
         }
 
         public void Run()
         {
             CurrentAge = 1;
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 40; i++)
             {
                 Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@ TURN " + i.ToString() + " @@@@@@@@@@@@@@@@@@@@@@@@@@@");
                 foreach (Deity deity in MainWorld.Deities)
@@ -76,8 +80,7 @@ namespace dawn_of_worlds.Main
             }
 
 
-            Log.Write();
+            Log.Write(MainWorld);
         }
-
     }
 }

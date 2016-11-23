@@ -1,0 +1,11 @@
+﻿world_names = {
+	templates = {
+		"<world_name>"
+	}
+
+	world_name = {
+		Biorka Arkadia 
+	
+	}
+
+}

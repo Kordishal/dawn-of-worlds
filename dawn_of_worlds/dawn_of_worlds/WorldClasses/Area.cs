@@ -19,12 +19,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public Region AreaRegion { get; set; }
 
-        public List<Nation> Nations { get; set; }
-        public List<Army> Armies { get; set; }
-
         public List<Terrain> Terrain { get; set; }
-        public List<Terrain> UnclaimedTerritory { get; set; }
-
         public List<Forest> Forests { get; set; }
         public List<Grassland> Grasslands { get; set; }
         public List<Desert> Deserts { get; set; }
@@ -39,6 +34,10 @@ namespace dawn_of_worlds.WorldClasses
 
         public List<Race> Inhabitants { get; set; }
 
+        public List<Nation> Nations { get; set; }
+        public List<Army> Armies { get; set; }
+
+        public List<Terrain> UnclaimedTerritory { get; set; }
 
         public Area(Region region)
         {
@@ -213,6 +212,32 @@ namespace dawn_of_worlds.WorldClasses
         public override string ToString()
         {
             return "Area: " + Name;
+        }
+
+
+        public string printArea()
+        {
+            string result = "";
+            result += "Name: " + Name + "\n";
+            result += "Region: " + AreaRegion.Name + "\n";
+            result += "Ocean: " + (AreaRegion.Landmass ? "no" : "yes") + "\n";
+            result += "Climate: " + AreaClimate.ToString() + "\n";
+            result += "Terrain: " + Terrain.Count.ToString() + "\n";
+            result += "Forests: " + Forests.Count.ToString() + "\n";
+            result += "Grasslands: " + Grasslands.Count.ToString() + "\n";
+            result += "Deserts: " + Deserts.Count.ToString() + "\n";
+            result += "Caves: " + Caves.Count.ToString() + "\n";
+            result += "Rivers: " + Rivers.Count.ToString() + "\n";
+            result += "Lakes: " + Lakes.Count.ToString() + "\n";
+            result += "Mountains: " + (MountainRanges != null ? MountainRanges.Mountains.Count.ToString() : "none") + "\n";
+            result += "Hills: " + (HillRanges != null ? HillRanges.Hills.Count.ToString() : "none") + "\n";
+            result += "Races: " + Inhabitants.Count.ToString() + "\n";
+            result += "Nations: " + Nations.Count.ToString() + "\n";
+            result += "Unclaimed Territory: " + UnclaimedTerritory.Count.ToString() + "\n";
+            result += "Armies: " + Armies.Count.ToString() + "\n";
+
+
+            return result;
         }
     }
 

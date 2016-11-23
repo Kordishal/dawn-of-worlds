@@ -25,6 +25,7 @@ namespace dawn_of_worlds.Actors
         public List<Domain> Domains { get; set; }
 
         public Creation LastCreation { get; set; }
+
         public List<Creation> Creations { get; set; }
         public List<Race> CreatedRaces { get; set; }
         public List<Order> CreatedOrders { get; set; }
@@ -78,14 +79,14 @@ namespace dawn_of_worlds.Actors
 
         public void AddPowerPoints()
         {
-            Console.WriteLine("PowerPoints before new Turn: " + PowerPoints);
+            //Console.WriteLine("PowerPoints before new Turn: " + PowerPoints);
 
             if (PowerPoints < 5)
                 PowerPoints = PowerPoints + (5 - PowerPoints);
 
             PowerPoints = PowerPoints + Main.Constants.RND.Next(12);
 
-            Console.WriteLine("PowerPoints after adding turn gain: " + PowerPoints);
+            //Console.WriteLine("PowerPoints after adding turn gain: " + PowerPoints);
         }
 
         public void Turn(World current_world, int current_age)
@@ -106,7 +107,7 @@ namespace dawn_of_worlds.Actors
                 }                    
             }
 
-            Console.WriteLine("Possible Actions Count: " + possible_powers.Count);
+            //Console.WriteLine("Possible Actions Count: " + possible_powers.Count);
 
             int chance = Main.Constants.RND.Next(total_weight);
             int prev_weight = 0, current_weight = 0;
@@ -115,13 +116,14 @@ namespace dawn_of_worlds.Actors
                 current_weight += p.Weight(current_world, this, current_age);
                 if (prev_weight <= chance && chance < current_weight)
                 {
-                    Console.WriteLine("TAKE ACTION");
-                    Console.WriteLine("Action: " + p);
-                    Console.WriteLine("Cost: " + p.Cost(current_age));
-                    Console.WriteLine("PowerPoints: " + PowerPoints);
+                    //Console.WriteLine("TAKE ACTION");
+                    //Console.WriteLine("Action: " + p);
+                    //Console.WriteLine("Cost: " + p.Cost(current_age));
+                    //Console.WriteLine("PowerPoints: " + PowerPoints);
                     p.Effect(current_world, this, current_age);
                     PowerPoints = PowerPoints - p.Cost(current_age);
                     // For the Action Log entry.
+                    _total_power_points += p.Cost(current_age);
                     LastUsedPower = p;
                     break;
                 }
@@ -129,6 +131,99 @@ namespace dawn_of_worlds.Actors
 
                 prev_weight += p.Weight(current_world, this, current_age);
             }
+        }
+
+        private int _total_power_points;
+
+        public string printDeity()
+        {
+            int counter = 0;
+            string result = "";
+            result += "Name: " + Name + "\n";
+            result += "Domains: ";
+            foreach (Domain domain in Domains)
+                result += domain.ToString() + ", ";
+            result += "\n";
+            result += "Total PowerPoints Used: " + _total_power_points + "\n";
+            result += "CreationsCount: " + Creations.Count.ToString() + "\n";
+            result += "Creations: \n";
+            foreach (Creation creation in Creations)
+            {
+                result += creation.Name;
+                counter++;
+                if (counter % 10 == 0)
+                    result += "\n";
+                else
+                    result += ", ";
+            }
+            counter = 0;
+            result += "\n\n";
+            result += "RacesCount: " + CreatedRaces.Count.ToString() + "\n";
+            result += "Races: \n";
+            foreach (Race race in CreatedRaces)
+            {
+                result += race.Name;
+                counter++;
+                if (counter % 10 == 0)
+                    result += "\n";
+                else
+                    result += ", ";
+            }
+            counter = 0;
+            result += "\n\n";
+            result += "OrdersCount: " + CreatedOrders.Count.ToString() + "\n";
+            result += "Orders: \n";
+            foreach (Order order in CreatedOrders)
+            {
+                result += order.Name;
+                counter++;
+                if (counter % 10 == 0)
+                    result += "\n";
+                else
+                    result += ", ";
+            }
+            counter = 0;
+            result += "\n\n";
+            result += "NationsCount: " + FoundedNations.Count.ToString() + "\n";
+            result += "Nations: \n";
+            foreach (Nation nation in FoundedNations)
+            {
+                result += nation.Name;
+                counter++;
+                if (counter % 10 == 0)
+                    result += "\n";
+                else
+                    result += ", ";
+            }
+            counter = 0;
+            result += "\n\n";
+            result += "CitiesCount: " + FoundedCities.Count.ToString() + "\n";
+            result += "Cities: \n";
+            foreach (City city in FoundedCities)
+            {
+                result += city.Name;
+                counter++;
+                if (counter % 10 == 0)
+                    result += "\n";
+                else
+                    result += ", ";
+            }
+            counter = 0;
+            result += "\n\n";
+            result += "AvatarsCount: " + CreatedAvatars.Count.ToString() + "\n";
+            result += "Avatars: \n";
+            foreach (Avatar avatar in CreatedAvatars)
+            {
+                result += avatar.Name;
+                counter++;
+                if (counter % 10 == 0)
+                    result += "\n";
+                else
+                    result += ", ";
+            }
+            counter = 0;
+            result += "\n\n";
+            return result;
         }
     }
 }

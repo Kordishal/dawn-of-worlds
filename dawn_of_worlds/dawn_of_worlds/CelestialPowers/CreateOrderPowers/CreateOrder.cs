@@ -62,7 +62,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
 
 
             // The founder/creator religion. People will worship their creator.
-            if (created_order.Type == OrderType.Church && created_order.Purpose == OrderPurpose.WorshipFounder)
+            if (created_order.Type == OrderType.Church && created_order.Purpose == OrderPurpose.FounderWorship)
             {
                 if (created_order.isNationalOrder)
                 {
@@ -84,6 +84,11 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
                 }
             }
 
+            created_order.Name = created_order.Type.ToString() + " of " + created_order.Purpose.ToString() + " for ";
+            if (created_order.isNationalOrder)
+                created_order.Name += created_order.OrderNation.Name;
+            if (created_order.hasRaceRestriction)
+                created_order.Name += created_order.OrderRace.Name;
             creator.LastCreation = created_order;
         }
 

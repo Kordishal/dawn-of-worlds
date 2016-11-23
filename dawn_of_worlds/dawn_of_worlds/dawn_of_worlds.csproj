@@ -109,7 +109,6 @@
     <Compile Include="Creations\Geography\Grassland.cs" />
     <Compile Include="Creations\Geography\Hill.cs" />
     <Compile Include="Creations\Geography\HillRange.cs" />
-    <Compile Include="Creations\Geography\Island.cs" />
     <Compile Include="Creations\Geography\Terrain.cs" />
     <Compile Include="Creations\Geography\Lake.cs" />
     <Compile Include="Creations\Geography\Mountain.cs" />
@@ -126,8 +125,20 @@
     <Compile Include="Log\ActionLogEntry.cs" />
     <Compile Include="Main\Constants.cs" />
     <Compile Include="Main\MainLoop.cs" />
+    <Compile Include="Names\NameGenerator.cs" />
+    <Compile Include="Names\NameSet.cs" />
+    <Compile Include="Names\Parser\NameSetFSM.cs" />
+    <Compile Include="Names\Parser\NameSetParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupportClasses\LexerClasses\ILexer.cs" />
+    <Compile Include="SupportClasses\LexerClasses\Lexer.cs" />
+    <Compile Include="SupportClasses\StateMachineClasses\FiniteStateMachine.cs" />
+    <Compile Include="SupportClasses\StateMachineClasses\FiniteStateMachineException.cs" />
+    <Compile Include="SupportClasses\StateMachineClasses\StateTransition.cs" />
+    <Compile Include="SupportClasses\TokenClasses\Token.cs" />
+    <Compile Include="SupportClasses\TokenClasses\TokenDefinition.cs" />
+    <Compile Include="SupportClasses\TokenClasses\TokenPosition.cs" />
     <Compile Include="WorldClasses\Area.cs" />
     <Compile Include="WorldClasses\Climate.cs" />
     <Compile Include="WorldClasses\Region.cs" />
@@ -148,6 +159,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Names\NameSets\00_namesetlist.txt" />
+    <Content Include="Names\NameSets\english.txt" />
+    <Content Include="Names\NameSets\world_names.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -25,7 +25,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Avatar created_avatar = new Avatar("Master Guy", creator);
+            Avatar created_avatar = new Avatar("PlaceHolder", creator);
 
             created_avatar.Type = _type;
             created_avatar.AvatarRace = _race;
@@ -51,7 +51,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
                     }
                     else if (_nation != null)
                     {
-                        creator.Powers.Add(new UsePower(created_avatar, new CreateOrder(OrderType.Church, OrderPurpose.WorshipFounder, _nation, null)));
+                        creator.Powers.Add(new UsePower(created_avatar, new CreateOrder(OrderType.Church, OrderPurpose.FounderWorship, _nation, null)));
                     }                    
                     break;
                 case AvatarType.LegendaryBeast:
@@ -69,6 +69,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             }
 
             creator.Powers.Add(new UsePower(created_avatar, new FoundNation(created_avatar.AvatarRace)));
+
+            created_avatar.Name = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
 
             if (_nation != null)
             {

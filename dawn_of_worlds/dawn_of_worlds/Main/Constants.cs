@@ -16,13 +16,13 @@ namespace dawn_of_worlds.Main
         // Anything that costs less than this gets a bonus, anything that costs more than this gets a penalty.
         public const int WEIGHT_COST_DEVIATION_MEDIUM = 10;
 
-        public const int WEIGHT_STANDARD_LOW = 25;
-        public const int WEIGHT_STANDARD_MEDIUM = 50;
-        public const int WEIGHT_STANDARD_HIGH = 75;
+        public const int WEIGHT_STANDARD_LOW = 100;
+        public const int WEIGHT_STANDARD_MEDIUM = 200;
+        public const int WEIGHT_STANDARD_HIGH = 300;
 
-        public const int WEIGHT_STANDARD_CHANGE = 25;
+        public const int WEIGHT_STANDARD_CHANGE = 100;
 
-        public const int WEIGHT_STANDARD_COST_DEVIATION = 3;
+        public const int WEIGHT_STANDARD_COST_DEVIATION = 10;
 
         public const int WEIGHT_MANY_LOW = 5;
         public const int WEIGHT_MANY_MEDIUM = 10;

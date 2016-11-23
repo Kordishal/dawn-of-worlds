@@ -37,6 +37,6 @@ namespace dawn_of_worlds.Creations.Organisations
 
     public enum OrderPurpose
     {
-        WorshipFounder,
+        FounderWorship,
     }
 }
