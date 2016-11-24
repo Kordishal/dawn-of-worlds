@@ -30,7 +30,7 @@ namespace dawn_of_worlds.Creations
 
         public override string ToString()
         {
-            return this.GetType().ToString().Split('.').Last() + ": " + Name + "(" + _identifier.ToString() + ")";
+            return Name;
         }
     }
 }

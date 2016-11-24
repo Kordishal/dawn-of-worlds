@@ -187,9 +187,10 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             }
                     
             // Each race has an order dedicated to worship their creator.
-            Order creator_worhip_order = new Order(_created_race.Name + " Creation Church", creator, OrderType.Church, OrderPurpose.FounderWorship);
+            Order creator_worhip_order = new Order("PlaceHolder", creator, OrderType.Church, OrderPurpose.FounderWorship);
             creator_worhip_order.OrderRace = _created_race;
             creator_worhip_order.OrderNation = null;
+            creator_worhip_order.Name = Constants.Names.GetReligionName(creator, creator_worhip_order.OrderRace);
 
             _created_race.Creator = creator;
             _created_race.OriginOrder = creator_worhip_order;

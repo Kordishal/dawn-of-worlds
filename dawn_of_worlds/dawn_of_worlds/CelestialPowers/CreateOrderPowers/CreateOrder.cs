@@ -84,23 +84,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
                 }
             }
 
-            created_order.Name = "";
-            if (created_order.hasRaceRestriction)
-            {
-                created_order.Name += created_order.OrderRace.Name + " ";
-            }
-            created_order.Name += created_order.Type.ToString() + " of ";
-            switch (created_order.Purpose)
-            {
-                case OrderPurpose.FounderWorship:
-                    created_order.Name += creator.Name;
-                    break;
-            }
-
-            if (created_order.isNationalOrder)
-            {
-                created_order.Name += " in " + created_order.OrderNation.Name;
-            }
+            //created_order.Name = Constants.Names.GetReligionName(creator, created_order.OrderRace);
            
             creator.LastCreation = created_order;
         }

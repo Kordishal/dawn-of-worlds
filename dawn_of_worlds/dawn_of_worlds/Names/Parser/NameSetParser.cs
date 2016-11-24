@@ -84,7 +84,7 @@ namespace dawn_of_worlds.Names.Parser
             _NameSetFSM.AddTransition(State.VARIABLE, State.ASSIGNMENT, doNothing);
             _NameSetFSM.AddTransition(State.VARIABLE, State.CLOSING_CURLY_BRACES, doNothing);
             _NameSetFSM.AddTransition(State.VARIABLE, State.VARIABLE, addName);
-            _NameSetFSM.AddTransition(State.VARIABLE, State.STRING, addName);
+            _NameSetFSM.AddTransition(State.VARIABLE, State.STRING, addStringName);
 
             _NameSetFSM.AddTransition(State.STRING, State.VARIABLE, addName);
             _NameSetFSM.AddTransition(State.STRING, State.STRING, addTemplate);
@@ -164,12 +164,18 @@ namespace dawn_of_worlds.Names.Parser
                 NameSets.Last().Names.Last().Add(_current_token.Value);
         }
 
+        private void addStringName()
+        {
+            if (_current_token.Value != "templates")
+                NameSets.Last().Names.Last().Add(_current_token.Value.Substring(1, _current_token.Value.Length - 2));
+        }
+
         private void addTemplate()
         {
             if (_current_token.Value.Contains("<"))
                 NameSets.Last().Templates.Add(_current_token.Value);
             else
-                NameSets.Last().Names.Last().Add(_current_token.Value);
+                NameSets.Last().Names.Last().Add(_current_token.Value.Substring(1, _current_token.Value.Length - 2));
         }
 
 
