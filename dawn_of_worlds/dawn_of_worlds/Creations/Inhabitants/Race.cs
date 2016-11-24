@@ -55,6 +55,38 @@ namespace dawn_of_worlds.Creations.Inhabitants
         {
             return GetHashCode() == obj.GetHashCode();
         }
+
+        public string printRace()
+        {
+            string result = "";
+            result += "Name: " + Name + "\n";
+            result += "Type: " + Type + "\n";
+            result += "Habitat: " + Habitat + "\n";
+            result += "Terrain: ";
+            foreach (RacialPreferredHabitatTerrain terrain in PreferredTerrain)
+                result += terrain.ToString() + ", ";
+            result += "\n";
+            result += "Climate: ";
+            foreach (RacialPreferredHabitatClimate climate in PreferredClimate)
+                result += climate.ToString() + ", ";
+            result += "\n";
+            result += "Lifespan: " + Lifespan + "\n";
+            result += "Physical Traits: ";
+            foreach (PhysicalTrait traits in PhysicalTraits)
+                result += traits.ToString() + ", ";
+            result += "\n";
+            result += "Social & Cultural Traits: ";
+            foreach (SocialCulturalCharacteristic social in SocialCulturalCharacteristics)
+                result += social.ToString() + ", ";
+            result += "\n";
+            result += "Home Area: " + HomeArea + "\n";
+            result += "Settled Areas: ";
+            foreach (Area area in SettledAreas)
+                result += area.ToString() + ", ";
+            result += "\n";
+            result += "Origin Order: " + OriginOrder + "\n";
+            return result;
+        }
     }
 
     enum SpeciesType

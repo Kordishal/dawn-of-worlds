@@ -21,7 +21,7 @@ namespace dawn_of_worlds.Names.Parser
         {
             _nameset_lexer = new Lexer();
 
-            _nameset_lexer.AddDefinition(new TokenDefinition(new Regex(@"[a-zA-Z_]+"), "VARIABLE"));
+            _nameset_lexer.AddDefinition(new TokenDefinition(new Regex(@"[a-zA-Z_\-]+"), "VARIABLE"));
 
             _nameset_lexer.AddDefinition(new TokenDefinition(new Regex(@"([""'])(?:\\\1|.)*?\1"), "STRING"));
             _nameset_lexer.AddDefinition(new TokenDefinition(new Regex(@"\="), "ASSIGNMENT"));
@@ -84,7 +84,9 @@ namespace dawn_of_worlds.Names.Parser
             _NameSetFSM.AddTransition(State.VARIABLE, State.ASSIGNMENT, doNothing);
             _NameSetFSM.AddTransition(State.VARIABLE, State.CLOSING_CURLY_BRACES, doNothing);
             _NameSetFSM.AddTransition(State.VARIABLE, State.VARIABLE, addName);
+            _NameSetFSM.AddTransition(State.VARIABLE, State.STRING, addName);
 
+            _NameSetFSM.AddTransition(State.STRING, State.VARIABLE, addName);
             _NameSetFSM.AddTransition(State.STRING, State.STRING, addTemplate);
             _NameSetFSM.AddTransition(State.STRING, State.CLOSING_CURLY_BRACES, doNothing);
 
@@ -92,6 +94,7 @@ namespace dawn_of_worlds.Names.Parser
 
             _NameSetFSM.AddTransition(State.OPENING_CURLY_BRACES, State.VARIABLE, addName);
             _NameSetFSM.AddTransition(State.OPENING_CURLY_BRACES, State.STRING, addTemplate);
+            _NameSetFSM.AddTransition(State.OPENING_CURLY_BRACES, State.CLOSING_CURLY_BRACES, doNothing);
 
             _NameSetFSM.AddTransition(State.CLOSING_CURLY_BRACES, State.END_OF_FILE, doNothing);
             _NameSetFSM.AddTransition(State.CLOSING_CURLY_BRACES, State.CLOSING_CURLY_BRACES, doNothing);
@@ -163,7 +166,10 @@ namespace dawn_of_worlds.Names.Parser
 
         private void addTemplate()
         {
-            NameSets.Last().Templates.Add(_current_token.Value);
+            if (_current_token.Value.Contains("<"))
+                NameSets.Last().Templates.Add(_current_token.Value);
+            else
+                NameSets.Last().Names.Last().Add(_current_token.Value);
         }
 
 

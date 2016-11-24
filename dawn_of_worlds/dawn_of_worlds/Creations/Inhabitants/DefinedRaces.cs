@@ -13,15 +13,21 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
         public static Race HighElves { get; set; }
         public static Race DarkElves { get; set; }
+        public static Race WoodElves { get; set; }
+        public static Race WildElves { get; set; }
 
         public static Race ProtoDragons { get; set; }
         public static Race FireDragons { get; set; }
+        public static Race GoldDragons { get; set; }
 
         public static Race MountainDwarves { get; set; }
         public static Race HillDwarves { get; set; }
 
         public static Race Giants { get; set; }
         public static Race HillGiants { get; set; }
+        public static Race StormGiants { get; set; }
+
+        public static Race Orcs { get; set; }
 
         public DefinedRaces()
         {
@@ -35,6 +41,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
             defineElfishRaces();
             defineDragonicRaces();
             defineDwarvenRaces();
+            defineOrcishRaces();
         }
 
 
@@ -88,7 +95,31 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
             DefinedRacesList.Add(DarkElves);
 
+            WoodElves = new Race("Wood Elves", null);
+            WoodElves.isSubRace = true;
+            WoodElves.MainRace = HighElves;
+            WoodElves.Type = SpeciesType.Humanoid;
+            WoodElves.Habitat = RacialHabitat.Terranean;
+            WoodElves.Lifespan = RacialLifespan.Venerable;
+            WoodElves.PreferredTerrain.Add(RacialPreferredHabitatTerrain.ForestDwellers);
+            WoodElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Communal);
+            WoodElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Sedentary);
+
+            DefinedRacesList.Add(WoodElves);
+
+            WildElves = new Race("Wild Elves", null);
+            WildElves.isSubRace = true;
+            WildElves.MainRace = HighElves;
+            WildElves.Type = SpeciesType.Humanoid;
+            WildElves.Habitat = RacialHabitat.Terranean;
+            WildElves.Lifespan = RacialLifespan.Venerable;
+            WildElves.PreferredTerrain.Add(RacialPreferredHabitatTerrain.ForestDwellers);
+            WildElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Communal);
+            WildElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Sedentary);
+
             HighElves.PossibleSubRaces.Add(DarkElves);
+            HighElves.PossibleSubRaces.Add(WoodElves);
+            HighElves.PossibleSubRaces.Add(WildElves);
         }
 
         private static void defineDragonicRaces()
@@ -120,7 +151,22 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
             DefinedRacesList.Add(FireDragons);
 
+            GoldDragons = new Race("Gold Dragons", null);
+            GoldDragons.isSubRace = true;
+            GoldDragons.MainRace = ProtoDragons;
+            GoldDragons.Type = SpeciesType.Dragonoid;
+            GoldDragons.Habitat = RacialHabitat.Terranean;
+            GoldDragons.Lifespan = RacialLifespan.EternalLife;
+            GoldDragons.PhysicalTraits.Add(PhysicalTrait.Winged);
+            GoldDragons.PhysicalTraits.Add(PhysicalTrait.Strong);
+            GoldDragons.PhysicalTraits.Add(PhysicalTrait.NaturalArmour);
+            GoldDragons.PhysicalTraits.Add(PhysicalTrait.NaturalWeapons);
+            GoldDragons.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Nomadic);
+
+            DefinedRacesList.Add(GoldDragons);
+
             ProtoDragons.PossibleSubRaces.Add(FireDragons);
+            ProtoDragons.PossibleSubRaces.Add(GoldDragons);
         }
 
         private static void defineDwarvenRaces()
@@ -171,7 +217,25 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
             DefinedRacesList.Add(HillGiants);
 
+            StormGiants = new Race("Storm Giants", null);
+            StormGiants.isSubRace = true;
+            StormGiants.MainRace = Giants;
+            StormGiants.Type = SpeciesType.Humanoid;
+            StormGiants.Habitat = RacialHabitat.Terranean;
+            StormGiants.Lifespan = RacialLifespan.Enduring;
+            StormGiants.PhysicalTraits.Add(PhysicalTrait.Strong);
+            StormGiants.PreferredTerrain.Add(RacialPreferredHabitatTerrain.MountainDwellers);
+
             Giants.PossibleSubRaces.Add(HillGiants);
+        }
+
+        static private void defineOrcishRaces()
+        {
+            Orcs = new Race("Orcs", null);
+            Orcs.Type = SpeciesType.Humanoid;
+            Orcs.Habitat = RacialHabitat.Terranean;
+            Orcs.Lifespan = RacialLifespan.Average;
+            Orcs.PhysicalTraits.Add(PhysicalTrait.Strong);
         }
     }
 }

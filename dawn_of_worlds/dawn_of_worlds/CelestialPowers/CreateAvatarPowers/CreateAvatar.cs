@@ -135,6 +135,12 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             if (creator.Domains.Contains(Domain.Creation))
                 weight += Constants.WEIGHT_STANDARD_CHANGE;
 
+            if (_type == AvatarType.LegendaryBeast && _race.Type == SpeciesType.Dragonoid)
+                weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+
+            if (_type == AvatarType.LegendaryBeast && _race.Type == SpeciesType.Humanoid)
+                weight -= Constants.WEIGHT_STANDARD_CHANGE * 2;
+
             return weight >= 0 ? weight : 0;
         }
 
