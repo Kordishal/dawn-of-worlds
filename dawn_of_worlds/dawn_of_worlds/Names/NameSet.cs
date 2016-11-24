@@ -21,5 +21,10 @@ namespace dawn_of_worlds.Names
             Names = new List<List<string>>();
             Templates = new List<string>();
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

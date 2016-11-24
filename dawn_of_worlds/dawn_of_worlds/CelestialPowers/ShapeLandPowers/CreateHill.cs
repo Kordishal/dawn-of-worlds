@@ -78,7 +78,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            hill.Name = "Hill with " + Enum.GetName(typeof(BiomeType), hill.BiomeType);
+            hill.Name = Constants.Names.GetName("hills");
 
             // Add mountain to area lists.
             _location.HillRanges.Hills.Add(hill);

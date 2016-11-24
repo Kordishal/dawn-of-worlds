@@ -68,7 +68,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;           
             }
 
-            mountain.Name = "Mount Albert with " + Enum.GetName(typeof(BiomeType), mountain.BiomeType);
+            mountain.Name = Constants.Names.GetName("mountains");
 
             // Add mountain to area lists.
             _location.MountainRanges.Mountains.Add(mountain);

@@ -1,2 +1,16 @@
 english
-world_names
+world
+region
+area
+deities
+caves
+mountains
+deserts
+forests
+grasslands
+hills
+rivers
+lakes
+hill_ranges
+mountain_ranges
+religions

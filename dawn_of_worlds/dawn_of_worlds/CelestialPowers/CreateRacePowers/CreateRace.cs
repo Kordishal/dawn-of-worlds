@@ -226,6 +226,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                 _created_race.MainRace.SubRaces.Add(_created_race);
             }
 
+            current_world.Races.Add(_created_race);
             creator.LastCreation = _created_race;
         }
 

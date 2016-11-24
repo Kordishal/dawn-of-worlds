@@ -1,0 +1,15 @@
+﻿mountain_ranges = {
+
+	templates = {
+		"<first_names> Mountains"
+		"The <second_names>"
+	}
+
+	first_names = {
+		Appalachian Rocky Himalaya
+	}
+
+	second_names = {
+		Alpes Carpades Andes
+	}
+}

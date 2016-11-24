@@ -1,0 +1,10 @@
+﻿hills = {
+	templates = {
+		"<hill> Hill"
+	}
+
+	hill = {
+		Flat 
+	}
+
+}

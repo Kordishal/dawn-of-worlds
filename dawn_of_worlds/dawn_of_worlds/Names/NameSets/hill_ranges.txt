@@ -1,0 +1,15 @@
+﻿hill_ranges = {
+	templates = {
+		"<hill_range> Hills"
+		"<second_hill_range>"
+	}
+
+	hill_range = {
+		Bobble
+	}
+
+	second_hill_range = {
+		Jura
+	}
+
+}

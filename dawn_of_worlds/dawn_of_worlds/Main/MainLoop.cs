@@ -19,15 +19,13 @@ namespace dawn_of_worlds.Main
 
         public ActionLog Log { get; set; }
         public World MainWorld { get; set; }
-        public NameGenerator MainNameGenerator { get; set; }
-
 
         public MainLoop() { }
 
         public void Initialize()
         {
-            MainNameGenerator = new NameGenerator();
-            MainWorld = new World(MainNameGenerator.GetName("world_names"), 5, 5);
+            Constants.Names = new NameGenerator();
+            MainWorld = new World(Constants.Names.GetName("world_names"), 5, 5);
             Log = new ActionLog();                    
         }
 

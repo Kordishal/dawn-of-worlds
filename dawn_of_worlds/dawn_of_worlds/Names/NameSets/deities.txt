@@ -1,0 +1,18 @@
+﻿deities = {
+
+	templates = {
+		"<egyptian_deity>"
+	}
+
+	egyptian_deity = {
+		Aker Am-Heh Amenhotep Ammit Amun Amunet Anat Anhur Anput Anti Anubis Anuket Apedemak Apep Apis 
+		Arensnuphis Ash Astarte Aten Atum Ba-Pef Baal Baalat Babi Banebdjedet Bast Bat Bennu Bes Buchis
+		Dedun Geb Ha Hapi Hathor Hatmehit Hedetet Heh Heka Heket Heryshaf Hesat Horus Hu Iah Iat Ihy
+		Imentet Imhotep Ishtar Isis Iusaaset Khepri Kherty Khnum Khonsu Maahes Maat Mafdet Mandulis
+		Mehen Mehet-Weret Mehit Menhit Meretseger Meskhenet Min Mnevis Montu Mut Nebethetepet Nefertum
+		Nehebu-Kau Nehmetawy Neith Nekhbet Neper Nephthys Nu Nut Osiris Pakhet Ptah Qetesh Ra Raet-Tawy
+		Renenutet Renpet Reshep Satet Seker Sekhmet Serapis Serket Seshat Set Shai Shed Shesmetet Shezmu
+		Shu Sia Sobek Sopdet Sopdu Ta-Bitjet Tatenen Taweret Tefnut Tenenet Thoth Tutu Unut Wadj-Wer Wadjet
+		Weneg Wepwawet Werethekau Wosret Yam
+	}
+}

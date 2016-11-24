@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dawn_of_worlds.Names;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace dawn_of_worlds.Main
     class Constants
     {
         static public Random RND = new Random(100);
+
+        public static NameGenerator Names { get; set; }
 
         public const int AREA_GRID_X = 5;
         public const int AREA_GRID_Y = 5;

@@ -42,7 +42,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override void Effect(World current_world, Deity creator, int current_age)
         {
             // Create the lake
-            Lake lake = new Lake("PlaceHolder", _location, creator);
+            Lake lake = new Lake(Constants.Names.GetName("lakes"), _location, creator);
             lake.BiomeType = BiomeType.PermanentFreshWaterLake;
 
             // Choose random river which the lake is connected to.

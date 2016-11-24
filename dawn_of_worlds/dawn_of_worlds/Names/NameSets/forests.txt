@@ -1,0 +1,11 @@
+﻿forests = {
+	templates = {
+		"The <forest> Woods"
+		"The <forest> Forest"
+	}
+
+	forest = {
+		Dark Light Eastern Southern Northern Birch Rainy Silent
+	}
+
+}

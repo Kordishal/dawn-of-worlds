@@ -57,7 +57,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            cave.Name = Enum.GetName(typeof(BiomeType), cave.BiomeType) + _location.Name;
+            cave.Name = Constants.Names.GetName("caves");
 
             // Add forest to the area lists.
             _location.Caves.Add(cave);

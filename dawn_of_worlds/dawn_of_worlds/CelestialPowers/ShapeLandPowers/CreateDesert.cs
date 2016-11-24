@@ -41,7 +41,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Desert desert = new Desert("PlaceHolder", _location, creator);
+            Desert desert = new Desert(Constants.Names.GetName("deserts"), _location, creator);
 
             int chance = Main.Constants.RND.Next(100);
             switch (_location.AreaClimate)
@@ -65,8 +65,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     desert.BiomeType = BiomeType.HotDesert;
                     break;
             }
-
-            desert.Name = Enum.GetName(typeof(BiomeType), desert.BiomeType) + _location.Name;
 
             // Add forest to the area lists.
             _location.Deserts.Add(desert);

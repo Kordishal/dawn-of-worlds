@@ -1,0 +1,29 @@
+﻿religions = {
+	templates = {
+		"<community> of <concept>"
+		"<community> of <group>"
+		"<community> of <deity>"
+		"<community> of <domain>" 
+	}
+
+	community = {
+		Children Cult Creed Church Faith Fellowship Brotherhood Sisterhood Followers Commune Communion 
+		Fellows Congregation Paragons Order Angels Band "The Chosen Ones" Healers Gathering Oracles Wanderers Sect 
+	}
+
+	concept = {
+		Fortune Light Darkness 
+	}
+
+	group = {
+		"the White Wolf" "the Alpha" "our New Lord"
+	}
+
+	domain = {
+	
+	}
+
+	deity = {
+	
+	}
+}

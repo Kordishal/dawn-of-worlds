@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dawn_of_worlds.Main;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public Region(World world, int num_areas)
         {
+            Name = Constants.Names.GetName("region");
             RegionWorld = world;
             RegionAreas = new List<Area>();
             Landmass = Main.Constants.RND.Next(20) < 15 ? true : false;

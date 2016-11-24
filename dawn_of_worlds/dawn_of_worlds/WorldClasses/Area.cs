@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Main;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public Area(Region region)
         {
-            Name = id.ToString();
+            Name = Constants.Names.GetName("area");
             id += 1;
             AreaRegion = region;
             Terrain = new List<Terrain>();

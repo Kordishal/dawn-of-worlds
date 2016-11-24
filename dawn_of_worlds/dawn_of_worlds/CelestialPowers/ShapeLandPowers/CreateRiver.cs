@@ -38,7 +38,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override void Effect(World current_world, Deity creator, int current_age)
         {
             // Create the river
-            River river = new River("PlaceHolder", _location, creator);
+            River river = new River(Constants.Names.GetName("rivers"), _location, creator);
             river.BiomeType = BiomeType.PermanentRiver;
             river.Spring = _location.MountainRanges;
             river.Riverbed.Add(river.Spring.Location);

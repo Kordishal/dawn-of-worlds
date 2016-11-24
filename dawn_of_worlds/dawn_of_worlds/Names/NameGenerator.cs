@@ -27,13 +27,11 @@ namespace dawn_of_worlds.Names
                     string template = set.Templates[Constants.RND.Next(set.Templates.Count)];
                     template = template.Substring(1, template.Length - 2);
 
-                    while (Regex.Match(template, @"<[a-z_\\]*>").Success)
+                    foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
                     {
-                        foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
-                        {
-                            template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
-                        }
+                        template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
                     }
+                    
 
                     name = template;
                     break;

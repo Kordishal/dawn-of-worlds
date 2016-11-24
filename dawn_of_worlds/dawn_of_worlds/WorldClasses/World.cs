@@ -2,6 +2,7 @@
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Main;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -227,7 +228,7 @@ namespace dawn_of_worlds.WorldClasses
         {
             for (int i = 0; i < 5; i++)
             {
-                Deities.Add(new Deity("Deity " + i, this));
+                Deities.Add(new Deity(Constants.Names.GetName("deities"), this));
             }
 
 

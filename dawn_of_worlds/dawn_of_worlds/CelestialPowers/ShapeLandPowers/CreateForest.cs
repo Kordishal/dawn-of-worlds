@@ -46,7 +46,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            forest.Name = Enum.GetName(typeof(BiomeType), forest.BiomeType) + _location.Name;
+            forest.Name = Constants.Names.GetName("forests");
 
             // Add forest to the area lists.
             _location.Forests.Add(forest);

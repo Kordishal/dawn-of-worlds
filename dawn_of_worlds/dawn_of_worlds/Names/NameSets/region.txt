@@ -1,0 +1,15 @@
+﻿region = {
+	templates = {
+		"<region>"
+		"<cardinal_direction> <region>"
+	}
+
+	region = {
+		 Drahul Etira Brihea Vriwoa Iachath Wuawend Eipecos Lolailux Eukuvus Cepladros
+	}
+
+	cardinal_direction = {
+		Southern Northern Western Eastern
+	}
+
+}

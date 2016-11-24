@@ -49,7 +49,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Order created_order = new Order("Order of " + Enum.GetName(typeof(OrderPurpose), _purpose), creator, _type, _purpose);
+            Order created_order = new Order("PlaceHolder", creator, _type, _purpose);
             creator.CreatedOrders.Add(created_order);
             current_world.Orders.Add(created_order);
 
@@ -84,11 +84,24 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
                 }
             }
 
-            created_order.Name = created_order.Type.ToString() + " of " + created_order.Purpose.ToString() + " for ";
-            if (created_order.isNationalOrder)
-                created_order.Name += created_order.OrderNation.Name;
+            created_order.Name = "";
             if (created_order.hasRaceRestriction)
-                created_order.Name += created_order.OrderRace.Name;
+            {
+                created_order.Name += created_order.OrderRace.Name + " ";
+            }
+            created_order.Name += created_order.Type.ToString() + " of ";
+            switch (created_order.Purpose)
+            {
+                case OrderPurpose.FounderWorship:
+                    created_order.Name += creator.Name;
+                    break;
+            }
+
+            if (created_order.isNationalOrder)
+            {
+                created_order.Name += " in " + created_order.OrderNation.Name;
+            }
+           
             creator.LastCreation = created_order;
         }
 

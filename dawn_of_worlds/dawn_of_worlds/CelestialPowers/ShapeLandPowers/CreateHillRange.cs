@@ -36,7 +36,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override void Effect(World current_world, Deity creator, int current_age)
         {
             // Create the mountainrange.
-            HillRange hill_range = new HillRange("Hill Range " + _location.Name, _location, creator);
+            HillRange hill_range = new HillRange(Constants.Names.GetName("hill_ranges"), _location, creator);
 
             // Add mountain range as area mountain range
             _location.HillRanges = hill_range;
