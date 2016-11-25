@@ -93,6 +93,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
     {
         Humanoid,
         Dragonoid,
+        Beasts,
     }
 
     enum RacialHabitat
@@ -142,7 +143,9 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
     enum SocialCulturalCharacteristic
     {
+        Territorial,
         Communal,
+        Tribal,
         Nomadic,
         Sedentary,
     }
