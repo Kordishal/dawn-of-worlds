@@ -16,11 +16,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
             // can't be created in oceans
-            if (!_location.AreaRegion.Landmass)
+            if (_location.Type == TerrainType.Ocean)
                 return false;
 
             // Can't be created without a river.
-            if (_location.Rivers.Count == 0)
+            if (!_location.hasRivers)
                 return false;
 
             return true;
@@ -46,25 +46,25 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             lake.BiomeType = BiomeType.PermanentFreshWaterLake;
 
             // Choose random river which the lake is connected to.
-            River river = _location.Rivers[Main.Constants.RND.Next(_location.Rivers.Count)];
+            List<TerrainFeatures> rivers = _location.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(River));
+            River river = (River)rivers[Constants.RND.Next(rivers.Count)];
+
             river.ConnectedLakes.Add(lake);
             lake.SourceRivers.Add(river);
             lake.OutGoingRiver = river;
 
-            // Add lake to area lists
-            _location.Lakes.Add(lake);
-            _location.Terrain.Add(lake);
+            _location.SecondaryTerrainFeatures.Add(lake);
             _location.UnclaimedTerritory.Add(lake);
 
             // Add lake to deity lists
-            creator.Creations.Add(lake);
+            creator.TerrainFeatures.Add(lake);
             creator.LastCreation = lake;          
         }
 
 
-        public CreateLake(Area location) : base (location)
+        public CreateLake(Terrain location) : base (location)
         {
-            Name = "Create Lake " + location.Name;
+            Name = "Create Lake in Terrain " + location.Name;
         }
     }
 }

@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class Terrain : Creation
+    class TerrainFeatures : Creation
     {
         public Nation Owner { get; set; }
 
         public City City { get; set; }
         public City SphereOfInfluenceCity { get; set; }
 
-        public Area Location { get; set; }
+        public Terrain Location { get; set; }
 
         public BiomeType BiomeType { get; set; }
 
-        public Terrain(string name, Area location, Deity creator) : base(name, creator)
+        public TerrainFeatures(string name, Terrain location, Deity creator) : base(name, creator)
         {
             Location = location;
         }

@@ -8,12 +8,12 @@ using dawn_of_worlds.WorldClasses;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class HillRange : Terrain
+    class HillRange : TerrainFeatures
     {
 
         public List<Hill> Hills { get; set; }
 
-        public HillRange(string name, Area location, Deity creator) : base(name, location, creator)
+        public HillRange(string name, Terrain location, Deity creator) : base(name, location, creator)
         {
             Hills = new List<Hill>();
         }

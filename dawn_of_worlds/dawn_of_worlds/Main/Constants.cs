@@ -16,6 +16,9 @@ namespace dawn_of_worlds.Main
         public const int AREA_GRID_X = 5;
         public const int AREA_GRID_Y = 5;
 
+        public const int TERRAIN_GRID_X = 25;
+        public const int TERRAIN_GRID_Y = 25;
+
         // Anything that costs less than this gets a bonus, anything that costs more than this gets a penalty.
         public const int WEIGHT_COST_DEVIATION_MEDIUM = 10;
 

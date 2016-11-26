@@ -15,11 +15,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
             // can't be created in oceans
-            if (!_location.AreaRegion.Landmass)
+            if (_location.Type == TerrainType.Ocean)
                 return false;
 
-            // Only one mountain range per area.
-            if (_location.MountainRanges != null)
+            // can only be used when the primary terrain feature is not yet defined.
+            if (_location.PrimaryTerrainFeature != null)
                 return false;
 
             return true;
@@ -38,20 +38,19 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            // Create the mountainrange.
+            // Create the mountain range.
             MountainRange mountain_range = new MountainRange(Constants.Names.GetName("mountain_ranges"), _location, creator);
-            
-            // Add mountain range as area mountain range
-            _location.MountainRanges = mountain_range;
+            _location.Type = TerrainType.MountainRange;
+            _location.PrimaryTerrainFeature = mountain_range;
 
             // Add mountain range to deity
-            creator.Creations.Add(mountain_range);
+            creator.TerrainFeatures.Add(mountain_range);
             creator.LastCreation = mountain_range;
         }
 
-        public CreateMountainRange(Area location) : base (location)
+        public CreateMountainRange(Terrain location) : base (location)
         {
-            Name = "Create Mountain Range in Area " + location.Name;
+            Name = "Create Mountain Range in Location " + location.Name;
         }
     }
 }

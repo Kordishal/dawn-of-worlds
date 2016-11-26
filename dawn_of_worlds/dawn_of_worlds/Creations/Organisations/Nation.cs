@@ -13,9 +13,11 @@ namespace dawn_of_worlds.Creations.Organisations
 {
     class Nation : Creation
     {
+        public NationTypes Type { get; set; }
 
         // Inhabitants
-        public Race FoundingRace { get; set; }
+        public Race FoundingRace { get { return InhabitantRaces[0]; } }
+        public List<Race> InhabitantRaces { get; set; }
         public Avatar Leader { get; set; }
         public List<Avatar> Subjects { get; set; }
 
@@ -30,13 +32,28 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<City> Cities { get; set; }
 
         // Territory
-        public List<Area> TerritoryAreas { get; set; }
+        public List<Terrain> TerrainTerritory { get; set; }
+        public List<TerrainFeatures> Territory { get; set; }
 
         // Conflict 
         public bool isDestroyed { get; set; }
         public List<Army> Armies { get; set; }
 
         // Diplomacy
+        public List<Relations> Relationships { get; set; }
+        public bool isAtWar
+        {
+            get
+            {
+                foreach (Relations relation in Relationships)
+                {
+                    if (relation.Status == RelationStatus.AtWar)
+                        return true;
+                }
+                return false;
+            }
+        }
+
         public List<Nation> AlliedNations { get; set; }
         public List<War> Wars { get; set; }
 
@@ -56,11 +73,6 @@ namespace dawn_of_worlds.Creations.Organisations
         public void DestroyNation()
         {
             isDestroyed = true;
-
-            foreach (Area a in TerritoryAreas)
-            {
-                a.Nations.Remove(this);
-            }
 
             foreach (Army a in Armies)
             {
@@ -87,7 +99,7 @@ namespace dawn_of_worlds.Creations.Organisations
                         defender.Wars.Remove(war);
                     }
 
-                    this.TerritoryAreas[0].AreaRegion.RegionWorld.OngoingWars.Remove(war);
+                    this.Territory[0].Location.Area.RegionArea.RegionWorld.OngoingWars.Remove(war);
                     war = null;
                 } // an attacker or defender ally is simply removed from the war.
                 else if (Wars[i].Attackers.Contains(this))
@@ -106,16 +118,27 @@ namespace dawn_of_worlds.Creations.Organisations
 
         public Nation(string name, Deity creator) :base(name, creator)
         {
+            InhabitantRaces = new List<Race>();
             Subjects = new List<Avatar>();
             Cities = new List<City>();
-            TerritoryAreas = new List<Area>();            
+            TerrainTerritory = new List<Terrain>();
+            Territory = new List<TerrainFeatures>();            
             Armies = new List<Army>();
+            Relationships = new List<Relations>();
             AlliedNations = new List<Nation>();
             Wars = new List<War>();
             NationalOrders = new List<Order>();
             Tags = new List<NationalTags>();
             isDestroyed = false;       
         }
+    }
+
+    enum NationTypes
+    {
+        LairTerritory,
+        NomadicTribe,
+        TribalNation,
+        FeudalNation,
     }
 
     enum NationalTags

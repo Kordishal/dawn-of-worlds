@@ -11,122 +11,61 @@ using dawn_of_worlds.CelestialPowers.CommandRacePowers;
 using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
 using dawn_of_worlds.CelestialPowers.EventPowers.RacialEvents;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Creations.Geography;
 
 namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 {
     class CreateRace : Power
     {
         private Race _created_race { get; set; }
-        private List<WeightedArea> _possible_areas { get; set; }
-        private void determinePossibleAreas(World current_world)
+        private Terrain _terrain { get; set; }
+        private bool neighbourTerrainHasMainRace(World current_world)
         {
-            _possible_areas = new List<WeightedArea>();
-
-            foreach (Area area in current_world.AreaGrid)
+            for (int i = 0; i < 8; i++)
             {
-                // if this is a subrace
-                // Exclude all areas where the main race is not present or neighbouring
-                if (_created_race.isSubRace)
-                    if (!area.Inhabitants.Contains(_created_race.MainRace) && !neighbourAreaHasMainRace(area.Neighbours))
-                        continue;
+                SystemCoordinates coords = _terrain.Coordinates.GetNeighbour(i);
 
-                // Aquatic, exclude all areas, which do not have water to live in.
-                if (_created_race.Habitat == RacialHabitat.Aquatic)
-                    if (area.AreaRegion.Landmass && area.Rivers.Count == 0 && area.Lakes.Count == 0)
-                        continue;
-
-                // Subterranean, exlude all areas, which do not have an underworld or caves.
-                if (_created_race.Habitat == RacialHabitat.Subterranean)
-                    if (area.Caves.Count == 0)
-                        continue;
-
-                // Terranean, exclude all areas which do not include a landmass to live on
-                if (_created_race.Habitat == RacialHabitat.Terranean)
-                    if (!area.AreaRegion.Landmass)
-                        continue;
-
-                // Add the remaining areas and weight them with preferred terrain & climate traits
-                WeightedArea weighted_area = new WeightedArea(area);
-                weighted_area.Weight += 5;
-
-                foreach (RacialPreferredHabitatTerrain terrain in _created_race.PreferredTerrain)
+                if (coords.X >= 0 && coords.Y >= 0 && coords.X < Constants.TERRAIN_GRID_X && coords.Y < Constants.TERRAIN_GRID_Y)
                 {
-                    switch (terrain)
-                    {
-                        case RacialPreferredHabitatTerrain.CaveDwellers:
-                            if (area.Caves.Count > 0)
-                                weighted_area.Weight += area.Caves.Count * 10;
-                            break;
-                        case RacialPreferredHabitatTerrain.DesertDwellers:
-                            if (area.Deserts.Count > 0)
-                                weighted_area.Weight += area.Deserts.Count * 10;
-                            break;
-                        case RacialPreferredHabitatTerrain.ForestDwellers:
-                            if (area.Forests.Count > 0)
-                                weighted_area.Weight += area.Forests.Count * 10;
-                            break;
-                        case RacialPreferredHabitatTerrain.HillDwellers:
-                            if (area.HillRanges != null)
-                                weighted_area.Weight += area.HillRanges.Hills.Count * 10;
-                            break;
-                        case RacialPreferredHabitatTerrain.MountainDwellers:
-                            if (area.MountainRanges != null)
-                                weighted_area.Weight += area.MountainRanges.Mountains.Count * 10;
-                            break;
-                        case RacialPreferredHabitatTerrain.PlainDwellers:
-                            if (area.Grasslands.Count > 0)
-                                weighted_area.Weight += area.Grasslands.Count * 10;
-                            break;
-                    }
-                }
-
-                foreach (RacialPreferredHabitatClimate climate in _created_race.PreferredClimate)
-                {
-                    switch (climate)
-                    {
-                        case RacialPreferredHabitatClimate.ColdAcclimated:
-                            if (area.AreaClimate == Climate.Arctic || area.AreaClimate == Climate.SubArctic)
-                                weighted_area.Weight += 200;
-                            break;
-                        case RacialPreferredHabitatClimate.HeatAcclimated:
-                            if (area.AreaClimate == Climate.Tropical || area.AreaClimate == Climate.SubTropical)
-                                weighted_area.Weight += 200;
-                            break;
-                        case RacialPreferredHabitatClimate.TemperateAcclimated:
-                            if (area.AreaClimate == Climate.Temperate)
-                                weighted_area.Weight += 200;
-                            break;
-                    }
-                }
-
-                _possible_areas.Add(weighted_area);
-            }
-        }
-        private bool neighbourAreaHasMainRace(Area[] neighbours)
-        {
-            foreach (Area area in neighbours)
-            {
-                if (area != null)
-                {
-                    if (area.Inhabitants.Contains(_created_race.MainRace))
+                    if (current_world.TerrainGrid[coords.X, coords.Y].SettledRaces.Contains(_created_race.MainRace))
                         return true;
                 }
             }
             return false;
         }
+
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // No longer valid once unsed.
+            // No longer valid once used.
             if (isObsolete)
+                return false;
+
+            if (_terrain.PrimaryTerrainFeature == null)
                 return false;
 
             if (_created_race.isSubRace && _created_race.MainRace.Creator == null)
                 return false;
 
-            determinePossibleAreas(current_world);
+            // if this is a subrace
+            // Exclude all areas where the main race is not present or neighbouring
+            if (_created_race.isSubRace)
+                if (!_terrain.SettledRaces.Contains(_created_race.MainRace) || !neighbourTerrainHasMainRace(current_world))
+                    return false;
 
-            if (_possible_areas.Count == 0)
-                return false;
+            // Aquatic, exclude all areas, which do not have water to live in.
+            if (_created_race.Habitat == RacialHabitat.Aquatic)
+                if (!(_terrain.Type == TerrainType.Ocean) && !(_terrain.SecondaryTerrainFeatures.Exists(x => x.GetType() == typeof(Lake))))
+                    return false;
+
+            // Subterranean, exlude all areas, which do not have an underworld or caves.
+            if (_created_race.Habitat == RacialHabitat.Subterranean)
+                if (!_terrain.SecondaryTerrainFeatures.Exists(x => x.GetType() == typeof(Cave)))
+                    return false;
+
+            // Terranean, exclude all areas which do not include a landmass to live on
+            if (_created_race.Habitat == RacialHabitat.Terranean)
+                if (_terrain.Type == TerrainType.Ocean)
+                    return false;
 
             return true;
         }
@@ -164,28 +103,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
         }
 
         public override void Effect(World current_world, Deity creator, int current_age)
-        {
-            determinePossibleAreas(current_world);
-
-            int total_weight = 0;
-            foreach (WeightedArea area in _possible_areas)
-            {
-                total_weight += area.Weight;
-            }
-
-            Area location = null;
-            int chance = Constants.RND.Next(total_weight);
-            int prev_weight = 0, current_weight = 0;
-            foreach (WeightedArea area in _possible_areas)
-            {
-                current_weight += area.Weight;
-                if (prev_weight <= chance && chance < current_weight)
-                {
-                    location = area.Area;
-                }
-                prev_weight = current_weight;
-            }
-                    
+        {                
             // Each race has an order dedicated to worship their creator.
             Order creator_worhip_order = new Order("PlaceHolder", creator, OrderType.Church, OrderPurpose.FounderWorship);
             creator_worhip_order.OrderRace = _created_race;
@@ -196,17 +114,20 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             _created_race.OriginOrder = creator_worhip_order;
 
             // The created race is settled 
-            _created_race.HomeArea = location;
-            _created_race.SettledAreas.Add(location);
+            _created_race.HomeTerrain = _terrain;
+            _created_race.SettledTerrains.Add(_terrain);
                     
             // Tells the Area that someone is living here.
-            location.Inhabitants.Add(_created_race);
+            _terrain.SettledRaces.Add(_created_race);
 
             // Tells the creator what they have created and adds the powers to command this race.
             creator.CreatedRaces.Add(_created_race);
             creator.CreatedOrders.Add(creator_worhip_order);
 
-            creator.Powers.Add(new SettleArea(_created_race));
+            foreach (Terrain terrain in current_world.TerrainGrid)
+            {
+                creator.Powers.Add(new SettleTerrain(_created_race, terrain));
+            }        
             creator.Powers.Add(new FoundNation(_created_race));
 
             foreach (Deity deity in current_world.Deities)
@@ -227,6 +148,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                 _created_race.MainRace.SubRaces.Add(_created_race);
             }
 
+            // Add the race to the world overview.
             current_world.Races.Add(_created_race);
             creator.LastCreation = _created_race;
         }
@@ -261,16 +183,68 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             if (creator.Domains.Contains(Domain.Creation))
                 weight += Constants.WEIGHT_STANDARD_CHANGE;
 
+            foreach (RacialPreferredHabitatTerrain terrain in _created_race.PreferredTerrain)
+            {
+                switch (terrain)
+                {
+                    case RacialPreferredHabitatTerrain.CaveDwellers:
+                        if (_terrain.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Cave)).Count > 0)
+                            weight += _terrain.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Cave)).Count * 10;
+                        break;
+                    case RacialPreferredHabitatTerrain.DesertDwellers:
+                        if (_terrain.PrimaryTerrainFeature.GetType() == typeof(Desert))
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                    case RacialPreferredHabitatTerrain.ForestDwellers:
+                        if (_terrain.PrimaryTerrainFeature.GetType() == typeof(Forest))
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                    case RacialPreferredHabitatTerrain.HillDwellers:
+                        if (_terrain.Type == TerrainType.HillRange)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                    case RacialPreferredHabitatTerrain.MountainDwellers:
+                        if (_terrain.Type == TerrainType.MountainRange)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                    case RacialPreferredHabitatTerrain.PlainDwellers:
+                        if (_terrain.Type == TerrainType.Plain)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                }
+            }
+
+            foreach (RacialPreferredHabitatClimate climate in _created_race.PreferredClimate)
+            {
+                switch (climate)
+                {
+                    case RacialPreferredHabitatClimate.ColdAcclimated:
+                        if (_terrain.Area.ClimateArea == Climate.Arctic || _terrain.Area.ClimateArea == Climate.SubArctic)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                        break;
+                    case RacialPreferredHabitatClimate.HeatAcclimated:
+                        if (_terrain.Area.ClimateArea == Climate.Tropical || _terrain.Area.ClimateArea == Climate.SubTropical)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                        break;
+                    case RacialPreferredHabitatClimate.TemperateAcclimated:
+                        if (_terrain.Area.ClimateArea == Climate.Temperate)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                        break;
+                }
+            }
+
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateRace(Race created_race)
+        public CreateRace(Race created_race, Terrain terrain)
         {
             if (created_race.isSubRace)
                 Name = "Create SubRace: " + created_race.Name;
             else
                 Name = "Create Race: " + created_race.Name;
             _created_race = created_race;
+            _terrain = terrain;
+
         }
     }
 }

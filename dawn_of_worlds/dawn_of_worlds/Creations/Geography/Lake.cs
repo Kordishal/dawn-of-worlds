@@ -8,14 +8,14 @@ using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class Lake : Terrain
+    class Lake : TerrainFeatures
     {
 
         public River OutGoingRiver { get; set; }
 
         public List<River> SourceRivers { get; set; }
 
-        public Lake(string name, Area location, Deity creator) : base(name, location, creator)
+        public Lake(string name, Terrain location, Deity creator) : base(name, location, creator)
         {
             SourceRivers = new List<River>();
         }

@@ -8,9 +8,9 @@ using dawn_of_worlds.WorldClasses;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class Cave : Terrain
+    class Cave : TerrainFeatures
     {
-        public Cave(string name, Area location, Deity creator) : base(name, location, creator)
+        public Cave(string name, Terrain location, Deity creator) : base(name, location, creator)
         {
         }
     }

@@ -8,9 +8,9 @@ using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class Forest : Terrain
+    class Forest : TerrainFeatures
     {
-        public Forest(string name, Area location, Deity creator) : base(name, location, creator)
+        public Forest(string name, Terrain location, Deity creator) : base(name, location, creator)
         {
         }
     }

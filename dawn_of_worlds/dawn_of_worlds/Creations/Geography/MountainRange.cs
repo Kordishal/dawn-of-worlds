@@ -8,12 +8,12 @@ using dawn_of_worlds.Actors;
 
 namespace dawn_of_worlds.Creations.Geography
 {
-    class MountainRange : Terrain
+    class MountainRange : TerrainFeatures
     {
 
         public List<Mountain> Mountains { get; set; }
 
-        public MountainRange(string name, Area location, Deity creator) : base(name, location, creator)
+        public MountainRange(string name, Terrain location, Deity creator) : base(name, location, creator)
         {
             Mountains = new List<Mountain>();
 

@@ -46,12 +46,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             if (isObsolete)
                 return false;
 
-            foreach (Area a in _commanded_nation.TerritoryAreas)
+            foreach (TerrainFeatures terrain_features in _commanded_nation.Territory)
             {
-                if (a.UnclaimedTerritory.Count > 0)
-                {
+                if (terrain_features.City == null)
                     return true;
-                }
             }
 
             return false;
@@ -60,39 +58,28 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Terrain location = null;
-            List<Terrain> unclaimed_territory = new List<Terrain>();
+            TerrainFeatures terrain_features = null;
+            List<TerrainFeatures> undeveloped_terrain_features = _commanded_nation.Territory.FindAll(x => x.City == null);
 
-            foreach (Area area in _commanded_nation.TerritoryAreas)
-            {
-                unclaimed_territory.AddRange(area.UnclaimedTerritory);
-            }
-
-            // Search for a valid city location. Each terrain can have one city.
-            while (location == null)
-            {
-                location = unclaimed_territory[Main.Constants.RND.Next(unclaimed_territory.Count)];
-
-                if (location.City != null)
-                    location = null;
-            }
+            // Choose the city location at random.
+            terrain_features = undeveloped_terrain_features[Constants.RND.Next(undeveloped_terrain_features.Count)];
+            
 
             // The city is created and placed in the world. The nation is defined as the city owner.
-            City founded_city = new City("City of the " + _commanded_nation.FoundingRace + " in Area " + location.Location.Name, creator);
-            founded_city.CityLocation = location;
-            founded_city.CitySphereOfÌnfluence.Add(location);
+            City founded_city = new City("City of the " + _commanded_nation.FoundingRace + " in Area " + terrain_features.Location.Name, creator);
+            founded_city.CityLocation = terrain_features;
+            founded_city.CitySphereOfÌnfluence.Add(terrain_features);
             founded_city.Owner = _commanded_nation;
 
             // Tell the location, that it now has a city.
-            location.City = founded_city;
-            location.Location.UnclaimedTerritory.Remove(location);
+            terrain_features.City = founded_city;
+            terrain_features.Location.UnclaimedTerritory.Remove(terrain_features);
 
             // add the city to the list of cities owned by the nation.
             _commanded_nation.Cities.Add(founded_city);
 
             // Add city related powers and the creator
             creator.FoundedCities.Add(founded_city);
-            creator.Powers.Add(new ExpandCityInfluence(founded_city));
             creator.Powers.Add(new RaiseArmy(founded_city));
 
             creator.LastCreation = founded_city;
@@ -101,7 +88,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public CreateCity(Nation commanded_nation) : base(commanded_nation)
         {
-            Name = "Create City: " + commanded_nation.Name + " in Area " + commanded_nation.TerritoryAreas[0].Name;
+            Name = "Create City: " + commanded_nation.Name + " in Area " + commanded_nation.Territory[0].Name;
         }
 
     }

@@ -35,16 +35,15 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
             int[] climate_count = new int[5] { 0, 0, 0, 0, 0 };
-
-            List<Area> all_neigbours = new List<Area>(_location.Neighbours);
-            all_neigbours.AddRange(_location.DiagonalNeighbours);
-
-            foreach (Area area in all_neigbours)
+            SystemCoordinates coords = null;
+            for (int i = 0; i < 8; i++)
             {
-                if (area == null) // ignore areas outside the world
+                coords = _location.Coordinates.GetNeighbour(i);
+                // ignore areas outside of the world.
+                if (coords.X >= 0 || coords.Y >= 0 || coords.X < Constants.AREA_GRID_X || coords.Y < Constants.AREA_GRID_Y)
                     continue;
 
-                switch (area.AreaClimate)
+                switch (current_world.AreaGrid[coords.X, coords.Y].ClimateArea)
                 {
                     case Climate.Arctic:
                         climate_count[0] += 1;
@@ -64,7 +63,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
                 }                    
             }
 
-            switch (_location.AreaClimate)
+            switch (_location.ClimateArea)
             {
                 case Climate.Arctic:
                     return false; // not possible to make colder
@@ -99,174 +98,176 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             int chance = Main.Constants.RND.Next(100);
 
             // Set new climate
-            switch (_location.AreaClimate)
+            switch (_location.ClimateArea)
             {
                 case Climate.Tropical:
-                    _location.AreaClimate = Climate.SubTropical;
+                    _location.ClimateArea = Climate.SubTropical;
                     break;
                 case Climate.SubTropical:
-                    _location.AreaClimate = Climate.Temperate;
+                    _location.ClimateArea = Climate.Temperate;
                     break;
                 case Climate.Temperate:
-                    _location.AreaClimate = Climate.SubArctic;
+                    _location.ClimateArea = Climate.SubArctic;
                     break;
                 case Climate.SubArctic:
-                    _location.AreaClimate = Climate.Arctic;
+                    _location.ClimateArea = Climate.Arctic;
                     break;
             }
 
-            // Change forest climate types.
-            foreach (Forest forest in _location.Forests)
+            foreach (Terrain terrain in _location.TerrainArea)
             {
-                switch (_location.AreaClimate)
+                // change forest biome type
+                if (terrain.Type == TerrainType.Plain)
                 {
-                    case Climate.SubArctic:
-                        forest.BiomeType = BiomeType.BorealForest;
-                        break;
-                    case Climate.Temperate:
-                        forest.BiomeType = BiomeType.TemperateDeciduousForest;
-                        break;
-                    case Climate.SubTropical:
-                        forest.BiomeType = BiomeType.TropicalDryForest;
-                        break;
-                    case Climate.Tropical:
-                        forest.BiomeType = BiomeType.TropicalRainforest;
-                        break;
-                }
-            }
-
-            // Change mountain biomes.
-            if (_location.MountainRanges != null)
-            {
-                foreach (Mountain mountain in _location.MountainRanges.Mountains)
-                {
-                    switch (_location.AreaClimate)
+                    if (terrain.PrimaryTerrainFeature.GetType() == typeof(Forest))
                     {
-                        case Climate.Arctic:
-                            mountain.BiomeType = BiomeType.Tundra;
-                            break;
-                        case Climate.SubArctic:
-                            if (chance < 50)
+                        switch (_location.ClimateArea)
+                        {
+                            case Climate.SubArctic:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.BorealForest;
+                                break;
+                            case Climate.Temperate:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TemperateDeciduousForest;
+                                break;
+                            case Climate.SubTropical:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalDryForest;
+                                break;
+                            case Climate.Tropical:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalRainforest;
+                                break;
+                        }
+                    }
+                    // change desert biome type
+                    else if (terrain.PrimaryTerrainFeature.GetType() == typeof(Desert))
+                    {
+                        switch (_location.ClimateArea)
+                        {
+                            case Climate.SubArctic:
+                                if (chance < 50)
+                                    terrain.PrimaryTerrainFeature.BiomeType = BiomeType.ColdDesert;
+                                else
+                                    terrain.PrimaryTerrainFeature.BiomeType = BiomeType.Tundra;
+                                break;
+                            case Climate.Temperate:
+                                if (chance < 50)
+                                    terrain.PrimaryTerrainFeature.BiomeType = BiomeType.ColdDesert;
+                                else
+                                    terrain.PrimaryTerrainFeature.BiomeType = BiomeType.HotDesert;
+                                break;
+                            case Climate.SubTropical:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.HotDesert;
+                                break;
+                            case Climate.Tropical:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.HotDesert;
+                                break;
+                        }
+                    }
+                    else if (terrain.PrimaryTerrainFeature.GetType() == typeof(Grassland))
+                    {
+                        switch (_location.ClimateArea)
+                        {
+                            case Climate.SubArctic:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.Tundra;
+                                break;
+                            case Climate.Temperate:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TemperateGrassland;
+                                break;
+                            case Climate.SubTropical:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
+                                break;
+                            case Climate.Tropical:
+                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
+                                break;
+                        }
+                    }
+                }
+
+                // change mountain biome type
+                if (terrain.Type == TerrainType.MountainRange)
+                {
+                    foreach (Mountain mountain in ((MountainRange)terrain.PrimaryTerrainFeature).Mountains)
+                    {
+                        switch (_location.ClimateArea)
+                        {
+                            case Climate.Arctic:
                                 mountain.BiomeType = BiomeType.Tundra;
-                            else
-                                mountain.BiomeType = BiomeType.BorealForest;
-                            break;
-                        case Climate.Temperate:
-                            if (chance < 50)
-                                mountain.BiomeType = BiomeType.TemperateGrassland;
-                            else
-                                mountain.BiomeType = BiomeType.TemperateDeciduousForest;
-                            break;
-                        case Climate.SubTropical:
-                            if (chance < 50)
-                                mountain.BiomeType = BiomeType.TropicalGrassland;
-                            else
-                                mountain.BiomeType = BiomeType.TropicalDryForest;
-                            break;
-                        case Climate.Tropical:
-                            if (chance < 50)
-                                mountain.BiomeType = BiomeType.TropicalGrassland;
-                            else
-                                mountain.BiomeType = BiomeType.TropicalRainforest;
-                            break;
+                                break;
+                            case Climate.SubArctic:
+                                if (chance < 50)
+                                    mountain.BiomeType = BiomeType.Tundra;
+                                else
+                                    mountain.BiomeType = BiomeType.BorealForest;
+                                break;
+                            case Climate.Temperate:
+                                if (chance < 50)
+                                    mountain.BiomeType = BiomeType.TemperateGrassland;
+                                else
+                                    mountain.BiomeType = BiomeType.TemperateDeciduousForest;
+                                break;
+                            case Climate.SubTropical:
+                                if (chance < 50)
+                                    mountain.BiomeType = BiomeType.TropicalGrassland;
+                                else
+                                    mountain.BiomeType = BiomeType.TropicalDryForest;
+                                break;
+                            case Climate.Tropical:
+                                if (chance < 50)
+                                    mountain.BiomeType = BiomeType.TropicalGrassland;
+                                else
+                                    mountain.BiomeType = BiomeType.TropicalRainforest;
+                                break;
+                        }
                     }
                 }
-            }
 
-            // change desert biome type
-            foreach (Desert desert in _location.Deserts)
-            {
-                switch (_location.AreaClimate)
+                // Change hill biome type
+                if (terrain.Type == TerrainType.HillRange)
                 {
-                    case Climate.SubArctic:
-                        if (chance < 50)
-                            desert.BiomeType = BiomeType.ColdDesert;
-                        else
-                            desert.BiomeType = BiomeType.Tundra;
-                        break;
-                    case Climate.Temperate:
-                        if (chance < 50)
-                            desert.BiomeType = BiomeType.ColdDesert;
-                        else
-                            desert.BiomeType = BiomeType.HotDesert;
-                        break;
-                    case Climate.SubTropical:
-                        desert.BiomeType = BiomeType.HotDesert;
-                        break;
-                    case Climate.Tropical:
-                        desert.BiomeType = BiomeType.HotDesert;
-                        break;
-                }
-            }
-
-            // change grassland biome type
-            foreach (Grassland grassland in _location.Grasslands)
-            {
-                switch (_location.AreaClimate)
-                {
-                    case Climate.SubArctic:
-                        grassland.BiomeType = BiomeType.Tundra;
-                        break;
-                    case Climate.Temperate:
-                        grassland.BiomeType = BiomeType.TemperateGrassland;
-                        break;
-                    case Climate.SubTropical:
-                        grassland.BiomeType = BiomeType.TropicalGrassland;
-                        break;
-                    case Climate.Tropical:
-                        grassland.BiomeType = BiomeType.TropicalGrassland;
-                        break;
-                }
-            }
-
-            // Change hill biome type
-            if (_location.HillRanges != null)
-            {
-                foreach (Hill hill in _location.HillRanges.Hills)
-                {
-                    switch (_location.AreaClimate)
+                    foreach (Hill hill in ((HillRange)terrain.PrimaryTerrainFeature).Hills)
                     {
-                        case Climate.Arctic:
-                            hill.BiomeType = BiomeType.Tundra;
-                            break;
-                        case Climate.SubArctic:
-                            if (chance < 33)
+                        switch (_location.ClimateArea)
+                        {
+                            case Climate.Arctic:
                                 hill.BiomeType = BiomeType.Tundra;
-                            else if (chance < 66)
-                                hill.BiomeType = BiomeType.ColdDesert;
-                            else
-                                hill.BiomeType = BiomeType.BorealForest;
-                            break;
-                        case Climate.Temperate:
-                            if (chance < 25)
-                                hill.BiomeType = BiomeType.TemperateGrassland;
-                            else if (chance < 50)
-                                hill.BiomeType = BiomeType.ColdDesert;
-                            else if (chance < 75)
-                                hill.BiomeType = BiomeType.HotDesert;
-                            else
-                                hill.BiomeType = BiomeType.TemperateDeciduousForest;
-                            break;
-                        case Climate.SubTropical:
-                            if (chance < 33)
-                                hill.BiomeType = BiomeType.TropicalGrassland;
-                            else if (chance < 66)
-                                hill.BiomeType = BiomeType.HotDesert;
-                            else
-                                hill.BiomeType = BiomeType.TropicalRainforest;
-                            break;
-                        case Climate.Tropical:
-                            if (chance < 33)
-                                hill.BiomeType = BiomeType.TropicalGrassland;
-                            else if (chance < 66)
-                                hill.BiomeType = BiomeType.HotDesert;
-                            else
-                                hill.BiomeType = BiomeType.TropicalRainforest;
-                            break;
+                                break;
+                            case Climate.SubArctic:
+                                if (chance < 33)
+                                    hill.BiomeType = BiomeType.Tundra;
+                                else if (chance < 66)
+                                    hill.BiomeType = BiomeType.ColdDesert;
+                                else
+                                    hill.BiomeType = BiomeType.BorealForest;
+                                break;
+                            case Climate.Temperate:
+                                if (chance < 25)
+                                    hill.BiomeType = BiomeType.TemperateGrassland;
+                                else if (chance < 50)
+                                    hill.BiomeType = BiomeType.ColdDesert;
+                                else if (chance < 75)
+                                    hill.BiomeType = BiomeType.HotDesert;
+                                else
+                                    hill.BiomeType = BiomeType.TemperateDeciduousForest;
+                                break;
+                            case Climate.SubTropical:
+                                if (chance < 33)
+                                    hill.BiomeType = BiomeType.TropicalGrassland;
+                                else if (chance < 66)
+                                    hill.BiomeType = BiomeType.HotDesert;
+                                else
+                                    hill.BiomeType = BiomeType.TropicalRainforest;
+                                break;
+                            case Climate.Tropical:
+                                if (chance < 33)
+                                    hill.BiomeType = BiomeType.TropicalGrassland;
+                                else if (chance < 66)
+                                    hill.BiomeType = BiomeType.HotDesert;
+                                else
+                                    hill.BiomeType = BiomeType.TropicalRainforest;
+                                break;
+                        }
                     }
                 }
             }
-
         }
 
         public MakeClimateColder(Area location)

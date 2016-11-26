@@ -13,12 +13,12 @@ using dawn_of_worlds.CelestialPowers.CreateOrderPowers;
 using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
 using dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Creations.Diplomacy;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
     class FoundNation : CommandRace
     {
-
         public override int Weight(World current_world, Deity creator, int current_age)
         {
             int weight = base.Weight(current_world, creator, current_age);
@@ -37,12 +37,15 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            foreach (Area a in _commanded_race.SettledAreas)
+            if (isObsolete)
+                return false;
+
+            foreach (Terrain terrain in _commanded_race.SettledTerrains)
             {
-                if (a.UnclaimedTerritory.Count > 0)
+                if (terrain.UnclaimedTerritory.Count > 0)
                 {
                     return true;
-                }
+                }           
             }
 
             return false;
@@ -52,24 +55,30 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         {
 
             // Find an area with unclaimed space of the settled areas. 
-            Area location = null;
+            Terrain location = null;
             while (location == null)
             {
-                location = _commanded_race.SettledAreas[Main.Constants.RND.Next(_commanded_race.SettledAreas.Count)];
+                location = _commanded_race.SettledTerrains[Constants.RND.Next(_commanded_race.SettledTerrains.Count)];
                 // At least one unclaimed territory necessary to found a nation.
                 if (location.UnclaimedTerritory.Count == 0)
                     location = null;
             }
 
-            // The nation to be founded.
             Nation founded_nation = new Nation("Nation of " + _commanded_race.Name, creator);
-            founded_nation.FoundingRace = _commanded_race;
+            founded_nation.InhabitantRaces.Add(_commanded_race);
+
+            // Diplomacy
+            foreach (Nation nation in current_world.Nations)
+            {
+                nation.Relationships.Add(new Relations(founded_nation));
+                founded_nation.Relationships.Add(new Relations(nation));
+            }
 
             // Decide on the territory it should be settled on. Currently random.
-            Terrain territory = null;
+            TerrainFeatures territory = null;
             while (territory == null)
             {
-                territory = location.UnclaimedTerritory[Main.Constants.RND.Next(location.UnclaimedTerritory.Count)];      
+                territory = location.UnclaimedTerritory[Constants.RND.Next(location.UnclaimedTerritory.Count)];      
             }
 
             // Mark territory as claimed.
@@ -82,7 +91,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             founded_nation.CapitalCity.Owner = founded_nation;
 
             // Add territory to founded Nation.
-            founded_nation.TerritoryAreas.Add(location);
+            founded_nation.TerrainTerritory.Add(location);
+            founded_nation.Territory.Add(territory);
 
             // Tell territory by whom it is ownd and if there is a city.
             territory.Owner = founded_nation;
@@ -100,7 +110,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             // Add nation to the creator and Powers related to this nation.
             creator.FoundedNations.Add(founded_nation);
+            creator.FoundedCities.Add(founded_nation.CapitalCity);
+            creator.CreatedOrders.Add(founded_nation.OriginOrder);
             creator.Powers.Add(new CreateCity(founded_nation));
+            creator.Powers.Add(new ExpandTerritory(founded_nation));
             creator.Powers.Add(new FormAlliance(founded_nation));
             creator.Powers.Add(new DeclareWar(founded_nation));
 
@@ -125,8 +138,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             // Add nation to world overview
             current_world.Nations.Add(founded_nation);
-            location.Nations.Add(founded_nation);
-
+            current_world.Cities.Add(founded_nation.CapitalCity);
             creator.LastCreation = founded_nation;
         }
 

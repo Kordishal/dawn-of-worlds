@@ -84,9 +84,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
             // Move the armies into the same area.
             if (!target_army.ArmyLocation.Equals(_commanded_army.ArmyLocation))
             {
-                _commanded_army.ArmyLocation.Armies.Remove(_commanded_army);
                 _commanded_army.ArmyLocation = target_army.ArmyLocation;
-                _commanded_army.ArmyLocation.Armies.Add(_commanded_army);
             }
 
 

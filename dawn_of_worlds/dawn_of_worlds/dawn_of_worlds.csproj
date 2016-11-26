@@ -68,13 +68,13 @@
     <Compile Include="CelestialPowers\CommandNationPowers\CommandNation.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CreateCity.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\DeclareWar.cs" />
-    <Compile Include="CelestialPowers\CommandCityPowers\ExpandCityInfluence.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\ExpandTerritory.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\FormAlliance.cs" />
     <Compile Include="CelestialPowers\CommandCityPowers\RaiseArmy.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\SurrenderWar.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\CommandRace.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\FoundNation.cs" />
-    <Compile Include="CelestialPowers\CommandRacePowers\SettleArea.cs" />
+    <Compile Include="CelestialPowers\CommandRacePowers\SettleTerrain.cs" />
     <Compile Include="CelestialPowers\CreateAvatarPowers\CreateAvatar.cs" />
     <Compile Include="CelestialPowers\CreateOrderPowers\CreateOrder.cs" />
     <Compile Include="CelestialPowers\EventPowers\NationalEvents\NationalEvent.cs" />
@@ -102,6 +102,7 @@
     <Compile Include="CelestialPowers\ShapeLandPowers\ShapeLand.cs" />
     <Compile Include="Creations\Conflict\Battle.cs" />
     <Compile Include="Creations\Creation.cs" />
+    <Compile Include="Creations\Diplomacy\Relations.cs" />
     <Compile Include="Creations\Diplomacy\War.cs" />
     <Compile Include="Creations\Geography\Cave.cs" />
     <Compile Include="Creations\Geography\Desert.cs" />
@@ -109,7 +110,7 @@
     <Compile Include="Creations\Geography\Grassland.cs" />
     <Compile Include="Creations\Geography\Hill.cs" />
     <Compile Include="Creations\Geography\HillRange.cs" />
-    <Compile Include="Creations\Geography\Terrain.cs" />
+    <Compile Include="Creations\Geography\TerrainFeatures.cs" />
     <Compile Include="Creations\Geography\Lake.cs" />
     <Compile Include="Creations\Geography\Mountain.cs" />
     <Compile Include="Creations\Geography\MountainRange.cs" />
@@ -141,7 +142,9 @@
     <Compile Include="SupportClasses\TokenClasses\TokenPosition.cs" />
     <Compile Include="WorldClasses\Area.cs" />
     <Compile Include="WorldClasses\Climate.cs" />
+    <Compile Include="WorldClasses\Coordinates.cs" />
     <Compile Include="WorldClasses\Region.cs" />
+    <Compile Include="WorldClasses\Terrain.cs" />
     <Compile Include="WorldClasses\World.cs" />
   </ItemGroup>
   <ItemGroup>

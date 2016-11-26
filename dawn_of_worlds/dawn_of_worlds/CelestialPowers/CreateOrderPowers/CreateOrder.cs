@@ -69,12 +69,12 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
                     _nation.NationalOrders.Add(created_order);
 
                     creator.Powers.Add(new CreateCity(_nation));
+                    creator.Powers.Add(new ExpandTerritory(_nation));
                     creator.Powers.Add(new FormAlliance(_nation));
                     creator.Powers.Add(new DeclareWar(_nation));
 
                     foreach (City city in _nation.Cities)
                     {
-                        creator.Powers.Add(new ExpandCityInfluence(city));
                         creator.Powers.Add(new RaiseArmy(city));
                     }
 

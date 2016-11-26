@@ -15,12 +15,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // no forests in oceans.
-            if (!_location.AreaRegion.Landmass)
+            // no grasslands in oceans.
+            if (_location.Type == TerrainType.Ocean)
                 return false;
 
-            // no forests in arctic regions
-            if (_location.AreaClimate == Climate.Arctic)
+            // Can't create grasslands on mountain ranges & hill ranges. Each hill/mountain has a built in biome type.
+            if (_location.Type == TerrainType.MountainRange || _location.Type == TerrainType.HillRange)
                 return false;
 
             return true;
@@ -39,17 +39,20 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateGrassland(Area location) : base(location)
+        public CreateGrassland(Terrain location) : base(location)
         {
-            Name = "Create Grassland in Area " + location.Name;
+            Name = "Create Grassland in Terrain " + location.Name;
         }
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
             Grassland grassland = new Grassland("PlaceHolder", _location, creator);
 
-            switch (_location.AreaClimate)
+            switch (_location.Area.ClimateArea)
             {
+                case Climate.Arctic:
+                    grassland.BiomeType = BiomeType.Tundra;
+                    break;
                 case Climate.SubArctic:
                     grassland.BiomeType = BiomeType.Tundra;
                     break;
@@ -65,14 +68,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             grassland.Name = Constants.Names.GetName("grasslands");
-
-            // Add forest to the area lists.
-            _location.Grasslands.Add(grassland);
-            _location.Terrain.Add(grassland);
+            _location.PrimaryTerrainFeature = grassland;
             _location.UnclaimedTerritory.Add(grassland);
 
-            // Add forest to the deity.
-            creator.Creations.Add(grassland);
+            creator.TerrainFeatures.Add(grassland);
             creator.LastCreation = grassland;
         }
     }

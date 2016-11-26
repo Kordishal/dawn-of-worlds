@@ -15,7 +15,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
             // no deserts in oceans.
-            if (!_location.AreaRegion.Landmass)
+            if (_location.Type == TerrainType.Ocean)
+                return false;
+            // not on mountains or hills
+            if (_location.Type == TerrainType.HillRange || _location.Type == TerrainType.MountainRange)
                 return false;
 
             return true;
@@ -34,17 +37,17 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateDesert(Area location) : base(location)
+        public CreateDesert(Terrain location) : base(location)
         {
-            Name = "Create Desert in Area " + location.Name;
+            Name = "Create Desert in Terrain " + location.Name;
         }
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
             Desert desert = new Desert(Constants.Names.GetName("deserts"), _location, creator);
 
-            int chance = Main.Constants.RND.Next(100);
-            switch (_location.AreaClimate)
+            int chance = Constants.RND.Next(100);
+            switch (_location.Area.ClimateArea)
             {
                 case Climate.SubArctic:
                     if (chance < 50)
@@ -66,13 +69,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            // Add forest to the area lists.
-            _location.Deserts.Add(desert);
-            _location.Terrain.Add(desert);
+            _location.PrimaryTerrainFeature = desert;
             _location.UnclaimedTerritory.Add(desert);
 
             // Add forest to the deity.
-            creator.Creations.Add(desert);
+            creator.TerrainFeatures.Add(desert);
             creator.LastCreation = desert;
         }
     }

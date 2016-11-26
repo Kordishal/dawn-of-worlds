@@ -3,6 +3,7 @@ using dawn_of_worlds.CelestialPowers.CreateRacePowers;
 using dawn_of_worlds.CelestialPowers.ShapeClimatePowers;
 using dawn_of_worlds.CelestialPowers.ShapeLandPowers;
 using dawn_of_worlds.Creations;
+using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
@@ -26,7 +27,7 @@ namespace dawn_of_worlds.Actors
 
         public Creation LastCreation { get; set; }
 
-        public List<Creation> Creations { get; set; }
+        public List<TerrainFeatures> TerrainFeatures { get; set; }
         public List<Race> CreatedRaces { get; set; }
         public List<Order> CreatedOrders { get; set; }
         public List<Avatar> CreatedAvatars { get; set; }
@@ -42,7 +43,7 @@ namespace dawn_of_worlds.Actors
             PowerPoints = 0;
             Powers = new List<Power>();
             Domains = new List<Domain>();
-            Creations = new List<Creation>();
+            TerrainFeatures = new List<TerrainFeatures>();
             CreatedRaces = new List<Race>();
             CreatedOrders = new List<Order>();
             CreatedAvatars = new List<Avatar>();
@@ -51,19 +52,22 @@ namespace dawn_of_worlds.Actors
 
             ActionLog = new List<string>();
 
-            foreach (Area area in current_world.AreaGrid)
+            foreach (Terrain terrain in current_world.TerrainGrid)
             {
                 // Shape Land
-                Powers.Add(new CreateForest(area));
-                Powers.Add(new CreateGrassland(area));
-                Powers.Add(new CreateDesert(area));
-                Powers.Add(new CreateCave(area));
-                Powers.Add(new CreateLake(area));
-                Powers.Add(new CreateRiver(area));
-                Powers.Add(new CreateMountainRange(area));
-                Powers.Add(new CreateMountain(area));
-                Powers.Add(new CreateHillRange(area));
-                Powers.Add(new CreateHill(area));
+                Powers.Add(new CreateForest(terrain));
+                Powers.Add(new CreateGrassland(terrain));
+                Powers.Add(new CreateDesert(terrain));
+                Powers.Add(new CreateCave(terrain));
+                Powers.Add(new CreateLake(terrain));
+                Powers.Add(new CreateRiver(terrain));
+                Powers.Add(new CreateMountainRange(terrain));
+                Powers.Add(new CreateMountain(terrain));
+                Powers.Add(new CreateHillRange(terrain));
+                Powers.Add(new CreateHill(terrain));
+            }
+            foreach (Area area in current_world.AreaGrid)
+            {
                 // Shape Climate
                 Powers.Add(new MakeClimateWarmer(area));
                 Powers.Add(new MakeClimateColder(area));
@@ -72,7 +76,10 @@ namespace dawn_of_worlds.Actors
             // Create Races
             foreach (Race race in DefinedRaces.DefinedRacesList)
             {
-                Powers.Add(new CreateRace(race));
+                foreach (Terrain terrain in current_world.TerrainGrid)
+                {
+                    Powers.Add(new CreateRace(race, terrain));
+                }              
             }
         }
 
@@ -145,9 +152,9 @@ namespace dawn_of_worlds.Actors
                 result += domain.ToString() + ", ";
             result += "\n";
             result += "Total PowerPoints Used: " + _total_power_points + "\n";
-            result += "CreationsCount: " + Creations.Count.ToString() + "\n";
+            result += "CreationsCount: " + TerrainFeatures.Count.ToString() + "\n";
             result += "Creations: \n";
-            foreach (Creation creation in Creations)
+            foreach (Creation creation in TerrainFeatures)
             {
                 result += creation.Name;
                 counter++;

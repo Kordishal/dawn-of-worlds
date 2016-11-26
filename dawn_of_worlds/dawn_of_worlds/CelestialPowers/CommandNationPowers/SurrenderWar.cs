@@ -53,9 +53,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             war_goal.WarGoalCity.Owner = war_goal.Winner;
             war_goal.Winner.Cities.Add(war_goal.WarGoalCity);
             // Assign territory to victor
-            foreach (Terrain gc in war_goal.WarGoalCity.CitySphereOfÌnfluence)
+            foreach (TerrainFeatures terrain in war_goal.WarGoalCity.CitySphereOfÌnfluence)
             {
-                gc.Owner = war_goal.Winner;
+                terrain.Owner = war_goal.Winner;
             }
 
 

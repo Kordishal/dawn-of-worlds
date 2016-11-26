@@ -13,9 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class DeclareWar : CommandNation
     {
-
         private List<Nation> candidate_nations { get; set; }
-
 
         public override int Weight(World current_world, Deity creator, int current_age)
         {
@@ -60,64 +58,17 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             candidate_nations.Clear();
 
-            List<Area> considered_areas = new List<Area>();
-            foreach (Area settled_area in _commanded_nation.TerritoryAreas)
+            foreach (Relations relation in _commanded_nation.Relationships)
             {
-                considered_areas.Add(settled_area);
-                foreach (Area neighbour_area in settled_area.Neighbours)
-                {
-                    if (neighbour_area != null && !_commanded_nation.TerritoryAreas.Contains(neighbour_area))
-                    {
-                        considered_areas.Add(neighbour_area);
-                    }
-                }
-            }
-
-            foreach (Area area in considered_areas)
-            {
-                bool is_at_war = false;
-                bool is_in_alliance = false;
-                foreach (Nation nation in area.Nations)
-                {
-                    // Checks whether the nation is already in a War with the commanded nation.
-                    is_at_war = false;
-                    foreach (War war in _commanded_nation.Wars)
-                    {
-                        if (war.Attackers.Contains(nation) || war.Defenders.Contains(nation))
-                        {
-                            is_at_war = true;
-                        }
-                    }
-
-                    if (!is_at_war)
-                        candidate_nations.Add(nation);
-
-                    // Checks whether the nation is in an alliance with the commanded nation
-                    is_in_alliance = false;
-                    foreach (Nation allied_nation in _commanded_nation.AlliedNations)
-                    {
-                        if (allied_nation.Equals(nation))
-                        {
-                            is_in_alliance = true;
-                        }
-                    }
-
-                    if (!is_in_alliance)
-                        candidate_nations.Add(nation);
-
-                }
+                if (relation.Status == RelationStatus.Known)
+                    candidate_nations.Add(relation.Target);
             }
 
         }
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Nation war_target = null;
-
-            while (war_target == null)
-            {
-                war_target = candidate_nations[Main.Constants.RND.Next(candidate_nations.Count)];
-            }
+            Nation war_target = candidate_nations[Constants.RND.Next(candidate_nations.Count)];
 
             // The war to be declared.
             War declared_war = new War("War of " + _commanded_nation.Name + " vs. " + war_target.Name, creator);
@@ -134,8 +85,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             // Define war goals
-            declared_war.WarGoalAttackers = new WarGoal(_commanded_nation, war_target.Cities[Main.Constants.RND.Next(war_target.Cities.Count)]);
-            declared_war.WarGoalDefenders = new WarGoal(war_target, _commanded_nation.Cities[Main.Constants.RND.Next(_commanded_nation.Cities.Count)]);
+            declared_war.WarGoalAttackers = new WarGoal(_commanded_nation, war_target.Cities[Constants.RND.Next(war_target.Cities.Count)]);
+            declared_war.WarGoalDefenders = new WarGoal(war_target, _commanded_nation.Cities[Constants.RND.Next(_commanded_nation.Cities.Count)]);
 
             // Add war to each nation
             foreach (Nation n in declared_war.Attackers)

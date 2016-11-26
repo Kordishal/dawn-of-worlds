@@ -15,8 +15,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // Requires moutainrange where mountain can be added.
-            if (_location.MountainRanges != null)
+            // Can only be created within a mountain range.
+            if (_location.Type == TerrainType.MountainRange)
                 return true;
 
             return false;
@@ -37,7 +37,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Mountain mountain = new Mountain("PlaceHolder", _location, creator);
 
             int chance = Main.Constants.RND.Next(100);
-            switch (_location.AreaClimate)
+            switch (_location.Area.ClimateArea)
             {
                 case Climate.Arctic:
                     mountain.BiomeType = BiomeType.Tundra;
@@ -69,24 +69,17 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             mountain.Name = Constants.Names.GetName("mountains");
-
-            // Add mountain to area lists.
-            _location.MountainRanges.Mountains.Add(mountain);
-            _location.Terrain.Add(mountain);
+            ((MountainRange)_location.PrimaryTerrainFeature).Mountains.Add(mountain);
+            mountain.Range = (MountainRange)_location.PrimaryTerrainFeature;
             _location.UnclaimedTerritory.Add(mountain);
-
-            // Add mountainrange to mountain
-            mountain.Range = _location.MountainRanges;
-
-            // Add mountain to deity lists
-            creator.Creations.Add(mountain);
+            creator.TerrainFeatures.Add(mountain);
             creator.LastCreation = mountain;           
         }
 
 
-        public CreateMountain(Area location) : base (location)
+        public CreateMountain(Terrain location) : base (location)
         {
-            Name = "Create Mountain in Area " + location.Name;
+            Name = "Create Mountain in Terrain " + location.Name;
         }
     }
 }

@@ -14,8 +14,8 @@ namespace dawn_of_worlds.Creations.Organisations
         public Nation Owner { get; set; }
 
         // Territory
-        public Terrain CityLocation { get; set; }
-        public List<Terrain> CitySphereOfÌnfluence { get; set; }
+        public TerrainFeatures CityLocation { get; set; }
+        public List<TerrainFeatures> CitySphereOfÌnfluence { get; set; }
 
         // A city can only raise one army per turn.
         public bool not_hasRaisedArmy { get; set; }
@@ -23,7 +23,7 @@ namespace dawn_of_worlds.Creations.Organisations
 
         public City(string name, Deity creator): base(name, creator)
         {
-            CitySphereOfÌnfluence = new List<Terrain>();
+            CitySphereOfÌnfluence = new List<TerrainFeatures>();
             not_hasRaisedArmy = true;
         }
     }

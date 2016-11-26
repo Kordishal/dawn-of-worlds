@@ -15,11 +15,15 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
             // no forests in oceans.
-            if (!_location.AreaRegion.Landmass)
+            if (_location.Type == TerrainType.Ocean)
+                return false;
+
+            // no forests in montains and hill.
+            if (_location.Type == TerrainType.HillRange || _location.Type == TerrainType.MountainRange)
                 return false;
 
             // no forests in arctic regions
-            if (_location.AreaClimate == Climate.Arctic)
+            if (_location.Area.ClimateArea == Climate.Arctic)
                 return false;
 
             return true;
@@ -30,7 +34,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {                                
             Forest forest = new Forest("PlaceHolder", _location, creator);
             
-            switch (_location.AreaClimate)
+            switch (_location.Area.ClimateArea)
             {
                 case Climate.SubArctic:
                     forest.BiomeType = BiomeType.BorealForest;
@@ -48,13 +52,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             forest.Name = Constants.Names.GetName("forests");
 
-            // Add forest to the area lists.
-            _location.Forests.Add(forest);
-            _location.Terrain.Add(forest);
+            _location.PrimaryTerrainFeature = forest;
             _location.UnclaimedTerritory.Add(forest);
 
             // Add forest to the deity.
-            creator.Creations.Add(forest);
+            creator.TerrainFeatures.Add(forest);
             creator.LastCreation = forest;            
         }
 
@@ -71,7 +73,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateForest(Area location) : base (location)
+        public CreateForest(Terrain location) : base (location)
         {
             Name = "Create Forest in " + location.Name;
         }

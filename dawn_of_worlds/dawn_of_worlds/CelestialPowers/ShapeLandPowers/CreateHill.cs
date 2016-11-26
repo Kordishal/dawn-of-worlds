@@ -15,8 +15,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // Requires moutainrange where mountain can be added.
-            if (_location.HillRanges != null)
+            // Can only be created when there is a hill range on this terrain
+            if (_location.Type == TerrainType.HillRange)
                 return true;
 
             return false;
@@ -36,8 +36,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             Hill hill = new Hill("PlaceHolder", _location, creator);
 
-            int chance = Main.Constants.RND.Next(100);
-            switch (_location.AreaClimate)
+            int chance = Constants.RND.Next(100);
+            switch (_location.Area.ClimateArea)
             {
                 case Climate.Arctic:
                     hill.BiomeType = BiomeType.Tundra;
@@ -80,23 +80,20 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             hill.Name = Constants.Names.GetName("hills");
 
-            // Add mountain to area lists.
-            _location.HillRanges.Hills.Add(hill);
-            _location.Terrain.Add(hill);
+            // Add hill to hill range.
+            ((HillRange)_location.PrimaryTerrainFeature).Hills.Add(hill);
+            hill.Range = (HillRange)_location.PrimaryTerrainFeature;
             _location.UnclaimedTerritory.Add(hill);
 
-            // Add mountainrange to mountain
-            hill.Range = _location.HillRanges;
-
             // Add mountain to deity lists
-            creator.Creations.Add(hill);
+            creator.TerrainFeatures.Add(hill);
             creator.LastCreation = hill;
     }
 
 
-    public CreateHill(Area location) : base (location)
+    public CreateHill(Terrain location) : base (location)
     {
-        Name = "Create Hill in Area " + location.Name;
+        Name = "Create Hill in Terrain " + location.Name;
     }
 }
 }

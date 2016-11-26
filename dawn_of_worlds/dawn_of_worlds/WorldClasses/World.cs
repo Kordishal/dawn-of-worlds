@@ -26,6 +26,7 @@ namespace dawn_of_worlds.WorldClasses
         public List<Region> WorldRegions { get; set; }
 
         public Area[,] AreaGrid { get; set; }
+        public Terrain[,] TerrainGrid { get; set; }
 
         public World(string world_name, int num_regions, int num_areas)
         {
@@ -41,6 +42,8 @@ namespace dawn_of_worlds.WorldClasses
             generateWorldRegions(num_regions, num_areas);
             generateAreaGrid();
             generateAreaClimate();
+
+            defineAreaAndTerrainCoordiantes();
 
             DefinedRaces.defineRaces();
 
@@ -62,7 +65,7 @@ namespace dawn_of_worlds.WorldClasses
                 total_areas += r.RegionAreas.Count;
             }
 
-            AreaGrid = new Area[Main.Constants.AREA_GRID_X, Main.Constants.AREA_GRID_Y];
+            AreaGrid = new Area[Constants.AREA_GRID_X, Constants.AREA_GRID_Y];
 
 
             int x_length = AreaGrid.GetLength(0);
@@ -74,8 +77,8 @@ namespace dawn_of_worlds.WorldClasses
                 has_valid_starter_coordinates = false;
                 while (!has_valid_starter_coordinates)
                 {
-                    x = Main.Constants.RND.Next(x_length);
-                    y = Main.Constants.RND.Next(y_length);
+                    x = Constants.RND.Next(x_length);
+                    y = Constants.RND.Next(y_length);
 
                     if (AreaGrid[x, y] == null)
                     {
@@ -92,7 +95,7 @@ namespace dawn_of_worlds.WorldClasses
                     has_valid_neighbour = false;
                     while (!has_valid_neighbour)
                     {
-                        switch (direction.Count > 0 ? direction[Main.Constants.RND.Next(direction.Count)] : 4)
+                        switch (direction.Count > 0 ? direction[Constants.RND.Next(direction.Count)] : 4)
                         {
                             case 0:
                                 if (y + 1 < y_length)
@@ -146,8 +149,8 @@ namespace dawn_of_worlds.WorldClasses
                                 has_valid_starter_coordinates = false;
                                 while (!has_valid_starter_coordinates)
                                 {
-                                    x = Main.Constants.RND.Next(x_length);
-                                    y = Main.Constants.RND.Next(y_length);
+                                    x = Constants.RND.Next(x_length);
+                                    y = Constants.RND.Next(y_length);
 
                                     if (AreaGrid[x, y] == null)
                                     {
@@ -159,67 +162,47 @@ namespace dawn_of_worlds.WorldClasses
                                 has_valid_neighbour = true;
                                 break;
                         }
-
-                        if (x + 1 < x_length && AreaGrid[x + 1, y] != null)
-                        {
-                            AreaGrid[x, y].North = AreaGrid[x + 1, y];
-                            AreaGrid[x + 1, y].South = AreaGrid[x, y];
-                        }
-                        if (x - 1 >= 0 && AreaGrid[x - 1, y] != null)
-                        {
-                            AreaGrid[x, y].South = AreaGrid[x - 1, y];
-                            AreaGrid[x - 1, y].North = AreaGrid[x, y];
-                        }
-                        if (y + 1 < y_length && AreaGrid[x, y + 1] != null)
-                        {
-                            AreaGrid[x, y].East = AreaGrid[x, y + 1];
-                            AreaGrid[x, y + 1].West = AreaGrid[x, y];
-                        }
-                        if (y - 1 >= 0 && AreaGrid[x, y - 1] != null)
-                        {
-                            AreaGrid[x, y].West = AreaGrid[x, y - 1];
-                            AreaGrid[x, y - 1].East = AreaGrid[x, y];
-                        }
-                        if (x + 1 < x_length && y + 1 < y_length && AreaGrid[x + 1, y + 1] != null)
-                        {
-                            AreaGrid[x, y].NorthEast = AreaGrid[x + 1, y + 1];
-                            AreaGrid[x + 1, y + 1].SouthWest = AreaGrid[x, y];
-                        }
-                        if (x - 1 >= 0 && y + 1 < y_length && AreaGrid[x - 1, y + 1] != null)
-                        {
-                            AreaGrid[x, y].SouthEast = AreaGrid[x - 1, y + 1];
-                            AreaGrid[x - 1, y + 1].NorthWest = AreaGrid[x, y];
-                        }
-                        if (x - 1 >= 0 && y - 1 >= 0 && AreaGrid[x - 1, y - 1] != null)
-                        {
-                            AreaGrid[x, y].SouthWest = AreaGrid[x - 1, y - 1];
-                            AreaGrid[x - 1, y - 1].NorthEast = AreaGrid[x, y];
-                        }
-                        if (x + 1 < x_length && y - 1 >= 0 && AreaGrid[x + 1, y - 1] != null)
-                        {
-                            AreaGrid[x, y].NorthWest = AreaGrid[x + 1, y - 1];
-                            AreaGrid[x + 1, y - 1].SouthEast = AreaGrid[x, y];
-                        }
-
                     }
                 }
             }
         }
+        private void defineAreaAndTerrainCoordiantes()
+        {
+            TerrainGrid = new Terrain[Constants.TERRAIN_GRID_X, Constants.TERRAIN_GRID_Y];
+
+            for (int i = 0; i < Constants.AREA_GRID_X; i++)
+            {
+                for (int j = 0; j < Constants.AREA_GRID_Y; j++)
+                {
+                    AreaGrid[i, j].Coordinates = new SystemCoordinates(i, j);
+                    for (int k = i * 5; k < i * 5 + Constants.AREA_GRID_X; k++)
+                    {
+                        for (int l = j * 5; l < j * 5 + Constants.AREA_GRID_Y; l++)
+                        {
+                            TerrainGrid[k, l] = new Terrain(AreaGrid[i, j]);        
+                            TerrainGrid[k, l].Coordinates = new SystemCoordinates(k, l);
+                        }
+                    }
+                }
+            }
+
+        }
+
         private void generateAreaClimate()
         {
             int counter = 0;
             foreach (Area area in AreaGrid)
             {
                 if (counter < 5)
-                    area.AreaClimate = Climate.Arctic;
+                    area.ClimateArea = Climate.Arctic;
                 else if (counter < 10)
-                    area.AreaClimate = Climate.SubArctic;
+                    area.ClimateArea = Climate.SubArctic;
                 else if (counter < 15)
-                    area.AreaClimate = Climate.Temperate;
+                    area.ClimateArea = Climate.Temperate;
                 else if (counter < 20)
-                    area.AreaClimate = Climate.SubTropical;
+                    area.ClimateArea = Climate.SubTropical;
                 else if (counter < 25)
-                    area.AreaClimate = Climate.Tropical;
+                    area.ClimateArea = Climate.Tropical;
 
                 counter += 1;
             }

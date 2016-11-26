@@ -52,27 +52,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             candidate_nations.Clear();
 
-            // Alliances can only be formed with nations within the same area.
-            List<Area> considered_areas = new List<Area>();
-            foreach (Area settled_area in _commanded_nation.TerritoryAreas)
+            foreach(Relations relation in _commanded_nation.Relationships)
             {
-                considered_areas.Add(settled_area);
-                foreach (Area neighbour_area in settled_area.Neighbours)
+                if (relation.Status == RelationStatus.Known)
                 {
-                    if (neighbour_area != null && !_commanded_nation.TerritoryAreas.Contains(neighbour_area))
-                    {
-                        considered_areas.Add(neighbour_area);
-                    }
-                }
-            }
-
-            // Alliances can only be formed with nations they are not allied with.
-            foreach (Area area in considered_areas)
-            {
-                foreach (Nation nation in area.Nations)
-                {
-                    if (_commanded_nation.AlliedNations.Contains(nation))
-                        candidate_nations.Add(nation);                    
+                    candidate_nations.Add(relation.Target);
                 }
             }
 

@@ -75,13 +75,13 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             if (_nation != null)
             {
                 creator.Powers.Add(new UsePower(created_avatar, new CreateCity(created_avatar.MasterNation)));
+                creator.Powers.Add(new UsePower(created_avatar, new ExpandTerritory(created_avatar.MasterNation)));
                 creator.Powers.Add(new UsePower(created_avatar, new DeclareWar(created_avatar.MasterNation)));
                 creator.Powers.Add(new UsePower(created_avatar, new FormAlliance(created_avatar.MasterNation)));
 
                 foreach (City city in created_avatar.MasterNation.Cities)
                 {
                     creator.Powers.Add(new UsePower(created_avatar, new RaiseArmy(city)));
-                    creator.Powers.Add(new UsePower(created_avatar, new ExpandCityInfluence(city)));
                 }
             }
 

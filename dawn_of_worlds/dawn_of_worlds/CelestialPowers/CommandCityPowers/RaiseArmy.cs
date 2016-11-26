@@ -40,7 +40,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             // Create a new army and place it on the map.
             Army army = new Army(_commanded_city.Name + " Army", creator);
             army.ArmyLocation = _commanded_city.CityLocation.Location;
-            army.ArmyLocation.Armies.Add(army);
             army.Owner = _commanded_city.Owner;
 
             // Add army to nation which owns the city.
