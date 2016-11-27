@@ -36,7 +36,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 return false;
 
             // cannot make new alliances while at war.
-            if (_commanded_nation.Wars.Count > 0)
+            if (_commanded_nation.isAtWar)
                 return false;
 
             compile_candidate_nations();
@@ -64,17 +64,13 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
+            compile_candidate_nations();
+
             // The new ally will be chosen amongst the possible allies at random.
-            Nation new_ally = null;
-            while (new_ally == null)
-            {
-                new_ally = candidate_nations[Main.Constants.RND.Next(candidate_nations.Count)];
-            }
+            Nation new_ally = candidate_nations[Constants.RND.Next(candidate_nations.Count)];
 
-            // Add nations to list of allied nations.
-            _commanded_nation.AlliedNations.Add(new_ally);
-            new_ally.AlliedNations.Add(_commanded_nation);
-
+            _commanded_nation.Relationships.Find(x => x.Target == new_ally).Status = RelationStatus.Allied;
+            new_ally.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Allied;
             creator.LastCreation = null;
         }
 

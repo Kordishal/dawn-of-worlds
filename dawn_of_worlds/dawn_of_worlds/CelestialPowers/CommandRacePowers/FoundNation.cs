@@ -114,6 +114,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             creator.CreatedOrders.Add(founded_nation.OriginOrder);
             creator.Powers.Add(new CreateCity(founded_nation));
             creator.Powers.Add(new ExpandTerritory(founded_nation));
+            creator.Powers.Add(new EstablishContact(founded_nation));
             creator.Powers.Add(new FormAlliance(founded_nation));
             creator.Powers.Add(new DeclareWar(founded_nation));
 

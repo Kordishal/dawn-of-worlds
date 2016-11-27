@@ -70,6 +70,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
 
                     creator.Powers.Add(new CreateCity(_nation));
                     creator.Powers.Add(new ExpandTerritory(_nation));
+                    creator.Powers.Add(new EstablishContact(_nation));
                     creator.Powers.Add(new FormAlliance(_nation));
                     creator.Powers.Add(new DeclareWar(_nation));
 

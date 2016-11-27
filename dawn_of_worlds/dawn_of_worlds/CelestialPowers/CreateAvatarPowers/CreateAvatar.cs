@@ -76,6 +76,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             {
                 creator.Powers.Add(new UsePower(created_avatar, new CreateCity(created_avatar.MasterNation)));
                 creator.Powers.Add(new UsePower(created_avatar, new ExpandTerritory(created_avatar.MasterNation)));
+                creator.Powers.Add(new UsePower(created_avatar, new EstablishContact(created_avatar.MasterNation)));
                 creator.Powers.Add(new UsePower(created_avatar, new DeclareWar(created_avatar.MasterNation)));
                 creator.Powers.Add(new UsePower(created_avatar, new FormAlliance(created_avatar.MasterNation)));
 

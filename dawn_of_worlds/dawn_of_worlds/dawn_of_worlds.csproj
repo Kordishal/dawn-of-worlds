@@ -68,6 +68,7 @@
     <Compile Include="CelestialPowers\CommandNationPowers\CommandNation.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CreateCity.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\DeclareWar.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\EstablishContact.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\ExpandTerritory.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\FormAlliance.cs" />
     <Compile Include="CelestialPowers\CommandCityPowers\RaiseArmy.cs" />
