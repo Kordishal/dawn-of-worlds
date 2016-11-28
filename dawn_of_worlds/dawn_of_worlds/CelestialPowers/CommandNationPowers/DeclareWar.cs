@@ -38,7 +38,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 return false;
 
             // A nation cannot declare a war while at war. (but can be called into one as an ally)
-            if (_commanded_nation.Wars.Count > 0)
+            if (_commanded_nation.isAtWar)
                 return false;
 
             // Any attacker needs at least one army.
@@ -76,27 +76,19 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             declared_war.Defenders.Add(war_target);
 
             // Add allies to the war. The order is important as all nations which are allied to both nations will side with the defender.
-            declared_war.Defenders.AddRange(war_target.AlliedNations);
-
-            foreach (Nation n in _commanded_nation.AlliedNations)
+            for (int i = 0; i < _commanded_nation.Relationships.Count; i++)
             {
-                if (!declared_war.Defenders.Contains(n))
-                    declared_war.Attackers.Add(n);
+                if (war_target.Relationships[i].Status == RelationStatus.Allied)
+                    declared_war.Defenders.Add(war_target.Relationships[i].Target);
+
+                if (_commanded_nation.Relationships[i].Status == RelationStatus.Allied)
+                    if (!declared_war.Defenders.Contains(_commanded_nation.Relationships[i].Target))
+                        declared_war.Attackers.Add(_commanded_nation.Relationships[i].Target);
             }
 
             // Define war goals
             declared_war.WarGoalAttackers = new WarGoal(_commanded_nation, war_target.Cities[Constants.RND.Next(war_target.Cities.Count)]);
             declared_war.WarGoalDefenders = new WarGoal(war_target, _commanded_nation.Cities[Constants.RND.Next(_commanded_nation.Cities.Count)]);
-
-            // Add war to each nation
-            foreach (Nation n in declared_war.Attackers)
-            {
-                n.Wars.Add(declared_war);
-            }
-            foreach (Nation n in declared_war.Defenders)
-            {
-                n.Wars.Add(declared_war);
-            }
 
             // Add war to the list of ongoing conflicts.
             current_world.OngoingWars.Add(declared_war);
@@ -104,10 +96,18 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // Add powers related to the war to connected deities.
             // attacker related
             creator.Powers.Add(new SurrenderWar(_commanded_nation, declared_war));
+            foreach (Nation nation in declared_war.Attackers)
+            {
+                creator.Powers.Add(new WhitePeace(nation, declared_war));
+            }
+
 
             // defender related
             declared_war.Defenders[0].Creator.Powers.Add(new SurrenderWar(declared_war.Defenders[0], declared_war));
-
+            foreach (Nation nation in declared_war.Defenders)
+            {
+                nation.Creator.Powers.Add(new WhitePeace(nation, declared_war));
+            }
             creator.LastCreation = declared_war;
         }
 

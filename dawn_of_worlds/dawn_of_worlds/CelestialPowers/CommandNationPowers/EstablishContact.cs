@@ -61,7 +61,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 {
                     foreach (Relations ally_relation in relation.Target.Relationships)
                     {
-                        if (!(ally_relation.Status == RelationStatus.Unknown))
+                        if (!(ally_relation.Status == RelationStatus.Unknown) && !(ally_relation.Target.Equals(_commanded_nation)))
                         {
                             candidate_nations.Add(ally_relation.Target);
                         }
@@ -79,8 +79,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // The new contact will be chosen amongst the possible contacts at random.
             Nation new_contact = candidate_nations[Constants.RND.Next(candidate_nations.Count)];
 
-            _commanded_nation.Relationships.Find(x => x.Target == new_contact).Status = RelationStatus.Known;
-            new_contact.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Known;
+            _commanded_nation.Relationships.Find(x => x.Target.Equals(new_contact)).Status = RelationStatus.Known;
+            new_contact.Relationships.Find(x => x.Target.Equals(_commanded_nation)).Status = RelationStatus.Known;
             creator.LastCreation = null;
         }
 

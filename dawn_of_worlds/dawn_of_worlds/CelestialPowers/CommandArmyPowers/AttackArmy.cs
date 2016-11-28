@@ -38,10 +38,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
             if (isObsolete)
                 return false;
 
-            if (_commanded_army.Owner.Wars.Count == 0)
+            if (!_commanded_army.Owner.isAtWar)
                 return false;
 
-            possible_candidate_armies();
+            possible_candidate_armies(current_world);
 
             if (candidate_armies.Count == 0)
                 return false;
@@ -49,44 +49,47 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
             return true;
         }
 
-        private void possible_candidate_armies()
+        private void possible_candidate_armies(World current_world)
         {
             candidate_armies.Clear();
 
-            foreach (War on_going_war in _commanded_army.Owner.Wars)
+            foreach (War on_going_war in current_world.OngoingWars)
             {
-                if (!on_going_war.hasEnded)
+                if (on_going_war.isInWar(_commanded_army.Owner))
                 {
-                    if (on_going_war.Attackers.Contains(_commanded_army.Owner))
+                    if (!on_going_war.hasEnded)
                     {
-                        foreach (Nation defender in on_going_war.Defenders)
+                        if (on_going_war.Attackers.Contains(_commanded_army.Owner))
                         {
-                            candidate_armies.AddRange(defender.Armies);
+                            foreach (Nation defender in on_going_war.Defenders)
+                            {
+                                candidate_armies.AddRange(defender.Armies);
+                            }
+                        }
+                        else
+                        {
+                            foreach (Nation attacker in on_going_war.Attackers)
+                            {
+                                candidate_armies.AddRange(attacker.Armies);
+                            }
                         }
                     }
-                    else
-                    {
-                        foreach (Nation attacker in on_going_war.Attackers)
-                        {
-                            candidate_armies.AddRange(attacker.Armies);
-                        }
-                    }
-                }
+                }              
             }
         }
 
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
+            possible_candidate_armies(current_world);
 
-            Army target_army = candidate_armies[Main.Constants.RND.Next(candidate_armies.Count)];
+            Army target_army = candidate_armies[Constants.RND.Next(candidate_armies.Count)];
 
-            // Move the armies into the same area.
+            // Move the armies into the same terrain.
             if (!target_army.ArmyLocation.Equals(_commanded_army.ArmyLocation))
             {
                 _commanded_army.ArmyLocation = target_army.ArmyLocation;
             }
-
 
             Battle battle = new Battle(_commanded_army.Name + " vs. " + target_army.Name, creator, _commanded_army, target_army);
             battle.Fight();

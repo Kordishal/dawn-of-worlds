@@ -1,29 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using dawn_of_worlds.Actors;
-using dawn_of_worlds.WorldClasses;
-using dawn_of_worlds.Creations.Organisations;
-using dawn_of_worlds.Creations.Diplomacy;
-using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Creations.Diplomacy;
+using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
-    class SurrenderWar : CommandNation
+    class WhitePeace : CommandNation
     {
 
         public override bool isObsolete
         {
             get
             {
-                return _surrendered_war.hasEnded;
+                return _white_peaced_war.hasEnded;
             }
         }
 
-        private War _surrendered_war { get; set; }
+        private War _white_peaced_war { get; set; }
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
@@ -36,40 +32,57 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            // The war goal which will change hands.
-            WarGoal war_goal;
-            if (_surrendered_war.isAttacker(_commanded_nation))
-                war_goal = _surrendered_war.WarGoalDefenders;
+            // if the nation calling for white peace is a war leader the war ends.
+            if (_white_peaced_war.isWarLeader(_commanded_nation))
+            {
+                // Remove war from war lists
+                current_world.OngoingWars.Remove(_white_peaced_war);
+
+                // reset all the relations statuses of each nation.
+                foreach (Nation defender in _white_peaced_war.Defenders)
+                {
+                    foreach (Nation attacker in _white_peaced_war.Attackers)
+                    {
+                        defender.Relationships.Find(x => x.Target == attacker).Status = RelationStatus.Known;
+                    }
+                }
+
+                foreach (Nation attacker in _white_peaced_war.Attackers)
+                {
+                    foreach (Nation defender in _white_peaced_war.Defenders)
+                    {
+                        attacker.Relationships.Find(x => x.Target == defender).Status = RelationStatus.Known;
+                    }
+                }
+                _white_peaced_war.hasEnded = true;
+            }
             else
-                war_goal = _surrendered_war.WarGoalAttackers;
-
-            // Remove war from war lists
-            current_world.OngoingWars.Remove(_surrendered_war);
-
-            // Give city to victor
-            war_goal.WarGoalCity.Owner = war_goal.Winner;
-            war_goal.Winner.Cities.Add(war_goal.WarGoalCity);
-            // Assign territory to victor
-            foreach (TerrainFeatures terrain in war_goal.WarGoalCity.CitySphereOfÌnfluence)
             {
-                terrain.Owner = war_goal.Winner;
+                // When a nation calling for white peace is not a war leader it is simply removed from the war.
+                if (_white_peaced_war.isAttacker(_commanded_nation))
+                {
+                    _white_peaced_war.Attackers.Remove(_commanded_nation);
+
+                    foreach (Nation defender in _white_peaced_war.Defenders)
+                    {
+                        defender.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Known;
+                        _commanded_nation.Relationships.Find(x => x.Target == defender).Status = RelationStatus.Known;
+                    }
+                }
+                else
+                {
+                    _white_peaced_war.Defenders.Remove(_commanded_nation);
+
+                    foreach (Nation attacker in _white_peaced_war.Attackers)
+                    {
+                        attacker.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Known;
+                        _commanded_nation.Relationships.Find(x => x.Target == attacker).Status = RelationStatus.Known;
+                    }
+                }
             }
-
-
-            // remove the city from the loser.
-            _commanded_nation.Cities.Remove(war_goal.WarGoalCity);
-
-            // if last city has been removed from a nation the nation is destroyed.
-            if (_commanded_nation.Cities.Count == 0)
-            {
-                _commanded_nation.DestroyNation(current_world);
-            }
-
-            _surrendered_war.hasEnded = true;
-
-            creator.LastCreation = null;
+            
+            creator.LastCreation = _white_peaced_war;
         }
-
 
         public override int Weight(World current_world, Deity creator, int current_age)
         {
@@ -85,7 +98,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             int army_count_attacker = 0;
             int army_count_defender = 0;
 
-            foreach (Nation attacker in _surrendered_war.Attackers)
+            foreach (Nation attacker in _white_peaced_war.Attackers)
             {
                 for (int i = 0; i < attacker.Armies.Count; i++)
                 {
@@ -93,7 +106,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                         army_count_attacker += 1;
                 }
             }
-            foreach (Nation defender in _surrendered_war.Defenders)
+            foreach (Nation defender in _white_peaced_war.Defenders)
             {
                 for (int i = 0; i < defender.Armies.Count; i++)
                 {
@@ -103,7 +116,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             // depending on the amount of armies on one side or the other the weight adjusted.
-            if (_surrendered_war.isAttacker(_commanded_nation))
+            if (_white_peaced_war.isAttacker(_commanded_nation))
             {
                 // whithout armies the attacker is very likely to surrender.
                 if (army_count_attacker == 0)
@@ -154,11 +167,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public SurrenderWar(Nation surrendering_nation, War surrendered_war) : base(surrendering_nation)
-        {
-            Name = "Surrender War (" + surrendered_war.Name + "): " + surrendering_nation;
 
-            _surrendered_war = surrendered_war;
+        public WhitePeace(Nation commanded_nation, War white_peace_war) : base(commanded_nation)
+        {
+            Name = "Declare White Peace: " + white_peace_war.Name;
+            _white_peaced_war = white_peace_war;
         }
     }
 }

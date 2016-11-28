@@ -43,16 +43,5 @@ namespace dawn_of_worlds.CelestialPowers
 
         abstract public void Effect(World current_world, Deity creator, int current_age);
 
-
-        public override bool Equals(object obj)
-        {
-            return GetHashCode() == obj.GetHashCode();
-        }
-
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
-
     }
 }

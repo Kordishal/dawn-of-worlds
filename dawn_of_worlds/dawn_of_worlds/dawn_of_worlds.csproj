@@ -73,6 +73,7 @@
     <Compile Include="CelestialPowers\CommandNationPowers\FormAlliance.cs" />
     <Compile Include="CelestialPowers\CommandCityPowers\RaiseArmy.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\SurrenderWar.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\WhitePeace.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\CommandRace.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\FoundNation.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\SettleTerrain.cs" />

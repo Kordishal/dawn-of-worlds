@@ -15,11 +15,17 @@ namespace dawn_of_worlds.Creations.Diplomacy
             Target = target;
             Status = RelationStatus.Unknown;
         }
+
+        public override string ToString()
+        {
+            return Target.Name + ": " + Status.ToString();
+        }
     }
 
 
     enum RelationStatus
     {
+        Self,
         Unknown,
         Known,
         Allied,

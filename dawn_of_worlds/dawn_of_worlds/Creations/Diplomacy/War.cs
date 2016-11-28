@@ -19,6 +19,34 @@ namespace dawn_of_worlds.Creations.Diplomacy
         public WarGoal WarGoalAttackers { get; set; }
         public WarGoal WarGoalDefenders { get; set; }
 
+        public bool isInWar(Nation nation)
+        {
+            return isDefender(nation) || isAttacker(nation);
+        }
+        public bool isWarLeader(Nation nation)
+        {
+            if (Attackers[0] == nation || Defenders[0] == nation)
+                return true;
+            else
+                return false;
+        }
+        public bool isDefender(Nation nation)
+        {
+            foreach (Nation defender in Defenders)
+                if (defender == nation)
+                    return true;
+
+            return false;
+        }
+        public bool isAttacker(Nation nation)
+        {
+            foreach (Nation attacker in Attackers)
+                if (attacker == nation)
+                    return true;
+
+            return false;
+        }
+
 
         public War(string name, Deity creator) : base(name, creator)
         {

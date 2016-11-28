@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.CelestialPowers.CommandNationPowers;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
@@ -54,9 +55,6 @@ namespace dawn_of_worlds.Creations.Organisations
             }
         }
 
-        public List<Nation> AlliedNations { get; set; }
-        public List<War> Wars { get; set; }
-
         // Orders
         public Order OriginOrder
         {
@@ -70,7 +68,7 @@ namespace dawn_of_worlds.Creations.Organisations
         // Status
         public List<NationalTags> Tags { get; set; }
 
-        public void DestroyNation()
+        public void DestroyNation(World current_world)
         {
             isDestroyed = true;
 
@@ -78,41 +76,21 @@ namespace dawn_of_worlds.Creations.Organisations
             {
                 a.isScattered = true;
             }
-
-            foreach (Nation n in AlliedNations)
+            foreach (Relations relation in Relationships)
             {
-                n.AlliedNations.Remove(this);
+                relation.Target.Relationships.Remove(relation.Target.Relationships.Find(x => x.Target.Equals(this)));
             }
 
-            for(int i = 0; i < Wars.Count; i++)
+            for (int i = 0; i < current_world.OngoingWars.Count; i++)
             {
-                // If this nation is the war leader in another war this war should end as well.
-                if (Wars[i].Attackers[0].Equals(this) || Wars[i].Defenders[0].Equals(this))
-                {
-                    War war = Wars[i];
-                    foreach (Nation attacker in war.Attackers)
-                    {
-                        attacker.Wars.Remove(war);
-                    }
-                    foreach (Nation defender in war.Defenders)
-                    {
-                        defender.Wars.Remove(war);
-                    }
+                War current_war = current_world.OngoingWars[i];
 
-                    this.Territory[0].Location.Area.RegionArea.RegionWorld.OngoingWars.Remove(war);
-                    war = null;
-                } // an attacker or defender ally is simply removed from the war.
-                else if (Wars[i].Attackers.Contains(this))
+                if (current_war.isInWar(this))
                 {
-                    Wars[i].Attackers.Remove(this);
+                    new WhitePeace(this, current_war).Effect(current_world, Creator, 0);
                 }
-                else if (Wars[i].Defenders.Contains(this))
-                {
-                    Wars[i].Defenders.Remove(this);
-                }
-                // Wars are removed while removing them
-                i -= 1;
             }
+
         }
 
 
@@ -125,8 +103,6 @@ namespace dawn_of_worlds.Creations.Organisations
             Territory = new List<TerrainFeatures>();            
             Armies = new List<Army>();
             Relationships = new List<Relations>();
-            AlliedNations = new List<Nation>();
-            Wars = new List<War>();
             NationalOrders = new List<Order>();
             Tags = new List<NationalTags>();
             isDestroyed = false;       
