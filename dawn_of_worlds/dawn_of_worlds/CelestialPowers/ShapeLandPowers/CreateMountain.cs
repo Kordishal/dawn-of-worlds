@@ -15,11 +15,23 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // Can only be created within a mountain range.
-            if (_location.Type == TerrainType.MountainRange)
-                return true;
+            // needs a possible terrain in the area.
+            if (candidate_terrain().Count == 0)
+                return false;
 
-            return false;
+            return true;
+        }
+
+        private List<Terrain> candidate_terrain()
+        {
+            List<Terrain> terrain_list = new List<Terrain>();
+            foreach (Terrain terrain in _location.TerrainArea)
+            {
+                if (terrain.Type == TerrainType.MountainRange)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)
@@ -34,10 +46,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Mountain mountain = new Mountain("PlaceHolder", _location, creator);
+            List<Terrain> mountain_locations = candidate_terrain();
+            Terrain mountain_location = mountain_locations[Constants.RND.Next(mountain_locations.Count)];
+            Mountain mountain = new Mountain("PlaceHolder", mountain_location, creator);
 
-            int chance = Main.Constants.RND.Next(100);
-            switch (_location.Area.ClimateArea)
+            int chance = Constants.RND.Next(100);
+            switch (_location.ClimateArea)
             {
                 case Climate.Arctic:
                     mountain.BiomeType = BiomeType.Tundra;
@@ -69,17 +83,17 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             mountain.Name = Constants.Names.GetName("mountains");
-            ((MountainRange)_location.PrimaryTerrainFeature).Mountains.Add(mountain);
-            mountain.Range = (MountainRange)_location.PrimaryTerrainFeature;
-            _location.UnclaimedTerritory.Add(mountain);
+            ((MountainRange)mountain_location.PrimaryTerrainFeature).Mountains.Add(mountain);
+            mountain.Range = (MountainRange)mountain_location.PrimaryTerrainFeature;
+            mountain_location.UnclaimedTerritory.Add(mountain);
             creator.TerrainFeatures.Add(mountain);
             creator.LastCreation = mountain;           
         }
 
 
-        public CreateMountain(Terrain location) : base (location)
+        public CreateMountain(Area location) : base (location)
         {
-            Name = "Create Mountain in Terrain " + location.Name;
+            Name = "Create Mountain in Area " + location.Name;
         }
     }
 }

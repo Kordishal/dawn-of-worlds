@@ -14,27 +14,37 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     {
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // no forests in oceans.
-            if (_location.Type == TerrainType.Ocean)
+            if (_location.ClimateArea == Climate.Arctic)
                 return false;
 
-            // no forests in montains and hill.
-            if (_location.Type == TerrainType.HillRange || _location.Type == TerrainType.MountainRange)
-                return false;
-
-            // no forests in arctic regions
-            if (_location.Area.ClimateArea == Climate.Arctic)
+            // needs a possible terrain in the area.
+            if (candidate_terrain().Count == 0)
                 return false;
 
             return true;
         }
 
+        private List<Terrain> candidate_terrain()
+        {
+            List<Terrain> terrain_list = new List<Terrain>();
+            foreach (Terrain terrain in _location.TerrainArea)
+            {
+                if (terrain.isDefault && terrain.Type == TerrainType.Plain)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
+        }
+
 
         public override void Effect(World current_world, Deity creator, int current_age)
-        {                                
-            Forest forest = new Forest("PlaceHolder", _location, creator);
+        {
+            List<Terrain> forest_locations = candidate_terrain();
+            Terrain forest_location = forest_locations[Constants.RND.Next(forest_locations.Count)];           
+                           
+            Forest forest = new Forest("PlaceHolder", forest_location, creator);
             
-            switch (_location.Area.ClimateArea)
+            switch (_location.ClimateArea)
             {
                 case Climate.SubArctic:
                     forest.BiomeType = BiomeType.BorealForest;
@@ -52,8 +62,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             forest.Name = Constants.Names.GetName("forests");
 
-            _location.PrimaryTerrainFeature = forest;
-            _location.UnclaimedTerritory.Add(forest);
+            forest_location.PrimaryTerrainFeature = forest;
+            forest_location.UnclaimedTerritory.Add(forest);
+            forest_location.isDefault = false;
 
             // Add forest to the deity.
             creator.TerrainFeatures.Add(forest);
@@ -73,9 +84,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateForest(Terrain location) : base (location)
+        public CreateForest(Area location) : base (location)
         {
-            Name = "Create Forest in " + location.Name;
+            Name = "Create Forest in Area " + location.Name;
         }
     }
 }

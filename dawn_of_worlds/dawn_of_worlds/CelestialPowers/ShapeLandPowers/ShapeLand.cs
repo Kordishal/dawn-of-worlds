@@ -11,9 +11,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     abstract class ShapeLand : Power
     {
-        protected Terrain _location { get; set; }
+        protected Area _location { get; set; }
 
-        public ShapeLand(Terrain location)
+        public ShapeLand(Area location)
         {
             _location = location;
         }

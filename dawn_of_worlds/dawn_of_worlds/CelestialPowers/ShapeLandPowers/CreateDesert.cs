@@ -14,14 +14,23 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     {
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // no deserts in oceans.
-            if (_location.Type == TerrainType.Ocean)
-                return false;
-            // not on mountains or hills
-            if (_location.Type == TerrainType.HillRange || _location.Type == TerrainType.MountainRange)
+            // needs a possible terrain in the area.
+            if (candidate_terrain().Count == 0)
                 return false;
 
             return true;
+        }
+
+        private List<Terrain> candidate_terrain()
+        {
+            List<Terrain> terrain_list = new List<Terrain>();
+            foreach (Terrain terrain in _location.TerrainArea)
+            {
+                if (terrain.isDefault && terrain.Type == TerrainType.Plain)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)
@@ -37,17 +46,21 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateDesert(Terrain location) : base(location)
+        public CreateDesert(Area location) : base(location)
         {
-            Name = "Create Desert in Terrain " + location.Name;
+            Name = "Create Desert in Area " + location.Name;
         }
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Desert desert = new Desert(Constants.Names.GetName("deserts"), _location, creator);
+            // Pick a random terrain tile.
+            List<Terrain> candidate_desert_locations = candidate_terrain();
+            Terrain desert_location = candidate_desert_locations[Constants.RND.Next(candidate_desert_locations.Count)];
+
+            Desert desert = new Desert(Constants.Names.GetName("deserts"), desert_location, creator);
 
             int chance = Constants.RND.Next(100);
-            switch (_location.Area.ClimateArea)
+            switch (_location.ClimateArea)
             {
                 case Climate.SubArctic:
                     if (chance < 50)
@@ -69,8 +82,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            _location.PrimaryTerrainFeature = desert;
-            _location.UnclaimedTerritory.Add(desert);
+            desert_location.PrimaryTerrainFeature = desert;
+            desert_location.UnclaimedTerritory.Add(desert);
+            desert_location.isDefault = false;
 
             // Add forest to the deity.
             creator.TerrainFeatures.Add(desert);

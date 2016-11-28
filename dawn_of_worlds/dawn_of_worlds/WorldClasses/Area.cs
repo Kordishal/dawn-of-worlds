@@ -27,7 +27,8 @@ namespace dawn_of_worlds.WorldClasses
             Name = Constants.Names.GetName("area");
             RegionArea = region;
 
-            ClimateArea = new Climate();           
+            ClimateArea = new Climate();
+            TerrainArea = new List<Terrain>();   
         }
 
         public override string ToString()

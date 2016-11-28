@@ -52,19 +52,19 @@ namespace dawn_of_worlds.Actors
 
             ActionLog = new List<string>();
 
-            foreach (Terrain terrain in current_world.TerrainGrid)
+            foreach (Area area in current_world.AreaGrid)
             {
                 // Shape Land
-                Powers.Add(new CreateForest(terrain));
-                Powers.Add(new CreateGrassland(terrain));
-                Powers.Add(new CreateDesert(terrain));
-                Powers.Add(new CreateCave(terrain));
-                Powers.Add(new CreateLake(terrain));
-                Powers.Add(new CreateRiver(terrain));
-                Powers.Add(new CreateMountainRange(terrain));
-                Powers.Add(new CreateMountain(terrain));
-                Powers.Add(new CreateHillRange(terrain));
-                Powers.Add(new CreateHill(terrain));
+                Powers.Add(new CreateForest(area));
+                Powers.Add(new CreateGrassland(area));
+                Powers.Add(new CreateDesert(area));
+                Powers.Add(new CreateCave(area));
+                Powers.Add(new CreateLake(area));
+                Powers.Add(new CreateRiver(area));
+                Powers.Add(new CreateMountainRange(area));
+                Powers.Add(new CreateMountain(area));
+                Powers.Add(new CreateHillRange(area));
+                Powers.Add(new CreateHill(area));
             }
             foreach (Area area in current_world.AreaGrid)
             {

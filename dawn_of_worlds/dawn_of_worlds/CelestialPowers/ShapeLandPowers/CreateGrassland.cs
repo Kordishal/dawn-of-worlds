@@ -12,18 +12,39 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateGrassland : ShapeLand
     {
+        // Grasslands are never created in landmass, as they are the default terrain type.
+        // but are kept on ocean tiles in case of islands (NYI)
+        public override bool isObsolete
+        {
+            get
+            {
+                return _location.RegionArea.Landmass;
+            }
+        }
+
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // no grasslands in oceans.
-            if (_location.Type == TerrainType.Ocean)
+            if (isObsolete)
                 return false;
 
-            // Can't create grasslands on mountain ranges & hill ranges. Each hill/mountain has a built in biome type.
-            if (_location.Type == TerrainType.MountainRange || _location.Type == TerrainType.HillRange)
+            // needs a possible terrain in the area.
+            if (candidate_terrain().Count == 0)
                 return false;
 
             return true;
+        }
+
+        private List<Terrain> candidate_terrain()
+        {
+            List<Terrain> terrain_list = new List<Terrain>();
+            foreach (Terrain terrain in _location.TerrainArea)
+            {
+                if (terrain.Type == TerrainType.Island)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)
@@ -39,16 +60,19 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateGrassland(Terrain location) : base(location)
+        public CreateGrassland(Area location) : base(location)
         {
-            Name = "Create Grassland in Terrain " + location.Name;
+            Name = "Create Grassland in Area " + location.Name;
         }
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Grassland grassland = new Grassland("PlaceHolder", _location, creator);
+            List<Terrain> grassland_locations = candidate_terrain();
+            Terrain grassland_location = grassland_locations[Constants.RND.Next(grassland_locations.Count)];
 
-            switch (_location.Area.ClimateArea)
+            Grassland grassland = new Grassland("PlaceHolder", grassland_location, creator);
+
+            switch (_location.ClimateArea)
             {
                 case Climate.Arctic:
                     grassland.BiomeType = BiomeType.Tundra;
@@ -68,8 +92,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             grassland.Name = Constants.Names.GetName("grasslands");
-            _location.PrimaryTerrainFeature = grassland;
-            _location.UnclaimedTerritory.Add(grassland);
+            grassland_location.PrimaryTerrainFeature = grassland;
+            grassland_location.UnclaimedTerritory.Add(grassland);
 
             creator.TerrainFeatures.Add(grassland);
             creator.LastCreation = grassland;

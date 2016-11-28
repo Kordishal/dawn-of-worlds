@@ -181,6 +181,7 @@ namespace dawn_of_worlds.WorldClasses
                         {
                             TerrainGrid[k, l] = new Terrain(AreaGrid[i, j]);        
                             TerrainGrid[k, l].Coordinates = new SystemCoordinates(k, l);
+                            AreaGrid[i, j].TerrainArea.Add(TerrainGrid[k, l]);
                         }
                     }
                 }

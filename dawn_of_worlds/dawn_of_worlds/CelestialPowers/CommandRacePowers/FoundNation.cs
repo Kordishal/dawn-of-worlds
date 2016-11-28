@@ -59,6 +59,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             while (location == null)
             {
                 location = _commanded_race.SettledTerrains[Constants.RND.Next(_commanded_race.SettledTerrains.Count)];
+
+
                 // At least one unclaimed territory necessary to found a nation.
                 if (location.UnclaimedTerritory.Count == 0)
                     location = null;

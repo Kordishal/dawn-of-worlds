@@ -14,11 +14,23 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     {
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // no caves in oceans.
-            if (_location.Type == TerrainType.Ocean)
+            // needs a possible terrain in the area.
+            if (candidate_terrain().Count == 0)
                 return false;
 
             return true;
+        }
+
+        private List<Terrain> candidate_terrain()
+        {
+            List<Terrain> terrain_list = new List<Terrain>();
+            foreach (Terrain terrain in _location.TerrainArea)
+            {
+                if (terrain.Type == TerrainType.MountainRange || terrain.Type == TerrainType.MountainRange)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)
@@ -31,17 +43,22 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateCave(Terrain location) : base(location)
+        public CreateCave(Area location) : base(location)
         {
-            Name = "Create Cave in Terrain " + location.Name;
+            Name = "Create Cave in Area " + location.Name;
         }
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
-            Cave cave = new Cave("PlaceHolder", _location, creator);
+            List<Terrain> cave_locations = candidate_terrain();
+
+            // Caves are placed in a random location within the territory.
+            Terrain cave_location = cave_locations[Constants.RND.Next(cave_locations.Count)];
+
+            Cave cave = new Cave("PlaceHolder", cave_location, creator);
 
             int chance = Constants.RND.Next(100);
-            switch (_location.Area.ClimateArea)
+            switch (_location.ClimateArea)
             {
                 case Climate.SubArctic:
                     cave.BiomeType = BiomeType.Subterranean;
@@ -58,8 +75,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             cave.Name = Constants.Names.GetName("caves");
-            _location.SecondaryTerrainFeatures.Add(cave);
-            _location.UnclaimedTerritory.Add(cave);
+            cave_location.SecondaryTerrainFeatures.Add(cave);
+            cave_location.UnclaimedTerritory.Add(cave);
 
             // Add forest to the deity.
             creator.TerrainFeatures.Add(cave);

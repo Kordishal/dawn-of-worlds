@@ -15,11 +15,23 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(World current_world, Deity creator, int current_age)
         {
-            // Needs a mountain range to start from
-            if (_location.Type == TerrainType.MountainRange)
-                return true;
-            else
+            // needs a possible terrain in the area.
+            if (candidate_terrain().Count == 0)
                 return false;
+
+            return true;
+        }
+
+        private List<Terrain> candidate_terrain()
+        {
+            List<Terrain> terrain_list = new List<Terrain>();
+            foreach (Terrain terrain in _location.TerrainArea)
+            {
+                if (terrain.Type == TerrainType.MountainRange)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
         }
 
         public override int Weight(World current_world, Deity creator, int current_age)
@@ -37,10 +49,13 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(World current_world, Deity creator, int current_age)
         {
+            List<Terrain> river_locations = candidate_terrain();
+            Terrain river_location = river_locations[Constants.RND.Next(river_locations.Count)];
+
             // Create the river
-            River river = new River(Constants.Names.GetName("rivers"), _location, creator);
+            River river = new River(Constants.Names.GetName("rivers"), river_location, creator);
             river.BiomeType = BiomeType.PermanentRiver;
-            river.Spring = (MountainRange)_location.PrimaryTerrainFeature;
+            river.Spring = (MountainRange)river_location.PrimaryTerrainFeature;
             river.Riverbed.Add(river.Spring.Location);
 
             // the primary direction of the river. 
@@ -69,7 +84,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             bool[] not_taken_other_direction = new bool[2] { true, true };
 
-            Terrain current_location = _location;
+            Terrain current_location = river_location;
             bool not_has_found_destination = true;
 
             while (not_has_found_destination)
@@ -192,9 +207,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             West,
         }
 
-        public CreateRiver(Terrain location) : base (location)
+        public CreateRiver(Area location) : base (location)
         {
-            Name = "Create River in Terrain " + location.Name;
+            Name = "Create River in Area " + location.Name;
         }
     }
 }
