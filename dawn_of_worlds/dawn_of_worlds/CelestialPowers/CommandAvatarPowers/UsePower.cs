@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandAvatarPowers
 {
@@ -13,14 +14,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandAvatarPowers
     {
         private Power _power;
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
-            return _power.Precondition(current_world, creator, current_age);
+            return _power.Precondition(creator);
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            return _power.Weight(current_world, creator, current_age);
+            return _power.Weight(creator);
         }
 
         public override bool isObsolete
@@ -37,9 +38,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandAvatarPowers
             _power = power;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
-            _power.Effect(current_world, creator, current_age);
+            _power.Effect(creator);
         }
     }
 }

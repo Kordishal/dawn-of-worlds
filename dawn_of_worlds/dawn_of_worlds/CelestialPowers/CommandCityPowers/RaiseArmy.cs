@@ -13,7 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 {
     class RaiseArmy : CommandCity
     {
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             if (_commanded_city.not_hasRaisedArmy)
                 return true;
@@ -21,9 +21,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             return false;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.War))
                 weight += Constants.WEIGHT_STANDARD_CHANGE;
@@ -35,7 +35,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
         }
 
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             // Create a new army and place it on the map.
             Army army = new Army(_commanded_city.Name + " Army", creator);

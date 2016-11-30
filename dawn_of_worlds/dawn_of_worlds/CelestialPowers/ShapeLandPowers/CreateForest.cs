@@ -12,7 +12,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateForest : ShapeLand
     {
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             if (_location.ClimateArea == Climate.Arctic)
                 return false;
@@ -37,7 +37,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         }
 
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             List<Terrain> forest_locations = candidate_terrain();
             Terrain forest_location = forest_locations[Constants.RND.Next(forest_locations.Count)];           
@@ -63,7 +63,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             forest.Name = Constants.Names.GetName("forests");
 
             forest_location.PrimaryTerrainFeature = forest;
-            forest_location.UnclaimedTerritory.Add(forest);
+            forest_location.UnclaimedTerritories.Add(forest);
+            forest_location.UnclaimedTravelAreas.Add(forest);
+            forest_location.UnclaimedHuntingGrounds.Add(forest);
             forest_location.isDefault = false;
 
             // Add forest to the deity.
@@ -71,9 +73,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = forest;            
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Nature))
                 weight += Constants.WEIGHT_MANY_CHANGE;

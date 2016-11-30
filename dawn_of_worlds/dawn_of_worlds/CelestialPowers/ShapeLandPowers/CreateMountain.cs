@@ -13,7 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     class CreateMountain : ShapeLand
     {
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
@@ -34,9 +34,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return terrain_list;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Earth))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -44,7 +44,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             List<Terrain> mountain_locations = candidate_terrain();
             Terrain mountain_location = mountain_locations[Constants.RND.Next(mountain_locations.Count)];
@@ -85,7 +85,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             mountain.Name = Constants.Names.GetName("mountains");
             ((MountainRange)mountain_location.PrimaryTerrainFeature).Mountains.Add(mountain);
             mountain.Range = (MountainRange)mountain_location.PrimaryTerrainFeature;
-            mountain_location.UnclaimedTerritory.Add(mountain);
+            mountain_location.UnclaimedTerritories.Add(mountain);
+            mountain_location.UnclaimedTravelAreas.Add(mountain);
+            mountain_location.UnclaimedHuntingGrounds.Add(mountain);
             creator.TerrainFeatures.Add(mountain);
             creator.LastCreation = mountain;           
         }

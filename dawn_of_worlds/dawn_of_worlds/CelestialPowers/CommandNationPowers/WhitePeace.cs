@@ -21,22 +21,25 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         private War _white_peaced_war { get; set; }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // If nation no longer exists.
             if (isObsolete)
                 return false;
 
+            if (!_commanded_nation.hasDiplomacy)
+                return false;
+
             return true;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             // if the nation calling for white peace is a war leader the war ends.
             if (_white_peaced_war.isWarLeader(_commanded_nation))
             {
                 // Remove war from war lists
-                current_world.OngoingWars.Remove(_white_peaced_war);
+                Program.World.OngoingWars.Remove(_white_peaced_war);
 
                 // reset all the relations statuses of each nation.
                 foreach (Nation defender in _white_peaced_war.Defenders)
@@ -84,9 +87,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             creator.LastCreation = _white_peaced_war;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.War))
                 weight -= Constants.WEIGHT_STANDARD_CHANGE;

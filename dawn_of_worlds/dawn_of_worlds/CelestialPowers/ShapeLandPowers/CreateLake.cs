@@ -13,7 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     class CreateLake : ShapeLand
     {
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
@@ -34,9 +34,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return terrain_list;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Water))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -47,7 +47,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             List<Terrain> lake_locations = candidate_terrain();
             Terrain lake_location = lake_locations[Constants.RND.Next(lake_locations.Count)];
@@ -65,7 +65,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             lake.OutGoingRiver = river;
 
             lake_location.SecondaryTerrainFeatures.Add(lake);
-            lake_location.UnclaimedTerritory.Add(lake);
+            lake_location.UnclaimedTerritories.Add(lake);
+            lake_location.UnclaimedTravelAreas.Add(lake);
+            lake_location.UnclaimedHuntingGrounds.Add(lake);
 
             // Add lake to deity lists
             creator.TerrainFeatures.Add(lake);

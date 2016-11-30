@@ -16,17 +16,20 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         private List<Nation> candidate_nations { get; set; }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             return weight >= 0 ? weight : 0;
         }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // If nation no longer exists.
             if (isObsolete)
+                return false;
+
+            if (!_commanded_nation.hasDiplomacy)
                 return false;
 
             compile_candidate_nations();
@@ -72,7 +75,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         }
 
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             compile_candidate_nations();
 

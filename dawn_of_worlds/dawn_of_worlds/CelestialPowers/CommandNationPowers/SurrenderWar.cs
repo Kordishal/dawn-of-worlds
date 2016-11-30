@@ -25,16 +25,19 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         private War _surrendered_war { get; set; }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // If nation no longer exists.
             if (isObsolete)
                 return false;
 
+            if (!_commanded_nation.hasDiplomacy)
+                return false;
+
             return true;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             // The war goal which will change hands.
             WarGoal war_goal;
@@ -44,36 +47,34 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 war_goal = _surrendered_war.WarGoalAttackers;
 
             // Remove war from war lists
-            current_world.OngoingWars.Remove(_surrendered_war);
+            Program.World.OngoingWars.Remove(_surrendered_war);
 
-            // Give city to victor
-            war_goal.WarGoalCity.Owner = war_goal.Winner;
-            war_goal.Winner.Cities.Add(war_goal.WarGoalCity);
-            // Assign territory to victor
-            foreach (TerrainFeatures terrain in war_goal.WarGoalCity.CitySphereOfÌnfluence)
+            switch (war_goal.Type)
             {
-                terrain.Owner = war_goal.Winner;
+                case WarGoalType.CityConquest:
+                    war_goal.City.changeOwnership(war_goal.Winner);
+                    if (_commanded_nation.Cities.Count == 0)
+                        _commanded_nation.DestroyNation(Program.World);
+                    break;
+                case WarGoalType.TerritoryConquest:
+                    war_goal.Territory.changeOwnership(war_goal.Winner);
+                    if (_commanded_nation.Territory.Count == 0)
+                        _commanded_nation.DestroyNation(Program.World);
+                    break;
+                case WarGoalType.ExpelNomads:
+                    break;
+                case WarGoalType.VassalizeCity:
+                    break;
             }
-
-
-            // remove the city from the loser.
-            _commanded_nation.Cities.Remove(war_goal.WarGoalCity);
-
-            // if last city has been removed from a nation the nation is destroyed.
-            if (_commanded_nation.Cities.Count == 0)
-            {
-                _commanded_nation.DestroyNation(current_world);
-            }
-
             _surrendered_war.hasEnded = true;
 
-            creator.LastCreation = null;
+            creator.LastCreation = _surrendered_war;
         }
 
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.War))
                 weight -= Constants.WEIGHT_STANDARD_CHANGE;

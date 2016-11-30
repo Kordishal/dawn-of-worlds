@@ -17,9 +17,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
 
         private List<Army> candidate_armies { get; set; }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Battle))
                 weight += Constants.WEIGHT_STANDARD_CHANGE;
@@ -33,7 +33,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             if (isObsolete)
                 return false;
@@ -41,7 +41,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
             if (!_commanded_army.Owner.isAtWar)
                 return false;
 
-            possible_candidate_armies(current_world);
+            possible_candidate_armies();
 
             if (candidate_armies.Count == 0)
                 return false;
@@ -49,11 +49,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
             return true;
         }
 
-        private void possible_candidate_armies(World current_world)
+        private void possible_candidate_armies()
         {
             candidate_armies.Clear();
 
-            foreach (War on_going_war in current_world.OngoingWars)
+            foreach (War on_going_war in Program.World.OngoingWars)
             {
                 if (on_going_war.isInWar(_commanded_army.Owner))
                 {
@@ -79,9 +79,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
         }
 
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
-            possible_candidate_armies(current_world);
+            possible_candidate_armies();
 
             Army target_army = candidate_armies[Constants.RND.Next(candidate_armies.Count)];
 

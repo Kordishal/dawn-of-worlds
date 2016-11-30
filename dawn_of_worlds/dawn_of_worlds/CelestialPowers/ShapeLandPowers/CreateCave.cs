@@ -12,7 +12,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateCave : ShapeLand
     {
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
@@ -33,9 +33,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return terrain_list;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Earth))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -48,7 +48,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Name = "Create Cave in Area " + location.Name;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             List<Terrain> cave_locations = candidate_terrain();
 
@@ -76,7 +76,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             cave.Name = Constants.Names.GetName("caves");
             cave_location.SecondaryTerrainFeatures.Add(cave);
-            cave_location.UnclaimedTerritory.Add(cave);
+            cave_location.UnclaimedTerritories.Add(cave);
+            cave_location.UnclaimedTravelAreas.Add(cave);
+            cave_location.UnclaimedHuntingGrounds.Add(cave);
 
             // Add forest to the deity.
             creator.TerrainFeatures.Add(cave);

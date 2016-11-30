@@ -23,7 +23,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         }
 
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             if (isObsolete)
                 return false;
@@ -47,9 +47,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return terrain_list;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Nature))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -65,7 +65,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Name = "Create Grassland in Area " + location.Name;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             List<Terrain> grassland_locations = candidate_terrain();
             Terrain grassland_location = grassland_locations[Constants.RND.Next(grassland_locations.Count)];
@@ -93,7 +93,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             grassland.Name = Constants.Names.GetName("grasslands");
             grassland_location.PrimaryTerrainFeature = grassland;
-            grassland_location.UnclaimedTerritory.Add(grassland);
+            grassland_location.UnclaimedTerritories.Add(grassland);
+            grassland_location.UnclaimedTravelAreas.Add(grassland);
+            grassland_location.UnclaimedHuntingGrounds.Add(grassland);
 
             creator.TerrainFeatures.Add(grassland);
             creator.LastCreation = grassland;

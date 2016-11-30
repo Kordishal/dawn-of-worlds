@@ -14,14 +14,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
     {
         private Area _location { get; set; }
 
-        public override int Cost(int current_age)
+        public override int Weight(Deity creator)
         {
-            return base.Cost(current_age) + 2;
-        }
-
-        public override int Weight(World current_world, Deity creator, int current_age)
-        {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Cold))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -32,7 +27,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             int[] climate_count = new int[5] { 0, 0, 0, 0, 0 };
             SystemCoordinates coords = null;
@@ -43,7 +38,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
                 if (coords.X >= 0 || coords.Y >= 0 || coords.X < Constants.AREA_GRID_X || coords.Y < Constants.AREA_GRID_Y)
                     continue;
 
-                switch (current_world.AreaGrid[coords.X, coords.Y].ClimateArea)
+                switch (Program.World.AreaGrid[coords.X, coords.Y].ClimateArea)
                 {
                     case Climate.Arctic:
                         climate_count[0] += 1;
@@ -93,7 +88,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             return false;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             int chance = Main.Constants.RND.Next(100);
 

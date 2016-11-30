@@ -23,7 +23,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
         private Nation _nation { get; set; }
         private Order _order { get; set; }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             Avatar created_avatar = new Avatar("PlaceHolder", creator);
 
@@ -68,7 +68,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
                     break;
             }
 
-            creator.Powers.Add(new UsePower(created_avatar, new FoundNation(created_avatar.AvatarRace)));
+            foreach (NationTypes type in Enum.GetValues(typeof(NationTypes)))
+                creator.Powers.Add(new UsePower(created_avatar, new FoundNation(created_avatar.AvatarRace, type)));
 
             created_avatar.Name = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
 
@@ -91,42 +92,43 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             creator.LastCreation = created_avatar;
         }
 
-        public override int Cost(int current_age)
+        public override int Cost()
         {
-            switch (current_age)
+            int cost = 0;
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
-                    return 10;
-                case 2:
-                    return 7;
-                case 3:
-                    return 8;
-                default:
-                    return 1;
+                case Age.Creation:
+                    cost += 10;
+                    break;
+                case Age.Races:
+                    cost += 7;
+                    break;
+                case Age.Relations:
+                    cost += 8;
+                    break;
             }
+
+            return cost;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
             int weight = 0;
 
-            switch (current_age)
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
+                case Age.Creation:
                     weight += Constants.WEIGHT_STANDARD_LOW;
                     break;
-                case 2:
+                case Age.Races:
                     weight += Constants.WEIGHT_STANDARD_MEDIUM;
                     break;
-                case 3:
+                case Age.Relations:
                     weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-                default:
-                    weight += 0;
                     break;
             }
 
-            int cost = Cost(current_age);
+            int cost = Cost();
             if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
                 weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
             else

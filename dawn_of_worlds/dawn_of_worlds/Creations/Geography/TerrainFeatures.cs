@@ -11,10 +11,32 @@ namespace dawn_of_worlds.Creations.Geography
 {
     class TerrainFeatures : Creation
     {
-        public Nation Owner { get; set; }
+        public Nation NationalTerritory { get; set; }
+        public Nation HuntingGround { get; set; }
+        public Nation TraveledArea { get; set; }
+
+        public void changeOwnership(Nation to)
+        {
+            switch (to.Type)
+            {
+                case NationTypes.FeudalNation:
+                case NationTypes.TribalNation:
+                case NationTypes.LairTerritory:
+                    NationalTerritory.Territory.Remove(this);
+                    NationalTerritory = to;
+                    break;
+                case NationTypes.NomadicTribe:
+                    TraveledArea.Territory.Remove(this);
+                    TraveledArea = to;
+                    break;
+                case NationTypes.HuntingGrounds:
+                    HuntingGround.Territory.Remove(this);
+                    HuntingGround = to;
+                    break;
+            }
+        }
 
         public City City { get; set; }
-        public City SphereOfInfluenceCity { get; set; }
 
         public Terrain Location { get; set; }
 

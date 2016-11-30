@@ -15,15 +15,66 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
     {
         private Terrain _settled_terrain { get; set; }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Exploration))
                 weight += Constants.WEIGHT_STANDARD_CHANGE;
 
             if (_commanded_race.Tags.Contains(RaceTags.RacialEpidemic))
                 weight -= Constants.WEIGHT_STANDARD_CHANGE;
+
+            foreach (RacialPreferredHabitatTerrain terrain in _commanded_race.PreferredTerrain)
+            {
+                switch (terrain)
+                {
+                    case RacialPreferredHabitatTerrain.CaveDwellers:
+                        if (_settled_terrain.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Cave)).Count > 0)
+                            weight += _settled_terrain.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Cave)).Count * 10;
+                        break;
+                    case RacialPreferredHabitatTerrain.DesertDwellers:
+                        if (_settled_terrain.PrimaryTerrainFeature.GetType() == typeof(Desert))
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                    case RacialPreferredHabitatTerrain.ForestDwellers:
+                        if (_settled_terrain.PrimaryTerrainFeature.GetType() == typeof(Forest))
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                    case RacialPreferredHabitatTerrain.HillDwellers:
+                        if (_settled_terrain.Type == TerrainType.HillRange)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                    case RacialPreferredHabitatTerrain.MountainDwellers:
+                        if (_settled_terrain.Type == TerrainType.MountainRange)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                    case RacialPreferredHabitatTerrain.PlainDwellers:
+                        if (_settled_terrain.Type == TerrainType.Plain)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        break;
+                }
+            }
+
+            foreach (RacialPreferredHabitatClimate climate in _commanded_race.PreferredClimate)
+            {
+                switch (climate)
+                {
+                    case RacialPreferredHabitatClimate.ColdAcclimated:
+                        if (_settled_terrain.Area.ClimateArea == Climate.Arctic || _settled_terrain.Area.ClimateArea == Climate.SubArctic)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                        break;
+                    case RacialPreferredHabitatClimate.HeatAcclimated:
+                        if (_settled_terrain.Area.ClimateArea == Climate.Tropical || _settled_terrain.Area.ClimateArea == Climate.SubTropical)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                        break;
+                    case RacialPreferredHabitatClimate.TemperateAcclimated:
+                        if (_settled_terrain.Area.ClimateArea == Climate.Temperate)
+                            weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                        break;
+                }
+            }
+
 
             return weight >= 0 ? weight : 0;
         }
@@ -43,14 +94,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             return false;
         }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             if (_settled_terrain.SettledRaces.Contains(_commanded_race))
                 return false;
 
             // if this is a subrace
             // Exclude all terrains where there are no similar races nearby.
-            if (!neighbouringTerrainHasRace(current_world))
+            if (!neighbouringTerrainHasRace(Program.World))
                   return false;
 
             // Aquatic, exclude all areas, which do not have water to live in.
@@ -72,7 +123,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         }
 
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             _settled_terrain.SettledRaces.Add(_commanded_race);
             _commanded_race.SettledTerrains.Add(_settled_terrain);

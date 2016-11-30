@@ -148,6 +148,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         Tribal,
         Nomadic,
         Sedentary,
+        Elitist,
     }
 
     enum RaceTags

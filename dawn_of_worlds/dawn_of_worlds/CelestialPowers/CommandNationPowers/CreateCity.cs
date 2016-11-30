@@ -9,15 +9,16 @@ using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.CelestialPowers.CommandCityPowers;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Creations.Diplomacy;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class CreateCity : CommandNation
     {
 
-        public override int Cost(int current_age)
+        public override int Cost()
         {
-            int cost = base.Cost(current_age);
+            int cost = base.Cost();
 
             if (_commanded_nation.Tags.Contains(NationalTags.VeryRich))
                 cost -= 2;
@@ -25,9 +26,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return cost;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Creation))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -41,9 +42,12 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             if (isObsolete)
+                return false;
+
+            if (!_commanded_nation.hasCities)
                 return false;
 
             foreach (TerrainFeatures terrain_features in _commanded_nation.Territory)
@@ -56,7 +60,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         }
 
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             TerrainFeatures terrain_features = null;
             List<TerrainFeatures> undeveloped_terrain_features = _commanded_nation.Territory.FindAll(x => x.City == null);
@@ -67,16 +71,22 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
             // The city is created and placed in the world. The nation is defined as the city owner.
             City founded_city = new City("City of the " + _commanded_nation.FoundingRace + " in Area " + terrain_features.Location.Name, creator);
-            founded_city.CityLocation = terrain_features;
             founded_city.CitySphereOfÌnfluence.Add(terrain_features);
             founded_city.Owner = _commanded_nation;
 
             // Tell the location, that it now has a city.
             terrain_features.City = founded_city;
-            terrain_features.Location.UnclaimedTerritory.Remove(terrain_features);
+            terrain_features.Location.UnclaimedTerritories.Remove(terrain_features);
 
             // add the city to the list of cities owned by the nation.
             _commanded_nation.Cities.Add(founded_city);
+
+            // Remove war goal for the territory of this city.
+            _commanded_nation.PossibleWarGoals.RemoveAll(x => x.Territory == founded_city.CityLocation);             
+
+            //New War Goal to conquer this city.
+            _commanded_nation.PossibleWarGoals.Add(new WarGoal(WarGoalType.CityConquest));
+            _commanded_nation.PossibleWarGoals.Last().City = founded_city;
 
             // Add city related powers and the creator
             creator.FoundedCities.Add(founded_city);

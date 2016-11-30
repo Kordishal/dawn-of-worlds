@@ -18,40 +18,37 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             _location = location;
         }
 
-        public override int Cost(int current_age)
+        public override int Cost()
         {
             int cost = 0;
-
-            switch (current_age)
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
+                case Age.Creation:
                     cost += 3;
                     break;
-                case 2:
+                case Age.Races:
                     cost += 5;
                     break;
-                case 3:
-                    cost += 8;
-                    break;
-                default:
+                case Age.Relations:
                     cost += 8;
                     break;
             }
+
             return cost;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
             int weight = 0;
-            switch (current_age)
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
+                case Age.Creation:
                     weight += Constants.WEIGHT_MANY_HIGH;
                     break;
-                case 2:
+                case Age.Races:
                     weight += Constants.WEIGHT_MANY_MEDIUM;
                     break;
-                case 3:
+                case Age.Relations:
                     weight += Constants.WEIGHT_MANY_LOW;
                     break;
                 default:
@@ -59,7 +56,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            int cost = Cost(current_age);
+            int cost = Cost();
             if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
                 weight += cost * Constants.WEIGHT_MANY_COST_DEVIATION;
             else

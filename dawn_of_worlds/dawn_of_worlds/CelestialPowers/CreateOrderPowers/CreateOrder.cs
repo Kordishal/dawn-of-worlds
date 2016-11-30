@@ -32,26 +32,30 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
             }
         }
 
-        public override int Cost(int current_age)
+        public override int Cost()
         {
-            switch (current_age)
+            int cost = 0;
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
-                    return 8;
-                case 2:
-                    return 6;
-                case 3:
-                    return 4;
-                default:
-                    return 2;
+                case Age.Creation:
+                    cost += 8;
+                    break;
+                case Age.Races:
+                    cost += 6;
+                    break;
+                case Age.Relations:
+                    cost += 4;
+                    break;
             }
+
+            return cost;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             Order created_order = new Order("PlaceHolder", creator, _type, _purpose);
             creator.CreatedOrders.Add(created_order);
-            current_world.Orders.Add(created_order);
+            Program.World.Orders.Add(created_order);
 
 
             if (_nation != null)
@@ -90,27 +94,24 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
             creator.LastCreation = created_order;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
             int weight = 0;
 
-            switch (current_age)
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
+                case Age.Creation:
                     weight += Constants.WEIGHT_STANDARD_LOW;
                     break;
-                case 2:
+                case Age.Races:
                     weight += Constants.WEIGHT_STANDARD_MEDIUM;
                     break;
-                case 3:
+                case Age.Relations:
                     weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-                default:
-                    weight += 0;
                     break;
             }
 
-            int cost = Cost(current_age);
+            int cost = Cost();
             if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
                 weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
             else

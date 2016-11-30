@@ -19,7 +19,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
     {
         private Race _created_race { get; set; }
         private Terrain _terrain { get; set; }
-        private bool neighbourTerrainHasMainRace(World current_world)
+        private bool neighbourTerrainHasMainRace()
         {
             for (int i = 0; i < 8; i++)
             {
@@ -27,20 +27,17 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 
                 if (coords.X >= 0 && coords.Y >= 0 && coords.X < Constants.TERRAIN_GRID_X && coords.Y < Constants.TERRAIN_GRID_Y)
                 {
-                    if (current_world.TerrainGrid[coords.X, coords.Y].SettledRaces.Contains(_created_race.MainRace))
+                    if (Program.World.TerrainGrid[coords.X, coords.Y].SettledRaces.Contains(_created_race.MainRace))
                         return true;
                 }
             }
             return false;
         }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // No longer valid once used.
             if (isObsolete)
-                return false;
-
-            if (_terrain.PrimaryTerrainFeature == null)
                 return false;
 
             if (_created_race.isSubRace && _created_race.MainRace.Creator == null)
@@ -49,7 +46,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             // if this is a subrace
             // Exclude all areas where the main race is not present or neighbouring
             if (_created_race.isSubRace)
-                if (!_terrain.SettledRaces.Contains(_created_race.MainRace) || !neighbourTerrainHasMainRace(current_world))
+                if (!_terrain.SettledRaces.Contains(_created_race.MainRace) || !neighbourTerrainHasMainRace())
                     return false;
 
             // Aquatic, exclude all areas, which do not have water to live in.
@@ -70,23 +67,19 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             return true;
         }
 
-        public override int Cost(int current_age)
+        public override int Cost()
         {
             int cost = 0;
-
-            switch (current_age)
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
+                case Age.Creation:
                     cost += 22;
                     break;
-                case 2:
+                case Age.Races:
                     cost += 6;
                     break;
-                case 3:
+                case Age.Relations:
                     cost += 15;
-                    break;
-                default:
-                    cost += 0;
                     break;
             }
 
@@ -102,7 +95,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             }
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {                
             // Each race has an order dedicated to worship their creator.
             Order creator_worhip_order = new Order("PlaceHolder", creator, OrderType.Church, OrderPurpose.FounderWorship);
@@ -124,13 +117,12 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             creator.CreatedRaces.Add(_created_race);
             creator.CreatedOrders.Add(creator_worhip_order);
 
-            foreach (Terrain terrain in current_world.TerrainGrid)
-            {
+            foreach (Terrain terrain in Program.World.TerrainGrid)
                 creator.Powers.Add(new SettleTerrain(_created_race, terrain));
-            }        
-            creator.Powers.Add(new FoundNation(_created_race));
+            foreach (NationTypes type in Enum.GetValues(typeof(NationTypes)))
+                creator.Powers.Add(new FoundNation(_created_race, type));
 
-            foreach (Deity deity in current_world.Deities)
+            foreach (Deity deity in Program.World.Deities)
             {
                 // Add racial events.
                 deity.Powers.Add(new RacialEpidemic(_created_race));
@@ -149,23 +141,23 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             }
 
             // Add the race to the world overview.
-            current_world.Races.Add(_created_race);
+            Program.World.Races.Add(_created_race);
             creator.LastCreation = _created_race;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
             int weight = 0;
 
-            switch (current_age)
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
+                case Age.Creation:
                     weight += Constants.WEIGHT_STANDARD_LOW;
                     break;
-                case 2:
+                case Age.Races:
                     weight += Constants.WEIGHT_STANDARD_HIGH;
                     break;
-                case 3:
+                case Age.Relations:
                     weight += Constants.WEIGHT_STANDARD_MEDIUM;
                     break;
                 default:
@@ -173,7 +165,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                     break;
             }
 
-            int cost = Cost(current_age);
+            int cost = Cost();
             if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
                 weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
             else

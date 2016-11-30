@@ -12,7 +12,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateMountainRange : ShapeLand
     {
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
@@ -33,9 +33,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return terrain_list;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Earth))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -44,7 +44,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         }
 
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             List<Terrain> mountain_range_locations = candidate_terrain();
             Terrain mountain_range_location = mountain_range_locations[Constants.RND.Next(mountain_range_locations.Count)];

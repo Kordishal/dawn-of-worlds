@@ -12,7 +12,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateDesert : ShapeLand
     {
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
@@ -33,9 +33,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return terrain_list;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Drought))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -51,7 +51,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Name = "Create Desert in Area " + location.Name;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             // Pick a random terrain tile.
             List<Terrain> candidate_desert_locations = candidate_terrain();
@@ -83,7 +83,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             desert_location.PrimaryTerrainFeature = desert;
-            desert_location.UnclaimedTerritory.Add(desert);
+            desert_location.UnclaimedTerritories.Add(desert);
+            desert_location.UnclaimedTravelAreas.Add(desert);
+            desert_location.UnclaimedHuntingGrounds.Add(desert);
             desert_location.isDefault = false;
 
             // Add forest to the deity.

@@ -14,6 +14,8 @@ namespace dawn_of_worlds.Creations.Organisations
 {
     class Nation : Creation
     {
+
+
         public NationTypes Type { get; set; }
 
         // Inhabitants
@@ -23,6 +25,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<Avatar> Subjects { get; set; }
 
         // Cities
+        public bool hasCities { get; set; }
         public City CapitalCity
         {
             get
@@ -39,8 +42,11 @@ namespace dawn_of_worlds.Creations.Organisations
         // Conflict 
         public bool isDestroyed { get; set; }
         public List<Army> Armies { get; set; }
+        public List<WarGoal> PossibleWarGoals { get; set; }
+
 
         // Diplomacy
+        public bool hasDiplomacy { get; set; }
         public List<Relations> Relationships { get; set; }
         public bool isAtWar
         {
@@ -87,7 +93,7 @@ namespace dawn_of_worlds.Creations.Organisations
 
                 if (current_war.isInWar(this))
                 {
-                    new WhitePeace(this, current_war).Effect(current_world, Creator, 0);
+                    new WhitePeace(this, current_war).Effect(Creator);
                 }
             }
 
@@ -105,6 +111,7 @@ namespace dawn_of_worlds.Creations.Organisations
             Relationships = new List<Relations>();
             NationalOrders = new List<Order>();
             Tags = new List<NationalTags>();
+            PossibleWarGoals = new List<WarGoal>();
             isDestroyed = false;       
         }
     }
@@ -115,6 +122,7 @@ namespace dawn_of_worlds.Creations.Organisations
         NomadicTribe,
         TribalNation,
         FeudalNation,
+        HuntingGrounds,
     }
 
     enum NationalTags

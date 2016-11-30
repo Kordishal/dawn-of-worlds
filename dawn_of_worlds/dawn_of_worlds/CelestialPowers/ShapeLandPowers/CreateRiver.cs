@@ -13,7 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     class CreateRiver : ShapeLand
     {
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
@@ -34,9 +34,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return terrain_list;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Water))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -47,7 +47,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             List<Terrain> river_locations = candidate_terrain();
             Terrain river_location = river_locations[Constants.RND.Next(river_locations.Count)];
@@ -155,7 +155,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     if (coords.X > 0 && coords.Y > 0 && coords.X < Constants.TERRAIN_GRID_X && coords.Y < Constants.TERRAIN_GRID_Y)
                     {
                         // Assign next location
-                        current_location = current_world.TerrainGrid[coords.X, coords.Y];
+                        current_location = Program.World.TerrainGrid[coords.X, coords.Y];
                     }
                     else
                         current_location = null;

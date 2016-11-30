@@ -13,29 +13,22 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Main
 {
-    class MainLoop
+    class Simulation
     {
-        public int CurrentAge { get; set; }
+        public static TimeLine Time { get; set; }
 
-        public ActionLog Log { get; set; }
-        public World MainWorld { get; set; }
-
-        public MainLoop() { }
-
-        public void Initialize()
+        public Simulation()
         {
-            Constants.Names = new NameGenerator();
-            MainWorld = new World(Constants.Names.GetName("world_names"), 5, 5);
-            Log = new ActionLog();                    
+            Time = new TimeLine();
         }
 
         public void Run()
         {
-            CurrentAge = 1;
             for (int i = 0; i < 40; i++)
             {
-                Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@ TURN " + i.ToString() + " @@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                foreach (Deity deity in MainWorld.Deities)
+                Time.Advance();
+                Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@  TURN " + i.ToString() + "  @@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                foreach (Deity deity in Program.World.Deities)
                 {
                     deity.AddPowerPoints();
 
@@ -48,16 +41,16 @@ namespace dawn_of_worlds.Main
 
                 for (int j = 0; j < 10; j++)
                 {
-                    foreach (Deity deity in MainWorld.Deities)
+                    foreach (Deity deity in Program.World.Deities)
                     {
-                        deity.Turn(MainWorld, CurrentAge);
+                        deity.Turn();
 
-                        Log.Entries.Add(new ActionLogEntry(i, deity, deity.LastUsedPower, deity.LastCreation));
+                        Program.Log.Entries.Add(new ActionLogEntry(i, deity, deity.LastUsedPower, deity.LastCreation));
                     }
                 }
 
 
-                foreach (Deity deity in MainWorld.Deities)
+                foreach (Deity deity in Program.World.Deities)
                 {
                     for (int j = 0; j < deity.Powers.Count; j++)
                     {
@@ -68,17 +61,9 @@ namespace dawn_of_worlds.Main
                         }
                     }
                 }
-               
-                if (i == 10)
-                    CurrentAge += 1;
 
-                if (i == 20)
-                    CurrentAge += 1;
             
             }
-
-
-            Log.Write(MainWorld);
         }
     }
 }

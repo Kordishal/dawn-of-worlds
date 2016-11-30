@@ -13,7 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     class CreateHill : ShapeLand
     {
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
@@ -34,9 +34,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return terrain_list;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.Earth))
                 weight += Constants.WEIGHT_MANY_CHANGE;
@@ -44,7 +44,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             // Pick a random terrain tile.
             List<Terrain> hill_locations = candidate_terrain();
@@ -98,7 +98,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             // Add hill to hill range.
             ((HillRange)hill_location.PrimaryTerrainFeature).Hills.Add(hill);
             hill.Range = (HillRange)hill_location.PrimaryTerrainFeature;
-            hill_location.UnclaimedTerritory.Add(hill);
+            hill_location.UnclaimedTerritories.Add(hill);
+            hill_location.UnclaimedTravelAreas.Add(hill);
+            hill_location.UnclaimedHuntingGrounds.Add(hill);
 
             // Add mountain to deity lists
             creator.TerrainFeatures.Add(hill);

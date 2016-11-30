@@ -15,21 +15,18 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 
         protected City _commanded_city;
 
-        public override int Cost(int current_age)
+        public override int Cost()
         {
             int cost = 0;
-            switch (current_age)
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
+                case Age.Creation:
                     cost += 6;
                     break;
-                case 2:
+                case Age.Races:
                     cost += 4;
                     break;
-                case 3:
-                    cost += 2;
-                    break;
-                default:
+                case Age.Relations:
                     cost += 2;
                     break;
             }
@@ -40,27 +37,24 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             return cost;
         }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
             int weight = 0;
 
-            switch (current_age)
+            switch (Simulation.Time.CurrentAge)
             {
-                case 1:
+                case Age.Creation:
                     weight += Constants.WEIGHT_STANDARD_LOW;
                     break;
-                case 2:
+                case Age.Races:
                     weight += Constants.WEIGHT_STANDARD_MEDIUM;
                     break;
-                case 3:
+                case Age.Relations:
                     weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-                default:
-                    weight += 0;
                     break;
             }
 
-            int cost = Cost(current_age);
+            int cost = Cost();
             if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
                 weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
             else

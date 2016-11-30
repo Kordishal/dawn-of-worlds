@@ -56,15 +56,25 @@ namespace dawn_of_worlds.Creations.Diplomacy
         }
     }
 
-    struct WarGoal
+    class WarGoal
     {
+        public WarGoalType Type { get; set; }
         public Nation Winner { get; set; }
-        public City WarGoalCity { get; set; }
+        public City City { get; set; }
+        public TerrainFeatures Territory { get; set; }
 
-        public WarGoal(Nation winner, City city)
+        public WarGoal(WarGoalType type)
         {
-            Winner = winner;
-            WarGoalCity = city;
+            Type = type;
         }
+    }
+
+    enum WarGoalType
+    {
+        CityConquest,
+        TerritoryConquest,
+        ExpelNomads,
+        VassalizeCity,
+        TravelAreaConquest,
     }
 }

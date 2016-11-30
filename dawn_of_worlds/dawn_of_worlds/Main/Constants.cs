@@ -38,4 +38,61 @@ namespace dawn_of_worlds.Main
 
         public const int WEIGHT_MANY_COST_DEVIATION = 1;
     }
+
+    class WeightedObjects<S>
+    {
+        public S Object { get; set; }
+        public int Weight { get; set; }
+
+        public static int TotalWeight(List<WeightedObjects<S>> weighted_objects)
+        {
+            int result = 0;
+            foreach (WeightedObjects<S> objects in weighted_objects)
+            {
+                result += objects.Weight;
+            }
+            return result;
+        }
+
+        public static S ChooseRandomObject(List<WeightedObjects<S>> weighted_objects)
+        {
+            int chance = Constants.RND.Next(TotalWeight(weighted_objects));
+            int prev_weight = 0, current_weight = 0;
+            foreach (WeightedObjects<S> weigted_object in weighted_objects)
+            {
+                current_weight += weigted_object.Weight;
+                if (prev_weight <= chance && chance < current_weight)
+                {
+                    return weigted_object.Object;
+                }
+                prev_weight += weigted_object.Weight;
+            }
+
+            return default(S);
+        }
+
+        public static List<S> ChooseHeaviestObjects(List<WeightedObjects<S>> weighted_objects)
+        {
+            WeightedObjects<S> max = weighted_objects.First();
+
+            for (int i = 1; i < weighted_objects.Count; i++)
+            {
+                if (weighted_objects[i].Weight > max.Weight)
+                    max = weighted_objects[i];
+            }
+
+            List<S> max_objects = new List<S>();
+            foreach (WeightedObjects<S> weighted_object in weighted_objects)
+                if (weighted_object.Weight == max.Weight)
+                    max_objects.Add(weighted_object.Object);
+
+            return max_objects;
+        }
+
+        public WeightedObjects(S objects)
+        {
+            Object = objects;
+            Weight = 0;
+        }
+    }
 }

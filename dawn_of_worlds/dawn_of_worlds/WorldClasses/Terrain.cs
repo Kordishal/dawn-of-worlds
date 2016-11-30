@@ -35,7 +35,9 @@ namespace dawn_of_worlds.WorldClasses
 
         public List<Race> SettledRaces { get; set; }
 
-        public List<TerrainFeatures> UnclaimedTerritory { get; set; }
+        public List<TerrainFeatures> UnclaimedTerritories { get; set; }
+        public List<TerrainFeatures> UnclaimedTravelAreas { get; set; }
+        public List<TerrainFeatures> UnclaimedHuntingGrounds { get; set; }
 
         public Terrain(Area area)
         {
@@ -43,14 +45,18 @@ namespace dawn_of_worlds.WorldClasses
             Area = area;
             SettledRaces = new List<Race>();
             SecondaryTerrainFeatures = new List<TerrainFeatures>();
-            UnclaimedTerritory = new List<TerrainFeatures>();
+            UnclaimedTerritories = new List<TerrainFeatures>();
+            UnclaimedTravelAreas = new List<TerrainFeatures>();
+            UnclaimedHuntingGrounds = new List<TerrainFeatures>();
             isDefault = true;
             // Establish a grassland as a base terrain on continents for races/nations to be built on it.
             if (area != null && area.RegionArea.Landmass)
             {
                 Type = TerrainType.Plain;
                 PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
-                UnclaimedTerritory.Add(PrimaryTerrainFeature);
+                UnclaimedTerritories.Add(PrimaryTerrainFeature);
+                UnclaimedTravelAreas.Add(PrimaryTerrainFeature);
+                UnclaimedHuntingGrounds.Add(PrimaryTerrainFeature);
 
                 switch (this.Area.ClimateArea)
                 {
@@ -76,6 +82,11 @@ namespace dawn_of_worlds.WorldClasses
                 Type = TerrainType.Ocean;
 
 
+        }
+
+        public override string ToString()
+        {
+            return "Terrain: " + Name;
         }
     }
 

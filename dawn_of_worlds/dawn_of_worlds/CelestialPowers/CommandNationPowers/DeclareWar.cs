@@ -15,9 +15,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
     {
         private List<Nation> candidate_nations { get; set; }
 
-        public override int Weight(World current_world, Deity creator, int current_age)
+        public override int Weight(Deity creator)
         {
-            int weight = base.Weight(current_world, creator, current_age);
+            int weight = base.Weight(creator);
 
             if (creator.Domains.Contains(Domain.War))
                 weight += Constants.WEIGHT_STANDARD_CHANGE;
@@ -31,10 +31,13 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override bool Precondition(World current_world, Deity creator, int current_age)
+        public override bool Precondition(Deity creator)
         {
             // If nation no longer exists.
             if (isObsolete)
+                return false;
+
+            if (!_commanded_nation.hasDiplomacy)
                 return false;
 
             // A nation cannot declare a war while at war. (but can be called into one as an ally)
@@ -66,7 +69,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         }
 
-        public override void Effect(World current_world, Deity creator, int current_age)
+        public override void Effect(Deity creator)
         {
             Nation war_target = candidate_nations[Constants.RND.Next(candidate_nations.Count)];
 
@@ -86,15 +89,84 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                         declared_war.Attackers.Add(_commanded_nation.Relationships[i].Target);
             }
 
-            // Define war goals
-            declared_war.WarGoalAttackers = new WarGoal(_commanded_nation, war_target.Cities[Constants.RND.Next(war_target.Cities.Count)]);
-            declared_war.WarGoalDefenders = new WarGoal(war_target, _commanded_nation.Cities[Constants.RND.Next(_commanded_nation.Cities.Count)]);
+
+            List<WeightedObjects<WarGoal>>[] war_goals = new List<WeightedObjects<WarGoal>>[2];
+            for (int i = 0; i < 2; i++)
+            {
+                war_goals[i] = new List<WeightedObjects<WarGoal>>();
+                foreach (WarGoal war_goal in war_target.PossibleWarGoals)
+                    war_goals[i].Add(new WeightedObjects<WarGoal>(war_goal));
+
+                foreach (WeightedObjects<WarGoal> weighted_war_goal in war_goals[i])
+                {
+                    Nation taker, target;
+                    if (i == 0)
+                    {
+                        taker = _commanded_nation;
+                        target = war_target;
+                    }
+                    else
+                    {
+                        taker = war_target;
+                        target = _commanded_nation;
+                    }
+
+                    weighted_war_goal.Object.Winner = taker;
+
+                    switch (taker.Type)
+                    {
+                        case NationTypes.TribalNation:
+                        case NationTypes.LairTerritory:
+                        case NationTypes.FeudalNation:
+                            switch (target.Type)
+                            {
+                                case NationTypes.LairTerritory:
+                                case NationTypes.TribalNation:
+                                case NationTypes.FeudalNation:
+                                    if (weighted_war_goal.Object.Type == WarGoalType.CityConquest)
+                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                                    if (weighted_war_goal.Object.Type == WarGoalType.TerritoryConquest)
+                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                                    break;
+                                case NationTypes.NomadicTribe:
+                                    if (weighted_war_goal.Object.Type == WarGoalType.ExpelNomads)
+                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                                    break;
+                            }
+                            break;
+                        case NationTypes.NomadicTribe:
+                            switch (target.Type)
+                            {
+                                case NationTypes.FeudalNation:
+                                case NationTypes.TribalNation:
+                                case NationTypes.LairTerritory:
+                                    if (weighted_war_goal.Object.Type == WarGoalType.VassalizeCity)
+                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                                    break;
+                                case NationTypes.NomadicTribe:
+                                    if (weighted_war_goal.Object.Type == WarGoalType.TravelAreaConquest)
+                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                                    break;
+                            }
+                            break;
+                    }
+
+                }
+            }
+
+            List<WarGoal> weighted_war_goals = WeightedObjects<WarGoal>.ChooseHeaviestObjects(war_goals[0]);
+            declared_war.WarGoalAttackers = weighted_war_goals[Constants.RND.Next(weighted_war_goals.Count)];
+
+            weighted_war_goals = WeightedObjects<WarGoal>.ChooseHeaviestObjects(war_goals[1]);
+            declared_war.WarGoalDefenders = weighted_war_goals[Constants.RND.Next(weighted_war_goals.Count)];
+
 
             // Add war to the list of ongoing conflicts.
-            current_world.OngoingWars.Add(declared_war);
+            Program.World.OngoingWars.Add(declared_war);
 
             // Add powers related to the war to connected deities.
             // attacker related
+            // Only the war leader can surrender as only he stands to lose anything, all other participants can only white peace.
             creator.Powers.Add(new SurrenderWar(_commanded_nation, declared_war));
             foreach (Nation nation in declared_war.Attackers)
             {

@@ -6,6 +6,7 @@ using dawn_of_worlds.Creations;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Main;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -96,7 +97,7 @@ namespace dawn_of_worlds.Actors
             //Console.WriteLine("PowerPoints after adding turn gain: " + PowerPoints);
         }
 
-        public void Turn(World current_world, int current_age)
+        public void Turn()
         {
             List<Power> current_powers = new List<Power>(Powers);
             List<Power> possible_powers = new List<Power>();
@@ -104,39 +105,39 @@ namespace dawn_of_worlds.Actors
 
             foreach (Power p in current_powers)
             {
-                if (PowerPoints - p.Cost(current_age) >= 0)
+                if (PowerPoints - p.Cost() >= 0)
                 {
-                    if (p.Precondition(current_world, this, current_age))
+                    if (p.Precondition(this))
                     {
                         possible_powers.Add(p);
-                        total_weight += p.Weight(current_world, this, current_age);
+                        total_weight += p.Weight(this);
                     }
                 }                    
             }
 
             //Console.WriteLine("Possible Actions Count: " + possible_powers.Count);
 
-            int chance = Main.Constants.RND.Next(total_weight);
+            int chance = Constants.RND.Next(total_weight);
             int prev_weight = 0, current_weight = 0;
             foreach (Power p in possible_powers)
             {
-                current_weight += p.Weight(current_world, this, current_age);
+                current_weight += p.Weight(this);
                 if (prev_weight <= chance && chance < current_weight)
                 {
                     //Console.WriteLine("TAKE ACTION");
                     //Console.WriteLine("Action: " + p);
                     //Console.WriteLine("Cost: " + p.Cost(current_age));
                     //Console.WriteLine("PowerPoints: " + PowerPoints);
-                    p.Effect(current_world, this, current_age);
-                    PowerPoints = PowerPoints - p.Cost(current_age);
+                    p.Effect(this);
+                    PowerPoints = PowerPoints - p.Cost();
                     // For the Action Log entry.
-                    _total_power_points += p.Cost(current_age);
+                    _total_power_points += p.Cost();
                     LastUsedPower = p;
                     break;
                 }
 
 
-                prev_weight += p.Weight(current_world, this, current_age);
+                prev_weight += p.Weight(this);
             }
         }
 
