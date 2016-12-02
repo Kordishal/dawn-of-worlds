@@ -17,7 +17,7 @@ namespace dawn_of_worlds.Creations.Organisations
 
         public bool isScattered { get; set; }
 
-        public Terrain ArmyLocation { get; set; }
+        public Tile ArmyLocation { get; set; }
 
         public Army(string name, Deity creator) : base(name, creator)
         {

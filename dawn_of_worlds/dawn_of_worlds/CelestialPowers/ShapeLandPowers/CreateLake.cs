@@ -22,10 +22,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Terrain> candidate_terrain()
+        private List<Tile> candidate_terrain()
         {
-            List<Terrain> terrain_list = new List<Terrain>();
-            foreach (Terrain terrain in _location.TerrainArea)
+            List<Tile> terrain_list = new List<Tile>();
+            foreach (Tile terrain in _location.TerrainArea)
             {
                 if (terrain.hasRivers)
                     terrain_list.Add(terrain);
@@ -49,8 +49,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Terrain> lake_locations = candidate_terrain();
-            Terrain lake_location = lake_locations[Constants.RND.Next(lake_locations.Count)];
+            List<Tile> lake_locations = candidate_terrain();
+            Tile lake_location = lake_locations[Constants.Random.Next(lake_locations.Count)];
 
             // Create the lake
             Lake lake = new Lake(Constants.Names.GetName("lakes"), lake_location, creator);
@@ -58,7 +58,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             // Choose random river which the lake is connected to.
             List<TerrainFeatures> rivers = lake_location.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(River));
-            River river = (River)rivers[Constants.RND.Next(rivers.Count)];
+            River river = (River)rivers[Constants.Random.Next(rivers.Count)];
 
             river.ConnectedLakes.Add(lake);
             lake.SourceRivers.Add(river);

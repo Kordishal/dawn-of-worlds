@@ -7,7 +7,7 @@ using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.WorldClasses
 {
-    class Terrain
+    class Tile
     {
         public string Name { get; set; }
 
@@ -39,7 +39,7 @@ namespace dawn_of_worlds.WorldClasses
         public List<TerrainFeatures> UnclaimedTravelAreas { get; set; }
         public List<TerrainFeatures> UnclaimedHuntingGrounds { get; set; }
 
-        public Terrain(Area area)
+        public Tile(Area area)
         {
             Name = Constants.Names.GetName("area");
             Area = area;

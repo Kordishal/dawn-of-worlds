@@ -25,6 +25,7 @@ namespace dawn_of_worlds.Creations.Diplomacy
 
     enum RelationStatus
     {
+        None,
         Self,
         Unknown,
         Known,

@@ -21,10 +21,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Terrain> candidate_terrain()
+        private List<Tile> candidate_terrain()
         {
-            List<Terrain> terrain_list = new List<Terrain>();
-            foreach (Terrain terrain in _location.TerrainArea)
+            List<Tile> terrain_list = new List<Tile>();
+            foreach (Tile terrain in _location.TerrainArea)
             {
                 if (terrain.isDefault && terrain.Type == TerrainType.Plain)
                     terrain_list.Add(terrain);
@@ -46,8 +46,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Terrain> mountain_range_locations = candidate_terrain();
-            Terrain mountain_range_location = mountain_range_locations[Constants.RND.Next(mountain_range_locations.Count)];
+            List<Tile> mountain_range_locations = candidate_terrain();
+            Tile mountain_range_location = mountain_range_locations[Constants.Random.Next(mountain_range_locations.Count)];
             MountainRange mountain_range = new MountainRange(Constants.Names.GetName("mountain_ranges"), mountain_range_location, creator);
             mountain_range_location.Type = TerrainType.MountainRange;
             mountain_range_location.PrimaryTerrainFeature = mountain_range;

@@ -17,7 +17,7 @@ namespace dawn_of_worlds.WorldClasses
         public SystemCoordinates Coordinates { get; set; }
 
         public Region RegionArea { get; set; }
-        public List<Terrain> TerrainArea { get; set; }
+        public List<Tile> TerrainArea { get; set; }
 
         public Climate ClimateArea { get; set; }
 
@@ -28,7 +28,7 @@ namespace dawn_of_worlds.WorldClasses
             RegionArea = region;
 
             ClimateArea = new Climate();
-            TerrainArea = new List<Terrain>();   
+            TerrainArea = new List<Tile>();   
         }
 
         public override string ToString()

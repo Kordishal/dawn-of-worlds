@@ -10,7 +10,7 @@ namespace dawn_of_worlds.Creations.Geography
 {
     class Grassland : TerrainFeatures
     {
-        public Grassland(string name, Terrain location, Deity creator) : base(name, location, creator)
+        public Grassland(string name, Tile location, Deity creator) : base(name, location, creator)
         {
         }
     }

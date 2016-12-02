@@ -90,7 +90,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 
         public override void Effect(Deity creator)
         {
-            int chance = Main.Constants.RND.Next(100);
+            int chance = Main.Constants.Random.Next(100);
 
             // Set new climate
             switch (_location.ClimateArea)
@@ -109,7 +109,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
                     break;
             }
 
-            foreach (Terrain terrain in _location.TerrainArea)
+            foreach (Tile terrain in _location.TerrainArea)
             {
                 // change forest biome type
                 if (terrain.Type == TerrainType.Plain)

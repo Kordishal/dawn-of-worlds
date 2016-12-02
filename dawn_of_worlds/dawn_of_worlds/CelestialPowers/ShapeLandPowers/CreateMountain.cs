@@ -22,10 +22,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Terrain> candidate_terrain()
+        private List<Tile> candidate_terrain()
         {
-            List<Terrain> terrain_list = new List<Terrain>();
-            foreach (Terrain terrain in _location.TerrainArea)
+            List<Tile> terrain_list = new List<Tile>();
+            foreach (Tile terrain in _location.TerrainArea)
             {
                 if (terrain.Type == TerrainType.MountainRange)
                     terrain_list.Add(terrain);
@@ -46,11 +46,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Terrain> mountain_locations = candidate_terrain();
-            Terrain mountain_location = mountain_locations[Constants.RND.Next(mountain_locations.Count)];
+            List<Tile> mountain_locations = candidate_terrain();
+            Tile mountain_location = mountain_locations[Constants.Random.Next(mountain_locations.Count)];
             Mountain mountain = new Mountain("PlaceHolder", mountain_location, creator);
 
-            int chance = Constants.RND.Next(100);
+            int chance = Constants.Random.Next(100);
             switch (_location.ClimateArea)
             {
                 case Climate.Arctic:

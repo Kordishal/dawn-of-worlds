@@ -77,7 +77,7 @@ namespace dawn_of_worlds.Actors
             // Create Races
             foreach (Race race in DefinedRaces.DefinedRacesList)
             {
-                foreach (Terrain terrain in current_world.TerrainGrid)
+                foreach (Tile terrain in current_world.TerrainGrid)
                 {
                     Powers.Add(new CreateRace(race, terrain));
                 }              
@@ -92,7 +92,7 @@ namespace dawn_of_worlds.Actors
             if (PowerPoints < 5)
                 PowerPoints = PowerPoints + (5 - PowerPoints);
 
-            PowerPoints = PowerPoints + Main.Constants.RND.Next(12);
+            PowerPoints = PowerPoints + Constants.Random.Next(Constants.DEITY_BASE_POWERPOINT_MIN_GAIN, Constants.DEITY_BASE_POWERPOINT_MAX_GAIN);
 
             //Console.WriteLine("PowerPoints after adding turn gain: " + PowerPoints);
         }
@@ -117,7 +117,7 @@ namespace dawn_of_worlds.Actors
 
             //Console.WriteLine("Possible Actions Count: " + possible_powers.Count);
 
-            int chance = Constants.RND.Next(total_weight);
+            int chance = Constants.Random.Next(total_weight);
             int prev_weight = 0, current_weight = 0;
             foreach (Power p in possible_powers)
             {

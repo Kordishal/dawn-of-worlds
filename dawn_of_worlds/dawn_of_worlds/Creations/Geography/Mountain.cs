@@ -13,7 +13,7 @@ namespace dawn_of_worlds.Creations.Geography
 
         public MountainRange Range { get; set; }
 
-        public Mountain(string name, Terrain location, Deity creator) : base(name, location, creator)
+        public Mountain(string name, Tile location, Deity creator) : base(name, location, creator)
         {
         }
     }

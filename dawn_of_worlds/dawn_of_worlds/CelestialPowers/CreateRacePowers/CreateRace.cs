@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
     class CreateRace : Power
     {
         private Race _created_race { get; set; }
-        private Terrain _terrain { get; set; }
+        private Tile _terrain { get; set; }
         private bool neighbourTerrainHasMainRace()
         {
             for (int i = 0; i < 8; i++)
@@ -117,7 +117,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             creator.CreatedRaces.Add(_created_race);
             creator.CreatedOrders.Add(creator_worhip_order);
 
-            foreach (Terrain terrain in Program.World.TerrainGrid)
+            foreach (Tile terrain in Program.World.TerrainGrid)
                 creator.Powers.Add(new SettleTerrain(_created_race, terrain));
             foreach (NationTypes type in Enum.GetValues(typeof(NationTypes)))
                 creator.Powers.Add(new FoundNation(_created_race, type));
@@ -228,7 +228,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateRace(Race created_race, Terrain terrain)
+        public CreateRace(Race created_race, Tile terrain)
         {
             if (created_race.isSubRace)
                 Name = "Create SubRace: " + created_race.Name;

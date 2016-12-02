@@ -22,10 +22,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Terrain> candidate_terrain()
+        private List<Tile> candidate_terrain()
         {
-            List<Terrain> terrain_list = new List<Terrain>();
-            foreach (Terrain terrain in _location.TerrainArea)
+            List<Tile> terrain_list = new List<Tile>();
+            foreach (Tile terrain in _location.TerrainArea)
             {
                 if (terrain.Type == TerrainType.MountainRange)
                     terrain_list.Add(terrain);
@@ -49,8 +49,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Terrain> river_locations = candidate_terrain();
-            Terrain river_location = river_locations[Constants.RND.Next(river_locations.Count)];
+            List<Tile> river_locations = candidate_terrain();
+            Tile river_location = river_locations[Constants.Random.Next(river_locations.Count)];
 
             // Create the river
             River river = new River(Constants.Names.GetName("rivers"), river_location, creator);
@@ -60,7 +60,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             // the primary direction of the river. 
             Array directions = Enum.GetValues(typeof(Direction));
-            Direction primary_direction = (Direction)directions.GetValue(Constants.RND.Next(directions.Length));           
+            Direction primary_direction = (Direction)directions.GetValue(Constants.Random.Next(directions.Length));           
             Direction[] other_directions = new Direction[2];
             switch (primary_direction)
             {
@@ -84,7 +84,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             bool[] not_taken_other_direction = new bool[2] { true, true };
 
-            Terrain current_location = river_location;
+            Tile current_location = river_location;
             bool not_has_found_destination = true;
 
             while (not_has_found_destination)
@@ -94,7 +94,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     current_location.SecondaryTerrainFeatures.Exists(y => y.GetType() == typeof(River)))
                 {
                     List<TerrainFeatures> lakes_and_rivers = current_location.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Lake) || x.GetType() == typeof(River));
-                    TerrainFeatures destination = lakes_and_rivers[Constants.RND.Next(lakes_and_rivers.Count)];
+                    TerrainFeatures destination = lakes_and_rivers[Constants.Random.Next(lakes_and_rivers.Count)];
 
                     if (typeof(Lake) == destination.GetType())
                     {
@@ -112,7 +112,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 else
                 {
                     // else go towards terrain...
-                    int chance = Constants.RND.Next(100);
+                    int chance = Constants.Random.Next(100);
                     Direction next_direction = Direction.North;
                     // ...straight in primary direction
                     if (chance < 50)
@@ -178,7 +178,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     }
                     else // if current location is null then the border of the map has been found and the river ends in unknown land.
                     {
-                        river.Destination = new Terrain(null);
+                        river.Destination = new Tile(null);
                         river.Destination.Type = TerrainType.Unknown;
                         river.Destination.Name = "Unknown Land";
                         river.Riverbed.Add(river.Destination);
@@ -188,7 +188,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             // Add river to terrains at the end in order to avoid the river ending in itself.
-            foreach (Terrain terrain in river.Riverbed)
+            foreach (Tile terrain in river.Riverbed)
             {
                 terrain.SecondaryTerrainFeatures.Add(river);
             }

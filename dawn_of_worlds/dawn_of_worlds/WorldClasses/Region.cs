@@ -22,7 +22,7 @@ namespace dawn_of_worlds.WorldClasses
             Name = Constants.Names.GetName("region");
             RegionWorld = world;
             RegionAreas = new List<Area>();
-            Landmass = Main.Constants.RND.Next(20) < 15 ? true : false;
+            Landmass = Main.Constants.Random.Next(20) < 15 ? true : false;
 
             for (int j = 0; j < num_areas; j++)
             {

@@ -40,13 +40,14 @@ namespace dawn_of_worlds.Main
         }
 
         public int Difference { get { return CurrentTime - PreviousTime; } }
+        public int Shuffle { get { return Constants.Random.Next(PreviousTime, CurrentTime); } }
 
         public TimeLine()
         {
             CurrentAge = Age.Creation;
             CurrentTime = 0;
             PreviousTime = 0;
-            NewAge = new int[3] { 0, 10, 20 };
+            NewAge = new int[3] { 0, 20, 40 };
             _counter = 0;
         }
     }

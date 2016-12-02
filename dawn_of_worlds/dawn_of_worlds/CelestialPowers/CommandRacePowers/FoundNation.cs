@@ -111,7 +111,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 case NationTypes.FeudalNation:
                 case NationTypes.TribalNation:
                 case NationTypes.LairTerritory:
-                    foreach (Terrain terrain in _commanded_race.SettledTerrains)
+                    foreach (Tile terrain in _commanded_race.SettledTerrains)
                     {
                         if (terrain.UnclaimedTerritories.Count > 0)
                         {
@@ -120,7 +120,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                     }
                     break;
                 case NationTypes.HuntingGrounds:
-                    foreach (Terrain terrain in _commanded_race.SettledTerrains)
+                    foreach (Tile terrain in _commanded_race.SettledTerrains)
                     {
                         if (terrain.UnclaimedHuntingGrounds.Count > 0)
                         {
@@ -129,7 +129,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                     }
                     break;
                 case NationTypes.NomadicTribe:
-                    foreach (Terrain terrain in _commanded_race.SettledTerrains)
+                    foreach (Tile terrain in _commanded_race.SettledTerrains)
                     {
                         if (terrain.UnclaimedTravelAreas.Count > 0)
                         {
@@ -146,7 +146,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         {
             List<WeightedObjects<TerrainFeatures>> possible_locations = new List<WeightedObjects<TerrainFeatures>>();
 
-            foreach (Terrain terrain in _commanded_race.SettledTerrains)
+            foreach (Tile terrain in _commanded_race.SettledTerrains)
             {
                 switch (_type)
                 {
@@ -280,17 +280,17 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 case NationTypes.TribalNation:
                 case NationTypes.LairTerritory:
                     location.NationalTerritory = founded_nation;
-                    foreach (Terrain terrain in _commanded_race.SettledTerrains)
+                    foreach (Tile terrain in _commanded_race.SettledTerrains)
                         terrain.UnclaimedTerritories.Remove(location);
                     break;
                 case NationTypes.HuntingGrounds:
                     location.HuntingGround = founded_nation;
-                    foreach (Terrain terrain in _commanded_race.SettledTerrains)
+                    foreach (Tile terrain in _commanded_race.SettledTerrains)
                         terrain.UnclaimedHuntingGrounds.Remove(location);
                     break;
                 case NationTypes.NomadicTribe:
                     location.TraveledArea = founded_nation;
-                    foreach (Terrain terrain in _commanded_race.SettledTerrains)
+                    foreach (Tile terrain in _commanded_race.SettledTerrains)
                         terrain.UnclaimedTravelAreas.Remove(location);
                     break;
             }

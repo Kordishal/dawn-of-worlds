@@ -24,7 +24,7 @@ namespace dawn_of_worlds.Main
 
         public void Run()
         {
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < Constants.TOTAL_TURNS; i++)
             {
                 Time.Advance();
                 Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@  TURN " + i.ToString() + "  @@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -39,7 +39,7 @@ namespace dawn_of_worlds.Main
                 }
 
 
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Constants.DEITY_ACTIONS_PER_TURN; j++)
                 {
                     foreach (Deity deity in Program.World.Deities)
                     {

@@ -13,7 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
     class SettleTerrain : CommandRace
     {
-        private Terrain _settled_terrain { get; set; }
+        private Tile _settled_terrain { get; set; }
 
         public override int Weight(Deity creator)
         {
@@ -131,7 +131,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         }
 
 
-        public SettleTerrain(Race commanded_race, Terrain terrain) : base(commanded_race)
+        public SettleTerrain(Race commanded_race, Tile terrain) : base(commanded_race)
         {
             Name = "Settle Terrain: " + commanded_race.Name + " in " + terrain.Name;
             _settled_terrain = terrain;

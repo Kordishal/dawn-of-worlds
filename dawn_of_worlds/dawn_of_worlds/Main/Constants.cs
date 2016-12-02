@@ -9,9 +9,14 @@ namespace dawn_of_worlds.Main
 {
     class Constants
     {
-        static public Random RND = new Random(100);
+        static public Random Random { get; set; }
 
         public static NameGenerator Names { get; set; }
+
+        public const int TOTAL_TURNS = 60;
+        public const int DEITY_ACTIONS_PER_TURN = 10;
+        public const int DEITY_BASE_POWERPOINT_MAX_GAIN = 12;
+        public const int DEITY_BASE_POWERPOINT_MIN_GAIN = 2;
 
         public const int AREA_GRID_X = 5;
         public const int AREA_GRID_Y = 5;
@@ -37,6 +42,11 @@ namespace dawn_of_worlds.Main
         public const int WEIGHT_MANY_CHANGE = 5;
 
         public const int WEIGHT_MANY_COST_DEVIATION = 1;
+
+        static Constants()
+        {
+            Random = new Random(100);
+        }
     }
 
     class WeightedObjects<S>
@@ -56,7 +66,7 @@ namespace dawn_of_worlds.Main
 
         public static S ChooseRandomObject(List<WeightedObjects<S>> weighted_objects)
         {
-            int chance = Constants.RND.Next(TotalWeight(weighted_objects));
+            int chance = Constants.Random.Next(TotalWeight(weighted_objects));
             int prev_weight = 0, current_weight = 0;
             foreach (WeightedObjects<S> weigted_object in weighted_objects)
             {

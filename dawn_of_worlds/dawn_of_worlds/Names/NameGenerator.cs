@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Creations.Geography;
 
 namespace dawn_of_worlds.Names
 {
@@ -27,7 +28,7 @@ namespace dawn_of_worlds.Names
             {
                 if (set.Name == namelist)
                 {
-                    string template = set.Templates[Constants.RND.Next(set.Templates.Count)];
+                    string template = set.Templates[Constants.Random.Next(set.Templates.Count)];
                     template = template.Substring(1, template.Length - 2);
 
                     foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
@@ -50,7 +51,7 @@ namespace dawn_of_worlds.Names
             {
                 if (set.NameListDescriptions[i] == namelist_name)
                 {
-                    return set.Names[i][Constants.RND.Next(set.Names[i].Count)];
+                    return set.Names[i][Constants.Random.Next(set.Names[i].Count)];
                 }
             }
 
@@ -65,7 +66,7 @@ namespace dawn_of_worlds.Names
             {
                 if (set.Name == "religions")
                 {
-                    string template = set.Templates[Constants.RND.Next(set.Templates.Count)];
+                    string template = set.Templates[Constants.Random.Next(set.Templates.Count)];
                     template = template.Substring(1, template.Length - 2);
 
                     set.Names[set.NameListDescriptions.FindIndex(x => x.Equals("deity"))].Add(creator.Name);
@@ -80,6 +81,31 @@ namespace dawn_of_worlds.Names
                         template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
                     }
 
+
+                    name = template;
+                    break;
+                }
+            }
+            return name;
+        }
+
+        public string GetForestName(Forest forest)
+        {
+            string name = "";
+            foreach (NameSet set in NameSets)
+            {
+                if (set.Name == "forests")
+                {
+                    string template = set.Templates[Constants.Random.Next(set.Templates.Count)];
+                    template = template.Substring(1, template.Length - 2);
+
+                    set.Names[set.NameListDescriptions.FindIndex(x => x.Equals("tile"))].Add(forest.Location.Name);
+                    set.Names[set.NameListDescriptions.FindIndex(x => x.Equals("area"))].Add(forest.Location.Area.Name);
+
+                    foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                    {
+                        template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
+                    }
 
                     name = template;
                     break;

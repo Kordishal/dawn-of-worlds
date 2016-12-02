@@ -35,10 +35,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Terrain> candidate_terrain()
+        private List<Tile> candidate_terrain()
         {
-            List<Terrain> terrain_list = new List<Terrain>();
-            foreach (Terrain terrain in _location.TerrainArea)
+            List<Tile> terrain_list = new List<Tile>();
+            foreach (Tile terrain in _location.TerrainArea)
             {
                 if (terrain.Type == TerrainType.Island)
                     terrain_list.Add(terrain);
@@ -67,8 +67,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Terrain> grassland_locations = candidate_terrain();
-            Terrain grassland_location = grassland_locations[Constants.RND.Next(grassland_locations.Count)];
+            List<Tile> grassland_locations = candidate_terrain();
+            Tile grassland_location = grassland_locations[Constants.Random.Next(grassland_locations.Count)];
 
             Grassland grassland = new Grassland("PlaceHolder", grassland_location, creator);
 

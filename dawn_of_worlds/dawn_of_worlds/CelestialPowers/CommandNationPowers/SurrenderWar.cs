@@ -54,12 +54,12 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 case WarGoalType.CityConquest:
                     war_goal.City.changeOwnership(war_goal.Winner);
                     if (_commanded_nation.Cities.Count == 0)
-                        _commanded_nation.DestroyNation(Program.World);
+                        _commanded_nation.DestroyNation();
                     break;
                 case WarGoalType.TerritoryConquest:
                     war_goal.Territory.changeOwnership(war_goal.Winner);
                     if (_commanded_nation.Territory.Count == 0)
-                        _commanded_nation.DestroyNation(Program.World);
+                        _commanded_nation.DestroyNation();
                     break;
                 case WarGoalType.ExpelNomads:
                     break;

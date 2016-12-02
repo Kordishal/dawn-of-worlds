@@ -24,10 +24,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Terrain> candidate_terrain()
+        private List<Tile> candidate_terrain()
         {
-            List<Terrain> terrain_list = new List<Terrain>();
-            foreach (Terrain terrain in _location.TerrainArea)
+            List<Tile> terrain_list = new List<Tile>();
+            foreach (Tile terrain in _location.TerrainArea)
             {
                 if (terrain.isDefault && terrain.Type == TerrainType.Plain)
                     terrain_list.Add(terrain);
@@ -39,8 +39,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Terrain> forest_locations = candidate_terrain();
-            Terrain forest_location = forest_locations[Constants.RND.Next(forest_locations.Count)];           
+            List<Tile> forest_locations = candidate_terrain();
+            Tile forest_location = forest_locations[Constants.Random.Next(forest_locations.Count)];           
                            
             Forest forest = new Forest("PlaceHolder", forest_location, creator);
             
@@ -60,7 +60,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            forest.Name = Constants.Names.GetName("forests");
+
 
             forest_location.PrimaryTerrainFeature = forest;
             forest_location.UnclaimedTerritories.Add(forest);
@@ -70,7 +70,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             // Add forest to the deity.
             creator.TerrainFeatures.Add(forest);
-            creator.LastCreation = forest;            
+            creator.LastCreation = forest;
+
+            forest.Name = Constants.Names.GetForestName(forest);
+            Program.WorldHistory.AddRecord(forest);        
         }
 
         public override int Weight(Deity creator)

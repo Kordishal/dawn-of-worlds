@@ -46,7 +46,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 {
                     foreach (Nation attacker in _white_peaced_war.Attackers)
                     {
-                        defender.Relationships.Find(x => x.Target == attacker).Status = RelationStatus.Known;
+                        Relations temp = defender.Relationships.Find(x => x.Target == attacker);
+                        if (temp != null)
+                            temp.Status = RelationStatus.Known;
+                        else
+                            throw new Exception();
                     }
                 }
 
@@ -54,7 +58,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 {
                     foreach (Nation defender in _white_peaced_war.Defenders)
                     {
-                        attacker.Relationships.Find(x => x.Target == defender).Status = RelationStatus.Known;
+                        Relations temp = attacker.Relationships.Find(x => x.Target == defender);
+                        if (temp != null)
+                            temp.Status = RelationStatus.Known;
+                        else
+                            throw new Exception();
                     }
                 }
                 _white_peaced_war.hasEnded = true;

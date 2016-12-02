@@ -15,7 +15,7 @@ namespace dawn_of_worlds.Creations.Geography
 
         public List<River> SourceRivers { get; set; }
 
-        public Lake(string name, Terrain location, Deity creator) : base(name, location, creator)
+        public Lake(string name, Tile location, Deity creator) : base(name, location, creator)
         {
             SourceRivers = new List<River>();
         }

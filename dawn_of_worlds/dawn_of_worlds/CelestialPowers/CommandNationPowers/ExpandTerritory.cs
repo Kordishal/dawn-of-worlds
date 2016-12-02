@@ -18,21 +18,21 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 case NationTypes.FeudalNation:
                 case NationTypes.TribalNation:
                 case NationTypes.LairTerritory:
-                    foreach (Terrain terrain in _commanded_nation.TerrainTerritory)
+                    foreach (Tile terrain in _commanded_nation.TerrainTerritory)
                     {
                         if (terrain.UnclaimedTerritories.Count > 0)
                             return true;
                     }
                     break;
                 case NationTypes.HuntingGrounds:
-                    foreach (Terrain terrain in _commanded_nation.TerrainTerritory)
+                    foreach (Tile terrain in _commanded_nation.TerrainTerritory)
                     {
                         if (terrain.UnclaimedHuntingGrounds.Count > 0)
                             return true;
                     }
                     break;
                 case NationTypes.NomadicTribe:
-                    foreach (Terrain terrain in _commanded_nation.TerrainTerritory)
+                    foreach (Tile terrain in _commanded_nation.TerrainTerritory)
                     {
                         if (terrain.UnclaimedTravelAreas.Count > 0)
                             return true;
@@ -41,7 +41,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             // Checks whether there is a neighbour terrain where we can find an unclaimed territory
-            foreach (Terrain terrain in _commanded_nation.TerrainTerritory)
+            foreach (Tile terrain in _commanded_nation.TerrainTerritory)
             {
                 for (int i = 0; i < 8; i++)
                 {
@@ -93,7 +93,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             List<TerrainFeatures> unclaimed_territory = new List<TerrainFeatures>();
 
-            foreach (Terrain terrain in _commanded_nation.TerrainTerritory)
+            foreach (Tile terrain in _commanded_nation.TerrainTerritory)
             {
                 switch (_commanded_nation.Type)
                 {
@@ -114,8 +114,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // Once no unclaimed space is left in a terrain the neighbouring terrains are chosen.
             if (unclaimed_territory.Count == 0)
             {
-                List<Terrain> neighbouring_terrains = new List<Terrain>();
-                foreach (Terrain terrain in _commanded_nation.TerrainTerritory)
+                List<Tile> neighbouring_terrains = new List<Tile>();
+                foreach (Tile terrain in _commanded_nation.TerrainTerritory)
                 {
                     for (int i = 0; i < 8; i++)
                     {
@@ -149,7 +149,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                     }
                 }
 
-                foreach (Terrain terrain in neighbouring_terrains)
+                foreach (Tile terrain in neighbouring_terrains)
                 {
                     switch (_commanded_nation.Type)
                     {
@@ -168,7 +168,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 }
             }
 
-            TerrainFeatures new_territory = unclaimed_territory[Constants.RND.Next(unclaimed_territory.Count)];
+            TerrainFeatures new_territory = unclaimed_territory[Constants.Random.Next(unclaimed_territory.Count)];
             _commanded_nation.Territory.Add(new_territory);
             switch (_commanded_nation.Type)
             {
@@ -188,7 +188,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             if (!_commanded_nation.TerrainTerritory.Contains(new_territory.Location))
                 _commanded_nation.TerrainTerritory.Add(new_territory.Location);
 
-            foreach (Terrain terrain in _commanded_nation.TerrainTerritory)
+            foreach (Tile terrain in _commanded_nation.TerrainTerritory)
             {
                 terrain.UnclaimedTerritories.Remove(new_territory);
                 switch (_commanded_nation.Type)

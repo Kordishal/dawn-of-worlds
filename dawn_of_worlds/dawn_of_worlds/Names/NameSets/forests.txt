@@ -1,11 +1,42 @@
 ﻿forests = {
 	templates = {
-		"The <forest> Woods"
-		"The <forest> Forest"
+		"<forest_tree_type> <forest_names>"
+		"<cardinal_direction> <area> <forest_names>"
+		"<area> <forest_names>"
+		"<forest_colour> <forest_names> of <area>"
+		"<forest_atmosphere> <forest_names> of <area>"
+		"<tile> <forest_names>"
+		"<tile> <forest_tree_type> <forest_names>"
+		"<forest_colour> <forest_names> of <tile>"
+		"<forest_atmosphere> <forest_names> of <tile>"
+		"<forest_colour> <forest_names>"
+		"<forest_atmosphere> <forest_names>"
 	}
 
-	forest = {
-		Dark Light Eastern Southern Northern Birch Rainy Silent
+	forest_tree_type = {
+		Birch Fir Ash Larch
 	}
+
+	forest_colour = {
+		Green Evergreen 
+	}
+
+	forest_names = {
+		Woods Woodlands Forest Thicket Wilds Grove Covert
+	}
+
+	forest_atmosphere = {
+		Dark Light Rainy Silent Creepy
+	}
+
+	cardinal_direction = {
+		Eastern Southern Northern Western Central
+	}
+
+	tile = { }
+	area = { }
+
+
+
 
 }

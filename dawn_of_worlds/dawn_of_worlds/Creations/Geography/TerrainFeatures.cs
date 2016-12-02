@@ -38,11 +38,11 @@ namespace dawn_of_worlds.Creations.Geography
 
         public City City { get; set; }
 
-        public Terrain Location { get; set; }
+        public Tile Location { get; set; }
 
         public BiomeType BiomeType { get; set; }
 
-        public TerrainFeatures(string name, Terrain location, Deity creator) : base(name, creator)
+        public TerrainFeatures(string name, Tile location, Deity creator) : base(name, creator)
         {
             Location = location;
         }

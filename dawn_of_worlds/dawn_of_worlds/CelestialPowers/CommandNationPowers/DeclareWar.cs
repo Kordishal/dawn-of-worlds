@@ -71,7 +71,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override void Effect(Deity creator)
         {
-            Nation war_target = candidate_nations[Constants.RND.Next(candidate_nations.Count)];
+            Nation war_target = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
 
             // The war to be declared.
             War declared_war = new War("War of " + _commanded_nation.Name + " vs. " + war_target.Name, creator);
@@ -79,16 +79,15 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             declared_war.Defenders.Add(war_target);
 
             // Add allies to the war. The order is important as all nations which are allied to both nations will side with the defender.
-            for (int i = 0; i < _commanded_nation.Relationships.Count; i++)
-            {
-                if (war_target.Relationships[i].Status == RelationStatus.Allied)
-                    declared_war.Defenders.Add(war_target.Relationships[i].Target);
+            foreach (Relations relation in war_target.Relationships)
+                if (relation.Status == RelationStatus.Allied)
+                    declared_war.Defenders.Add(relation.Target);
 
-                if (_commanded_nation.Relationships[i].Status == RelationStatus.Allied)
-                    if (!declared_war.Defenders.Contains(_commanded_nation.Relationships[i].Target))
-                        declared_war.Attackers.Add(_commanded_nation.Relationships[i].Target);
-            }
-
+            foreach (Relations relation in _commanded_nation.Relationships)
+                if (relation.Status == RelationStatus.Allied)
+                    if (!declared_war.Defenders.Contains(relation.Target))
+                        declared_war.Attackers.Add(relation.Target);
+            
 
             List<WeightedObjects<WarGoal>>[] war_goals = new List<WeightedObjects<WarGoal>>[2];
             for (int i = 0; i < 2; i++)
@@ -155,10 +154,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             List<WarGoal> weighted_war_goals = WeightedObjects<WarGoal>.ChooseHeaviestObjects(war_goals[0]);
-            declared_war.WarGoalAttackers = weighted_war_goals[Constants.RND.Next(weighted_war_goals.Count)];
+            declared_war.WarGoalAttackers = weighted_war_goals[Constants.Random.Next(weighted_war_goals.Count)];
 
             weighted_war_goals = WeightedObjects<WarGoal>.ChooseHeaviestObjects(war_goals[1]);
-            declared_war.WarGoalDefenders = weighted_war_goals[Constants.RND.Next(weighted_war_goals.Count)];
+            declared_war.WarGoalDefenders = weighted_war_goals[Constants.Random.Next(weighted_war_goals.Count)];
 
 
             // Add war to the list of ongoing conflicts.

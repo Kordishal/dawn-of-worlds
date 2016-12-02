@@ -14,8 +14,7 @@ namespace dawn_of_worlds.Creations.Organisations
 {
     class Nation : Creation
     {
-
-
+        // General
         public NationTypes Type { get; set; }
 
         // Inhabitants
@@ -36,7 +35,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<City> Cities { get; set; }
 
         // Territory
-        public List<Terrain> TerrainTerritory { get; set; }
+        public List<Tile> TerrainTerritory { get; set; }
         public List<TerrainFeatures> Territory { get; set; }
 
         // Conflict 
@@ -74,7 +73,7 @@ namespace dawn_of_worlds.Creations.Organisations
         // Status
         public List<NationalTags> Tags { get; set; }
 
-        public void DestroyNation(World current_world)
+        public void DestroyNation()
         {
             isDestroyed = true;
 
@@ -82,21 +81,15 @@ namespace dawn_of_worlds.Creations.Organisations
             {
                 a.isScattered = true;
             }
+
             foreach (Relations relation in Relationships)
             {
-                relation.Target.Relationships.Remove(relation.Target.Relationships.Find(x => x.Target.Equals(this)));
-            }
-
-            for (int i = 0; i < current_world.OngoingWars.Count; i++)
-            {
-                War current_war = current_world.OngoingWars[i];
-
-                if (current_war.isInWar(this))
+                if (relation.Status == RelationStatus.AtWar)
                 {
-                    new WhitePeace(this, current_war).Effect(Creator);
+                    (new WhitePeace(this, Program.World.OngoingWars.Find(x => x.isInWar(this) && x.isInWar(relation.Target)))).Effect(Creator);
                 }
+                relation.Status = RelationStatus.None;
             }
-
         }
 
 
@@ -105,7 +98,7 @@ namespace dawn_of_worlds.Creations.Organisations
             InhabitantRaces = new List<Race>();
             Subjects = new List<Avatar>();
             Cities = new List<City>();
-            TerrainTerritory = new List<Terrain>();
+            TerrainTerritory = new List<Tile>();
             Territory = new List<TerrainFeatures>();            
             Armies = new List<Army>();
             Relationships = new List<Relations>();

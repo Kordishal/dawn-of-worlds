@@ -21,10 +21,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Terrain> candidate_terrain()
+        private List<Tile> candidate_terrain()
         {
-            List<Terrain> terrain_list = new List<Terrain>();
-            foreach (Terrain terrain in _location.TerrainArea)
+            List<Tile> terrain_list = new List<Tile>();
+            foreach (Tile terrain in _location.TerrainArea)
             {
                 if (terrain.isDefault && terrain.Type == TerrainType.Plain)
                     terrain_list.Add(terrain);
@@ -54,12 +54,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override void Effect(Deity creator)
         {
             // Pick a random terrain tile.
-            List<Terrain> candidate_desert_locations = candidate_terrain();
-            Terrain desert_location = candidate_desert_locations[Constants.RND.Next(candidate_desert_locations.Count)];
+            List<Tile> candidate_desert_locations = candidate_terrain();
+            Tile desert_location = candidate_desert_locations[Constants.Random.Next(candidate_desert_locations.Count)];
 
             Desert desert = new Desert(Constants.Names.GetName("deserts"), desert_location, creator);
 
-            int chance = Constants.RND.Next(100);
+            int chance = Constants.Random.Next(100);
             switch (_location.ClimateArea)
             {
                 case Climate.SubArctic:

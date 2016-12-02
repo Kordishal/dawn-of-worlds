@@ -66,7 +66,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             List<TerrainFeatures> undeveloped_terrain_features = _commanded_nation.Territory.FindAll(x => x.City == null);
 
             // Choose the city location at random.
-            terrain_features = undeveloped_terrain_features[Constants.RND.Next(undeveloped_terrain_features.Count)];
+            terrain_features = undeveloped_terrain_features[Constants.Random.Next(undeveloped_terrain_features.Count)];
             
 
             // The city is created and placed in the world. The nation is defined as the city owner.

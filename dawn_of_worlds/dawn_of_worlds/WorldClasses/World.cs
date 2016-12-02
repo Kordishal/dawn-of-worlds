@@ -26,7 +26,7 @@ namespace dawn_of_worlds.WorldClasses
         public List<Region> WorldRegions { get; set; }
 
         public Area[,] AreaGrid { get; set; }
-        public Terrain[,] TerrainGrid { get; set; }
+        public Tile[,] TerrainGrid { get; set; }
 
         public World(string world_name, int num_regions, int num_areas)
         {
@@ -77,8 +77,8 @@ namespace dawn_of_worlds.WorldClasses
                 has_valid_starter_coordinates = false;
                 while (!has_valid_starter_coordinates)
                 {
-                    x = Constants.RND.Next(x_length);
-                    y = Constants.RND.Next(y_length);
+                    x = Constants.Random.Next(x_length);
+                    y = Constants.Random.Next(y_length);
 
                     if (AreaGrid[x, y] == null)
                     {
@@ -95,7 +95,7 @@ namespace dawn_of_worlds.WorldClasses
                     has_valid_neighbour = false;
                     while (!has_valid_neighbour)
                     {
-                        switch (direction.Count > 0 ? direction[Constants.RND.Next(direction.Count)] : 4)
+                        switch (direction.Count > 0 ? direction[Constants.Random.Next(direction.Count)] : 4)
                         {
                             case 0:
                                 if (y + 1 < y_length)
@@ -149,8 +149,8 @@ namespace dawn_of_worlds.WorldClasses
                                 has_valid_starter_coordinates = false;
                                 while (!has_valid_starter_coordinates)
                                 {
-                                    x = Constants.RND.Next(x_length);
-                                    y = Constants.RND.Next(y_length);
+                                    x = Constants.Random.Next(x_length);
+                                    y = Constants.Random.Next(y_length);
 
                                     if (AreaGrid[x, y] == null)
                                     {
@@ -168,7 +168,7 @@ namespace dawn_of_worlds.WorldClasses
         }
         private void defineAreaAndTerrainCoordiantes()
         {
-            TerrainGrid = new Terrain[Constants.TERRAIN_GRID_X, Constants.TERRAIN_GRID_Y];
+            TerrainGrid = new Tile[Constants.TERRAIN_GRID_X, Constants.TERRAIN_GRID_Y];
 
             for (int i = 0; i < Constants.AREA_GRID_X; i++)
             {
@@ -179,7 +179,7 @@ namespace dawn_of_worlds.WorldClasses
                     {
                         for (int l = j * 5; l < j * 5 + Constants.AREA_GRID_Y; l++)
                         {
-                            TerrainGrid[k, l] = new Terrain(AreaGrid[i, j]);        
+                            TerrainGrid[k, l] = new Tile(AreaGrid[i, j]);        
                             TerrainGrid[k, l].Coordinates = new SystemCoordinates(k, l);
                             AreaGrid[i, j].TerrainArea.Add(TerrainGrid[k, l]);
                         }
@@ -216,13 +216,13 @@ namespace dawn_of_worlds.WorldClasses
             }
 
 
-            int max_domains = Main.Constants.RND.Next(3, 6);
+            int max_domains = Main.Constants.Random.Next(3, 6);
             int number_of_domains = Enum.GetValues(typeof(Domain)).Length;
             foreach (Deity deity in Deities)
             {
                 for (int i = 0; i < max_domains; i++)
                 {
-                    Domain domain = (Domain)Enum.GetValues(typeof(Domain)).GetValue(Main.Constants.RND.Next(number_of_domains));
+                    Domain domain = (Domain)Enum.GetValues(typeof(Domain)).GetValue(Main.Constants.Random.Next(number_of_domains));
                     if (!deity.Domains.Contains(domain))                     
                         deity.Domains.Add(domain);
                 }
