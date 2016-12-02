@@ -1,20 +1,9 @@
-﻿religions = {
-	templates = {
-		"<community> of <deity>"
-		"<community> of <domain>" 
-	}
+﻿templates = {
+	"<community> of <deity_name>"
+	"<community> of <domain_names>" 
+}
 
-	community = {
-		Children Cult Creed Church Faith Fellowship Brotherhood Sisterhood Followers Commune Communion 
-		Fellows Congregation Paragons Order Angels Band "The Chosen Ones" Healers Gathering Oracles Wanderers Sect 
-	}
-
-
-	domain = {
-	
-	}
-
-	deity = {
-	
-	}
+community = {
+	Children Cult Creed Church Faith Fellowship Brotherhood Sisterhood Followers Commune Communion 
+	Fellows Congregation Paragons Order Angels Band "The Chosen Ones" Healers Gathering Oracles Wanderers Sect 
 }

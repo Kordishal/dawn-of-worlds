@@ -1,10 +1,7 @@
-﻿rivers = {
-	templates = {
-		"The <river> Stream"
-	}
+﻿templates = {
+	"The <river> Stream"
+}
 
-	river = {
-		Ialis
-	}
-
+river = {
+	Ialis
 }

@@ -1,12 +1,9 @@
-﻿mountains = {
+﻿templates = {
+	"<mountain> Mountain"
+	"Mount <mountain>"
+}
 
-	templates = {
-		"<mountain> Mountain"
-		"Mount <mountain>"
-	}
-
-	mountain = {
-		Kirlaron Qess Kryhan Kiihl Wriex Grerk Braln Eh Paht Pylk Icyhr Grylut Flax
-		Wryylt Xujib Jybors Ryrt Hylp Fqhn
-	}
+mountain = {
+	Kirlaron Qess Kryhan Kiihl Wriex Grerk Braln Eh Paht Pylk Icyhr Grylut Flax
+	Wryylt Xujib Jybors Ryrt Hylp Fqhn
 }

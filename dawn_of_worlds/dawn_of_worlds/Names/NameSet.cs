@@ -8,23 +8,30 @@ namespace dawn_of_worlds.Names
 {
     class NameSet
     {
-
         public string Name { get; set; }
-        public List<string> Templates { get; set; }
+        public Dictionary<string, Pair<List<int>, List<string>>> Names { get; set; }
 
-        public List<string> NameListDescriptions { get; set; }
-        public List<List<string>> Names { get; set; }
-
-        public NameSet()
+        public NameSet(string name_set)
         {
-            NameListDescriptions = new List<string>();
-            Names = new List<List<string>>();
-            Templates = new List<string>();
+            Name = name_set;
+            Names = new Dictionary<string, Pair<List<int>, List<string>>>();
         }
 
         public override string ToString()
         {
             return Name;
+        }
+    }
+
+    class Pair<S, A>
+    {
+        public S First { get; set; }
+        public A Second { get; set; }
+
+        public Pair(S first, A second)
+        {
+            First = first;
+            Second = second;
         }
     }
 }

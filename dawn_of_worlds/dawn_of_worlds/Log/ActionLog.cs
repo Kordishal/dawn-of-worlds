@@ -1,5 +1,6 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Main;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace dawn_of_worlds.Log
 {
     class ActionLog
     {
+        private StreamWriter Test { get; set; }
         private StreamWriter DeityWriter { get; set; }
         private StreamWriter AreaWriter { get; set; }
         private StreamWriter RaceWriter { get; set; }
@@ -29,7 +31,20 @@ namespace dawn_of_worlds.Log
             ActionLogEntryWriter = new StreamWriter(OUTPUT_FOLDER + ACTION_LOG);
         }
 
-        public void Write(World current_world)
+        public void WriteTest()
+        {
+            Test = new StreamWriter(OUTPUT_FOLDER + @"\Tests\names.txt");
+
+            for (int i = 0; i < 100; i++)
+            {
+                Test.Write(Constants.Names.GetName("area") + " ");
+                if (i % 10 == 0)
+                    Test.Write(Test.NewLine);
+            }
+            Test.Close();
+        }
+
+        public void Write()
         {
             foreach (ActionLogEntry entry in Entries)
             {
@@ -38,27 +53,27 @@ namespace dawn_of_worlds.Log
             ActionLogEntryWriter.Close();
 
             int counter = 0;
-            foreach (Area area in current_world.AreaGrid)
+            foreach (Area area in Program.World.AreaGrid)
             {
-                AreaWriter = new StreamWriter(OUTPUT_FOLDER + @"Areas\Area " + counter.ToString() + " " + area.Name + ".log");
+                AreaWriter = new StreamWriter(OUTPUT_FOLDER + @"Areas\area_" + counter.ToString() + ".log");
                 AreaWriter.Write(area.printArea());
                 AreaWriter.Close();
                 counter++;
             }
 
             counter = 0;
-            foreach (Deity deity in current_world.Deities)
+            foreach (Deity deity in Program.World.Deities)
             {
-                DeityWriter = new StreamWriter(OUTPUT_FOLDER + @"Deities\Deity " + counter + " " + deity.Name + ".log");
+                DeityWriter = new StreamWriter(OUTPUT_FOLDER + @"Deities\deity " + counter + ".log");
                 DeityWriter.Write(deity.printDeity());
                 DeityWriter.Close();
                 counter++;
             }
 
             counter = 0;
-            foreach (Race race in current_world.Races)
+            foreach (Race race in Program.World.Races)
             {
-                RaceWriter = new StreamWriter(OUTPUT_FOLDER + @"Races\Race " + counter + " " + race.Name + ".log");
+                RaceWriter = new StreamWriter(OUTPUT_FOLDER + @"Races\race " + counter + ".log");
                 RaceWriter.Write(race.printRace());
                 RaceWriter.Close();
                 counter++;

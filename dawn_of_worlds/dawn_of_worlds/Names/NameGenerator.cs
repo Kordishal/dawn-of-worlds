@@ -7,6 +7,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Names.MarkovGenerator;
 
 namespace dawn_of_worlds.Names
 {
@@ -17,101 +18,142 @@ namespace dawn_of_worlds.Names
 
         public NameGenerator()
         {
+            NameSets = new List<NameSet>();
             NameSetParser parser = new NameSetParser();
-            NameSets = parser.NameSets;
+
+            LinkedList<NameSet> name_sets = parser.NameSets;
+            foreach (NameSet node in name_sets)
+            {
+                NameSets.Add(node);
+            }
         }
 
         public string GetName(string namelist)
-        {
-            string name = "";
+        {     
             foreach (NameSet set in NameSets)
             {
                 if (set.Name == namelist)
                 {
-                    string template = set.Templates[Constants.Random.Next(set.Templates.Count)];
-                    template = template.Substring(1, template.Length - 2);
-
-                    foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                    Pair<List<int>, List<string>> Templates;
+                    if (set.Names.TryGetValue("templates", out Templates))
                     {
-                        template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
-                    }
-                    
+                        string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
-                    name = template;
-                    break;
+                        foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                        {
+                            template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
+                        }
+
+                        return template;
+                    }
+                    else
+                        throw new Exception("Name Set has no defined templates: " + namelist);
                 }
             }
-
-            return name;
+            throw new Exception("Name Set does not exist: " + namelist);
         }
 
         private string getNameFromList(NameSet set, string namelist_name)
         {
-            for (int i = 0; i < set.NameListDescriptions.Count; i++)
+            Pair<List<int>, List<string>> Names;
+            if (set.Names.TryGetValue(namelist_name, out Names))
             {
-                if (set.NameListDescriptions[i] == namelist_name)
+                if (Names.First != null)
                 {
-                    return set.Names[i][Constants.Random.Next(set.Names[i].Count)];
+                    MarkovChain markov = new MarkovChain(Names.First[0], Names.First[1], Names.First[2], Names.Second);
+                    return markov.generateWord();
+                }
+                else
+                {
+                    return Names.Second[Constants.Random.Next(Names.Second.Count)];
                 }
             }
-
-            return "";
+            else
+                throw new Exception("NameList " +  namelist_name + " does not exists in NameSet " + set.Name);
         }
 
 
         public string GetReligionName(Deity creator, Race race)
         {
-            string name = "";
             foreach (NameSet set in NameSets)
             {
                 if (set.Name == "religions")
                 {
-                    string template = set.Templates[Constants.Random.Next(set.Templates.Count)];
-                    template = template.Substring(1, template.Length - 2);
-
-                    set.Names[set.NameListDescriptions.FindIndex(x => x.Equals("deity"))].Add(creator.Name);
-
-                    foreach (Domain domain in creator.Domains)
+                    Pair<List<int>, List<string>> Templates;
+                    if (set.Names.TryGetValue("templates", out Templates))
                     {
-                        set.Names[set.NameListDescriptions.FindIndex(x => x.Equals("domain"))].Add(domain.ToString());
+                        string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
+
+                        Pair<List<int>, List<string>> Deities;
+                        if (!set.Names.TryGetValue("deity_name", out Deities))
+                        {
+                            Deities = new Pair<List<int>, List<string>>(null, new List<string>());
+                            set.Names.Add("deity_name", Deities);
+                        }
+                        Deities.Second.Add(creator.Name);
+
+                        Pair<List<int>, List<string>> Domains;
+                        if (!set.Names.TryGetValue("domain_names", out Domains))
+                        {
+                            Domains = new Pair<List<int>, List<string>>(null, new List<string>());
+                            set.Names.Add("domain_names", Domains);
+                        }
+                        foreach (Domain domain in creator.Domains)
+                            Domains.Second.Add(domain.ToString());
+
+                        foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                        {
+                            template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
+                        }
+
+                        return template;
                     }
-
-                    foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
-                    {
-                        template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
-                    }
-
-
-                    name = template;
-                    break;
+                    else
+                        throw new Exception("Name Set has no defined templates: religions");
                 }
             }
-            return name;
+            throw new Exception("Name Set does not exist: religions");
         }
 
         public string GetForestName(Forest forest)
         {
-            string name = "";
             foreach (NameSet set in NameSets)
             {
                 if (set.Name == "forests")
                 {
-                    string template = set.Templates[Constants.Random.Next(set.Templates.Count)];
-                    template = template.Substring(1, template.Length - 2);
-
-                    set.Names[set.NameListDescriptions.FindIndex(x => x.Equals("tile"))].Add(forest.Location.Name);
-                    set.Names[set.NameListDescriptions.FindIndex(x => x.Equals("area"))].Add(forest.Location.Area.Name);
-
-                    foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                    Pair<List<int>, List<string>> Templates;
+                    if (set.Names.TryGetValue("templates", out Templates))
                     {
-                        template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
-                    }
+                        string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
-                    name = template;
-                    break;
+                        Pair<List<int>, List<string>> Areas;
+                        if (!set.Names.TryGetValue("area_name", out Areas))
+                        {
+                            Areas = new Pair<List<int>, List<string>>(null, new List<string>());
+                            set.Names.Add("area_name", Areas);
+                        }
+                        Areas.Second.Add(forest.Location.Area.Name);
+
+                        Pair<List<int>, List<string>> Tiles;
+                        if (!set.Names.TryGetValue("tile_name", out Tiles))
+                        {
+                            Tiles = new Pair<List<int>, List<string>>(null, new List<string>());
+                            set.Names.Add("tile_name", Tiles);
+                        }
+                        Tiles.Second.Add(forest.Location.Name);
+
+                        foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                        {
+                            template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
+                        }
+
+                        return template;
+                    }
+                    else
+                        throw new Exception("Name Set has no defined templates: forests");
                 }
             }
-            return name;
+            throw new Exception("Name Set does not exist: forests");
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿lakes = {
-	templates = {
-		"<lake> Lake"
-	}
+﻿templates = {
+	"<lake> Lake"
+}
 
-	lake = {
-		Still Great 
-	}
-
+lake = {
+	Still Great 
 }

@@ -1,13 +1,10 @@
-﻿deserts = {
-	templates = {
-		"The <desert> Badlands"
-		"The <desert> Desert"
-	}
+﻿templates = {
+	"The <desert> Badlands"
+	"The <desert> Desert"
+}
 
-	desert = {
-		Ogas Drurun Procis Topone Iunoth Traekuan Latriavuin Isatica Iosinoa Sheozilera
+desert = {
+	Ogas Drurun Procis Topone Iunoth Traekuan Latriavuin Isatica Iosinoa Sheozilera
 
-		Infinite Sahara Gobi 
-	}
-
+	Infinite Sahara Gobi 
 }

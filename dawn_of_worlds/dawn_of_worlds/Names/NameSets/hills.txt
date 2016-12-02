@@ -1,10 +1,7 @@
-﻿hills = {
-	templates = {
-		"<hill> Hill"
-	}
+﻿templates = {
+	"<hill> Hill"
+}
 
-	hill = {
-		Flat 
-	}
-
+hill = {
+	Flat 
 }

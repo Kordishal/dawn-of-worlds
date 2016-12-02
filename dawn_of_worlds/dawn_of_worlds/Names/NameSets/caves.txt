@@ -1,17 +1,14 @@
-﻿caves = {
+﻿templates = {
+	"<cave> Cave"
+	"<cave> Cavern"
+	"<cave> Den"
+	"<cave> Hollow"
+	"<cave> Hollows"
+	"<cave> Cavity"
+	"The <cave> Sanctuary"
+}
 
-	templates = {
-		"<cave> Cave"
-		"<cave> Cavern"
-		"<cave> Den"
-		"<cave> Hollow"
-		"<cave> Hollows"
-		"<cave> Cavity"
-		"The <cave> Sanctuary"
-	}
-
-	cave = {
-		Calmest Rugged Fractured Restless Infinite Cursed Homeless
-		Nyw Drax Clijort Hururf Eyls Preb Trilt Strosk Slekult
-	}
+cave = {
+	Calmest Rugged Fractured Restless Infinite Cursed Homeless
+	Nyw Drax Clijort Hururf Eyls Preb Trilt Strosk Slekult
 }
