@@ -105,7 +105,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             // Add mountain to deity lists
             creator.TerrainFeatures.Add(hill);
             creator.LastCreation = hill;
-    }
+
+            Program.WorldHistory.AddRecord(hill);
+        }
 
 
     public CreateHill(Area location) : base (location)

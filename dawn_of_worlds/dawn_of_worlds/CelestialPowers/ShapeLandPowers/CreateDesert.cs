@@ -91,6 +91,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             // Add forest to the deity.
             creator.TerrainFeatures.Add(desert);
             creator.LastCreation = desert;
+
+            Program.WorldHistory.AddRecord(desert);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace dawn_of_worlds.Log
         private StreamWriter AreaWriter { get; set; }
         private StreamWriter RaceWriter { get; set; }
         private StreamWriter ActionLogEntryWriter { get; set; }
-        private StreamWriter WorldHistoryWriter { get; set; }
         public List<ActionLogEntry> Entries { get; set; }
 
         private const string OUTPUT_FOLDER = @"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Log\Output\";
@@ -78,10 +77,6 @@ namespace dawn_of_worlds.Log
                 RaceWriter.Close();
                 counter++;
             }
-
-            WorldHistoryWriter = new StreamWriter(OUTPUT_FOLDER + @"world_history.log");
-            WorldHistoryWriter.Write(Program.WorldHistory.printWorldHistory());
-            WorldHistoryWriter.Close();
         }
 
     }

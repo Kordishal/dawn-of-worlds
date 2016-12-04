@@ -51,6 +51,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             hill_range_location.isDefault = false;
             creator.TerrainFeatures.Add(hill_range);
             creator.LastCreation = hill_range;
+
+            Program.WorldHistory.AddRecord(hill_range);
         }
 
         public CreateHillRange(Area location) : base (location)

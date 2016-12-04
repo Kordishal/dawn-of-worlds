@@ -71,7 +71,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             // Add lake to deity lists
             creator.TerrainFeatures.Add(lake);
-            creator.LastCreation = lake;          
+            creator.LastCreation = lake;
+
+            Program.WorldHistory.AddRecord(lake);
         }
 
 

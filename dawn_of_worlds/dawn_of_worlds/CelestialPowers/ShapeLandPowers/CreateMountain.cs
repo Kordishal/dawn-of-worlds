@@ -89,7 +89,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             mountain_location.UnclaimedTravelAreas.Add(mountain);
             mountain_location.UnclaimedHuntingGrounds.Add(mountain);
             creator.TerrainFeatures.Add(mountain);
-            creator.LastCreation = mountain;           
+            creator.LastCreation = mountain;
+
+            Program.WorldHistory.AddRecord(mountain);
         }
 
 

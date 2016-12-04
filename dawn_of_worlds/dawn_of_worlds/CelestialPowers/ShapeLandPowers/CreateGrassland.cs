@@ -99,6 +99,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             creator.TerrainFeatures.Add(grassland);
             creator.LastCreation = grassland;
+
+            Program.WorldHistory.AddRecord(grassland);
         }
     }
 }

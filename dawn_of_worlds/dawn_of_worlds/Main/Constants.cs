@@ -13,6 +13,8 @@ namespace dawn_of_worlds.Main
 
         public static NameGenerator Names { get; set; }
 
+        public const string HISTORY_FOLDER = @"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Log\Output\History\";
+
         public const int TOTAL_TURNS = 60;
         public const int DEITY_ACTIONS_PER_TURN = 10;
         public const int DEITY_BASE_POWERPOINT_MAX_GAIN = 12;

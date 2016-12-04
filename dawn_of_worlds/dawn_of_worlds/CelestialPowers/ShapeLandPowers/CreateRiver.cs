@@ -195,7 +195,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             // Add river to deity list.
             creator.TerrainFeatures.Add(river);
-            creator.LastCreation = river;        
+            creator.LastCreation = river;
+
+            Program.WorldHistory.AddRecord(river);
         }
 
 

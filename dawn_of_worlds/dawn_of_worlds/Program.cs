@@ -21,14 +21,14 @@ namespace dawn_of_worlds
         {
             Constants.Names = new NameGenerator();
             Log = new ActionLog();
-            //World = new World(Constants.Names.GetName("world"), 5, 5);
-            //WorldHistory = new History();
+            World = new World(Constants.Names.GetName("world"), 5, 5);
+            WorldHistory = new History();
 
-            //Simulation = new Simulation();
-            //Simulation.Run();
+            Simulation = new Simulation();
+            Simulation.Run();
 
-            //Log.Write();
-            Log.WriteTest();
+            Log.Write();
+            WorldHistory.printWorldHistory("general_history.txt");
             Console.WriteLine("END OF APPLICATION");
             Console.ReadKey();
         }

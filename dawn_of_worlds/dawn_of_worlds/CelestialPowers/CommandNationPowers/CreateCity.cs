@@ -70,7 +70,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             
 
             // The city is created and placed in the world. The nation is defined as the city owner.
-            City founded_city = new City("City of the " + _commanded_nation.FoundingRace + " in Area " + terrain_features.Location.Name, creator);
+            City founded_city = new City("PlaceHolder", creator);
             founded_city.CitySphereOfÌnfluence.Add(terrain_features);
             founded_city.Owner = _commanded_nation;
 
@@ -88,11 +88,15 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             _commanded_nation.PossibleWarGoals.Add(new WarGoal(WarGoalType.CityConquest));
             _commanded_nation.PossibleWarGoals.Last().City = founded_city;
 
+            founded_city.Name = Constants.Names.GetName("cities");
+
             // Add city related powers and the creator
             creator.FoundedCities.Add(founded_city);
             creator.Powers.Add(new RaiseArmy(founded_city));
 
             creator.LastCreation = founded_city;
+
+            //Program.WorldHistory.AddRecord(founded_city);
         }
 
 

@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Names\NameSets\00_namesetlist.txt" />
+    <Content Include="Names\NameSets\cities.txt" />
     <Content Include="Names\NameSets\religions.txt" />
     <Content Include="Names\NameSets\hill_ranges.txt" />
     <Content Include="Names\NameSets\lakes.txt" />
@@ -186,6 +187,9 @@
     <Content Include="Names\NameSets\deities.txt" />
     <Content Include="Names\NameSets\area.txt" />
     <Content Include="Names\NameSets\world.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Log\Output\History\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

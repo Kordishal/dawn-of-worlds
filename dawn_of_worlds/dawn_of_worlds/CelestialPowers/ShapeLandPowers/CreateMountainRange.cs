@@ -54,6 +54,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             mountain_range_location.isDefault = false;
             creator.TerrainFeatures.Add(mountain_range);
             creator.LastCreation = mountain_range;
+
+            Program.WorldHistory.AddRecord(mountain_range);
         }
 
         public CreateMountainRange(Area location) : base (location)

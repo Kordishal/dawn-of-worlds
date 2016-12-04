@@ -84,7 +84,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(cave);
             creator.LastCreation = cave;
 
-            //Program.WorldHistory.AddRecord(cave);
+            Program.WorldHistory.AddRecord(cave);
         }
     }
 }
