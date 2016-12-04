@@ -21,7 +21,7 @@ namespace dawn_of_worlds.Names.Parser
         {
             _nameset_lexer = new Lexer();
 
-            _nameset_lexer.AddDefinition(new TokenDefinition(new Regex(@"[a-zA-Z_\-]+"), "VARIABLE"));
+            _nameset_lexer.AddDefinition(new TokenDefinition(new Regex(@"[a-zA-Z_\-']+"), "VARIABLE"));
 
             _nameset_lexer.AddDefinition(new TokenDefinition(new Regex(@"([""'])(?:\\\1|.)*?\1"), "STRING"));
             _nameset_lexer.AddDefinition(new TokenDefinition(new Regex(@"\="), "ASSIGNMENT"));

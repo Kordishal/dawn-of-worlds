@@ -13,3 +13,21 @@ egyptian_deity = {
 	Shu Sia Sobek Sopdet Sopdu Ta-Bitjet Tatenen Taweret Tefnut Tenenet Thoth Tutu Unut Wadj-Wer Wadjet
 	Weneg Wepwawet Werethekau Wosret Yam
 }
+
+biblical_demons = {
+	Aamon Abaddon Abezethibou Abraxas Abyzou Adramelech Aeshma Agaliarept Agares Agiel Agrat Ahriman Aim Akoman Akvan Ala Alal Alastor 
+	Allocer Alloces Allu Alu Amaymon Amdusias Amon Amy Anamalech Ancitif Andhaka Andras Andrealphus Andromalius Antichrist Anzu Apollyon 
+	Archon Armaros Arunasura Asag Asakku Asbel Asmodai Asmodeus Astaroth Asura Azazel Baal Babi Bael Bakasura Balam Balberith Banshee 
+	Baphomet Barbas Barbatos Barong Bathin Bathym Beelzebub Behemoth Beherit Beleth Belial Belphegor Berith Bhoot Bhuta Bifrons Boruta 
+	Botis Buer Bukavac Bune Bushyasta Caacrinolaas Caassimolar Caim Camio Canio Cerbere Charun Chax Chemosh Choronzon Cimeies Cimejes 
+	Classyalabolas Corson Crocell Crocell Culsu Daeva Dagon Dahak Dahaka Dajjal Dajjal Danjal Dantalion Decarabia Demiurge Demogorgon Devil 
+	Drekavac Dzoavits Eblis Eisheth Eligos Flauros Flavros Focalor Foraii Foras Forcas Forneus Forras Furcas Furfur Gaap Gaderel Gaki 
+	Gamigin Ghoul Glassialabolis Gomory Gorgon Gremory Grigori Gualichu Guayota Gusion Gusoin Gusoyn Haagenti Haborym Halphas Hauras 
+	Haures Havres Ifrit Incubus Ipes Ipos Jikininki Jinn Kabandha Kabhanda Kali Kasadya Kimaris Kokabiel Krampus Kroni Kumbhakarna 
+	Lechies Legion Lempo Leraie Leraje Leviathan Leyak Lili Lilim Lilin Lilin Lilith Lucifer Malaphar Malephar Malphas Malthus Mammon 
+	Mara Marax Marchosias Maricha Marthim Mastema Mathim Mephistopheles Merihem Moloch Morax Morpheus Murmur Naamah Naberius Naberus 
+	Namtar Nero Ninurta Onoskelis Orcus Ordog Orias Oriax Orobas Ose Paimon Pazuzu Pelesit Penemue Phenex Pithius Pocong Pontianak 
+	Preta Procell Pruflas Puloman Rahab Rakshasa Rangda Raum Ravana Ronove Rusalka Sabnock Saleos Samael Satan Seir Semyaz Shax 
+	Shedim Sitri Solas Sthenno Stolas Suanggi Succubus Surgat Tannin Toyol Tuchulcha Ukobach Valac Valefar Vanth Vapula Vassago 
+	Vepar Vine Wendigo Xaphan Xezbeth Yeqon Yeterel Zagan Zahhak Zepar Ziminiar Zu
+}

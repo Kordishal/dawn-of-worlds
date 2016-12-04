@@ -2,7 +2,7 @@
 	"<irish_place_names>"
 }
 
-[4, 5, 12]
+[3, 1, 12]
 irish_place_names = {
 	Aghalee Aughagower Ardglass Athlone Ballymena Ballyclare Ballaghmore Strabane Cregganbaun Carrickbeg Belfast Benbaun 
 	Binevenagh Bawnboy Mullaghbrack Bundoran Cashel Cashel Cappamore Cappagh Carnmoney Carrowdore Carryduff Carrigaline 

@@ -14,3 +14,4 @@ lakes
 hill_ranges
 mountain_ranges
 religions
+cities
