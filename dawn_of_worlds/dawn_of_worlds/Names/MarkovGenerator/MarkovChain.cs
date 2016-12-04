@@ -21,20 +21,24 @@ namespace dawn_of_worlds.Names.MarkovGenerator
 
             foreach (string word in Alphabet)
             {
+                if (Order > word.Length)
+                    continue;
+
                 for (int i = 0; i < word.Length; i++)
                 {
                     if (i == 0)
                         InitialLetters.Add(word.Substring(0, Order));
 
                     values.Clear();
-                    if (Order + i < word.Length - Order - 1)
-                        key = word.Substring(i, Order + i);
+                    if (Order + i <= word.Length)
+                        key = word.Substring(i, Order);
                     else
-                        key = word.Substring(i);
+                        continue;
 
-                    for (int j = i + 1; j < word.Length && j < i + Order + 1; j++)
-                        values.Add(word[j]);
-                    value = new string(values.ToArray());
+                    if (i + Order < word.Length)
+                        value = word[i + Order].ToString();
+                    else
+                        value = "";
 
                     List<string> temp;
                     if (!Observations.TryGetValue(key, out temp))
@@ -55,14 +59,13 @@ namespace dawn_of_worlds.Names.MarkovGenerator
             StringBuilder builder = new StringBuilder();
             builder.Append(last_key);
             while (no_end)
+
             {
                 if (Observations.TryGetValue(last_key, out values))
                 {
                     string value = "";
                     // Name cannot be shorter than Length[0].
-
                     value = values[Constants.Random.Next(values.Count)];
-
                     while (builder.Length < Length[0] && value == "")
                         value = values[Constants.Random.Next(values.Count)];
 
@@ -71,7 +74,7 @@ namespace dawn_of_worlds.Names.MarkovGenerator
                         no_end = false;
                     else
                     {
-                        last_key = value[value.Length - 1].ToString();
+                        last_key = last_key.Substring(1) + value;
                         builder.Append(value);
                     }
                 }
