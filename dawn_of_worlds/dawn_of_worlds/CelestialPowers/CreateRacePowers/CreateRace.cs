@@ -25,9 +25,9 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             {
                 SystemCoordinates coords = _terrain.Coordinates.GetNeighbour(i);
 
-                if (coords.X >= 0 && coords.Y >= 0 && coords.X < Constants.TERRAIN_GRID_X && coords.Y < Constants.TERRAIN_GRID_Y)
+                if (coords.X >= 0 && coords.Y >= 0 && coords.X < Constants.TILE_GRID_X && coords.Y < Constants.TILE_GRID_Y)
                 {
-                    if (Program.World.TerrainGrid[coords.X, coords.Y].SettledRaces.Contains(_created_race.MainRace))
+                    if (Program.World.TileGrid[coords.X, coords.Y].SettledRaces.Contains(_created_race.MainRace))
                         return true;
                 }
             }
@@ -107,8 +107,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             _created_race.OriginOrder = creator_worhip_order;
 
             // The created race is settled 
-            _created_race.HomeTerrain = _terrain;
-            _created_race.SettledTerrains.Add(_terrain);
+            _created_race.SettledTiles.Add(_terrain);
                     
             // Tells the Area that someone is living here.
             _terrain.SettledRaces.Add(_created_race);
@@ -117,7 +116,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             creator.CreatedRaces.Add(_created_race);
             creator.CreatedOrders.Add(creator_worhip_order);
 
-            foreach (Tile terrain in Program.World.TerrainGrid)
+            foreach (Tile terrain in Program.World.TileGrid)
                 creator.Powers.Add(new SettleTerrain(_created_race, terrain));
             foreach (NationTypes type in Enum.GetValues(typeof(NationTypes)))
                 creator.Powers.Add(new FoundNation(_created_race, type));
@@ -211,15 +210,15 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                 switch (climate)
                 {
                     case RacialPreferredHabitatClimate.ColdAcclimated:
-                        if (_terrain.Area.ClimateArea == Climate.Arctic || _terrain.Area.ClimateArea == Climate.SubArctic)
+                        if (_terrain.LocalClimate == Climate.Arctic || _terrain.LocalClimate == Climate.SubArctic)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
                     case RacialPreferredHabitatClimate.HeatAcclimated:
-                        if (_terrain.Area.ClimateArea == Climate.Tropical || _terrain.Area.ClimateArea == Climate.SubTropical)
+                        if (_terrain.LocalClimate == Climate.Tropical || _terrain.LocalClimate == Climate.SubTropical)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
                     case RacialPreferredHabitatClimate.TemperateAcclimated:
-                        if (_terrain.Area.ClimateArea == Climate.Temperate)
+                        if (_terrain.LocalClimate == Climate.Temperate)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
                 }

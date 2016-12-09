@@ -124,9 +124,10 @@
     <Compile Include="Creations\Organisations\City.cs" />
     <Compile Include="Creations\Organisations\Nation.cs" />
     <Compile Include="Creations\Organisations\Order.cs" />
-    <Compile Include="Log\ActionLog.cs" />
+    <Compile Include="Log\StreamWriters.cs" />
     <Compile Include="Log\ActionLogEntry.cs" />
     <Compile Include="Log\History.cs" />
+    <Compile Include="Log\Map.cs" />
     <Compile Include="Main\Constants.cs" />
     <Compile Include="Main\Simulation.cs" />
     <Compile Include="Main\TimeLine.cs" />

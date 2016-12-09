@@ -77,9 +77,9 @@ namespace dawn_of_worlds.Actors
             // Create Races
             foreach (Race race in DefinedRaces.DefinedRacesList)
             {
-                foreach (Tile terrain in current_world.TerrainGrid)
+                foreach (Tile tile in current_world.TileGrid)
                 {
-                    Powers.Add(new CreateRace(race, terrain));
+                    Powers.Add(new CreateRace(race, tile));
                 }              
             }
         }

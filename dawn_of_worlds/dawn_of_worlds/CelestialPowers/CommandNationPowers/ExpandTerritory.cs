@@ -18,54 +18,54 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 case NationTypes.FeudalNation:
                 case NationTypes.TribalNation:
                 case NationTypes.LairTerritory:
-                    foreach (Tile terrain in _commanded_nation.TerrainTerritory)
+                    foreach (Tile tile in _commanded_nation.Tiles)
                     {
-                        if (terrain.UnclaimedTerritories.Count > 0)
+                        if (tile.UnclaimedTerritories.Count > 0)
                             return true;
                     }
                     break;
                 case NationTypes.HuntingGrounds:
-                    foreach (Tile terrain in _commanded_nation.TerrainTerritory)
+                    foreach (Tile tile in _commanded_nation.Tiles)
                     {
-                        if (terrain.UnclaimedHuntingGrounds.Count > 0)
+                        if (tile.UnclaimedHuntingGrounds.Count > 0)
                             return true;
                     }
                     break;
                 case NationTypes.NomadicTribe:
-                    foreach (Tile terrain in _commanded_nation.TerrainTerritory)
+                    foreach (Tile tile in _commanded_nation.Tiles)
                     {
-                        if (terrain.UnclaimedTravelAreas.Count > 0)
+                        if (tile.UnclaimedTravelAreas.Count > 0)
                             return true;
                     }
                     break;
             }
 
             // Checks whether there is a neighbour terrain where we can find an unclaimed territory
-            foreach (Tile terrain in _commanded_nation.TerrainTerritory)
+            foreach (Tile tile in _commanded_nation.Tiles)
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    SystemCoordinates coords = terrain.Coordinates.GetNeighbour(i);
+                    SystemCoordinates coords = tile.Coordinates.GetNeighbour(i);
 
-                    if (coords.isInTerrainGridBounds())
+                    if (coords.isInTileGridBounds())
                     {
                         switch (_commanded_nation.Type)
                         {
                             case NationTypes.FeudalNation:
                             case NationTypes.TribalNation:
                             case NationTypes.LairTerritory:
-                                if (!_commanded_nation.TerrainTerritory.Exists(x => x.Equals(Program.World.TerrainGrid[coords.X, coords.Y])) 
-                                    && Program.World.TerrainGrid[coords.X, coords.Y].UnclaimedTerritories.Count > 0)
+                                if (!_commanded_nation.Tiles.Exists(x => x.Equals(Program.World.TileGrid[coords.X, coords.Y])) 
+                                    && Program.World.TileGrid[coords.X, coords.Y].UnclaimedTerritories.Count > 0)
                                     return true;
                                 break;
                             case NationTypes.HuntingGrounds:
-                                if (!_commanded_nation.TerrainTerritory.Exists(x => x.Equals(Program.World.TerrainGrid[coords.X, coords.Y])) 
-                                    && Program.World.TerrainGrid[coords.X, coords.Y].UnclaimedHuntingGrounds.Count > 0)
+                                if (!_commanded_nation.Tiles.Exists(x => x.Equals(Program.World.TileGrid[coords.X, coords.Y])) 
+                                    && Program.World.TileGrid[coords.X, coords.Y].UnclaimedHuntingGrounds.Count > 0)
                                     return true;
                                 break;
                             case NationTypes.NomadicTribe:
-                                if (!_commanded_nation.TerrainTerritory.Exists(x => x.Equals(Program.World.TerrainGrid[coords.X, coords.Y])) 
-                                    && Program.World.TerrainGrid[coords.X, coords.Y].UnclaimedTravelAreas.Count > 0)
+                                if (!_commanded_nation.Tiles.Exists(x => x.Equals(Program.World.TileGrid[coords.X, coords.Y])) 
+                                    && Program.World.TileGrid[coords.X, coords.Y].UnclaimedTravelAreas.Count > 0)
                                     return true;
                                 break;
                         }
@@ -93,20 +93,20 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             List<TerrainFeatures> unclaimed_territory = new List<TerrainFeatures>();
 
-            foreach (Tile terrain in _commanded_nation.TerrainTerritory)
+            foreach (Tile tile in _commanded_nation.Tiles)
             {
                 switch (_commanded_nation.Type)
                 {
                     case NationTypes.FeudalNation:
                     case NationTypes.TribalNation:
                     case NationTypes.LairTerritory:
-                        unclaimed_territory.AddRange(terrain.UnclaimedTerritories);
+                        unclaimed_territory.AddRange(tile.UnclaimedTerritories);
                         break;
                     case NationTypes.HuntingGrounds:
-                        unclaimed_territory.AddRange(terrain.UnclaimedHuntingGrounds);
+                        unclaimed_territory.AddRange(tile.UnclaimedHuntingGrounds);
                         break;
                     case NationTypes.NomadicTribe:
-                        unclaimed_territory.AddRange(terrain.UnclaimedTravelAreas);
+                        unclaimed_territory.AddRange(tile.UnclaimedTravelAreas);
                         break;
                 }
             }
@@ -114,14 +114,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // Once no unclaimed space is left in a terrain the neighbouring terrains are chosen.
             if (unclaimed_territory.Count == 0)
             {
-                List<Tile> neighbouring_terrains = new List<Tile>();
-                foreach (Tile terrain in _commanded_nation.TerrainTerritory)
+                List<Tile> neighbouring_tiles = new List<Tile>();
+                foreach (Tile tile in _commanded_nation.Tiles)
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        SystemCoordinates coords = terrain.Coordinates.GetNeighbour(i);
+                        SystemCoordinates coords = tile.Coordinates.GetNeighbour(i);
 
-                        if (coords.isInTerrainGridBounds())
+                        if (coords.isInTileGridBounds())
                         {
                             // puts together a list of all neighbouring terrains with 
                             // unclaimed territory, which are not already in the territory list.
@@ -130,39 +130,39 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                                 case NationTypes.FeudalNation:
                                 case NationTypes.TribalNation:
                                 case NationTypes.LairTerritory:
-                                    if (!_commanded_nation.TerrainTerritory.Contains(Program.World.TerrainGrid[coords.X, coords.Y]) 
-                                        && Program.World.TerrainGrid[coords.X, coords.Y].UnclaimedTerritories.Count > 0)
-                                        neighbouring_terrains.Add(Program.World.TerrainGrid[coords.X, coords.Y]);
+                                    if (!_commanded_nation.Tiles.Contains(Program.World.TileGrid[coords.X, coords.Y]) 
+                                        && Program.World.TileGrid[coords.X, coords.Y].UnclaimedTerritories.Count > 0)
+                                        neighbouring_tiles.Add(Program.World.TileGrid[coords.X, coords.Y]);
                                     break;
                                 case NationTypes.HuntingGrounds:
-                                    if (!_commanded_nation.TerrainTerritory.Contains(Program.World.TerrainGrid[coords.X, coords.Y])
-                                        && Program.World.TerrainGrid[coords.X, coords.Y].UnclaimedHuntingGrounds.Count > 0)
-                                        neighbouring_terrains.Add(Program.World.TerrainGrid[coords.X, coords.Y]);
+                                    if (!_commanded_nation.Tiles.Contains(Program.World.TileGrid[coords.X, coords.Y])
+                                        && Program.World.TileGrid[coords.X, coords.Y].UnclaimedHuntingGrounds.Count > 0)
+                                        neighbouring_tiles.Add(Program.World.TileGrid[coords.X, coords.Y]);
                                     break;
                                 case NationTypes.NomadicTribe:
-                                    if (!_commanded_nation.TerrainTerritory.Contains(Program.World.TerrainGrid[coords.X, coords.Y])
-                                        && Program.World.TerrainGrid[coords.X, coords.Y].UnclaimedTravelAreas.Count > 0)
-                                        neighbouring_terrains.Add(Program.World.TerrainGrid[coords.X, coords.Y]);
+                                    if (!_commanded_nation.Tiles.Contains(Program.World.TileGrid[coords.X, coords.Y])
+                                        && Program.World.TileGrid[coords.X, coords.Y].UnclaimedTravelAreas.Count > 0)
+                                        neighbouring_tiles.Add(Program.World.TileGrid[coords.X, coords.Y]);
                                     break;
                             }
                         }
                     }
                 }
 
-                foreach (Tile terrain in neighbouring_terrains)
+                foreach (Tile tile in neighbouring_tiles)
                 {
                     switch (_commanded_nation.Type)
                     {
                         case NationTypes.FeudalNation:
                         case NationTypes.TribalNation:
                         case NationTypes.LairTerritory:
-                            unclaimed_territory.AddRange(terrain.UnclaimedTerritories);
+                            unclaimed_territory.AddRange(tile.UnclaimedTerritories);
                             break;
                         case NationTypes.HuntingGrounds:
-                            unclaimed_territory.AddRange(terrain.UnclaimedHuntingGrounds);
+                            unclaimed_territory.AddRange(tile.UnclaimedHuntingGrounds);
                             break;
                         case NationTypes.NomadicTribe:
-                            unclaimed_territory.AddRange(terrain.UnclaimedTravelAreas);
+                            unclaimed_territory.AddRange(tile.UnclaimedTravelAreas);
                             break;
                     }
                 }
@@ -185,29 +185,31 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                     break;
             }
 
-            if (!_commanded_nation.TerrainTerritory.Contains(new_territory.Location))
-                _commanded_nation.TerrainTerritory.Add(new_territory.Location);
+            if (!_commanded_nation.Tiles.Contains(new_territory.Location))
+                _commanded_nation.Tiles.Add(new_territory.Location);
 
-            foreach (Tile terrain in _commanded_nation.TerrainTerritory)
+            foreach (Tile tile in _commanded_nation.Tiles)
             {
-                terrain.UnclaimedTerritories.Remove(new_territory);
+                tile.UnclaimedTerritories.Remove(new_territory);
                 switch (_commanded_nation.Type)
                 {
                     case NationTypes.FeudalNation:
                     case NationTypes.TribalNation:
                     case NationTypes.LairTerritory:
-                        terrain.UnclaimedTerritories.Remove(new_territory);
+                        tile.UnclaimedTerritories.Remove(new_territory);
                         break;
                     case NationTypes.HuntingGrounds:
-                        terrain.UnclaimedHuntingGrounds.Remove(new_territory);
+                        tile.UnclaimedHuntingGrounds.Remove(new_territory);
                         break;
                     case NationTypes.NomadicTribe:
-                        terrain.UnclaimedTravelAreas.Remove(new_territory);
+                        tile.UnclaimedTravelAreas.Remove(new_territory);
                         break;
                 }
             }
 
-            _commanded_nation.PossibleWarGoals.Add(new WarGoal(WarGoalType.TerritoryConquest));
+            WarGoal war_goal = new WarGoal(WarGoalType.TerritoryConquest);
+            war_goal.Territory = new_territory;
+            _commanded_nation.PossibleWarGoals.Add(war_goal);
 
             creator.LastCreation = new_territory;
         }

@@ -12,6 +12,15 @@ namespace dawn_of_worlds.WorldClasses
         SubArctic,
         Temperate,
         SubTropical,
-        Tropical
+        Tropical,
+
+        Inferno
+    }
+
+
+    enum ClimateModifier
+    {
+        None,
+        MagicInfused,
     }
 }

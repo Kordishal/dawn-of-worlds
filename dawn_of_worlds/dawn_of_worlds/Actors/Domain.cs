@@ -34,5 +34,6 @@ namespace dawn_of_worlds.Actors
         // Catastrophes
         Drought,
         Pestilence,
+        Magic,
     }
 }

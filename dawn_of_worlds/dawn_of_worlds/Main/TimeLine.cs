@@ -8,7 +8,7 @@ namespace dawn_of_worlds.Main
     {
         public Age CurrentAge { get; set; }
 
-        private int _counter { get; set; }
+        public int Turn { get; set; }
         public int[] NewAge { get; set; }
 
         public int CurrentTime{ get; set; }
@@ -16,11 +16,11 @@ namespace dawn_of_worlds.Main
 
         public void Advance()
         {
-            _counter += 1;
+            Turn += 1;
 
-            if (_counter == NewAge[1])
+            if (Turn == NewAge[1])
                 CurrentAge = Age.Races;
-            if (_counter == NewAge[2])
+            if (Turn == NewAge[2])
                 CurrentAge = Age.Relations;
 
             PreviousTime = CurrentTime;
@@ -48,7 +48,7 @@ namespace dawn_of_worlds.Main
             CurrentTime = 0;
             PreviousTime = 0;
             NewAge = new int[3] { 0, 20, 40 };
-            _counter = 0;
+            Turn = 0;
         }
     }
 

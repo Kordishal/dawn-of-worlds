@@ -35,7 +35,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<City> Cities { get; set; }
 
         // Territory
-        public List<Tile> TerrainTerritory { get; set; }
+        public List<Tile> Tiles { get; set; }
         public List<TerrainFeatures> Territory { get; set; }
 
         // Conflict 
@@ -98,7 +98,7 @@ namespace dawn_of_worlds.Creations.Organisations
             InhabitantRaces = new List<Race>();
             Subjects = new List<Avatar>();
             Cities = new List<City>();
-            TerrainTerritory = new List<Tile>();
+            Tiles = new List<Tile>();
             Territory = new List<TerrainFeatures>();            
             Armies = new List<Army>();
             Relationships = new List<Relations>();

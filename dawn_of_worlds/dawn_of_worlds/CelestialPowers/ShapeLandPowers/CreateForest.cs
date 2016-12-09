@@ -14,8 +14,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     {
         public override bool Precondition(Deity creator)
         {
-            if (_location.ClimateArea == Climate.Arctic)
-                return false;
 
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
@@ -26,14 +24,15 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         private List<Tile> candidate_terrain()
         {
-            List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.TerrainArea)
+            List<Tile> tile_list = new List<Tile>();
+            foreach (Tile tile in _location.Tiles)
             {
-                if (terrain.isDefault && terrain.Type == TerrainType.Plain)
-                    terrain_list.Add(terrain);
+                if (tile.isDefault && tile.Type == TerrainType.Plain)
+                    if (tile.LocalClimate != Climate.Arctic)
+                        tile_list.Add(tile);
             }
 
-            return terrain_list;
+            return tile_list;
         }
 
 
@@ -44,7 +43,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                            
             Forest forest = new Forest("PlaceHolder", forest_location, creator);
             
-            switch (_location.ClimateArea)
+            switch (forest_location.LocalClimate)
             {
                 case Climate.SubArctic:
                     forest.BiomeType = BiomeType.BorealForest;
@@ -73,7 +72,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = forest;
 
             forest.Name = Constants.Names.GetForestName(forest);
-            Program.WorldHistory.AddRecord(forest);        
+            Program.WorldHistory.AddRecord(forest, forest.printTerrainFeature);        
         }
 
         public override int Weight(Deity creator)

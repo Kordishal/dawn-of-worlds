@@ -17,36 +17,19 @@ namespace dawn_of_worlds.WorldClasses
         public SystemCoordinates Coordinates { get; set; }
 
         public Region RegionArea { get; set; }
-        public List<Tile> TerrainArea { get; set; }
-
-        public Climate ClimateArea { get; set; }
-
+        public List<Tile> Tiles { get; set; }
 
         public Area(Region region)
         {
             Name = Constants.Names.GetName("area");
             RegionArea = region;
 
-            ClimateArea = new Climate();
-            TerrainArea = new List<Tile>();   
+            Tiles = new List<Tile>();   
         }
 
         public override string ToString()
         {
             return "Area: " + Name;
-        }
-
-        public string printArea()
-        {
-            string result = "";
-            result += "Name: " + Name + "\n";
-            result += "Region: " + RegionArea.Name + "\n";
-            result += "Ocean: " + (RegionArea.Landmass ? "no" : "yes") + "\n";
-            result += "Climate: " + ClimateArea.ToString() + "\n";
-
-
-
-            return result;
         }
     }
 }

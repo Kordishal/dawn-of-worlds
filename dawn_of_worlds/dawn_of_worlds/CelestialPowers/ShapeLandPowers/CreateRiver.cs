@@ -25,7 +25,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         private List<Tile> candidate_terrain()
         {
             List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.TerrainArea)
+            foreach (Tile terrain in _location.Tiles)
             {
                 if (terrain.Type == TerrainType.MountainRange)
                     terrain_list.Add(terrain);
@@ -152,10 +152,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     }
 
 
-                    if (coords.X > 0 && coords.Y > 0 && coords.X < Constants.TERRAIN_GRID_X && coords.Y < Constants.TERRAIN_GRID_Y)
+                    if (coords.isInTileGridBounds())
                     {
                         // Assign next location
-                        current_location = Program.World.TerrainGrid[coords.X, coords.Y];
+                        current_location = Program.World.TileGrid[coords.X, coords.Y];
                     }
                     else
                         current_location = null;
@@ -178,7 +178,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     }
                     else // if current location is null then the border of the map has been found and the river ends in unknown land.
                     {
-                        river.Destination = new Tile(null);
+                        river.Destination = new Tile(null, null);
                         river.Destination.Type = TerrainType.Unknown;
                         river.Destination.Name = "Unknown Land";
                         river.Riverbed.Add(river.Destination);
@@ -188,16 +188,17 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             // Add river to terrains at the end in order to avoid the river ending in itself.
-            foreach (Tile terrain in river.Riverbed)
+            foreach (Tile tile in river.Riverbed)
             {
-                terrain.SecondaryTerrainFeatures.Add(river);
+                if (tile.Type != TerrainType.Unknown)
+                    tile.SecondaryTerrainFeatures.Add(river);
             }
 
             // Add river to deity list.
             creator.TerrainFeatures.Add(river);
             creator.LastCreation = river;
 
-            Program.WorldHistory.AddRecord(river);
+            Program.WorldHistory.AddRecord(river, river.printTerrainFeature);
         }
 
 

@@ -51,9 +51,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 // Unknown nations can become known when they have territory in the same terrain. 
                 if (relation.Status == RelationStatus.Unknown)
                 { 
-                    foreach (Tile terrain in relation.Target.TerrainTerritory)
+                    foreach (Tile terrain in relation.Target.Tiles)
                     {
-                        if (_commanded_nation.TerrainTerritory.Contains(terrain))
+                        if (_commanded_nation.Tiles.Contains(terrain))
                         {
                             candidate_nations.Add(relation.Target);
                         }

@@ -91,12 +91,21 @@ namespace dawn_of_worlds.WorldClasses
             }
         }
 
-        public bool isInTerrainGridBounds()
+        public bool isInTileGridBounds()
         {
-            if (X >= 0 && Y >= 0 && X < Constants.TERRAIN_GRID_X && Y < Constants.TERRAIN_GRID_Y)
+            if (X >= 0 && Y >= 0 && X < Constants.TILE_GRID_X && Y < Constants.TILE_GRID_Y)
                 return true;
             else
                 return false;
+        }
+
+        public bool isInAreaGridBounds()
+        {
+            if (X >= 0 && Y >= 0 && X < Constants.AREA_GRID_X && Y < Constants.AREA_GRID_Y)
+                return true;
+            else
+                return false;
+
         }
 
         public override string ToString()

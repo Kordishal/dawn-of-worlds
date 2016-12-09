@@ -8,20 +8,38 @@ using System.IO;
 
 namespace dawn_of_worlds.Log
 {
+    delegate string PrintFunction(Record record);
+
     class History
     {
         private StreamWriter writer { get; set; }
         public List<Record> Records { get; set; }
 
 
-        public void AddRecord(TerrainFeatures terrain)
+        public void AddRecord(TerrainFeatures terrain, PrintFunction print)
         {
             Record record = new Record();
 
-            record.Type = RecordType.CreateTerrain;
+            record.Type = RecordType.CreateTerrainFeature;
             record.Terrain = terrain;
+
+            record.Turn = Simulation.Time.Turn;
             record.Year = Simulation.Time.Shuffle;
 
+            record.printFunction = print;
+            Records.Add(record);
+        }
+
+        public void AddRecord(RecordType type, char[,] map, PrintFunction print)
+        {
+            Record record = new Record();
+            record.Type = type;
+            record.Map = map;
+
+            record.Turn = Simulation.Time.Turn;
+            record.Year = Simulation.Time.Shuffle;
+
+            record.printFunction = print;
             Records.Add(record);
         }
 
@@ -30,18 +48,31 @@ namespace dawn_of_worlds.Log
             Records = new List<Record>();
         }
 
-        public void printWorldHistory(string file_name)
+
+        public string printAllRecords()
         {
             Records.Sort(Record.CompareTo);
 
-            writer = new StreamWriter(Constants.HISTORY_FOLDER + file_name);
-
+            string records = "";
             foreach (Record record in Records)
-                writer.WriteLine(record.printRecord());
-
-            writer.Close();
+            {
+                records += record.printRecord() + "\n";
+            }
+            return records;
         }
 
+        public string printRecordType(RecordType type)
+        {
+            List<Record> selected_records = Records.FindAll(x => x.Type == type);
+            selected_records.Sort(Record.CompareTo);
+
+            string records = "";
+            foreach (Record record in selected_records)
+            {
+                records += record.printRecord() + "\n";
+            }
+            return records;
+        }
 
         public override string ToString()
         {
@@ -54,7 +85,6 @@ namespace dawn_of_worlds.Log
             }
             return records;
         }
-
     }
 
 
@@ -62,8 +92,18 @@ namespace dawn_of_worlds.Log
     {
         public RecordType Type { get; set; }
         public TerrainFeatures Terrain { get; set; }
+        public char[,] Map { get; set; }
 
+        public int Turn { get; set; }
         public int Year { get; set; }
+
+
+        public PrintFunction printFunction { get; set; }
+
+        public string printRecord()
+        {
+            return printFunction(this);
+        }
 
         static public int CompareTo(Record record_one, Record record_two)
         {
@@ -75,24 +115,11 @@ namespace dawn_of_worlds.Log
                 return -1;
         }
 
-        public string printRecord()
-        {
-            string result = "";
-            switch (Type)
-            {
-                case RecordType.CreateTerrain:
-                    result += "In " + Year.ToString() + " " + Terrain.Creator.Name + " created the " + Terrain.Name + " in " + Terrain.Location.Name;
-                    break;
-            }
-
-            return result;
-        }
-
         public override string ToString()
         {
             switch (Type)
             {
-                case RecordType.CreateTerrain:
+                case RecordType.CreateTerrainFeature:
                     return Type.ToString() + " " + Year.ToString() + " " + Terrain.Name;
                 case RecordType.ClimateChange:
                     return Type.ToString() + " " + Year.ToString();
@@ -106,7 +133,10 @@ namespace dawn_of_worlds.Log
 
     enum RecordType
     {
-        CreateTerrain,
+        CreateTerrainFeature,
+        TerrainMap,
+        BiomeMap,
+        ClimateMap,
         ClimateChange,
         RelationChange,
     }

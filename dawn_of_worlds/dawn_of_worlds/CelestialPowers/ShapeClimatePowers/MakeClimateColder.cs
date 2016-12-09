@@ -12,8 +12,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 {
     class MakeClimateColder : ShapeClimate
     {
-        private Area _location { get; set; }
-
         public override int Weight(Deity creator)
         {
             int weight = base.Weight(creator);
@@ -27,248 +25,86 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override bool Precondition(Deity creator)
+        private List<WeightedObjects<Tile>> candidate_tiles()
         {
-            int[] climate_count = new int[5] { 0, 0, 0, 0, 0 };
-            SystemCoordinates coords = null;
-            for (int i = 0; i < 8; i++)
+            List<WeightedObjects<Tile>> weighted_tiles = new List<WeightedObjects<Tile>>();
+            foreach (Tile tile in _location.Tiles)
             {
-                coords = _location.Coordinates.GetNeighbour(i);
-                // ignore areas outside of the world.
-                if (coords.X >= 0 || coords.Y >= 0 || coords.X < Constants.AREA_GRID_X || coords.Y < Constants.AREA_GRID_Y)
-                    continue;
-
-                switch (Program.World.AreaGrid[coords.X, coords.Y].ClimateArea)
+                int[] climate_count = countClimateNeighbours(tile);
+                switch (tile.LocalClimate)
                 {
-                    case Climate.Arctic:
-                        climate_count[0] += 1;
+                    case Climate.Arctic: //  not possible to make colder
                         break;
                     case Climate.SubArctic:
-                        climate_count[1] += 1;
+                        if (climate_count[0] >= 2)
+                        {
+                            weighted_tiles.Add(new WeightedObjects<Tile>(tile));
+                            weighted_tiles.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[0];
+                        }
                         break;
                     case Climate.Temperate:
-                        climate_count[2] += 1;
+                        if (climate_count[1] >= 2)
+                        {
+                            weighted_tiles.Add(new WeightedObjects<Tile>(tile));
+                            weighted_tiles.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[1];
+                        }
                         break;
                     case Climate.SubTropical:
-                        climate_count[3] += 1;
+                        if (climate_count[2] >= 2)
+                        {
+                            weighted_tiles.Add(new WeightedObjects<Tile>(tile));
+                            weighted_tiles.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[2];
+                        }
                         break;
                     case Climate.Tropical:
-                        climate_count[4] += 1;
+                        if (climate_count[3] >= 2)
+                        {
+                            weighted_tiles.Add(new WeightedObjects<Tile>(tile));
+                            weighted_tiles.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[3];
+                        }
                         break;
-                }                    
+                }
             }
 
-            switch (_location.ClimateArea)
-            {
-                case Climate.Arctic:
-                    return false; // not possible to make colder
-                case Climate.SubArctic:
-                    if (climate_count[0] >= 2) // needs 2 arctic
-                        return true;
-                    else
-                        return false;
-                case Climate.Temperate:
-                    if (climate_count[1] >= 2) // needs 2 sub arctic
-                        return true;
-                    else
-                        return false;
-                case Climate.SubTropical:
-                    if (climate_count[2] >= 2) // needs 2 temperate
-                        return true;
-                    else
-                        return false;
-                case Climate.Tropical:
-                    if (climate_count[3] >= 2) // needs 2 sub tropical
-                        return true;
-                    else
-                        return false;
-            }
+            return weighted_tiles;
+        }
 
+        public override bool Precondition(Deity creator)
+        {
+            if (candidate_tiles().Count > 0)
+                return true;
 
             return false;
         }
 
         public override void Effect(Deity creator)
         {
-            int chance = Main.Constants.Random.Next(100);
+            List<WeightedObjects<Tile>> tiles = candidate_tiles();
+            _chosen_location = WeightedObjects<Tile>.ChooseRandomObject(tiles);
 
             // Set new climate
-            switch (_location.ClimateArea)
+            switch (_chosen_location.LocalClimate)
             {
                 case Climate.Tropical:
-                    _location.ClimateArea = Climate.SubTropical;
+                    _chosen_location.LocalClimate = Climate.SubTropical;
                     break;
                 case Climate.SubTropical:
-                    _location.ClimateArea = Climate.Temperate;
+                    _chosen_location.LocalClimate = Climate.Temperate;
                     break;
                 case Climate.Temperate:
-                    _location.ClimateArea = Climate.SubArctic;
+                    _chosen_location.LocalClimate = Climate.SubArctic;
                     break;
                 case Climate.SubArctic:
-                    _location.ClimateArea = Climate.Arctic;
+                    _chosen_location.LocalClimate = Climate.Arctic;
                     break;
             }
 
-            foreach (Tile terrain in _location.TerrainArea)
-            {
-                // change forest biome type
-                if (terrain.Type == TerrainType.Plain)
-                {
-                    if (terrain.PrimaryTerrainFeature.GetType() == typeof(Forest))
-                    {
-                        switch (_location.ClimateArea)
-                        {
-                            case Climate.SubArctic:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.BorealForest;
-                                break;
-                            case Climate.Temperate:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TemperateDeciduousForest;
-                                break;
-                            case Climate.SubTropical:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalDryForest;
-                                break;
-                            case Climate.Tropical:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalRainforest;
-                                break;
-                        }
-                    }
-                    // change desert biome type
-                    else if (terrain.PrimaryTerrainFeature.GetType() == typeof(Desert))
-                    {
-                        switch (_location.ClimateArea)
-                        {
-                            case Climate.SubArctic:
-                                if (chance < 50)
-                                    terrain.PrimaryTerrainFeature.BiomeType = BiomeType.ColdDesert;
-                                else
-                                    terrain.PrimaryTerrainFeature.BiomeType = BiomeType.Tundra;
-                                break;
-                            case Climate.Temperate:
-                                if (chance < 50)
-                                    terrain.PrimaryTerrainFeature.BiomeType = BiomeType.ColdDesert;
-                                else
-                                    terrain.PrimaryTerrainFeature.BiomeType = BiomeType.HotDesert;
-                                break;
-                            case Climate.SubTropical:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.HotDesert;
-                                break;
-                            case Climate.Tropical:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.HotDesert;
-                                break;
-                        }
-                    }
-                    else if (terrain.PrimaryTerrainFeature.GetType() == typeof(Grassland))
-                    {
-                        switch (_location.ClimateArea)
-                        {
-                            case Climate.SubArctic:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.Tundra;
-                                break;
-                            case Climate.Temperate:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TemperateGrassland;
-                                break;
-                            case Climate.SubTropical:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
-                                break;
-                            case Climate.Tropical:
-                                terrain.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
-                                break;
-                        }
-                    }
-                }
-
-                // change mountain biome type
-                if (terrain.Type == TerrainType.MountainRange)
-                {
-                    foreach (Mountain mountain in ((MountainRange)terrain.PrimaryTerrainFeature).Mountains)
-                    {
-                        switch (_location.ClimateArea)
-                        {
-                            case Climate.Arctic:
-                                mountain.BiomeType = BiomeType.Tundra;
-                                break;
-                            case Climate.SubArctic:
-                                if (chance < 50)
-                                    mountain.BiomeType = BiomeType.Tundra;
-                                else
-                                    mountain.BiomeType = BiomeType.BorealForest;
-                                break;
-                            case Climate.Temperate:
-                                if (chance < 50)
-                                    mountain.BiomeType = BiomeType.TemperateGrassland;
-                                else
-                                    mountain.BiomeType = BiomeType.TemperateDeciduousForest;
-                                break;
-                            case Climate.SubTropical:
-                                if (chance < 50)
-                                    mountain.BiomeType = BiomeType.TropicalGrassland;
-                                else
-                                    mountain.BiomeType = BiomeType.TropicalDryForest;
-                                break;
-                            case Climate.Tropical:
-                                if (chance < 50)
-                                    mountain.BiomeType = BiomeType.TropicalGrassland;
-                                else
-                                    mountain.BiomeType = BiomeType.TropicalRainforest;
-                                break;
-                        }
-                    }
-                }
-
-                // Change hill biome type
-                if (terrain.Type == TerrainType.HillRange)
-                {
-                    foreach (Hill hill in ((HillRange)terrain.PrimaryTerrainFeature).Hills)
-                    {
-                        switch (_location.ClimateArea)
-                        {
-                            case Climate.Arctic:
-                                hill.BiomeType = BiomeType.Tundra;
-                                break;
-                            case Climate.SubArctic:
-                                if (chance < 33)
-                                    hill.BiomeType = BiomeType.Tundra;
-                                else if (chance < 66)
-                                    hill.BiomeType = BiomeType.ColdDesert;
-                                else
-                                    hill.BiomeType = BiomeType.BorealForest;
-                                break;
-                            case Climate.Temperate:
-                                if (chance < 25)
-                                    hill.BiomeType = BiomeType.TemperateGrassland;
-                                else if (chance < 50)
-                                    hill.BiomeType = BiomeType.ColdDesert;
-                                else if (chance < 75)
-                                    hill.BiomeType = BiomeType.HotDesert;
-                                else
-                                    hill.BiomeType = BiomeType.TemperateDeciduousForest;
-                                break;
-                            case Climate.SubTropical:
-                                if (chance < 33)
-                                    hill.BiomeType = BiomeType.TropicalGrassland;
-                                else if (chance < 66)
-                                    hill.BiomeType = BiomeType.HotDesert;
-                                else
-                                    hill.BiomeType = BiomeType.TropicalRainforest;
-                                break;
-                            case Climate.Tropical:
-                                if (chance < 33)
-                                    hill.BiomeType = BiomeType.TropicalGrassland;
-                                else if (chance < 66)
-                                    hill.BiomeType = BiomeType.HotDesert;
-                                else
-                                    hill.BiomeType = BiomeType.TropicalRainforest;
-                                break;
-                        }
-                    }
-                }
-            }
+            adjustTerrainFeatureBiomes();
         }
 
-        public MakeClimateColder(Area location)
+        public MakeClimateColder(Area location) : base(location)
         {
             Name = "Make Climate Colder in " + location.Name;
-            _location = location;
         }
     }
 }

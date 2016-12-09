@@ -16,6 +16,9 @@ namespace dawn_of_worlds.WorldClasses
 
         public TerrainType Type { get; set; }
 
+        public Climate LocalClimate { get; set; }
+        public ClimateModifier LocalClimateModifier { get; set; }
+
         public bool isDefault { get; set; }
         public TerrainFeatures PrimaryTerrainFeature { get; set; }
         public List<TerrainFeatures> SecondaryTerrainFeatures { get; set; }
@@ -39,49 +42,70 @@ namespace dawn_of_worlds.WorldClasses
         public List<TerrainFeatures> UnclaimedTravelAreas { get; set; }
         public List<TerrainFeatures> UnclaimedHuntingGrounds { get; set; }
 
-        public Tile(Area area)
+        public Tile(Area area, SystemCoordinates coordinates)
         {
             Name = Constants.Names.GetName("area");
             Area = area;
+            Coordinates = coordinates;
+        }
+
+        public void initialize()
+        {
             SettledRaces = new List<Race>();
             SecondaryTerrainFeatures = new List<TerrainFeatures>();
             UnclaimedTerritories = new List<TerrainFeatures>();
             UnclaimedTravelAreas = new List<TerrainFeatures>();
             UnclaimedHuntingGrounds = new List<TerrainFeatures>();
             isDefault = true;
+
+            if (Coordinates.X < Constants.ARCTIC_CLIMATE_BORDER)
+                LocalClimate = Climate.Arctic;
+            else if (Coordinates.X < Constants.SUB_ARCTIC_CLIMATE_BORDER)
+                LocalClimate = Climate.SubArctic;
+            else if (Coordinates.X < Constants.TEMPERATE_CLIMATE_BORDER)
+                LocalClimate = Climate.Temperate;
+            else if (Coordinates.X < Constants.SUB_TROPICAL_CLIMATE_BORDER)
+                LocalClimate = Climate.SubTropical;
+            else if (Coordinates.X < Constants.TROPICAL_CLIMATE_BORDER)
+                LocalClimate = Climate.Tropical;
+
+            LocalClimateModifier = ClimateModifier.None;
+
             // Establish a grassland as a base terrain on continents for races/nations to be built on it.
-            if (area != null && area.RegionArea.Landmass)
+            if (Area != null && Area.RegionArea.Landmass)
             {
                 Type = TerrainType.Plain;
-                PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
-                UnclaimedTerritories.Add(PrimaryTerrainFeature);
-                UnclaimedTravelAreas.Add(PrimaryTerrainFeature);
-                UnclaimedHuntingGrounds.Add(PrimaryTerrainFeature);
-
-                switch (this.Area.ClimateArea)
+                switch (LocalClimate)
                 {
                     case Climate.Arctic:
-                        PrimaryTerrainFeature.BiomeType = BiomeType.Tundra;
+                        PrimaryTerrainFeature = new Desert(Constants.Names.GetName("deserts"), this, null);
+                        PrimaryTerrainFeature.BiomeType = BiomeType.PolarDesert;
                         break;
                     case Climate.SubArctic:
+                        PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.Tundra;
                         break;
                     case Climate.Temperate:
+                        PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.TemperateGrassland;
                         break;
                     case Climate.SubTropical:
+                        PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
                         break;
                     case Climate.Tropical:
+                        PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
                         break;
                 }
 
-            }           
+                UnclaimedTerritories.Add(PrimaryTerrainFeature);
+                UnclaimedTravelAreas.Add(PrimaryTerrainFeature);
+                UnclaimedHuntingGrounds.Add(PrimaryTerrainFeature);
+
+            }
             else
                 Type = TerrainType.Ocean;
-
-
         }
 
         public override string ToString()

@@ -26,7 +26,7 @@ namespace dawn_of_worlds.WorldClasses
         public List<Region> WorldRegions { get; set; }
 
         public Area[,] AreaGrid { get; set; }
-        public Tile[,] TerrainGrid { get; set; }
+        public Tile[,] TileGrid { get; set; }
 
         public World(string world_name, int num_regions, int num_areas)
         {
@@ -41,8 +41,6 @@ namespace dawn_of_worlds.WorldClasses
 
             generateWorldRegions(num_regions, num_areas);
             generateAreaGrid();
-            generateAreaClimate();
-
             defineAreaAndTerrainCoordiantes();
 
             DefinedRaces.defineRaces();
@@ -168,7 +166,7 @@ namespace dawn_of_worlds.WorldClasses
         }
         private void defineAreaAndTerrainCoordiantes()
         {
-            TerrainGrid = new Tile[Constants.TERRAIN_GRID_X, Constants.TERRAIN_GRID_Y];
+            TileGrid = new Tile[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
 
             for (int i = 0; i < Constants.AREA_GRID_X; i++)
             {
@@ -179,9 +177,9 @@ namespace dawn_of_worlds.WorldClasses
                     {
                         for (int l = j * 5; l < j * 5 + Constants.AREA_GRID_Y; l++)
                         {
-                            TerrainGrid[k, l] = new Tile(AreaGrid[i, j]);        
-                            TerrainGrid[k, l].Coordinates = new SystemCoordinates(k, l);
-                            AreaGrid[i, j].TerrainArea.Add(TerrainGrid[k, l]);
+                            TileGrid[k, l] = new Tile(AreaGrid[i, j], new SystemCoordinates(k, l));
+                            TileGrid[k, l].initialize();
+                            AreaGrid[i, j].Tiles.Add(TileGrid[k, l]);
                         }
                     }
                 }
@@ -189,25 +187,6 @@ namespace dawn_of_worlds.WorldClasses
 
         }
 
-        private void generateAreaClimate()
-        {
-            int counter = 0;
-            foreach (Area area in AreaGrid)
-            {
-                if (counter < 5)
-                    area.ClimateArea = Climate.Arctic;
-                else if (counter < 10)
-                    area.ClimateArea = Climate.SubArctic;
-                else if (counter < 15)
-                    area.ClimateArea = Climate.Temperate;
-                else if (counter < 20)
-                    area.ClimateArea = Climate.SubTropical;
-                else if (counter < 25)
-                    area.ClimateArea = Climate.Tropical;
-
-                counter += 1;
-            }
-        }
         private void generateDeities()
         {
             for (int i = 0; i < 5; i++)

@@ -38,7 +38,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         private List<Tile> candidate_terrain()
         {
             List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.TerrainArea)
+            foreach (Tile terrain in _location.Tiles)
             {
                 if (terrain.Type == TerrainType.Island)
                     terrain_list.Add(terrain);
@@ -72,7 +72,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             Grassland grassland = new Grassland("PlaceHolder", grassland_location, creator);
 
-            switch (_location.ClimateArea)
+            switch (grassland_location.LocalClimate)
             {
                 case Climate.Arctic:
                     grassland.BiomeType = BiomeType.Tundra;
@@ -100,7 +100,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(grassland);
             creator.LastCreation = grassland;
 
-            Program.WorldHistory.AddRecord(grassland);
+            Program.WorldHistory.AddRecord(grassland, grassland.printTerrainFeature);
         }
     }
 }

@@ -61,15 +61,15 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 switch (climate)
                 {
                     case RacialPreferredHabitatClimate.ColdAcclimated:
-                        if (_settled_terrain.Area.ClimateArea == Climate.Arctic || _settled_terrain.Area.ClimateArea == Climate.SubArctic)
+                        if (_settled_terrain.LocalClimate == Climate.Arctic || _settled_terrain.LocalClimate == Climate.SubArctic)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
                     case RacialPreferredHabitatClimate.HeatAcclimated:
-                        if (_settled_terrain.Area.ClimateArea == Climate.Tropical || _settled_terrain.Area.ClimateArea == Climate.SubTropical)
+                        if (_settled_terrain.LocalClimate == Climate.Tropical || _settled_terrain.LocalClimate == Climate.SubTropical)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
                     case RacialPreferredHabitatClimate.TemperateAcclimated:
-                        if (_settled_terrain.Area.ClimateArea == Climate.Temperate)
+                        if (_settled_terrain.LocalClimate == Climate.Temperate)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
                 }
@@ -85,9 +85,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             {
                 SystemCoordinates coords = _settled_terrain.Coordinates.GetNeighbour(i);
 
-                if (coords.X >= 0 && coords.Y >= 0 && coords.X < Constants.TERRAIN_GRID_X && coords.Y < Constants.TERRAIN_GRID_Y)
+                if (coords.X >= 0 && coords.Y >= 0 && coords.X < Constants.TILE_GRID_X && coords.Y < Constants.TILE_GRID_Y)
                 {
-                    if (current_world.TerrainGrid[coords.X, coords.Y].SettledRaces.Contains(_commanded_race))
+                    if (current_world.TileGrid[coords.X, coords.Y].SettledRaces.Contains(_commanded_race))
                         return true;
                 }
             }
@@ -126,7 +126,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         public override void Effect(Deity creator)
         {
             _settled_terrain.SettledRaces.Add(_commanded_race);
-            _commanded_race.SettledTerrains.Add(_settled_terrain);
+            _commanded_race.SettledTiles.Add(_settled_terrain);
             creator.LastCreation = _settled_terrain.PrimaryTerrainFeature;
         }
 

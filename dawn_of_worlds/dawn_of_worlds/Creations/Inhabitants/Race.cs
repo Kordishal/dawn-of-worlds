@@ -21,8 +21,8 @@ namespace dawn_of_worlds.Creations.Inhabitants
         public List<PhysicalTrait> PhysicalTraits { get; set; }
         public List<SocialCulturalCharacteristic> SocialCulturalCharacteristics { get; set; }
 
-        public Tile HomeTerrain { get; set; }
-        public List<Tile> SettledTerrains { get; set; }
+        public Tile HomeTiles { get { return SettledTiles[0]; } }
+        public List<Tile> SettledTiles { get; set; }
 
         public bool isSubRace { get; set; }
         public Race MainRace { get; set; }
@@ -36,7 +36,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         {
             SubRaces = new List<Race>();
             PossibleSubRaces = new List<Race>();
-            SettledTerrains = new List<Tile>();
+            SettledTiles = new List<Tile>();
             Tags = new List<RaceTags>();
 
             PreferredTerrain = new List<RacialPreferredHabitatTerrain>();
@@ -79,9 +79,9 @@ namespace dawn_of_worlds.Creations.Inhabitants
             foreach (SocialCulturalCharacteristic social in SocialCulturalCharacteristics)
                 result += social.ToString() + ", ";
             result += "\n";
-            result += "Home Area: " + HomeTerrain + "\n";
+            result += "Home Area: " + HomeTiles + "\n";
             result += "Settled Areas: ";
-            foreach (Tile terrain in SettledTerrains)
+            foreach (Tile terrain in SettledTiles)
                 result += terrain.ToString() + ", ";
             result += "\n";
             result += "Origin Order: " + OriginOrder + "\n";

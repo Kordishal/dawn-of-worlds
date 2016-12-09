@@ -44,8 +44,6 @@ namespace dawn_of_worlds.Main
                     foreach (Deity deity in Program.World.Deities)
                     {
                         deity.Turn();
-
-                        Program.Log.Entries.Add(new ActionLogEntry(i, deity, deity.LastUsedPower, deity.LastCreation));
                     }
                 }
 
@@ -62,7 +60,9 @@ namespace dawn_of_worlds.Main
                     }
                 }
 
-            
+                Program.WorldHistory.AddRecord(RecordType.TerrainMap, Map.generateTerrainMap(), Map.printMap);
+                Program.WorldHistory.AddRecord(RecordType.BiomeMap, Map.generateBiomeMap(), Map.printMap);
+                Program.WorldHistory.AddRecord(RecordType.ClimateMap, Map.generateClimateMap(), Map.printMap);
             }
         }
     }

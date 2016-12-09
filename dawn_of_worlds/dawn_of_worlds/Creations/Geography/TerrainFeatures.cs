@@ -1,5 +1,6 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Log;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,11 @@ namespace dawn_of_worlds.Creations.Geography
         {
             Location = location;
         }
+
+        public virtual string printTerrainFeature(Record record)
+        {
+            return "The deity " + Creator.Name + " created " + this.Name + " in " + record.Year + "\n";
+        }
     }
 
     enum BiomeType
@@ -56,12 +62,13 @@ namespace dawn_of_worlds.Creations.Geography
         HotDesert,
         ColdDesert,
         TemperateGrassland,
-        MediterraneanScrubland,
+        Scrubland,
         TemperateDeciduousForest,
         BorealForest,
         Tundra,
         PermanentFreshWaterLake,
         PermanentRiver,
         Subterranean,
+        PolarDesert,
     }
 }

@@ -25,7 +25,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         private List<Tile> candidate_terrain()
         {
             List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.TerrainArea)
+            foreach (Tile terrain in _location.Tiles)
             {
                 if (terrain.Type == TerrainType.HillRange)
                     terrain_list.Add(terrain);
@@ -52,7 +52,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Hill hill = new Hill("PlaceHolder", hill_location, creator);
 
             int chance = Constants.Random.Next(100);
-            switch (_location.ClimateArea)
+            switch (hill_location.LocalClimate)
             {
                 case Climate.Arctic:
                     hill.BiomeType = BiomeType.Tundra;
@@ -106,7 +106,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(hill);
             creator.LastCreation = hill;
 
-            Program.WorldHistory.AddRecord(hill);
+            Program.WorldHistory.AddRecord(hill, hill.printTerrainFeature);
         }
 
 

@@ -25,7 +25,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         private List<Tile> candidate_terrain()
         {
             List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.TerrainArea)
+            foreach (Tile terrain in _location.Tiles)
             {
                 if (terrain.hasRivers)
                     terrain_list.Add(terrain);
@@ -73,7 +73,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(lake);
             creator.LastCreation = lake;
 
-            Program.WorldHistory.AddRecord(lake);
+            Program.WorldHistory.AddRecord(lake, lake.printTerrainFeature);
         }
 
 

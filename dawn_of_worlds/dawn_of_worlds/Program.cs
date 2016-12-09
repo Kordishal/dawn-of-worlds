@@ -14,21 +14,30 @@ namespace dawn_of_worlds
     {
         public static World World { get; set; }
         public static History WorldHistory { get; set; }
-        public static ActionLog Log { get; set; }
+        public static StreamWriters Log { get; set; }
         public static Simulation Simulation { get; set; }
 
         static void Main(string[] args)
         {
             Constants.Names = new NameGenerator();
-            Log = new ActionLog();
+            Log = new StreamWriters();
             World = new World(Constants.Names.GetName("world"), 5, 5);
             WorldHistory = new History();
-
             Simulation = new Simulation();
+
+            WorldHistory.AddRecord(RecordType.TerrainMap, Map.generateTerrainMap(), Map.printMap);
+            WorldHistory.AddRecord(RecordType.BiomeMap, Map.generateBiomeMap(), Map.printMap);
+            WorldHistory.AddRecord(RecordType.ClimateMap, Map.generateClimateMap(), Map.printMap);
+
+
             Simulation.Run();
 
-            Log.Write();
-            WorldHistory.printWorldHistory("general_history.txt");
+            StreamWriters.writeRecords();
+            StreamWriters.writeRecordType(RecordType.TerrainMap);
+            StreamWriters.writeRecordType(RecordType.BiomeMap);
+            StreamWriters.writeRecordType(RecordType.ClimateMap);
+            StreamWriters.writeRecordType(RecordType.CreateTerrainFeature);
+
             Console.WriteLine("END OF APPLICATION");
             Console.ReadKey();
         }

@@ -23,8 +23,14 @@ namespace dawn_of_worlds.Main
         public const int AREA_GRID_X = 5;
         public const int AREA_GRID_Y = 5;
 
-        public const int TERRAIN_GRID_X = 25;
-        public const int TERRAIN_GRID_Y = 25;
+        public const int TILE_GRID_X = 25;
+        public const int TILE_GRID_Y = 25;
+
+        public const int ARCTIC_CLIMATE_BORDER = 3;
+        public const int SUB_ARCTIC_CLIMATE_BORDER = 8;
+        public const int TEMPERATE_CLIMATE_BORDER = 17;
+        public const int SUB_TROPICAL_CLIMATE_BORDER = 22;
+        public const int TROPICAL_CLIMATE_BORDER = 25;
 
         // Anything that costs less than this gets a bonus, anything that costs more than this gets a penalty.
         public const int WEIGHT_COST_DEVIATION_MEDIUM = 10;

@@ -24,7 +24,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         private List<Tile> candidate_terrain()
         {
             List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.TerrainArea)
+            foreach (Tile terrain in _location.Tiles)
             {
                 if (terrain.isDefault && terrain.Type == TerrainType.Plain)
                     terrain_list.Add(terrain);
@@ -60,8 +60,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Desert desert = new Desert(Constants.Names.GetName("deserts"), desert_location, creator);
 
             int chance = Constants.Random.Next(100);
-            switch (_location.ClimateArea)
+            switch (desert_location.LocalClimate)
             {
+                case Climate.Arctic:
+                    desert.BiomeType = BiomeType.PolarDesert;
+                    break;
                 case Climate.SubArctic:
                     if (chance < 50)
                         desert.BiomeType = BiomeType.ColdDesert;
@@ -92,7 +95,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(desert);
             creator.LastCreation = desert;
 
-            Program.WorldHistory.AddRecord(desert);
+            Program.WorldHistory.AddRecord(desert, desert.printTerrainFeature);
         }
     }
 }

@@ -16,22 +16,22 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
-            if (candidate_terrain().Count == 0)
+            if (candidate_tiles().Count == 0)
                 return false;
 
             return true;
         }
 
-        private List<Tile> candidate_terrain()
+        private List<Tile> candidate_tiles()
         {
-            List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.TerrainArea)
+            List<Tile> tile_list = new List<Tile>();
+            foreach (Tile terrain in _location.Tiles)
             {
                 if (terrain.Type == TerrainType.MountainRange)
-                    terrain_list.Add(terrain);
+                    tile_list.Add(terrain);
             }
 
-            return terrain_list;
+            return tile_list;
         }
 
         public override int Weight(Deity creator)
@@ -46,12 +46,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Tile> mountain_locations = candidate_terrain();
+            List<Tile> mountain_locations = candidate_tiles();
             Tile mountain_location = mountain_locations[Constants.Random.Next(mountain_locations.Count)];
             Mountain mountain = new Mountain("PlaceHolder", mountain_location, creator);
 
             int chance = Constants.Random.Next(100);
-            switch (_location.ClimateArea)
+            switch (mountain_location.LocalClimate)
             {
                 case Climate.Arctic:
                     mountain.BiomeType = BiomeType.Tundra;
@@ -91,7 +91,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(mountain);
             creator.LastCreation = mountain;
 
-            Program.WorldHistory.AddRecord(mountain);
+            Program.WorldHistory.AddRecord(mountain, mountain.printTerrainFeature);
         }
 
 

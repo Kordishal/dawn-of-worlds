@@ -14,23 +14,23 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     {
         public override bool Precondition(Deity creator)
         {
-            // needs a possible terrain in the area.
-            if (candidate_terrain().Count == 0)
+            // needs a possible tile in the area.
+            if (candidate_tiles().Count == 0)
                 return false;
 
             return true;
         }
 
-        private List<Tile> candidate_terrain()
+        private List<Tile> candidate_tiles()
         {
-            List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.TerrainArea)
+            List<Tile> tile_list = new List<Tile>();
+            foreach (Tile tile in _location.Tiles)
             {
-                if (terrain.Type == TerrainType.MountainRange || terrain.Type == TerrainType.MountainRange)
-                    terrain_list.Add(terrain);
+                if (tile.Type == TerrainType.MountainRange || tile.Type == TerrainType.MountainRange)
+                    tile_list.Add(tile);
             }
 
-            return terrain_list;
+            return tile_list;
         }
 
         public override int Weight(Deity creator)
@@ -50,7 +50,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Tile> cave_locations = candidate_terrain();
+            List<Tile> cave_locations = candidate_tiles();
 
             // Caves are placed in a random location within the territory.
             Tile cave_location = cave_locations[Constants.Random.Next(cave_locations.Count)];
@@ -58,7 +58,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Cave cave = new Cave("PlaceHolder", cave_location, creator);
 
             int chance = Constants.Random.Next(100);
-            switch (_location.ClimateArea)
+            switch (cave_location.LocalClimate)
             {
                 case Climate.SubArctic:
                     cave.BiomeType = BiomeType.Subterranean;
@@ -84,7 +84,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(cave);
             creator.LastCreation = cave;
 
-            Program.WorldHistory.AddRecord(cave);
+            Program.WorldHistory.AddRecord(cave, cave.printTerrainFeature);
         }
     }
 }
