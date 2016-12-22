@@ -14,7 +14,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
     {
         protected Race _commanded_race { get; set; }
 
-
         public override int Cost()
         {
             int cost = 0;

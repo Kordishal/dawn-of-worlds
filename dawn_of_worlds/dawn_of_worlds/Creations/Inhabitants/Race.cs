@@ -13,6 +13,8 @@ namespace dawn_of_worlds.Creations.Inhabitants
     {
         public List<RaceTags> Tags { get; set; }
 
+        public int YearofCreation { get; set; }
+
         public SpeciesType Type { get; set; }
         public RacialHabitat Habitat { get; set; }
         public List<RacialPreferredHabitatTerrain> PreferredTerrain { get; set; }
@@ -24,18 +26,10 @@ namespace dawn_of_worlds.Creations.Inhabitants
         public Tile HomeTiles { get { return SettledTiles[0]; } }
         public List<Tile> SettledTiles { get; set; }
 
-        public bool isSubRace { get; set; }
-        public Race MainRace { get; set; }
-
-        public List<Race> SubRaces { get; set; }
-        public List<Race> PossibleSubRaces { get; set; }
-
         public Order OriginOrder { get; set; }
 
         public Race(string name, Deity creator) : base(name, creator)
         {
-            SubRaces = new List<Race>();
-            PossibleSubRaces = new List<Race>();
             SettledTiles = new List<Tile>();
             Tags = new List<RaceTags>();
 
@@ -60,6 +54,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         {
             string result = "";
             result += "Name: " + Name + "\n";
+            result += "Year of Creation: " + YearofCreation + "\n";
             result += "Type: " + Type + "\n";
             result += "Habitat: " + Habitat + "\n";
             result += "Terrain: ";
@@ -117,9 +112,11 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
     enum RacialPreferredHabitatClimate
     {
-        ColdAcclimated,
-        TemperateAcclimated,
-        HeatAcclimated,
+        Arctic,
+        Temperate,
+        Tropical,
+        Subarctic,
+        Subtropical,
     }
 
     enum RacialLifespan
@@ -139,6 +136,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         Weak,
         NaturalArmour,
         NaturalWeapons,
+        ImmunityFire,
     }
 
     enum SocialCulturalCharacteristic

@@ -73,7 +73,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
 
             created_avatar.Name = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
 
-            if (_nation != null)
+            if (_nation != null && !_nation.isDestroyed)
             {
                 creator.Powers.Add(new UsePower(created_avatar, new CreateCity(created_avatar.MasterNation)));
                 creator.Powers.Add(new UsePower(created_avatar, new ExpandTerritory(created_avatar.MasterNation)));

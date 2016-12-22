@@ -1,0 +1,12 @@
+Name: Dark Elves {629}
+Year of Creation: 9682
+Type: Humanoid
+Habitat: Subterranean
+Terrain: CaveDwellers, 
+Climate: 
+Lifespan: Venerable
+Physical Traits: 
+Social & Cultural Traits: Communal, Sedentary, 
+Home Area: Terrain: Skeheerevara
+Settled Areas: Terrain: Skeheerevara, Terrain: Maum, Terrain: Illaun, Terrain: Carnmona, Terrain: Derry, Terrain: Ballyveagh, Terrain: Cornamore, Terrain: Drumshandoran, Terrain: Tobermoneyrea, Terrain: Athlone, Terrain: Portadown, Terrain: Corblonog, Terrain: Portnahoe, Terrain: Benbaun, Terrain: Shanboy, 
+Origin Order: Sect of Cold

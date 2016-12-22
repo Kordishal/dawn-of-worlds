@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.CelestialPowers;
 using dawn_of_worlds.Creations.Diplomacy;
+using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Log;
 using dawn_of_worlds.Names;
@@ -63,6 +64,11 @@ namespace dawn_of_worlds.Main
                 Program.WorldHistory.AddRecord(RecordType.TerrainMap, Map.generateTerrainMap(), Map.printMap);
                 Program.WorldHistory.AddRecord(RecordType.BiomeMap, Map.generateBiomeMap(), Map.printMap);
                 Program.WorldHistory.AddRecord(RecordType.ClimateMap, Map.generateClimateMap(), Map.printMap);
+
+                foreach (Race race in Program.World.Races)
+                {
+                    Program.WorldHistory.AddRecord(RecordType.RaceSettlementMap, race, Map.generateRaceSettlementMap(race), Map.printMap);
+                }
             }
         }
     }

@@ -26,7 +26,9 @@ namespace dawn_of_worlds.WorldClasses
         public List<Region> WorldRegions { get; set; }
 
         public Area[,] AreaGrid { get; set; }
+        public Area getArea(SystemCoordinates coords) { return AreaGrid[coords.X, coords.Y]; }
         public Tile[,] TileGrid { get; set; }
+        public Tile getTile(SystemCoordinates coords) { return TileGrid[coords.X, coords.Y]; }
 
         public World(string world_name, int num_regions, int num_areas)
         {
@@ -54,6 +56,12 @@ namespace dawn_of_worlds.WorldClasses
             {
                 WorldRegions.Add(new Region(this, num_areas));
             }
+
+            WorldRegions[0].Landmass = true;
+            WorldRegions[1].Landmass = true;
+            WorldRegions[2].Landmass = false;
+            WorldRegions[3].Landmass = true;
+            WorldRegions[4].Landmass = false;
         }
         private void generateAreaGrid()
         {

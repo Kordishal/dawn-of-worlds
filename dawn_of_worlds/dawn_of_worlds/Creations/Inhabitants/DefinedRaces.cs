@@ -187,19 +187,15 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(Humans);
 
             Norse = new Race("Norse", null);
-            Norse.isSubRace = true;
-            Norse.MainRace = Humans;
             Norse.Type = SpeciesType.Humanoid;
             Norse.Habitat = RacialHabitat.Terranean;
             Norse.Lifespan = RacialLifespan.Average;
             Norse.PreferredTerrain.Add(RacialPreferredHabitatTerrain.PlainDwellers);
-            Norse.PreferredClimate.Add(RacialPreferredHabitatClimate.ColdAcclimated);
+            Norse.PreferredClimate.Add(RacialPreferredHabitatClimate.Arctic);
             Norse.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Nomadic);
             Norse.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Communal);
 
             DefinedRacesList.Add(Norse);
-
-            Humans.PossibleSubRaces.Add(Norse);
         }
 
         private static void defineElfishRaces()
@@ -208,28 +204,32 @@ namespace dawn_of_worlds.Creations.Inhabitants
             HighElves.Type = SpeciesType.Humanoid;
             HighElves.Habitat = RacialHabitat.Terranean;
             HighElves.Lifespan = RacialLifespan.Venerable;
+            HighElves.PreferredClimate.Add(RacialPreferredHabitatClimate.Temperate);
+            HighElves.PreferredClimate.Add(RacialPreferredHabitatClimate.Subtropical);
+            HighElves.PreferredClimate.Add(RacialPreferredHabitatClimate.Tropical);
+            HighElves.PreferredTerrain.Add(RacialPreferredHabitatTerrain.ForestDwellers);
             HighElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Communal);
             HighElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Sedentary);
 
             DefinedRacesList.Add(HighElves);
 
             DarkElves = new Race("Dark Elves", null);
-            DarkElves.isSubRace = true;
-            DarkElves.MainRace = HighElves;
             DarkElves.Type = SpeciesType.Humanoid;
             DarkElves.Habitat = RacialHabitat.Subterranean;
             DarkElves.Lifespan = RacialLifespan.Venerable;
+            DarkElves.PreferredTerrain.Add(RacialPreferredHabitatTerrain.CaveDwellers);
             DarkElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Communal);
             DarkElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Sedentary);
 
             DefinedRacesList.Add(DarkElves);
 
             WoodElves = new Race("Wood Elves", null);
-            WoodElves.isSubRace = true;
-            WoodElves.MainRace = HighElves;
             WoodElves.Type = SpeciesType.Humanoid;
             WoodElves.Habitat = RacialHabitat.Terranean;
             WoodElves.Lifespan = RacialLifespan.Venerable;
+            WoodElves.PreferredClimate.Add(RacialPreferredHabitatClimate.Temperate);
+            WoodElves.PreferredClimate.Add(RacialPreferredHabitatClimate.Subtropical);
+            WoodElves.PreferredClimate.Add(RacialPreferredHabitatClimate.Tropical);
             WoodElves.PreferredTerrain.Add(RacialPreferredHabitatTerrain.ForestDwellers);
             WoodElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Communal);
             WoodElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Sedentary);
@@ -237,8 +237,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(WoodElves);
 
             WildElves = new Race("Wild Elves", null);
-            WildElves.isSubRace = true;
-            WildElves.MainRace = HighElves;
             WildElves.Type = SpeciesType.Humanoid;
             WildElves.Habitat = RacialHabitat.Terranean;
             WildElves.Lifespan = RacialLifespan.Venerable;
@@ -246,9 +244,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
             WildElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Communal);
             WildElves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Sedentary);
 
-            HighElves.PossibleSubRaces.Add(DarkElves);
-            HighElves.PossibleSubRaces.Add(WoodElves);
-            HighElves.PossibleSubRaces.Add(WildElves);
+            DefinedRacesList.Add(WildElves);
         }
 
         private static void defineDragonicRaces()
@@ -266,23 +262,20 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(ProtoDragons);
 
             FireDragons = new Race("Fire Dragons", null);
-            FireDragons.isSubRace = true;
-            FireDragons.MainRace = ProtoDragons;
             FireDragons.Type = SpeciesType.Dragonoid;
             FireDragons.Habitat = RacialHabitat.Terranean;
             FireDragons.Lifespan = RacialLifespan.EternalLife;
-            FireDragons.PreferredClimate.Add(RacialPreferredHabitatClimate.HeatAcclimated);
+            FireDragons.PreferredClimate.Add(RacialPreferredHabitatClimate.Tropical);
             FireDragons.PhysicalTraits.Add(PhysicalTrait.Winged);
             FireDragons.PhysicalTraits.Add(PhysicalTrait.Strong);
             FireDragons.PhysicalTraits.Add(PhysicalTrait.NaturalArmour);
             FireDragons.PhysicalTraits.Add(PhysicalTrait.NaturalWeapons);
+            FireDragons.PhysicalTraits.Add(PhysicalTrait.ImmunityFire);
             FireDragons.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Nomadic);
 
             DefinedRacesList.Add(FireDragons);
 
             GoldDragons = new Race("Gold Dragons", null);
-            GoldDragons.isSubRace = true;
-            GoldDragons.MainRace = ProtoDragons;
             GoldDragons.Type = SpeciesType.Dragonoid;
             GoldDragons.Habitat = RacialHabitat.Terranean;
             GoldDragons.Lifespan = RacialLifespan.EternalLife;
@@ -293,9 +286,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
             GoldDragons.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Nomadic);
 
             DefinedRacesList.Add(GoldDragons);
-
-            ProtoDragons.PossibleSubRaces.Add(FireDragons);
-            ProtoDragons.PossibleSubRaces.Add(GoldDragons);
         }
 
         private static void defineDwarvenRaces()
@@ -311,8 +301,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(MountainDwarves);
 
             HillDwarves = new Race("Hill Dwarves", null);
-            HillDwarves.isSubRace = true;
-            HillDwarves.MainRace = MountainDwarves;
             HillDwarves.Type = SpeciesType.Humanoid;
             HillDwarves.Habitat = RacialHabitat.Terranean;
             HillDwarves.Lifespan = RacialLifespan.Enduring;
@@ -321,8 +309,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
             HillDwarves.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Sedentary);
 
             DefinedRacesList.Add(HillDwarves);
-
-            MountainDwarves.PossibleSubRaces.Add(HillDwarves);
         }
 
         private void defineGiantRaces()
@@ -336,8 +322,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(Giants);
 
             HillGiants = new Race("Hill Giants", null);
-            HillGiants.isSubRace = true;
-            HillGiants.MainRace = Giants;
             HillGiants.Type = SpeciesType.Humanoid;
             HillGiants.Habitat = RacialHabitat.Terranean;
             HillGiants.Lifespan = RacialLifespan.Enduring;
@@ -347,15 +331,11 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(HillGiants);
 
             StormGiants = new Race("Storm Giants", null);
-            StormGiants.isSubRace = true;
-            StormGiants.MainRace = Giants;
             StormGiants.Type = SpeciesType.Humanoid;
             StormGiants.Habitat = RacialHabitat.Terranean;
             StormGiants.Lifespan = RacialLifespan.Enduring;
             StormGiants.PhysicalTraits.Add(PhysicalTrait.Strong);
             StormGiants.PreferredTerrain.Add(RacialPreferredHabitatTerrain.MountainDwellers);
-
-            Giants.PossibleSubRaces.Add(HillGiants);
         }
 
         private static void defineOrcishRaces()
@@ -377,7 +357,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
             Goblins.Habitat = RacialHabitat.Terranean;
             Goblins.Lifespan = RacialLifespan.Fleeting;
             Goblins.PhysicalTraits.Add(PhysicalTrait.Weak);
-            Goblins.PreferredClimate.Add(RacialPreferredHabitatClimate.TemperateAcclimated);
+            Goblins.PreferredClimate.Add(RacialPreferredHabitatClimate.Temperate);
             Goblins.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Tribal);
 
             DefinedRacesList.Add(Goblins);

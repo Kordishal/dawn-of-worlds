@@ -25,12 +25,15 @@ namespace dawn_of_worlds.Main
 
         public const int TILE_GRID_X = 25;
         public const int TILE_GRID_Y = 25;
+        public const int TOTAL_TILE_NUMBER = TILE_GRID_X * TILE_GRID_Y;
 
         public const int ARCTIC_CLIMATE_BORDER = 3;
         public const int SUB_ARCTIC_CLIMATE_BORDER = 8;
         public const int TEMPERATE_CLIMATE_BORDER = 17;
         public const int SUB_TROPICAL_CLIMATE_BORDER = 22;
         public const int TROPICAL_CLIMATE_BORDER = 25;
+
+        public const int BASE_TILES_SETTLED_BY_RACE = 5;
 
         // Anything that costs less than this gets a bonus, anything that costs more than this gets a penalty.
         public const int WEIGHT_COST_DEVIATION_MEDIUM = 10;
@@ -91,20 +94,37 @@ namespace dawn_of_worlds.Main
 
         public static List<S> ChooseHeaviestObjects(List<WeightedObjects<S>> weighted_objects)
         {
-            WeightedObjects<S> max = weighted_objects.First();
+            weighted_objects.Sort(WeightedObjects<S>.Compare);
+            List<S> objects = new List<S>();
+            weighted_objects = weighted_objects.FindAll(x => weighted_objects[0].Weight == x.Weight);
+            foreach (WeightedObjects<S> weighted_object in weighted_objects)
+                objects.Add(weighted_object.Object);
 
-            for (int i = 1; i < weighted_objects.Count; i++)
+            return objects;
+        }
+
+        public static List<S> ChooseXHeaviestObjects(List<WeightedObjects<S>> weighted_objects, int X)
+        {
+            weighted_objects.Sort(WeightedObjects<S>.Compare);
+            List<S> objects = new List<S>();
+
+            for (int i = 0; i < X; i++)
             {
-                if (weighted_objects[i].Weight > max.Weight)
-                    max = weighted_objects[i];
+                objects.Add(weighted_objects[i].Object);
             }
 
-            List<S> max_objects = new List<S>();
-            foreach (WeightedObjects<S> weighted_object in weighted_objects)
-                if (weighted_object.Weight == max.Weight)
-                    max_objects.Add(weighted_object.Object);
+            return objects;
+        }
 
-            return max_objects;
+
+        public static int Compare(WeightedObjects<S> first, WeightedObjects<S> second)
+        {
+            if (first.Weight > second.Weight)
+                return -1;
+            else if (first.Weight == second.Weight)
+                return 0;
+            else //(first.Weight < second.Weight)
+                return 1;
         }
 
         public WeightedObjects(S objects)

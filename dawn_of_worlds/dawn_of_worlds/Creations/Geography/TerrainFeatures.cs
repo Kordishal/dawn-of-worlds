@@ -70,5 +70,6 @@ namespace dawn_of_worlds.Creations.Geography
         PermanentRiver,
         Subterranean,
         PolarDesert,
+        Ocean,
     }
 }

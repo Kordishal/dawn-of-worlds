@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.WorldClasses;
 
 namespace dawn_of_worlds.Log
 {
@@ -18,19 +20,19 @@ namespace dawn_of_worlds.Log
                 {
                     switch (Program.World.TileGrid[i, j].Type)
                     {
-                        case WorldClasses.TerrainType.Plain:
+                        case TerrainType.Plain:
                             terrain_map[i, j] = '_';
                             break;
-                        case WorldClasses.TerrainType.HillRange:
+                        case TerrainType.HillRange:
                             terrain_map[i, j] = 'n';
                             break;
-                        case WorldClasses.TerrainType.MountainRange:
+                        case TerrainType.MountainRange:
                             terrain_map[i, j] = '^';
                             break;
-                        case WorldClasses.TerrainType.Island:
+                        case TerrainType.Island:
                             terrain_map[i, j] = 'o';
                             break;
-                        case WorldClasses.TerrainType.Ocean:
+                        case TerrainType.Ocean:
                             terrain_map[i, j] = '~';
                             break;
                     }
@@ -79,6 +81,9 @@ namespace dawn_of_worlds.Log
                         case BiomeType.Tundra:
                             biome_map[i, j] = '_';
                             break;
+                        case BiomeType.Ocean:
+                            biome_map[i, j] = '~';
+                            break;
                     }
                 }
             }
@@ -95,20 +100,23 @@ namespace dawn_of_worlds.Log
                 {
                     switch (Program.World.TileGrid[i, j].LocalClimate)
                     {
-                        case WorldClasses.Climate.Arctic:
+                        case Climate.Arctic:
                             climate_map[i, j] = 'A';
                             break;
-                        case WorldClasses.Climate.SubArctic:
+                        case Climate.SubArctic:
                             climate_map[i, j] = 'a';
                             break;
-                        case WorldClasses.Climate.Temperate:
+                        case Climate.Temperate:
                             climate_map[i, j] = '-';
                             break;
-                        case WorldClasses.Climate.SubTropical:
+                        case Climate.SubTropical:
                             climate_map[i, j] = 't';
                             break;
-                        case WorldClasses.Climate.Tropical:
+                        case Climate.Tropical:
                             climate_map[i, j] = 'T';
+                            break;
+                        case Climate.Inferno:
+                            climate_map[i, j] = '@';
                             break;
                     }
 
@@ -117,6 +125,23 @@ namespace dawn_of_worlds.Log
 
             return climate_map;
         }
+
+        public static char[,] generateRaceSettlementMap(Race race)
+        {
+            char[,] race_settlement_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
+
+            foreach (Tile tile in Program.World.TileGrid)
+            {
+                if (race.SettledTiles.Contains(tile))
+                    race_settlement_map[tile.Coordinates.X, tile.Coordinates.Y] = '0';
+                else
+                    race_settlement_map[tile.Coordinates.X, tile.Coordinates.Y] = 'x';
+            }
+
+            return race_settlement_map;
+        }
+
+
         public static string printMap(Record record)
         {
             string result = "";

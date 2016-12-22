@@ -1,0 +1,12 @@
+Name: Gold Dragons {634}
+Year of Creation: 9532
+Type: Dragonoid
+Habitat: Terranean
+Terrain: 
+Climate: 
+Lifespan: EternalLife
+Physical Traits: Winged, Strong, NaturalArmour, NaturalWeapons, 
+Social & Cultural Traits: Nomadic, 
+Home Area: Terrain: Corblonmel
+Settled Areas: Terrain: Corblonmel, Terrain: Carry, Terrain: Donaghmore, Terrain: Ardglas, Terrain: Donabane, Terrain: Coomevaghmore, Terrain: Shandon, Terrain: Urlar, Terrain: Tramore, Terrain: Glas, Terrain: Coorack, Terrain: Doondare, Terrain: Dona, Terrain: Termonfeckin, Terrain: Mone, Terrain: Maum, Terrain: Glen, Terrain: Coolminevena, Terrain: Cultranor, Terrain: Dungar, Terrain: Cloughduv, Terrain: Finglas, Terrain: Athlone, Terrain: Gortnahoe, Terrain: Garvagh, Terrain: Glengorm, Terrain: Donard, Terrain: Tullymenard, 
+Origin Order: Band of Wind

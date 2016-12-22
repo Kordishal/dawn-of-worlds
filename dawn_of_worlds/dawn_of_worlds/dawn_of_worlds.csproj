@@ -76,7 +76,7 @@
     <Compile Include="CelestialPowers\CommandNationPowers\WhitePeace.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\CommandRace.cs" />
     <Compile Include="CelestialPowers\CommandRacePowers\FoundNation.cs" />
-    <Compile Include="CelestialPowers\CommandRacePowers\SettleTerrain.cs" />
+    <Compile Include="CelestialPowers\CommandRacePowers\SettleTile.cs" />
     <Compile Include="CelestialPowers\CreateAvatarPowers\CreateAvatar.cs" />
     <Compile Include="CelestialPowers\CreateOrderPowers\CreateOrder.cs" />
     <Compile Include="CelestialPowers\EventPowers\NationalEvents\NationalEvent.cs" />
@@ -88,6 +88,8 @@
     <Compile Include="CelestialPowers\EventPowers\SpawnEvent.cs" />
     <Compile Include="CelestialPowers\Power.cs" />
     <Compile Include="CelestialPowers\CreateRacePowers\CreateRace.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\AddClimateModifier.cs" />
+    <Compile Include="CelestialPowers\ShapeClimatePowers\CreateSpecialClimate.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\MakeClimateColder.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\MakeClimateWarmer.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\ShapeClimate.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Creations\Geography\Grassland.cs" />
     <Compile Include="Creations\Geography\Hill.cs" />
     <Compile Include="Creations\Geography\HillRange.cs" />
+    <Compile Include="Creations\Geography\Ocean.cs" />
     <Compile Include="Creations\Geography\TerrainFeatures.cs" />
     <Compile Include="Creations\Geography\Lake.cs" />
     <Compile Include="Creations\Geography\Mountain.cs" />

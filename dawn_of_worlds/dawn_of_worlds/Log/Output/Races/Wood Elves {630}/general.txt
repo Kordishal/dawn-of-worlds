@@ -1,0 +1,12 @@
+Name: Wood Elves {630}
+Year of Creation: 9532
+Type: Humanoid
+Habitat: Terranean
+Terrain: ForestDwellers, 
+Climate: Temperate, Subtropical, Tropical, 
+Lifespan: Venerable
+Physical Traits: 
+Social & Cultural Traits: Communal, Sedentary, 
+Home Area: Terrain: Slievebullagh
+Settled Areas: Terrain: Slievebullagh, Terrain: Shanbaun, Terrain: Cloughjordani, Terrain: Tullaun, Terrain: Tullagh, Terrain: Cloonsheereva, Terrain: Owenbeg, Terrain: Garvagh, Terrain: Roscreagh, Terrain: Tobermore, Terrain: Donard, Terrain: Cloonshel, Terrain: Mulliaghgorml, Terrain: Garvagh, Terrain: Letterkenny, Terrain: Kilcogy, Terrain: Cooran, Terrain: Droghey, Terrain: Letterkenny, Terrain: Corblonog, Terrain: Kinallysallym, Terrain: Ballyveagh, Terrain: Enniskeen, Terrain: Mullaghbrack, Terrain: Ball, Terrain: Mullagh, Terrain: Croaghmore, Terrain: Athlonog, Terrain: Ballyveaghera, Terrain: Bundoranorlar, Terrain: Rathfarnham, Terrain: Belfast, Terrain: Letterkenny, Terrain: Fingar, Terrain: Carryduff, Terrain: Glen, Terrain: Termore, Terrain: Tullagh, Terrain: Cornamore, Terrain: Cloondrohid, Terrain: Carraroe, Terrain: Illaunmare, Terrain: Enniskin, Terrain: Mullamonfecki, Terrain: Cornamore, Terrain: Money, Terrain: Raherafelt, Terrain: Coolminevena, Terrain: Drumshandoran, Terrain: Tramore, Terrain: Tobercurryduf, Terrain: Ballyclare, Terrain: Finglasnevebu, Terrain: Illaun, Terrain: Magh, Terrain: Slievebulline, Terrain: Cultra, Terrain: Glanmire, Terrain: Cloughduv, Terrain: Athlone, Terrain: Caherdaniel, Terrain: Tirconnell, Terrain: Portnahoe, Terrain: Kenmare, Terrain: Iniskillymena, Terrain: Garvagheda, Terrain: Cooranorlar, Terrain: Roscreaghbawn, Terrain: Benbeg, Terrain: Pollagh, Terrain: Glen, Terrain: Caherafelt, Terrain: Cultranor, Terrain: Athlonmel, Terrain: Kilrush, Terrain: Tirconnell, Terrain: Kilrush, Terrain: Termonfeckin, Terrain: Dona, Terrain: Urlar, Terrain: Maum, Terrain: Donagh, Terrain: Caherdan, Terrain: Illamore, Terrain: Tramore, Terrain: Stra, Terrain: Ballyclar, Terrain: Innishmaan, Terrain: Donagh, 
+Origin Order: Paragons of Pestilence

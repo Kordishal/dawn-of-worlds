@@ -1,0 +1,12 @@
+Name: Protodragons {632}
+Year of Creation: 9655
+Type: Dragonoid
+Habitat: Terranean
+Terrain: 
+Climate: 
+Lifespan: EternalLife
+Physical Traits: Winged, Strong, NaturalArmour, NaturalWeapons, 
+Social & Cultural Traits: Nomadic, 
+Home Area: Terrain: Mulliagh
+Settled Areas: Terrain: Mulliagh, Terrain: Kilcogy, Terrain: Tuam, Terrain: Tubberclar, Terrain: Tirconnell, Terrain: Portlaoise, Terrain: Cornamoney, Terrain: Caherdaniel, Terrain: Glanmire, Terrain: Gortnahoe, Terrain: Cahircon, Terrain: Athlonmel, Terrain: Tullagh, Terrain: Skeheerevara, Terrain: Cloughduv, Terrain: Portnahoe, Terrain: Loughduv, Terrain: Athlone, Terrain: Gortadown, Terrain: Tullaghbawn, Terrain: Maam Cross, Terrain: Doonbeg, Terrain: Killysalliagh, Terrain: Coomkeenard, Terrain: Toomkeen, Terrain: Tubbermoney, Terrain: Kilrush, Terrain: Cloonsheereva, Terrain: Bundoranorlar, Terrain: Tircon, Terrain: Tuam, Terrain: Cahircon, Terrain: Cloughgormley, Terrain: Tubberclare, Terrain: Rockcloghrim, Terrain: Letterkenny, Terrain: Glengorm, Terrain: Cloughalee, Terrain: Inniskin, Terrain: Magh, Terrain: Ballyclare, Terrain: Cappagherafel, Terrain: Cregganbaunma, Terrain: Letterfrack, Terrain: Tuam, Terrain: Bine, Terrain: Ballynooth, Terrain: Inniskeaghgor, Terrain: Kilrush, Terrain: Cultranor, Terrain: Raherafelt, Terrain: Pollagh, Terrain: Drumshandoran, Terrain: Caherafelt, Terrain: Glen, Terrain: Money, Terrain: Coolminevena, Terrain: Termonfeckin, Terrain: Dona, Terrain: Urlar, Terrain: Doondare, Terrain: Maum, Terrain: Portadown, Terrain: Coolockcorry, Terrain: Skeheen, Terrain: Tullaghbracla, Terrain: Garvagh, Terrain: Ballengormley, Terrain: Mullagh, Terrain: Bine, Terrain: Skeheenard, Terrain: Casheen, Terrain: Stra, Terrain: Cloughduv, Terrain: Portadown, Terrain: Enniskeaghgor, Terrain: Sheskillyveag, Terrain: Dungar, Terrain: Kilrush, 
+Origin Order: Congregation of Drought

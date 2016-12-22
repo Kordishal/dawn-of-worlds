@@ -19,35 +19,12 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
     {
         private Race _created_race { get; set; }
         private Tile _terrain { get; set; }
-        private bool neighbourTerrainHasMainRace()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                SystemCoordinates coords = _terrain.Coordinates.GetNeighbour(i);
-
-                if (coords.X >= 0 && coords.Y >= 0 && coords.X < Constants.TILE_GRID_X && coords.Y < Constants.TILE_GRID_Y)
-                {
-                    if (Program.World.TileGrid[coords.X, coords.Y].SettledRaces.Contains(_created_race.MainRace))
-                        return true;
-                }
-            }
-            return false;
-        }
 
         public override bool Precondition(Deity creator)
         {
             // No longer valid once used.
             if (isObsolete)
                 return false;
-
-            if (_created_race.isSubRace && _created_race.MainRace.Creator == null)
-                return false;
-
-            // if this is a subrace
-            // Exclude all areas where the main race is not present or neighbouring
-            if (_created_race.isSubRace)
-                if (!_terrain.SettledRaces.Contains(_created_race.MainRace) || !neighbourTerrainHasMainRace())
-                    return false;
 
             // Aquatic, exclude all areas, which do not have water to live in.
             if (_created_race.Habitat == RacialHabitat.Aquatic)
@@ -96,7 +73,9 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
         }
 
         public override void Effect(Deity creator)
-        {                
+        {
+            _created_race.YearofCreation = Simulation.Time.Shuffle;
+                
             // Each race has an order dedicated to worship their creator.
             Order creator_worhip_order = new Order("PlaceHolder", creator, OrderType.Church, OrderPurpose.FounderWorship);
             creator_worhip_order.OrderRace = _created_race;
@@ -116,8 +95,9 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             creator.CreatedRaces.Add(_created_race);
             creator.CreatedOrders.Add(creator_worhip_order);
 
-            foreach (Tile terrain in Program.World.TileGrid)
-                creator.Powers.Add(new SettleTerrain(_created_race, terrain));
+            foreach (Area area in Program.World.AreaGrid)
+                creator.Powers.Add(new SettleTile(_created_race, area));
+
             foreach (NationTypes type in Enum.GetValues(typeof(NationTypes)))
                 creator.Powers.Add(new FoundNation(_created_race, type));
 
@@ -131,12 +111,6 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                 {
                     deity.Powers.Add(new CreateAvatar(type, _created_race, null, null));
                 }
-            }
-
-            // If this is a subrace some extra steps are required
-            if (_created_race.isSubRace)
-            {
-                _created_race.MainRace.SubRaces.Add(_created_race);
             }
 
             // Add the race to the world overview.
@@ -209,30 +183,29 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             {
                 switch (climate)
                 {
-                    case RacialPreferredHabitatClimate.ColdAcclimated:
+                    case RacialPreferredHabitatClimate.Arctic:
                         if (_terrain.LocalClimate == Climate.Arctic || _terrain.LocalClimate == Climate.SubArctic)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
-                    case RacialPreferredHabitatClimate.HeatAcclimated:
+                    case RacialPreferredHabitatClimate.Tropical:
                         if (_terrain.LocalClimate == Climate.Tropical || _terrain.LocalClimate == Climate.SubTropical)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
-                    case RacialPreferredHabitatClimate.TemperateAcclimated:
+                    case RacialPreferredHabitatClimate.Temperate:
                         if (_terrain.LocalClimate == Climate.Temperate)
                             weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                         break;
                 }
             }
 
+
+
             return weight >= 0 ? weight : 0;
         }
 
         public CreateRace(Race created_race, Tile terrain)
         {
-            if (created_race.isSubRace)
-                Name = "Create SubRace: " + created_race.Name;
-            else
-                Name = "Create Race: " + created_race.Name;
+            Name = "Create Race: " + created_race.Name;
             _created_race = created_race;
             _terrain = terrain;
 

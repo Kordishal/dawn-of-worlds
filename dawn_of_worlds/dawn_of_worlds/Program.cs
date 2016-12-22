@@ -32,11 +32,17 @@ namespace dawn_of_worlds
 
             Simulation.Run();
 
+            StreamWriters.cleanDirectories();
+
+            StreamWriters.writeDeities();
+
             StreamWriters.writeRecords();
             StreamWriters.writeRecordType(RecordType.TerrainMap);
             StreamWriters.writeRecordType(RecordType.BiomeMap);
             StreamWriters.writeRecordType(RecordType.ClimateMap);
             StreamWriters.writeRecordType(RecordType.CreateTerrainFeature);
+
+            StreamWriters.writeRaces();
 
             Console.WriteLine("END OF APPLICATION");
             Console.ReadKey();

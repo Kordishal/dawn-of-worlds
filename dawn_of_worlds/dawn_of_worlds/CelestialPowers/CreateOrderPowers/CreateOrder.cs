@@ -124,6 +124,14 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
             return weight >= 0 ? weight : 0;
         }
 
+        public override bool Precondition(Deity creator)
+        {
+            if (_nation.isDestroyed)
+                return false;
+
+            return true;
+        }
+
         public CreateOrder(OrderType type, OrderPurpose purpose, Nation nation, Race race)
         {
             Name = "Create Order: " + Enum.GetName(typeof(OrderType), type) + "|" + Enum.GetName(typeof(OrderPurpose), purpose);

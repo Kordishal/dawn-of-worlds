@@ -20,7 +20,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         {
             int weight = base.Weight(creator);
 
-            if (creator.Domains.Contains(Domain.Magic))
+            if (_modifier == ClimateModifier.MagicInfused && creator.Domains.Contains(Domain.Magic))
                 weight += Constants.WEIGHT_MANY_CHANGE;
 
             return weight >= 0 ? weight : 0;
@@ -28,7 +28,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 
         public override void Effect(Deity creator)
         {
-            throw new NotImplementedException();
+            Tile tile = _location.Tiles[Constants.Random.Next(_location.Tiles.Count)];
+            tile.LocalClimateModifier = _modifier;
         }
     }
 }

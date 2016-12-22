@@ -111,27 +111,27 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 case NationTypes.FeudalNation:
                 case NationTypes.TribalNation:
                 case NationTypes.LairTerritory:
-                    foreach (Tile terrain in _commanded_race.SettledTiles)
+                    foreach (Tile tile in _commanded_race.SettledTiles)
                     {
-                        if (terrain.UnclaimedTerritories.Count > 0)
+                        if (tile.UnclaimedTerritories.Count > 0)
                         {
                             return true;
                         }
                     }
                     break;
                 case NationTypes.HuntingGrounds:
-                    foreach (Tile terrain in _commanded_race.SettledTiles)
+                    foreach (Tile tile in _commanded_race.SettledTiles)
                     {
-                        if (terrain.UnclaimedHuntingGrounds.Count > 0)
+                        if (tile.UnclaimedHuntingGrounds.Count > 0)
                         {
                             return true;
                         }
                     }
                     break;
                 case NationTypes.NomadicTribe:
-                    foreach (Tile terrain in _commanded_race.SettledTiles)
+                    foreach (Tile tile in _commanded_race.SettledTiles)
                     {
-                        if (terrain.UnclaimedTravelAreas.Count > 0)
+                        if (tile.UnclaimedTravelAreas.Count > 0)
                         {
                             return true;
                         }
@@ -146,22 +146,22 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         {
             List<WeightedObjects<TerrainFeatures>> possible_locations = new List<WeightedObjects<TerrainFeatures>>();
 
-            foreach (Tile terrain in _commanded_race.SettledTiles)
+            foreach (Tile tile in _commanded_race.SettledTiles)
             {
                 switch (_type)
                 {
                     case NationTypes.FeudalNation:
                     case NationTypes.TribalNation:
                     case NationTypes.LairTerritory:
-                        foreach (TerrainFeatures feature in terrain.UnclaimedTerritories)
+                        foreach (TerrainFeatures feature in tile.UnclaimedTerritories)
                             possible_locations.Add(new WeightedObjects<TerrainFeatures>(feature));
                         break;
                     case NationTypes.HuntingGrounds:
-                        foreach (TerrainFeatures feature in terrain.UnclaimedHuntingGrounds)
+                        foreach (TerrainFeatures feature in tile.UnclaimedHuntingGrounds)
                             possible_locations.Add(new WeightedObjects<TerrainFeatures>(feature));
                         break;
                     case NationTypes.NomadicTribe:
-                        foreach (TerrainFeatures feature in terrain.UnclaimedTravelAreas)
+                        foreach (TerrainFeatures feature in tile.UnclaimedTravelAreas)
                             possible_locations.Add(new WeightedObjects<TerrainFeatures>(feature));
                         break;
                 }

@@ -1,0 +1,12 @@
+Name: Wild Elves {631}
+Year of Creation: 9564
+Type: Humanoid
+Habitat: Terranean
+Terrain: ForestDwellers, 
+Climate: 
+Lifespan: Venerable
+Physical Traits: 
+Social & Cultural Traits: Communal, Sedentary, 
+Home Area: Terrain: Mullamonfecki
+Settled Areas: Terrain: Mullamonfecki, Terrain: Coolminevin, Terrain: Balliagherafe, Terrain: Illamore, Terrain: Sragh, Terrain: Bundoranorlar, Terrain: Belfast, Terrain: Coomkeen, Terrain: Letterkenny, Terrain: Letterkenny, Terrain: Rockcloghrim, Terrain: Skeheen, Terrain: Garvagh, Terrain: Rock, Terrain: Drumshandore, Terrain: Tircon, Terrain: Cahircon, Terrain: Cloughjordani, Terrain: Tullaun, Terrain: Tullagh, Terrain: Shanbaun, Terrain: Drumshanbaun, Terrain: Fingar, Terrain: Caherdan, Terrain: Coolminevena, Terrain: Cashel, Terrain: Glenties, Terrain: Cornamoney, Terrain: Tubberclare, Terrain: Coomevagh, Terrain: Cooran, Terrain: Tobermore, Terrain: Donard, Terrain: Cloonshel, Terrain: Mulliaghgorml, Terrain: Slievebulline, Terrain: Magh, Terrain: Cloghrim, Terrain: Portnahoe, Terrain: Ballingar, Terrain: Tramore, Terrain: Tirconnell, Terrain: Liscannon, Terrain: Enniskeen, Terrain: Ballyveagh, Terrain: Mullaghbrack, Terrain: Ball, Terrain: Cultra, Terrain: Tullagh, Terrain: Doonshel, Terrain: Illaun, Terrain: Coolockcorry, Terrain: Tirconnell, Terrain: Mulliagh, Terrain: Belfast, Terrain: Finglass, Terrain: Caheny, Terrain: Carrowdoran, Terrain: Carryduff, Terrain: Portlaoise, Terrain: Ballengormley, Terrain: Tobercurryduf, Terrain: Kilcogy, Terrain: Coolockcloghr, Terrain: Ennishmaan, Terrain: Cornamore, Terrain: Carrigallymon, Terrain: Ballyclar, Terrain: Stra, Terrain: Portnahoe, Terrain: Tubbermore, Terrain: Ardglasnevin, Terrain: Doonshel, Terrain: Glas, Terrain: Tramore, Terrain: Money, Terrain: Raherafelt, Terrain: Poulaphouca, Terrain: Corblonog, Terrain: Droghey, Terrain: Donaghagower, 
+Origin Order: Fellowship of Mehet-Weret

@@ -105,7 +105,11 @@ namespace dawn_of_worlds.WorldClasses
 
             }
             else
+            {
                 Type = TerrainType.Ocean;
+                PrimaryTerrainFeature = new Ocean("The Ocean", this, null);
+            }
+                
         }
 
         public override string ToString()

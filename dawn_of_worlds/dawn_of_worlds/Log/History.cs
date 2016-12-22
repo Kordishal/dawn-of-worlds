@@ -5,6 +5,7 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations;
 using dawn_of_worlds.Creations.Geography;
 using System.IO;
+using dawn_of_worlds.Creations.Inhabitants;
 
 namespace dawn_of_worlds.Log
 {
@@ -34,6 +35,20 @@ namespace dawn_of_worlds.Log
         {
             Record record = new Record();
             record.Type = type;
+            record.Map = map;
+
+            record.Turn = Simulation.Time.Turn;
+            record.Year = Simulation.Time.Shuffle;
+
+            record.printFunction = print;
+            Records.Add(record);
+        }
+
+        public void AddRecord(RecordType type, Race race, char[,] map, PrintFunction print)
+        {
+            Record record = new Record();
+            record.Type = type;
+            record.Race = race;
             record.Map = map;
 
             record.Turn = Simulation.Time.Turn;
@@ -74,6 +89,19 @@ namespace dawn_of_worlds.Log
             return records;
         }
 
+        public string printRecordType(RecordType type, Race race)
+        {
+            List<Record> selected_records = Records.FindAll(x => x.Type == type && x.Race.Equals(race));
+            selected_records.Sort(Record.CompareTo);
+
+            string records = "";
+            foreach (Record record in selected_records)
+            {
+                records += record.printRecord() + "\n";
+            }
+            return records;
+        }
+
         public override string ToString()
         {
             Records.Sort(Record.CompareTo);
@@ -92,6 +120,7 @@ namespace dawn_of_worlds.Log
     {
         public RecordType Type { get; set; }
         public TerrainFeatures Terrain { get; set; }
+        public Race Race { get; set; }
         public char[,] Map { get; set; }
 
         public int Turn { get; set; }
@@ -121,10 +150,6 @@ namespace dawn_of_worlds.Log
             {
                 case RecordType.CreateTerrainFeature:
                     return Type.ToString() + " " + Year.ToString() + " " + Terrain.Name;
-                case RecordType.ClimateChange:
-                    return Type.ToString() + " " + Year.ToString();
-                case RecordType.RelationChange:
-                    return Type.ToString() + " " + Year.ToString();
                 default:
                     return "";
             }
@@ -137,7 +162,7 @@ namespace dawn_of_worlds.Log
         TerrainMap,
         BiomeMap,
         ClimateMap,
-        ClimateChange,
-        RelationChange,
+
+        RaceSettlementMap,
     }
 }
