@@ -1,6 +1,6 @@
-english
 world
-region
+continent
+ocean
 area
 deities
 caves

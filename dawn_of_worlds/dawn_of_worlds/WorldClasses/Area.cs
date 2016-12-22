@@ -13,23 +13,30 @@ namespace dawn_of_worlds.WorldClasses
     class Area
     {
         public string Name { get; set; }
+        public AreaType Type { get; set; }
 
         public SystemCoordinates Coordinates { get; set; }
 
-        public Region RegionArea { get; set; }
+        public Region Region { get; set; }
         public List<Tile> Tiles { get; set; }
 
         public Area(Region region)
         {
             Name = Constants.Names.GetName("area");
-            RegionArea = region;
+            Region = region;
 
             Tiles = new List<Tile>();   
         }
 
         public override string ToString()
         {
-            return "Area: " + Name;
+            return Name + Coordinates;
         }
+    }
+
+    enum AreaType
+    {
+        Continent,
+        Ocean,
     }
 }

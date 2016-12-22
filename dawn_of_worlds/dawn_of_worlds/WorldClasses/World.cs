@@ -23,7 +23,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public List<War> OngoingWars { get; set; }
 
-        public List<Region> WorldRegions { get; set; }
+        public List<Region> Regions { get; set; }
 
         public Area[,] AreaGrid { get; set; }
         public Area getArea(SystemCoordinates coords) { return AreaGrid[coords.X, coords.Y]; }
@@ -33,7 +33,7 @@ namespace dawn_of_worlds.WorldClasses
         public World(string world_name, int num_regions, int num_areas)
         {
             Races = new List<Race>();
-            WorldRegions = new List<Region>();
+            Regions = new List<Region>();
             Deities = new List<Deity>();
             Nations = new List<Nation>();
             Cities = new List<City>();
@@ -45,6 +45,21 @@ namespace dawn_of_worlds.WorldClasses
             generateAreaGrid();
             defineAreaAndTerrainCoordiantes();
 
+            defineContinentsAndOceans();
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if (AreaGrid[i, j].Type == AreaType.Continent)
+                        Console.Write("C ");
+                    else
+                        Console.Write("O ");
+                }
+                Console.WriteLine();
+            }
+
+
             DefinedRaces.defineRaces();
 
             generateDeities();
@@ -54,21 +69,33 @@ namespace dawn_of_worlds.WorldClasses
         {
             for (int i = 0; i < num_regions; i++)
             {
-                WorldRegions.Add(new Region(this, num_areas));
+                Regions.Add(new Region(num_areas));
             }
 
-            WorldRegions[0].Landmass = true;
-            WorldRegions[1].Landmass = true;
-            WorldRegions[2].Landmass = false;
-            WorldRegions[3].Landmass = true;
-            WorldRegions[4].Landmass = false;
+            Regions[0].Type = RegionType.Continent;
+            Regions[1].Type = RegionType.Continent;
+            Regions[2].Type = RegionType.Ocean;
+            Regions[3].Type = RegionType.Continent;
+            Regions[4].Type = RegionType.Ocean;
+
+            foreach (Region region in Regions)
+            {
+                foreach (Area area in region.Areas)
+                {
+                    if (region.Type == RegionType.Continent)
+                        area.Type = AreaType.Continent;
+                    else
+                        area.Type = AreaType.Ocean;
+                }
+            }
+
         }
         private void generateAreaGrid()
         {
             int total_areas = 0;
-            foreach (Region r in WorldRegions)
+            foreach (Region r in Regions)
             {
-                total_areas += r.RegionAreas.Count;
+                total_areas += r.Areas.Count;
             }
 
             AreaGrid = new Area[Constants.AREA_GRID_X, Constants.AREA_GRID_Y];
@@ -78,7 +105,7 @@ namespace dawn_of_worlds.WorldClasses
             int y_length = AreaGrid.GetLength(1);
             int x = 0, y = 0;
             bool has_valid_starter_coordinates;
-            for (int i = 0; i < WorldRegions.Count; i++)
+            for (int i = 0; i < Regions.Count; i++)
             {
                 has_valid_starter_coordinates = false;
                 while (!has_valid_starter_coordinates)
@@ -92,10 +119,10 @@ namespace dawn_of_worlds.WorldClasses
                     }
                 }
 
-                AreaGrid[x, y] = WorldRegions[i].RegionAreas[0];
+                AreaGrid[x, y] = Regions[i].Areas[0];
 
                 bool has_valid_neighbour = false;
-                for (int j = 1; j < WorldRegions[i].RegionAreas.Count; j++)
+                for (int j = 1; j < Regions[i].Areas.Count; j++)
                 {
                     List<int> direction = new List<int>() { 0, 1, 2, 3 };
                     has_valid_neighbour = false;
@@ -109,7 +136,7 @@ namespace dawn_of_worlds.WorldClasses
                                     if (AreaGrid[x, y + 1] == null)
                                     {
                                         has_valid_neighbour = true;
-                                        AreaGrid[x, y + 1] = WorldRegions[i].RegionAreas[j];
+                                        AreaGrid[x, y + 1] = Regions[i].Areas[j];
                                         y += 1;
                                     }
                                 }
@@ -121,7 +148,7 @@ namespace dawn_of_worlds.WorldClasses
                                     if (AreaGrid[x + 1, y] == null)
                                     {
                                         has_valid_neighbour = true;
-                                        AreaGrid[x + 1, y] = WorldRegions[i].RegionAreas[j];
+                                        AreaGrid[x + 1, y] = Regions[i].Areas[j];
                                         x += 1;
                                     }
                                 }
@@ -133,7 +160,7 @@ namespace dawn_of_worlds.WorldClasses
                                     if (AreaGrid[x, y - 1] == null)
                                     {
                                         has_valid_neighbour = true;
-                                        AreaGrid[x, y - 1] = WorldRegions[i].RegionAreas[j];
+                                        AreaGrid[x, y - 1] = Regions[i].Areas[j];
                                         y -= 1;
                                     }
                                 }
@@ -145,7 +172,7 @@ namespace dawn_of_worlds.WorldClasses
                                     if (AreaGrid[x - 1, y] == null)
                                     {
                                         has_valid_neighbour = true;
-                                        AreaGrid[x - 1, y] = WorldRegions[i].RegionAreas[j];
+                                        AreaGrid[x - 1, y] = Regions[i].Areas[j];
                                         x -= 1;
                                     }
                                 }
@@ -164,7 +191,7 @@ namespace dawn_of_worlds.WorldClasses
                                     }
                                 }
 
-                                AreaGrid[x, y] = WorldRegions[i].RegionAreas[j];
+                                AreaGrid[x, y] = Regions[i].Areas[j];
                                 has_valid_neighbour = true;
                                 break;
                         }
@@ -193,6 +220,67 @@ namespace dawn_of_worlds.WorldClasses
                 }
             }
 
+        }
+
+        private void defineContinentsAndOceans()
+        {
+            Regions = new List<Region>();
+            foreach (Area area in AreaGrid)
+                area.Region = null;
+
+            bool has_undefined_area = true;
+            Region next_region = null;
+            Area next_area = null;
+
+            while (has_undefined_area)
+            {
+                next_region = null;
+                next_area = null;
+                
+                while (next_area == null)
+                {
+                    next_area = AreaGrid[Constants.Random.Next(Constants.AREA_GRID_X), Constants.Random.Next(Constants.AREA_GRID_Y)];
+
+                    if (next_area.Region != null)
+                        next_area = null;
+                }
+
+                if (next_area.Tiles[0].Type == TerrainType.Ocean)
+                    next_region = new Region(this, RegionType.Ocean);
+                else
+                    next_region = new Region(this, RegionType.Continent);
+
+                addArea(next_region, next_area);
+                Regions.Add(next_region);
+                
+                bool area_is_not_assigned = false;
+                foreach (Area area in AreaGrid)
+                    if (area.Region == null)
+                        area_is_not_assigned = true;
+
+                if (!area_is_not_assigned)
+                    has_undefined_area = false;
+            }
+        }
+
+        private void addArea(Region region, Area area)
+        {
+            region.Areas.Add(area);
+            area.Region = region;
+
+            for (int i = 0; i < 7; i += 2)
+            {
+                SystemCoordinates coords = area.Coordinates.GetNeighbour(i);
+
+                if (coords.isInAreaGridBounds())
+                {
+                    Area next_area = getArea(coords);
+                    if (next_area.Type == AreaType.Continent && region.Type == RegionType.Continent || 
+                            next_area.Type == AreaType.Ocean && region.Type == RegionType.Ocean)
+                        if (next_area.Region == null)
+                            addArea(region, next_area);                    
+                }
+            }
         }
 
         private void generateDeities()

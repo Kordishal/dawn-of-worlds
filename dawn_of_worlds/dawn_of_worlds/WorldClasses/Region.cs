@@ -10,26 +10,41 @@ namespace dawn_of_worlds.WorldClasses
     class Region
     {
         public string Name { get; set; }
-
-        public bool Landmass { get; set; }
-
-        public World RegionWorld { get; set; }
-        public List<Area> RegionAreas { get; set; }
+        public RegionType Type { get; set; }
+        public World World { get; set; }
+        public List<Area> Areas { get; set; }
 
 
-        public Region(World world, int num_areas)
+        public Region(int num_areas)
         {
-            Name = Constants.Names.GetName("region");
-            RegionWorld = world;
-            RegionAreas = new List<Area>();
-
+            Areas = new List<Area>();
             for (int j = 0; j < num_areas; j++)
             {
-                RegionAreas.Add(new Area(this));
+                Areas.Add(new Area(this));
             }
-
-
         }
 
+        public Region(World world, RegionType type)
+        {
+            Areas = new List<Area>();
+            World = world;
+            Type = type;
+
+            if (Type == RegionType.Continent)
+                Name = Constants.Names.GetName("continent");
+            if (Type == RegionType.Ocean)
+                Name = Constants.Names.GetName("ocean");
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+
+    enum RegionType
+    {
+        Continent,
+        Ocean,
     }
 }

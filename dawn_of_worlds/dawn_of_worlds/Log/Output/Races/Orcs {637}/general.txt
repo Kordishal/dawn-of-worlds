@@ -1,5 +1,5 @@
 Name: Orcs {637}
-Year of Creation: 9593
+Year of Creation: 9641
 Type: Humanoid
 Habitat: Terranean
 Terrain: 
@@ -7,6 +7,6 @@ Climate:
 Lifespan: Average
 Physical Traits: Strong, 
 Social & Cultural Traits: Tribal, 
-Home Area: Terrain: Portnahoe
-Settled Areas: Terrain: Portnahoe, Terrain: Gortnahoe, Terrain: Eskra, Terrain: Illaun, Terrain: Drumshanboy, Terrain: Termore, Terrain: Clogheda, Terrain: Owenbeg, Terrain: Loughalee, Terrain: Ballyveaghera, Terrain: Athlonog, Terrain: Tuam, Terrain: Fingannon, Terrain: Kilcogy, Terrain: Pollaunmaisti, Terrain: Croagh, Terrain: Tullaun, Terrain: Urlare, Terrain: Carry, Terrain: Portadown, Terrain: Iniskillymena, Terrain: Garvagh, Terrain: Stra, Terrain: Roscreagh, Terrain: Croaghmore, Terrain: Tubbermoney, Terrain: Cappaghey, Terrain: Slievebullamo, Terrain: Coomkeen, Terrain: Cahircon, Terrain: Cornamore, Terrain: Urlar, Terrain: Killengormley, Terrain: Tullyskeen, Terrain: Strabane, Terrain: Tullagh, Terrain: Corblonmel, Terrain: Cahircon, Terrain: Drumshandore, Terrain: Letterkenny, Terrain: Bine, Terrain: Casheen, Terrain: Kenmare, Terrain: Tulliaghbracl, Terrain: Mullaghgaline, Terrain: Cloonsheereva, Terrain: Mullagh, Terrain: Poulaphouca, Terrain: Gortadown, Terrain: Tirconnell, 
-Origin Order: Sect of Nature
+Home Area: Terrain: Poulaphouca
+Settled Areas: Terrain: Poulaphouca, Terrain: Tievebulline, Terrain: Mullamore, Terrain: Maynoe, Terrain: Eskra, Terrain: Cahirconnell, Terrain: Droghrim, Terrain: Tramore, Terrain: Carrickbeg, Terrain: Bally, Terrain: Tubbermonfeck, 
+Origin Order: Creed of Peace

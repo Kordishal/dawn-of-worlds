@@ -72,7 +72,7 @@ namespace dawn_of_worlds.WorldClasses
             LocalClimateModifier = ClimateModifier.None;
 
             // Establish a grassland as a base terrain on continents for races/nations to be built on it.
-            if (Area != null && Area.RegionArea.Landmass)
+            if (Area != null && Area.Type == AreaType.Continent)
             {
                 Type = TerrainType.Plain;
                 switch (LocalClimate)

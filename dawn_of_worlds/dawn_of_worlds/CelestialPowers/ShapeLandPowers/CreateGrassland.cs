@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             get
             {
-                return _location.RegionArea.Landmass;
+                return _location.Region.Type == RegionType.Continent;
             }
         }
 
