@@ -1,0 +1,9 @@
+Name: Nation of Storm Giants {640} {978}
+Type: NomadicTribe
+Founding Race: Storm Giants {640}
+Races: Destroyed: False
+Storm Giants {640} 
+Avatars: Storm Giants {640} General Storm Giants {640} HighPriest Storm Giants {640} Champion 
+Territory: Ballyskeaghed Raherdaniel Slievebully 
+Orders: Angels of Pakhet {979} 
+Tags: 

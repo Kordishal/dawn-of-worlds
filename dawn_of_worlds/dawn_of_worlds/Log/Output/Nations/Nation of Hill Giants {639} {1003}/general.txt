@@ -1,0 +1,9 @@
+Name: Nation of Hill Giants {639} {1003}
+Type: NomadicTribe
+Founding Race: Hill Giants {639}
+Races: Destroyed: False
+Hill Giants {639} 
+Avatars: Hill Giants {639} Champion Hill Giants {639} Champion Hill Giants {639} Champion 
+Territory: Portnahoe Cornamore Ballyskeagh Ballyskeaghed Magh Illaunmaistir Raherdaniel Rathfarnham Letterkenny 
+Orders: Faith of Metallurgy {1004} 
+Tags: 

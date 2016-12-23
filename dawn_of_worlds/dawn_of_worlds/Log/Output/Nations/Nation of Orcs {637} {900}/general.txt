@@ -1,0 +1,12 @@
+Name: Nation of Orcs {637} {900}
+Type: TribalNation
+Founding Race: Orcs {637}
+Races: Destroyed: False
+Orcs {637} 
+Leader: Orcs {637} RoyalDynasty
+Avatars: Orcs {637} RoyalDynasty 
+Capital City: Capital City of Nation of Orcs {637} {900} {901}
+Cities: Capital City of Nation of Orcs {637} {900} {901} Bouthra Psychron 
+Territory: Ball Killen Drumshandorac 
+Orders: Order of Mehen {902} PlaceHolder {1310} PlaceHolder {1311} PlaceHolder {1492} 
+Tags: VeryRich GoldMine VeryRich GoldMine VeryRich GoldMine 

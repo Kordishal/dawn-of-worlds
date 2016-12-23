@@ -1,0 +1,11 @@
+Name: Nation of Mountain Dwarves {635} {935}
+Type: TribalNation
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: Mountain Dwarves {635} Champion Mountain Dwarves {635} General 
+Capital City: Capital City of Nation of Mountain Dwarves {635} {935} {936}
+Cities: Capital City of Nation of Mountain Dwarves {635} {935} {936} Amidaea Antina Athecuse Asineia Rhegion Troeze Poseidon 
+Territory: Droghrim Bally Raherafelt Cloondara Maynoe 
+Orders: Band of Ishtar {937} PlaceHolder {969} PlaceHolder {1171} 
+Tags: VeryRich GoldMine VeryRich GoldMine 

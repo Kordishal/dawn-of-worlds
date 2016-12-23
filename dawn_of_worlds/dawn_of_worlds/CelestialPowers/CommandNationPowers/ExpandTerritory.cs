@@ -61,6 +61,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             int weight = base.Weight(creator);
 
+            weight += Constants.TOTAL_PROVINCE_NUMBER;
+            weight -= _commanded_nation.Territory.Count;
+
+
             if (creator.Domains.Contains(Domain.Conquest))
                 weight += Constants.WEIGHT_STANDARD_CHANGE;
 

@@ -1,0 +1,11 @@
+Name: Nation of Fire Dragons {633} {1083}
+Type: LairTerritory
+Founding Race: Fire Dragons {633}
+Races: Destroyed: False
+Fire Dragons {633} 
+Avatars: 
+Capital City: Capital City of Nation of Fire Dragons {633} {1083} {1084}
+Cities: Capital City of Nation of Fire Dragons {633} {1083} {1084} 
+Territory: Carrowdore 
+Orders: Order of Thoth {1085} 
+Tags: 

@@ -1,0 +1,11 @@
+Name: Nation of High Elves {628} {970}
+Type: TribalNation
+Founding Race: High Elves {628}
+Races: Destroyed: False
+High Elves {628} 
+Avatars: High Elves {628} Champion 
+Capital City: Capital City of Nation of High Elves {628} {970} {971}
+Cities: Capital City of Nation of High Elves {628} {970} {971} Kallippia Aegina Knos Miletus Phálēron Lissae 
+Territory: Poulaphouca Gortadown Cooran Skeheen Cultranorlar 
+Orders: Sisterhood of Ishtar {972} PlaceHolder {1021} 
+Tags: VeryRich GoldMine 

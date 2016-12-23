@@ -1,5 +1,5 @@
 Name: Orcs {637}
-Year of Creation: 9641
+Year of Creation: 9644
 Type: Humanoid
 Habitat: Terranean
 Terrain: 
@@ -7,6 +7,6 @@ Climate:
 Lifespan: Average
 Physical Traits: Strong, 
 Social & Cultural Traits: Tribal, 
-Home Area: Terrain: Poulaphouca
-Settled Areas: Terrain: Poulaphouca, Terrain: Tievebulline, Terrain: Mullamore, Terrain: Maynoe, Terrain: Eskra, Terrain: Cahirconnell, Terrain: Bundorack, Terrain: Poulaphouca, Terrain: Cloondrohid, Terrain: Claddagh, 
-Origin Order: Creed of Peace
+Home Area: Terrain: Ball
+Settled Areas: Terrain: Ball, Terrain: Donard, Terrain: Maam Cross, Terrain: Moneyrea, Terrain: Cloondrohid, Terrain: Eskra, Terrain: Ball, Terrain: Tuam, Terrain: Stranor, Terrain: Ballagh, Terrain: Cloghey, Terrain: Coomevara, Terrain: Ballymonfecki, Terrain: Derry, Terrain: Sragh, Terrain: Carrowdoracla, 
+Origin Order: Healers of Conquest

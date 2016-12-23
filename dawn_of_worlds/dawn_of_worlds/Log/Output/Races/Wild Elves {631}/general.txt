@@ -1,5 +1,5 @@
 Name: Wild Elves {631}
-Year of Creation: 9586
+Year of Creation: 9645
 Type: Humanoid
 Habitat: Terranean
 Terrain: ForestDwellers, 
@@ -7,6 +7,6 @@ Climate:
 Lifespan: Venerable
 Physical Traits: 
 Social & Cultural Traits: Communal, Sedentary, 
-Home Area: Terrain: Tullaghbracla
-Settled Areas: Terrain: Tullaghbracla, Terrain: Claddagh, Terrain: Ballymonfecki, Terrain: Doondare, Terrain: Sragh, Terrain: Rockcloghrim, Terrain: Mulliagh, Terrain: Cloughalee, Terrain: Portadown, Terrain: Owenbaunmaist, Terrain: Tuam, Terrain: Ballaghbracla, Terrain: Ballagh, Terrain: Dungan, Terrain: Dungar, Terrain: Carnmonfeckin, Terrain: Tullaghbawn, Terrain: Stra, Terrain: Iniskillymena, Terrain: Owenbeg, Terrain: Tirconnell, Terrain: Cloughduv, Terrain: Portadown, Terrain: Clondrohid, Terrain: Tulliagh, Terrain: Cappagherafel, Terrain: Letterfrack, Terrain: Stra, Terrain: Bine, Terrain: Athlone, Terrain: Kilrush, Terrain: Doonshel, Terrain: Letterfrack, Terrain: Coomevara, Terrain: Carrowdore, Terrain: Mullyhogue, Terrain: Ball, Terrain: Sheskillyveag, Terrain: Portnahoe, Terrain: Glanmire, Terrain: Letterfrack, Terrain: Ballyhogue, Terrain: Killen, Terrain: Ardglas, Terrain: Magh, Terrain: Poulaphouca, Terrain: Loughalee, Terrain: Ballins, Terrain: Cahirconnell, Terrain: Glen, Terrain: Kildara, Terrain: Ballyveaghera, Terrain: Loughalee, Terrain: Athlonog, Terrain: Caheny, 
-Origin Order: Gathering of Ishtar
+Home Area: Terrain: Donagh
+Settled Areas: Terrain: Donagh, Terrain: Roscreagh, Terrain: Iniskillymena, Terrain: Ballyveaghera, Terrain: Athlonog, Terrain: Glen, Terrain: Cappaghgorm, Terrain: Carrowdore, Terrain: Rathfarnmonfe, Terrain: Inishmaan, Terrain: Inniskin, Terrain: Carry, Terrain: Portlaoise, Terrain: Tullaghbracla, Terrain: Mulliaghgorml, Terrain: Claddagh, Terrain: Aughgallyveag, Terrain: Carnmone, Terrain: Cloughgorm, Terrain: Ardglas, Terrain: Mullagh, Terrain: Ball, Terrain: Poulaphouca, Terrain: Doonshel, Terrain: Clondrohid, Terrain: Dungar, Terrain: Carnmonfeckin, 
+Origin Order: Church of Drought

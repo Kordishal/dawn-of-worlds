@@ -1,0 +1,11 @@
+Name: Nation of Hill Giants {639} {1216}
+Type: FeudalNation
+Founding Race: Hill Giants {639}
+Races: Destroyed: False
+Hill Giants {639} 
+Avatars: Hill Giants {639} Champion 
+Capital City: Capital City of Nation of Hill Giants {639} {1216} {1217}
+Cities: Capital City of Nation of Hill Giants {639} {1216} {1217} 
+Territory: Finganbo Poulaphouca Athlonog 
+Orders: Children of Pakhet {1218} 
+Tags: 

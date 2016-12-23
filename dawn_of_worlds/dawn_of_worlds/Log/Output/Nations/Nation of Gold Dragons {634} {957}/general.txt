@@ -1,0 +1,12 @@
+Name: Nation of Gold Dragons {634} {957}
+Type: LairTerritory
+Founding Race: Gold Dragons {634}
+Races: Destroyed: False
+Gold Dragons {634} 
+Leader: Gold Dragons {634} LegendaryBeast
+Avatars: Gold Dragons {634} LegendaryBeast 
+Capital City: Capital City of Nation of Gold Dragons {634} {957} {958}
+Cities: Capital City of Nation of Gold Dragons {634} {957} {958} 
+Territory: Drumshanbaun 
+Orders: Band of Peace {959} PlaceHolder {1261} PlaceHolder {1624} 
+Tags: 

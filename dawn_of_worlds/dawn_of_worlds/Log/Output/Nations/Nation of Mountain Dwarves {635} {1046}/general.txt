@@ -1,0 +1,11 @@
+Name: Nation of Mountain Dwarves {635} {1046}
+Type: FeudalNation
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: Mountain Dwarves {635} Champion 
+Capital City: Capital City of Nation of Mountain Dwarves {635} {1046} {1047}
+Cities: Capital City of Nation of Mountain Dwarves {635} {1046} {1047} Tyra Scidrus 
+Territory: Sheskillyveag Enniskeaghgor Glanmire 
+Orders: Sisterhood of Mehen {1048} 
+Tags: VeryRich GoldMine 

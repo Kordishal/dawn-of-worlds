@@ -1,0 +1,9 @@
+Name: Nation of Norse {627} {930}
+Type: NomadicTribe
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Avatars: Norse {627} HighPriest Norse {627} HighPriest Norse {627} Champion 
+Territory: Tobercurryduf Iniskillymena Loughalee Carry Mullaghgaline Ballyveaghera Portnahoe Owenbeg 
+Orders: Communion of Conquest {931} PlaceHolder {1250} 
+Tags: 

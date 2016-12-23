@@ -1,0 +1,9 @@
+Name: Nation of Norse {627} {909}
+Type: NomadicTribe
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Avatars: 
+Territory: Enniskeen Roscreaghbawn Carrowdore 
+Orders: Sisterhood of Conquest {910} 
+Tags: VeryRich GoldMine 

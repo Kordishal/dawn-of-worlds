@@ -1,0 +1,9 @@
+Name: Nation of Mountain Dwarves {635} {1151}
+Type: NomadicTribe
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: 
+Territory: Kenmaistir 
+Orders: Followers of Ishtar {1152} PlaceHolder {1312} 
+Tags: 

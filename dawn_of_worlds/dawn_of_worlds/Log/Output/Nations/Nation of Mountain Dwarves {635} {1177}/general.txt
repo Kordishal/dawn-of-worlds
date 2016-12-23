@@ -1,0 +1,11 @@
+Name: Nation of Mountain Dwarves {635} {1177}
+Type: TribalNation
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: 
+Capital City: Capital City of Nation of Mountain Dwarves {635} {1177} {1178}
+Cities: Capital City of Nation of Mountain Dwarves {635} {1177} {1178} 
+Territory: Slievebullagh 
+Orders: Fellows of Battle {1179} 
+Tags: VeryRich GoldMine VeryRich GoldMine 

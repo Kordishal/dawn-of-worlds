@@ -1,0 +1,12 @@
+Name: Nation of Fire Dragons {633} {867}
+Type: LairTerritory
+Founding Race: Fire Dragons {633}
+Races: Destroyed: False
+Fire Dragons {633} 
+Leader: Fire Dragons {633} RoyalDynasty
+Avatars: Fire Dragons {633} RoyalDynasty 
+Capital City: Capital City of Nation of Fire Dragons {633} {867} {868}
+Cities: Capital City of Nation of Fire Dragons {633} {867} {868} Sicyonia Tara 
+Territory: Doondare Roscreaghbawn Roscreagh 
+Orders: Communion of Conquest {869} PlaceHolder {1331} PlaceHolder {1334} 
+Tags: VeryRich GoldMine 

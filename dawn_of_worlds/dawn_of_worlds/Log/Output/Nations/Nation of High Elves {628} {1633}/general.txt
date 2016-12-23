@@ -1,0 +1,11 @@
+Name: Nation of High Elves {628} {1633}
+Type: TribalNation
+Founding Race: High Elves {628}
+Races: Destroyed: False
+High Elves {628} 
+Avatars: 
+Capital City: Capital City of Nation of High Elves {628} {1633} {1634}
+Cities: Capital City of Nation of High Elves {628} {1633} {1634} 
+Territory: Letterkenny 
+Orders: Fellowship of Conquest {1635} 
+Tags: 

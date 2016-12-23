@@ -40,9 +40,11 @@ namespace dawn_of_worlds
             StreamWriters.writeRecordType(RecordType.TerrainMap);
             StreamWriters.writeRecordType(RecordType.BiomeMap);
             StreamWriters.writeRecordType(RecordType.ClimateMap);
+            StreamWriters.writeRecordType(RecordType.GlobalTerritoryMap);
             StreamWriters.writeRecordType(RecordType.CreateTerrainFeature);
 
             StreamWriters.writeRaces();
+            StreamWriters.writeNations();
 
             Console.WriteLine("END OF APPLICATION");
             Console.ReadKey();

@@ -1,0 +1,12 @@
+Name: Hill Giants {639}
+Year of Creation: 9699
+Type: Humanoid
+Habitat: Terranean
+Terrain: HillDwellers, 
+Climate: 
+Lifespan: Enduring
+Physical Traits: Strong, 
+Social & Cultural Traits: 
+Home Area: Terrain: Raheny
+Settled Areas: Terrain: Raheny, Terrain: Stra, Terrain: Cloughadee, Terrain: Benbeg, Terrain: Portnahoe, Terrain: Letterkenny, Terrain: Raherdaniel, Terrain: Slievebully, Terrain: Ballyskeaghed, Terrain: Drumshanbaun, Terrain: Finganbo, Terrain: Coolock, Terrain: Carrowdore, Terrain: Coolmine, Terrain: Cashel, Terrain: Cloughgalins, Terrain: Poulaphouca, Terrain: Termore, Terrain: Tuam, Terrain: Drumshanboy, Terrain: Clonmel, Terrain: Illaunmaistir, Terrain: Bundorack, Terrain: Cregganbo, Terrain: Finglasnevebu, Terrain: Kilrush, Terrain: Tramore, Terrain: Letterkenny, Terrain: Corblonog, Terrain: Maam Cross, Terrain: Ballyskeena, Terrain: Rathfarnham, Terrain: Killen, Terrain: Casheen, Terrain: Tobercurryduf, Terrain: Kinallysallym, Terrain: Droghey, Terrain: Tobermore, Terrain: Donard, Terrain: Ballyskeaghal, Terrain: Dona, Terrain: Clonmel, Terrain: Mullagh, Terrain: Bally, Terrain: Kenmaistir, Terrain: Cloondrohid, Terrain: Illamore, Terrain: Tullagh, Terrain: Corblonog, Terrain: Ballysallyvea, Terrain: Raheny, Terrain: Tircon, Terrain: Loughalee, Terrain: Tievebulline, Terrain: Carrickbeg, Terrain: Raherafelt, Terrain: Mullamore, Terrain: Maynoe, Terrain: Cloonshel, Terrain: Cross, Terrain: Mulliaghgorml, Terrain: Cappamore, Terrain: Maam Cross, Terrain: Mullaghbrack, Terrain: Ballymone, Terrain: Garvagheda, Terrain: Tubbercurrydu, Terrain: Cappagh, Terrain: Carry, Terrain: Maynooth, Terrain: Bawn, Terrain: Slieve Donagh, Terrain: Ballyhogue, Terrain: Ballen, Terrain: Dromore, Terrain: Killy, Terrain: Illaghgormley, Terrain: Urlar, Terrain: Magh, Terrain: Innishmaan, Terrain: Poulaphouca, Terrain: Bine, Terrain: Casheen, Terrain: Tulliaghbracl, Terrain: Mullagh, Terrain: Cappaghagower, Terrain: Cornamore, Terrain: Stran, Terrain: Gortnahoe, Terrain: Eskra, Terrain: Clondrohid, Terrain: Dungar, Terrain: Carnmonfeckin, Terrain: Letterfrack, Terrain: Tulliagh, Terrain: Letterfrack, Terrain: Toomkeen, Terrain: Tuam, Terrain: Coolock, Terrain: Drumshandorac, Terrain: Poulaphouca, Terrain: Ballysallen, Terrain: Poulaphouca, Terrain: Kinallynooth, Terrain: Carrowdore, 
+Origin Order: Creed of Battle

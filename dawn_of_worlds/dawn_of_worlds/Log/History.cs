@@ -6,6 +6,7 @@ using dawn_of_worlds.Creations;
 using dawn_of_worlds.Creations.Geography;
 using System.IO;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.Log
 {
@@ -58,6 +59,20 @@ namespace dawn_of_worlds.Log
             Records.Add(record);
         }
 
+        public void AddRecord(RecordType type, Nation nation, char[,] map, PrintFunction print)
+        {
+            Record record = new Record();
+            record.Type = type;
+            record.Nation = nation;
+            record.Map = map;
+
+            record.Turn = Simulation.Time.Turn;
+            record.Year = Simulation.Time.Shuffle;
+
+            record.printFunction = print;
+            Records.Add(record);
+        }
+
         public History()
         {
             Records = new List<Record>();
@@ -75,7 +90,6 @@ namespace dawn_of_worlds.Log
             }
             return records;
         }
-
         public string printRecordType(RecordType type)
         {
             List<Record> selected_records = Records.FindAll(x => x.Type == type);
@@ -88,10 +102,21 @@ namespace dawn_of_worlds.Log
             }
             return records;
         }
-
         public string printRecordType(RecordType type, Race race)
         {
-            List<Record> selected_records = Records.FindAll(x => x.Type == type && x.Race.Equals(race));
+            List<Record> selected_records = Records.FindAll(x => x.Race != null && x.Type == type && x.Race.Equals(race));
+            selected_records.Sort(Record.CompareTo);
+
+            string records = "";
+            foreach (Record record in selected_records)
+            {
+                records += record.printRecord() + "\n";
+            }
+            return records;
+        }
+        public string printRecordType(RecordType type, Nation nation)
+        {
+            List<Record> selected_records = Records.FindAll(x => x.Nation != null && x.Type == type && x.Nation.Equals(nation));
             selected_records.Sort(Record.CompareTo);
 
             string records = "";
@@ -121,6 +146,7 @@ namespace dawn_of_worlds.Log
         public RecordType Type { get; set; }
         public TerrainFeatures Terrain { get; set; }
         public Race Race { get; set; }
+        public Nation Nation { get; set; }
         public char[,] Map { get; set; }
 
         public int Turn { get; set; }
@@ -164,5 +190,7 @@ namespace dawn_of_worlds.Log
         ClimateMap,
 
         RaceSettlementMap,
+        NationTerritoryMap,
+        GlobalTerritoryMap,
     }
 }

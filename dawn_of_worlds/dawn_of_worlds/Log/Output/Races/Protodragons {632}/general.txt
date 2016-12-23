@@ -1,5 +1,5 @@
 Name: Protodragons {632}
-Year of Creation: 9513
+Year of Creation: 9504
 Type: Dragonoid
 Habitat: Terranean
 Terrain: 
@@ -7,6 +7,6 @@ Climate:
 Lifespan: EternalLife
 Physical Traits: Winged, Strong, NaturalArmour, NaturalWeapons, 
 Social & Cultural Traits: Nomadic, 
-Home Area: Terrain: Cloondrohid
-Settled Areas: Terrain: Cloondrohid, Terrain: Casheen, Terrain: Tulliaghbracl, Terrain: Tuam, Terrain: Kenmaistir, Terrain: Clonmel, Terrain: Bundorack, Terrain: Tullagh, Terrain: Cappamore, Terrain: Poulaphouca, Terrain: Bally, Terrain: Illamore, Terrain: Caheny, Terrain: Coorack, Terrain: Bundon, Terrain: Termore, Terrain: Drumshanboy, Terrain: Cloughgorm, Terrain: Claddagh, Terrain: Portadown, Terrain: Donard, Terrain: Cloonbeg, Terrain: Carraroe, Terrain: Stranorlare, Terrain: Glenties, Terrain: Bine, Terrain: Poulaphouca, Terrain: Mullagh, Terrain: Skeheenard, Terrain: Mullagh, Terrain: Cloonsheereva, Terrain: Cloondara, Terrain: Garvagh, Terrain: Croaghmore, Terrain: Carrickbeg, Terrain: Tievebulline, Terrain: Eskra, Terrain: Carrickbeg, Terrain: Kenmare, Terrain: Droghrim, Terrain: Cahircon, Terrain: Tubbermoney, Terrain: Corblonmel, Terrain: Rathfarnham, Terrain: Slievebullamo, Terrain: Tullagh, Terrain: Clonog, Terrain: Cultranorlare, Terrain: Benbeg, Terrain: Cappaghey, Terrain: Cloonshel, Terrain: Tullagh, Terrain: Tieve Dona, Terrain: Stra, Terrain: Kenmare, Terrain: Glen, Terrain: Tirconnell, Terrain: Poulaphouca, Terrain: Mullaghgaline, Terrain: Gortadown, Terrain: Garvagh, Terrain: Cooran, Terrain: Ballagh, Terrain: Tullagh, Terrain: Fingar, Terrain: Drumshanbo, Terrain: Owenbaunmaist, Terrain: Cultranorlar, Terrain: Clogheda, Terrain: Caheny, Terrain: Claddaghbawn, Terrain: Stra, Terrain: Loughalee, 
-Origin Order: Order of Mehen
+Home Area: Terrain: Owenbeg
+Settled Areas: Terrain: Owenbeg, Terrain: Ballyveaghera, Terrain: Athlonog, Terrain: Portnahoe, Terrain: Stranor, Terrain: Iniskillymona, Terrain: Ballenties, Terrain: Kinallynooth, Terrain: Kilcogy, Terrain: Poulaphouca, Terrain: Loughgorm, Terrain: Donagh, Terrain: Innishmaan, Terrain: Bine, Terrain: Benbaun, Terrain: Urlar, Terrain: Killy, 
+Origin Order: Angels of Exploration

@@ -4,6 +4,7 @@ using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.Log
 {
@@ -125,7 +126,6 @@ namespace dawn_of_worlds.Log
 
             return climate_map;
         }
-
         public static char[,] generateRaceSettlementMap(Race race)
         {
             char[,] race_settlement_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
@@ -139,6 +139,36 @@ namespace dawn_of_worlds.Log
             }
 
             return race_settlement_map;
+        }
+
+        public static char[,] generateNationTerritoryMap(Nation nation)
+        {
+            char[,] nation_territory_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
+
+            foreach (Province province in Program.World.ProvinceGrid)
+            {
+                if (nation.Territory.Contains(province))
+                    nation_territory_map[province.Coordinates.X, province.Coordinates.Y] = 'T';
+                else
+                    nation_territory_map[province.Coordinates.X, province.Coordinates.Y] = 'U';
+            }
+
+            return nation_territory_map;
+        }
+
+        public static char[,] generateTerritoryMap()
+        {
+            char[,] territroy_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
+
+            foreach (Province province in Program.World.ProvinceGrid)
+            {
+                if (province.Owner != null)
+                    territroy_map[province.Coordinates.X, province.Coordinates.Y] = 'T';
+                else
+                    territroy_map[province.Coordinates.X, province.Coordinates.Y] = '-';
+            }
+
+            return territroy_map;
         }
 
 

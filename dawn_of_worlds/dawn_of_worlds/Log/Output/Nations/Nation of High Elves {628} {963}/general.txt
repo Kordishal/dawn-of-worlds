@@ -1,0 +1,11 @@
+Name: Nation of High Elves {628} {963}
+Type: FeudalNation
+Founding Race: High Elves {628}
+Races: Destroyed: False
+High Elves {628} 
+Avatars: High Elves {628} HighPriest 
+Capital City: Capital City of Nation of High Elves {628} {963} {964}
+Cities: Capital City of Nation of High Elves {628} {963} {964} Plateia Lepreus Carystus 
+Territory: Raherdaniel Ballyskeena 
+Orders: Order of Pakhet {965} 
+Tags: VeryRich GoldMine 

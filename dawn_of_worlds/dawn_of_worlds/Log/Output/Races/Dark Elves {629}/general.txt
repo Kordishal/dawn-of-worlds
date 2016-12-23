@@ -1,5 +1,5 @@
 Name: Dark Elves {629}
-Year of Creation: 9694
+Year of Creation: 9801
 Type: Humanoid
 Habitat: Subterranean
 Terrain: CaveDwellers, 
@@ -7,6 +7,6 @@ Climate:
 Lifespan: Venerable
 Physical Traits: 
 Social & Cultural Traits: Communal, Sedentary, 
-Home Area: Terrain: Tulliaghbracl
-Settled Areas: Terrain: Tulliaghbracl, Terrain: Glen, Terrain: Ballyskeagh, Terrain: Droghrim, Terrain: Urlare, Terrain: Magh, Terrain: Poulaphouca, Terrain: Mullagh, Terrain: Tievebulline, Terrain: Mullamore, Terrain: Cooranorlar, Terrain: Ballyskeaghed, Terrain: Eskra, 
-Origin Order: Fellows of Cold
+Home Area: Terrain: Kenmaistir
+Settled Areas: Terrain: Kenmaistir, Terrain: Athlone, Terrain: Owenbeg, Terrain: Loughalee, Terrain: Tobermore, Terrain: Cooranorlar, Terrain: Ballaun, Terrain: Clonmel, 
+Origin Order: Children of Ishtar

@@ -1,0 +1,11 @@
+Name: Nation of Mountain Dwarves {635} {855}
+Type: FeudalNation
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: Mountain Dwarves {635} General 
+Capital City: Capital City of Nation of Mountain Dwarves {635} {855} {856}
+Cities: Capital City of Nation of Mountain Dwarves {635} {855} {856} Atherapezu 
+Territory: Donagh Enniskin Urlare Cloughadee Donaghagower Portadown Tievenagh 
+Orders: Angels of Ishtar {857} PlaceHolder {887} PlaceHolder {1138} 
+Tags: 

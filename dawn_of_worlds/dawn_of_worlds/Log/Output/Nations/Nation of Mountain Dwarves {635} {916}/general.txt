@@ -1,0 +1,9 @@
+Name: Nation of Mountain Dwarves {635} {916}
+Type: NomadicTribe
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: Mountain Dwarves {635} HighPriest Mountain Dwarves {635} HighPriest Mountain Dwarves {635} HighPriest Mountain Dwarves {635} General 
+Territory: Cloughduv Dungar Poulaphouca Magh Portadown Carnmonfeckin Dromore Illaunmare Donaghagower Portnahoe Creggan Tulliagh Kilcogy 
+Orders: Oracles of Ishtar {917} PlaceHolder {1010} PlaceHolder {1014} PlaceHolder {1023} 
+Tags: 

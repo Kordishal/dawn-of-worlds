@@ -1,0 +1,12 @@
+Name: Giant {638}
+Year of Creation: 9620
+Type: Humanoid
+Habitat: Terranean
+Terrain: 
+Climate: 
+Lifespan: Enduring
+Physical Traits: Strong, 
+Social & Cultural Traits: 
+Home Area: Terrain: Tullagh
+Settled Areas: Terrain: Tullagh, Terrain: Toomevagh, Terrain: Tobermore, Terrain: Glen, Terrain: Dromore, Terrain: Money, Terrain: Letterfrack, Terrain: Glengorm, Terrain: Termoneyreagh, Terrain: Tyrone, Terrain: Toomkeen, Terrain: Croaghgallins, 
+Origin Order: Commune of Mafdet

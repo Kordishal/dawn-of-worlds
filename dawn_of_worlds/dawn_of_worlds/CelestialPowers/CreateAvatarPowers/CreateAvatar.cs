@@ -32,7 +32,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
 
             created_avatar.MasterNation = _nation;
             if (created_avatar.MasterNation != null)
-                created_avatar.MasterNation.Subjects.Add(created_avatar);
+                created_avatar.MasterNation.Avatars.Add(created_avatar);
 
             created_avatar.OrderMembership = _order;
             if (created_avatar.OrderMembership != null)

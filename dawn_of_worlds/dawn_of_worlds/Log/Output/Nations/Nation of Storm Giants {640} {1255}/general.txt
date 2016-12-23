@@ -1,0 +1,10 @@
+Name: Nation of Storm Giants {640} {1255}
+Type: NomadicTribe
+Founding Race: Storm Giants {640}
+Races: Destroyed: False
+Storm Giants {640} 
+Leader: Storm Giants {640} RoyalDynasty
+Avatars: Storm Giants {640} RoyalDynasty 
+Territory: Portlaoise 
+Orders: Commune of Cold {1256} 
+Tags: 

@@ -1,0 +1,10 @@
+Name: Nation of Norse {627} {895}
+Type: NomadicTribe
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Leader: Norse {627} RoyalDynasty
+Avatars: Norse {627} HighPriest Norse {627} RoyalDynasty Norse {627} General 
+Territory: Skeheen Glass Tieve Dona Coomevagh Coolockcorry Poulaphouca Stra 
+Orders: Wanderers of Wind {896} 
+Tags: VeryRich GoldMine 

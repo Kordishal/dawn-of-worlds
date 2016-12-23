@@ -143,7 +143,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 weight -= Constants.WEIGHT_STANDARD_CHANGE * 2;
 
             // The less settled provinces the more likle to settle new ones.
-            weight += Constants.TOTAL_TILE_NUMBER;
+            weight += Constants.TOTAL_PROVINCE_NUMBER;
             weight -= _commanded_race.SettledProvinces.Count;
 
 

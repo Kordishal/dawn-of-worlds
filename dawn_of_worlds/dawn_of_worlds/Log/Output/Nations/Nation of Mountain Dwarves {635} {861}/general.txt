@@ -1,0 +1,12 @@
+Name: Nation of Mountain Dwarves {635} {861}
+Type: FeudalNation
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Leader: Mountain Dwarves {635} RoyalDynasty
+Avatars: Mountain Dwarves {635} HighPriest Mountain Dwarves {635} General Mountain Dwarves {635} RoyalDynasty 
+Capital City: Capital City of Nation of Mountain Dwarves {635} {861} {862}
+Cities: Capital City of Nation of Mountain Dwarves {635} {861} {862} Baris Manthus Bythrae Hagia 
+Territory: Carrickbeg Tievebulline Mullamore Glen Eskra Tirconnell Claddaghbawn Poulaphouca Croaghmore Poulaphouca 
+Orders: Fellowship of Drought {863} PlaceHolder {1000} PlaceHolder {1336} 
+Tags: 

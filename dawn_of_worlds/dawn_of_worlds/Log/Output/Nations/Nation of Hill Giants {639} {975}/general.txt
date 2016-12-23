@@ -1,0 +1,11 @@
+Name: Nation of Hill Giants {639} {975}
+Type: TribalNation
+Founding Race: Hill Giants {639}
+Races: Destroyed: False
+Hill Giants {639} 
+Avatars: Hill Giants {639} General 
+Capital City: Capital City of Nation of Hill Giants {639} {975} {976}
+Cities: Capital City of Nation of Hill Giants {639} {975} {976} 
+Territory: Clonmel Bundorack Cloondrohid Tulliaghbracl 
+Orders: Fellows of Magic {977} 
+Tags: 

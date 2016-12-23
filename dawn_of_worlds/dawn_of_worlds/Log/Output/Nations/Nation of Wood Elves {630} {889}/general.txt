@@ -1,0 +1,11 @@
+Name: Nation of Wood Elves {630} {889}
+Type: FeudalNation
+Founding Race: Wood Elves {630}
+Races: Destroyed: False
+Wood Elves {630} 
+Avatars: Wood Elves {630} Champion 
+Capital City: Capital City of Nation of Wood Elves {630} {889} {890}
+Cities: Capital City of Nation of Wood Elves {630} {889} {890} 
+Territory: Cloughgorm Coorack 
+Orders: Healers of Wind {891} 
+Tags: 

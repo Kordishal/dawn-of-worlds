@@ -1,0 +1,9 @@
+Name: Nation of Hill Giants {639} {1142}
+Type: NomadicTribe
+Founding Race: Hill Giants {639}
+Races: Destroyed: False
+Hill Giants {639} 
+Avatars: 
+Territory: Termore Poulaphouca 
+Orders: The Chosen Ones of Mehen {1143} 
+Tags: VeryRich GoldMine 

@@ -1,5 +1,5 @@
 Name: High Elves {628}
-Year of Creation: 9548
+Year of Creation: 9587
 Type: Humanoid
 Habitat: Terranean
 Terrain: ForestDwellers, 
@@ -7,6 +7,6 @@ Climate: Temperate, Subtropical, Tropical,
 Lifespan: Venerable
 Physical Traits: 
 Social & Cultural Traits: Communal, Sedentary, 
-Home Area: Terrain: Cahircon
-Settled Areas: Terrain: Cahircon, Terrain: Rathfarnham, Terrain: Carry, Terrain: Letterkenny, Terrain: Raherdaniel, Terrain: Cashel, Terrain: Killengormley, Terrain: Poulaphouca, Terrain: Maghbrack, Terrain: Tullaghbawn, Terrain: Loughduv, Terrain: Gortadown, Terrain: Gortnahoe, Terrain: Slievebully, Terrain: Killen, Terrain: Ballyskeaghed, Terrain: Portnahoe, Terrain: Drumshanbaun, Terrain: Ballyskeena, Terrain: Bawn, Terrain: Casheen, Terrain: Cloughjordani, Terrain: Carraroe, Terrain: Rockcloghrim, Terrain: Tullaghbracla, Terrain: Innishmaan, Terrain: Donagh, Terrain: Magh, Terrain: Cappagherafel, Terrain: Ballyhogue, Terrain: Glen, Terrain: Kildara, Terrain: Killen, Terrain: Roscreagh, Terrain: Stra, Terrain: Iniskillymena, Terrain: Athlonog, Terrain: Ballymonfecki, Terrain: Doondare, Terrain: Sragh, Terrain: Cahirconnell, Terrain: Kildare, Terrain: Cloughgallyme, Terrain: Kenmare, Terrain: Ballyveaghera, Terrain: Owenbeg, Terrain: Loughalee, Terrain: Cultranorlar, Terrain: Owenbaunmaist, Terrain: Bine, Terrain: Poulaphouca, Terrain: Mullagh, Terrain: Bundorack, Terrain: Maum, Terrain: Ball, Terrain: Bundore, Terrain: Maam Cross, Terrain: Sheskillyveag, Terrain: Caherdaniel, Terrain: Shandon, 
-Origin Order: Sisterhood of Drought
+Home Area: Terrain: Carraroe
+Settled Areas: Terrain: Carraroe, Terrain: Cloughgorm, Terrain: Termore, Terrain: Carraroe, Terrain: Clonog, Terrain: Cahircon, Terrain: Maam Cross, Terrain: Shandon, Terrain: Kilrush, Terrain: Poulaphouca, Terrain: Claddaghbawn, Terrain: Glen, Terrain: Cloondara, Terrain: Tirconnell, Terrain: Caheny, Terrain: Garvagh, Terrain: Cultranorlar, Terrain: Ballyskeena, Terrain: Rathfarnham, Terrain: Letterkenny, Terrain: Raherdaniel, Terrain: Carrowdore, Terrain: Poulaphouca, Terrain: Poulaphouca, Terrain: Sheskillyhogu, Terrain: Maghbrack, Terrain: Donagh, Terrain: Illaghgormley, Terrain: Innishmaan, Terrain: Cregganbaunma, Terrain: Mulliaghgorml, Terrain: Aughgallyveag, Terrain: Carnmone, Terrain: Slievebully, Terrain: Ballyskeaghed, Terrain: Portnahoe, Terrain: Maam Cross, Terrain: Carraroe, Terrain: Glengorm, Terrain: Inniskin, Terrain: Cooran, Terrain: Roscreagh, Terrain: Mullaghgaline, Terrain: Stra, Terrain: Stranor, Terrain: Tulliaghbracl, Terrain: Skeheenard, Terrain: Poulaphouca, Terrain: Mullagh, Terrain: Illaunmaistir, Terrain: Bundorack, Terrain: Drumshanbaun, Terrain: Cregganbo, Terrain: Magh, Terrain: Bine, Terrain: Doonshel, Terrain: Benbaun, Terrain: Enniskeen, Terrain: Roscreaghbawn, Terrain: Slievebullagh, Terrain: Ballaghbracla, Terrain: Carry, Terrain: Garvagh, Terrain: Letterkenny, Terrain: Portlaoise, Terrain: Bally, Terrain: Donard, Terrain: Bundon, Terrain: Cloondrohid, Terrain: Carrickbeg, Terrain: Droghrim, Terrain: Bally, Terrain: Raherafelt, Terrain: Finganbo, Terrain: Kinallynooth, Terrain: Cashel, Terrain: Coolock, 
+Origin Order: The Chosen Ones of Ishtar

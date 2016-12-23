@@ -1,0 +1,11 @@
+Name: Nation of Storm Giants {640} {1591}
+Type: FeudalNation
+Founding Race: Storm Giants {640}
+Races: Destroyed: False
+Storm Giants {640} 
+Avatars: 
+Capital City: Capital City of Nation of Storm Giants {640} {1591} {1592}
+Cities: Capital City of Nation of Storm Giants {640} {1591} {1592} 
+Territory: Iniskillymona Tyroneyrea 
+Orders: Oracles of Mehen {1593} 
+Tags: 

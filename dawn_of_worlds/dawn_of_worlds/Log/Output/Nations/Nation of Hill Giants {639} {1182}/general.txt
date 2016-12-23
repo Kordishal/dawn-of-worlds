@@ -1,0 +1,11 @@
+Name: Nation of Hill Giants {639} {1182}
+Type: TribalNation
+Founding Race: Hill Giants {639}
+Races: Destroyed: False
+Hill Giants {639} 
+Avatars: 
+Capital City: Capital City of Nation of Hill Giants {639} {1182} {1183}
+Cities: Capital City of Nation of Hill Giants {639} {1182} {1183} Kimmerapezu Tene 
+Territory: Ballymone Garvagheda Ballyveagh 
+Orders: Followers of Mafdet {1184} 
+Tags: VeryRich GoldMine 

@@ -202,7 +202,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             Nation founded_nation = new Nation("Nation of " + _commanded_race.Name, creator);
             founded_nation.Type = _type;
             founded_nation.InhabitantRaces.Add(_commanded_race);
-            founded_nation.Territory.Add(location);
 
             // Diplomacy
             if (_commanded_race.Type == SpeciesType.Beasts)

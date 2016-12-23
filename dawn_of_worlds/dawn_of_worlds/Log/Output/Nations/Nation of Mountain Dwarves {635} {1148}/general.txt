@@ -1,0 +1,11 @@
+Name: Nation of Mountain Dwarves {635} {1148}
+Type: FeudalNation
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: Mountain Dwarves {635} HighPriest 
+Capital City: Capital City of Nation of Mountain Dwarves {635} {1148} {1149}
+Cities: Capital City of Nation of Mountain Dwarves {635} {1148} {1149} 
+Territory: Portlaoise Benbeg 
+Orders: Angels of Wind {1150} 
+Tags: 

@@ -350,6 +350,8 @@ namespace dawn_of_worlds.Creations.Inhabitants
         private static void defineGoblinoidRaces()
         {
             Goblins = new Race("Goblin", null);
+            Goblins.Name.Plural = "Goblins";
+            Goblins.Name.Adjective = "goblin";
             Goblins.Type = SpeciesType.Humanoid;
             Goblins.Habitat = RacialHabitat.Terranean;
             Goblins.Lifespan = RacialLifespan.Fleeting;
@@ -367,16 +369,27 @@ namespace dawn_of_worlds.Creations.Inhabitants
             Hobgoblins.PreferredClimate.Add(RacialPreferredHabitatClimate.Temperate);
             Hobgoblins.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Tribal);
 
+            DefinedRacesList.Add(Hobgoblins);
+
             Bugbears = new Race("Bugbear", null);
             Bugbears.Type = SpeciesType.Humanoid;
             Bugbears.Habitat = RacialHabitat.Terranean;
             Bugbears.Lifespan = RacialLifespan.Average;
             Bugbears.PhysicalTraits.Add(PhysicalTrait.Strong);
             Bugbears.PreferredClimate.Add(RacialPreferredHabitatClimate.Temperate);
+
+            DefinedRacesList.Add(Bugbears);
         }
         private static void defineGiantAnimals()
         {
-
+            GiantBears = new Race("Bear", null);
+            GiantBears.Name.Plural = "Bears";
+            GiantBears.Name.Adjective = "bear";
+            GiantBears.Type = SpeciesType.Beasts;
+            GiantBears.Habitat = RacialHabitat.Terranean;
+            GiantBears.Lifespan = RacialLifespan.Enduring;
+            GiantBears.PhysicalTraits.Add(PhysicalTrait.Strong);
+            GiantBears.PhysicalTraits.Add(PhysicalTrait.NaturalWeapons);
         }
 
 

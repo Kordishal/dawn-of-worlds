@@ -1,0 +1,10 @@
+Name: Nation of Orcs {637} {925}
+Type: NomadicTribe
+Founding Race: Orcs {637}
+Races: Destroyed: False
+Orcs {637} 
+Leader: Orcs {637} RoyalDynasty
+Avatars: Orcs {637} Champion Orcs {637} RoyalDynasty 
+Territory: Ball Maam Cross Moneyrea Ballyclare Stranor Eskra Kinallysallym Coomevara Killen 
+Orders: Order of Conquest {926} 
+Tags: VeryRich GoldMine 

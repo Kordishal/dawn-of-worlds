@@ -1,0 +1,12 @@
+Name: Nation of Mountain Dwarves {635} {947}
+Type: TribalNation
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Leader: Mountain Dwarves {635} RoyalDynasty
+Avatars: Mountain Dwarves {635} HighPriest Mountain Dwarves {635} HighPriest Mountain Dwarves {635} RoyalDynasty Mountain Dwarves {635} HighPriest Mountain Dwarves {635} General 
+Capital City: Capital City of Nation of Mountain Dwarves {635} {947} {948}
+Cities: Capital City of Nation of Mountain Dwarves {635} {947} {948} Kannia Hellai 
+Territory: Corblonog Kinallysallym Cross Ballyclare 
+Orders: Commune of Ishtar {949} PlaceHolder {995} PlaceHolder {1286} PlaceHolder {1494} PlaceHolder {1537} 
+Tags: 

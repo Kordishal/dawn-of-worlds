@@ -128,7 +128,6 @@
     <Compile Include="Creations\Organisations\Nation.cs" />
     <Compile Include="Creations\Organisations\Order.cs" />
     <Compile Include="Log\StreamWriters.cs" />
-    <Compile Include="Log\ActionLogEntry.cs" />
     <Compile Include="Log\History.cs" />
     <Compile Include="Log\Map.cs" />
     <Compile Include="Main\Constants.cs" />
@@ -159,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Log\Output\action.log" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -194,9 +192,7 @@
     <Content Include="Names\NameSets\area.txt" />
     <Content Include="Names\NameSets\world.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Log\Output\History\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

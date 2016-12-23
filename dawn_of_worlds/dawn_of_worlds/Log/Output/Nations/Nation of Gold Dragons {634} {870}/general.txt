@@ -1,0 +1,12 @@
+Name: Nation of Gold Dragons {634} {870}
+Type: LairTerritory
+Founding Race: Gold Dragons {634}
+Races: Destroyed: False
+Gold Dragons {634} 
+Leader: Gold Dragons {634} LegendaryBeast
+Avatars: Gold Dragons {634} General Gold Dragons {634} LegendaryBeast Gold Dragons {634} LegendaryBeast Gold Dragons {634} General Gold Dragons {634} HighPriest 
+Capital City: Capital City of Nation of Gold Dragons {634} {870} {871}
+Cities: Capital City of Nation of Gold Dragons {634} {870} {871} Pantium Bournia Kerkinion Idalia Epida Pitidaea Hagia Artemitake Tyria 
+Territory: Cooranorlar Aughgallyveag Money Claddagh Mulliaghgorml Cloondrohid Cloonshel Carnmonfeckin Donard Carnmone 
+Orders: Church of Mehen {872} 
+Tags: VeryRich GoldMine 

@@ -22,7 +22,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<Race> InhabitantRaces { get; set; }
 
         public Avatar Leader { get; set; }
-        public List<Avatar> Subjects { get; set; }
+        public List<Avatar> Avatars { get; set; }
 
         // Cities
         public bool hasCities { get; set; }
@@ -92,11 +92,10 @@ namespace dawn_of_worlds.Creations.Organisations
             }
         }
 
-
         public Nation(string name, Deity creator) :base(name, creator)
         {
             InhabitantRaces = new List<Race>();
-            Subjects = new List<Avatar>();
+            Avatars = new List<Avatar>();
             Cities = new List<City>();
             Territory = new List<Province>();         
             Armies = new List<Army>();
@@ -105,6 +104,48 @@ namespace dawn_of_worlds.Creations.Organisations
             Tags = new List<NationalTags>();
             PossibleWarGoals = new List<WarGoal>();
             isDestroyed = false;       
+        }
+
+        public string printNation()
+        {
+            string result = "";
+            result += "Name: " + Name + "\n";
+            result += "Type: " + Type + "\n";
+            result += "Founding Race: " + FoundingRace.Name + "\n";
+            result += "Races: ";
+            result += "Destroyed: " + isDestroyed + "\n";
+            if (isDestroyed)
+                return result;
+            foreach (Race race in InhabitantRaces)
+                result += race.Name + " ";
+            result += "\n";
+            if (Leader != null)
+                result += "Leader: " + Leader.Name + "\n";
+            result += "Avatars: ";
+            foreach (Avatar avatar in Avatars)
+                result += avatar.Name + " ";
+            result += "\n";
+            if (hasCities)
+            {
+                result += "Capital City: " + CapitalCity.Name + "\n";
+                result += "Cities: ";
+                foreach (City city in Cities)
+                    result += city.Name + " ";
+                result += "\n";
+            }
+            result += "Territory: ";
+            foreach (Province province in Territory)
+                result += province.Name + " ";
+            result += "\n";
+            result += "Orders: ";
+            foreach (Order order in NationalOrders)
+                result += order.Name + " ";
+            result += "\n";
+            result += "Tags: ";
+            foreach (NationalTags tag in Tags)
+                result += tag + " ";
+            result += "\n";
+            return result;
         }
     }
 

@@ -1,0 +1,11 @@
+Name: Nation of Orcs {637} {1279}
+Type: TribalNation
+Founding Race: Orcs {637}
+Races: Destroyed: False
+Orcs {637} 
+Avatars: 
+Capital City: Capital City of Nation of Orcs {637} {1279} {1280}
+Cities: Capital City of Nation of Orcs {637} {1279} {1280} 
+Territory: Ballagh 
+Orders: Creed of Magic {1281} 
+Tags: 

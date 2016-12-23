@@ -1,5 +1,6 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.WorldClasses;
 using System;
@@ -19,6 +20,7 @@ namespace dawn_of_worlds.Log
         private static StreamWriter RecordTypeWriter { get; set; }
         private static StreamWriter AreaWriter { get; set; }
         private static StreamWriter RaceWriter { get; set; }
+        private static StreamWriter NationWriter { get; set; }
 
         public static void cleanDirectories()
         {
@@ -28,6 +30,15 @@ namespace dawn_of_worlds.Log
                 foreach (string file_path in Directory.EnumerateFiles(path))
                     File.Delete(file_path);
  
+                Directory.Delete(path);
+            }
+
+            // clean all nations for each run of the programm.
+            foreach (string path in Directory.EnumerateDirectories(OUTPUT_FOLDER + NATION_DIRECTORY))
+            {
+                foreach (string file_path in Directory.EnumerateFiles(path))
+                    File.Delete(file_path);
+
                 Directory.Delete(path);
             }
         }
@@ -48,14 +59,30 @@ namespace dawn_of_worlds.Log
         {
             foreach (Race race in Program.World.Races)
             {
-                Directory.CreateDirectory(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name);
-                RaceWriter = new StreamWriter(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name + @"\general.txt");
+                Directory.CreateDirectory(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name.Singular);
+                RaceWriter = new StreamWriter(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name.Singular + @"\general.txt");
                 RaceWriter.Write(race.printRace());
                 RaceWriter.Close();
 
 
-                RaceWriter = new StreamWriter(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name + @"\settlement_history.log");
+                RaceWriter = new StreamWriter(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name.Singular + @"\territroy_history.log");
                 RaceWriter.Write(Program.WorldHistory.printRecordType(RecordType.RaceSettlementMap, race));
+                RaceWriter.Close();
+            }
+        }
+
+        public static void writeNations()
+        {
+            foreach (Nation nation in Program.World.Nations)
+            {
+                Directory.CreateDirectory(OUTPUT_FOLDER + NATION_DIRECTORY + nation.Name.Singular);
+                RaceWriter = new StreamWriter(OUTPUT_FOLDER + NATION_DIRECTORY + nation.Name.Singular + @"\general.txt");
+                RaceWriter.Write(nation.printNation());
+                RaceWriter.Close();
+
+
+                RaceWriter = new StreamWriter(OUTPUT_FOLDER + NATION_DIRECTORY + nation.Name.Singular + @"\settlement_history.log");
+                RaceWriter.Write(Program.WorldHistory.printRecordType(RecordType.NationTerritoryMap, nation));
                 RaceWriter.Close();
             }
         }
@@ -80,6 +107,7 @@ namespace dawn_of_worlds.Log
         private const string ALL_RECORDS = @"records.log";
         private const string DEITIES = @"\Deities\";
         private const string RACE_DIRECTORY = @"\Races\";
+        private const string NATION_DIRECTORY = @"\Nations\";
 
         private const string RECORDS_BY_TYPE = @"\RecordsByType\";
 

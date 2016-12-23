@@ -1,0 +1,11 @@
+Name: Nation of Fire Dragons {633} {1595}
+Type: LairTerritory
+Founding Race: Fire Dragons {633}
+Races: Destroyed: False
+Fire Dragons {633} 
+Avatars: 
+Capital City: Capital City of Nation of Fire Dragons {633} {1595} {1596}
+Cities: Capital City of Nation of Fire Dragons {633} {1595} {1596} 
+Territory: Cloughgallyme Kildare 
+Orders: Order of Pakhet {1597} PlaceHolder {1629} 
+Tags: 

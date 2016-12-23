@@ -1,0 +1,11 @@
+Name: Nation of Hill Giants {639} {943}
+Type: TribalNation
+Founding Race: Hill Giants {639}
+Races: Destroyed: False
+Hill Giants {639} 
+Avatars: Hill Giants {639} Champion 
+Capital City: Capital City of Nation of Hill Giants {639} {943} {944}
+Cities: Capital City of Nation of Hill Giants {639} {943} {944} Tomis 
+Territory: Termore Tubberclar Mullagh 
+Orders: Church of Cold {945} PlaceHolder {1080} 
+Tags: 

@@ -25,7 +25,7 @@ namespace dawn_of_worlds.Main
 
         public const int TILE_GRID_X = 25;
         public const int TILE_GRID_Y = 25;
-        public const int TOTAL_TILE_NUMBER = TILE_GRID_X * TILE_GRID_Y;
+        public const int TOTAL_PROVINCE_NUMBER = TILE_GRID_X * TILE_GRID_Y;
 
         public const int ARCTIC_CLIMATE_BORDER = 3;
         public const int SUB_ARCTIC_CLIMATE_BORDER = 8;
