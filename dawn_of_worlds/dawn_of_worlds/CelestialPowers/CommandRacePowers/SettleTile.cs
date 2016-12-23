@@ -15,41 +15,41 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
     {
         private Area _settling_area { get; set; }
 
-        private List<WeightedObjects<Tile>> candidate_tiles()
+        private List<WeightedObjects<Province>> candidate_provinces()
         {
-            List<WeightedObjects<Tile>> possible_locations = new List<WeightedObjects<Tile>>();
+            List<WeightedObjects<Province>> possible_locations = new List<WeightedObjects<Province>>();
 
-            foreach (Tile tile in _settling_area.Tiles)
+            foreach (Province province in _settling_area.Provinces)
             {
-                WeightedObjects<Tile> candidate_tile = new WeightedObjects<Tile>(tile);
+                WeightedObjects<Province> candidate_province = new WeightedObjects<Province>(province);
 
-                if (tile.SettledRaces.Contains(_commanded_race))
+                if (province.SettledRaces.Contains(_commanded_race))
                     continue;
 
                 // Aquatic, exclude all areas, which do not have water to live in.
                 if (_commanded_race.Habitat == RacialHabitat.Aquatic)
-                    if (!(tile.Type == TerrainType.Ocean) && !(tile.SecondaryTerrainFeatures.Exists(x => x.GetType() == typeof(Lake))))
+                    if (!(province.Type == TerrainType.Ocean) && !(province.SecondaryTerrainFeatures.Exists(x => x.GetType() == typeof(Lake))))
                         continue;
 
                 // Subterranean, exlude all areas, which do not have an underworld or caves.
                 if (_commanded_race.Habitat == RacialHabitat.Subterranean)
-                    if (!tile.SecondaryTerrainFeatures.Exists(x => x.GetType() == typeof(Cave)))
+                    if (!province.SecondaryTerrainFeatures.Exists(x => x.GetType() == typeof(Cave)))
                         continue;
 
                 // Terranean, exclude all areas which do not include a landmass to live on
                 if (_commanded_race.Habitat == RacialHabitat.Terranean)
-                    if (tile.Type == TerrainType.Ocean)
+                    if (province.Type == TerrainType.Ocean)
                         continue;
 
                 // Settle in areas close by.
                 for (int i = 0; i < 8; i++)
                 {
-                    SystemCoordinates coords = tile.Coordinates.GetNeighbour(i);
+                    SystemCoordinates coords = province.Coordinates.GetNeighbour(i);
 
                     if (coords.isInTileGridBounds())
                     {
                         if (Program.World.getTile(coords).SettledRaces.Contains(_commanded_race))
-                            candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                            candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                     }
                 }
 
@@ -59,28 +59,28 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                     switch (terrain)
                     {
                         case RacialPreferredHabitatTerrain.CaveDwellers:
-                            if (tile.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Cave)).Count > 0)
-                                candidate_tile.Weight += tile.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Cave)).Count * 10;
+                            if (province.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Cave)).Count > 0)
+                                candidate_province.Weight += province.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Cave)).Count * 10;
                             break;
                         case RacialPreferredHabitatTerrain.DesertDwellers:
-                            if (tile.PrimaryTerrainFeature.GetType() == typeof(Desert))
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                            if (province.PrimaryTerrainFeature.GetType() == typeof(Desert))
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                             break;
                         case RacialPreferredHabitatTerrain.ForestDwellers:
-                            if (tile.PrimaryTerrainFeature.GetType() == typeof(Forest))
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                            if (province.PrimaryTerrainFeature.GetType() == typeof(Forest))
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                             break;
                         case RacialPreferredHabitatTerrain.HillDwellers:
-                            if (tile.Type == TerrainType.HillRange)
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                            if (province.Type == TerrainType.HillRange)
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                             break;
                         case RacialPreferredHabitatTerrain.MountainDwellers:
-                            if (tile.Type == TerrainType.MountainRange)
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                            if (province.Type == TerrainType.MountainRange)
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                             break;
                         case RacialPreferredHabitatTerrain.PlainDwellers:
-                            if (tile.Type == TerrainType.Plain)
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                            if (province.Type == TerrainType.Plain)
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                             break;
                     }
                 }
@@ -90,30 +90,30 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                     switch (climate)
                     {
                         case RacialPreferredHabitatClimate.Arctic:
-                            if (tile.LocalClimate == Climate.Arctic)
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                            if (province.LocalClimate == Climate.Arctic)
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                             break;
                         case RacialPreferredHabitatClimate.Subarctic:
-                            if (tile.LocalClimate == Climate.SubArctic)
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                            if (province.LocalClimate == Climate.SubArctic)
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                             break;
                         case RacialPreferredHabitatClimate.Tropical:
-                            if (tile.LocalClimate == Climate.Tropical)
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                            if (province.LocalClimate == Climate.Tropical)
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                             break;
                         case RacialPreferredHabitatClimate.Subtropical:
-                            if (tile.LocalClimate == Climate.SubTropical)
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                            if (province.LocalClimate == Climate.SubTropical)
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                             break;
                         case RacialPreferredHabitatClimate.Temperate:
-                            if (tile.LocalClimate == Climate.Temperate)
-                                candidate_tile.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                            if (province.LocalClimate == Climate.Temperate)
+                                candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                             break;
                     }
                 }
 
-                if (candidate_tile.Weight > 0)
-                    possible_locations.Add(candidate_tile);
+                if (candidate_province.Weight > 0)
+                    possible_locations.Add(candidate_province);
             }
             return possible_locations;
         }
@@ -142,9 +142,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Sedentary))
                 weight -= Constants.WEIGHT_STANDARD_CHANGE * 2;
 
-            // The less settled tiles the more likle to settle new ones.
+            // The less settled provinces the more likle to settle new ones.
             weight += Constants.TOTAL_TILE_NUMBER;
-            weight -= _commanded_race.SettledTiles.Count;
+            weight -= _commanded_race.SettledProvinces.Count;
 
 
 
@@ -153,7 +153,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
         public override bool Precondition(Deity creator)
         {
-            if (candidate_tiles().Count > 0)
+            if (candidate_provinces().Count > 0)
                 return true;
             else
                 return false;
@@ -162,24 +162,24 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
         public override void Effect(Deity creator)
         {
-            List<WeightedObjects<Tile>> possible_target_tile = candidate_tiles();
+            List<WeightedObjects<Province>> possible_target_province = candidate_provinces();
 
-            int number_of_settled_tiles = Constants.BASE_TILES_SETTLED_BY_RACE;
+            int number_of_settled_provinces = Constants.BASE_TILES_SETTLED_BY_RACE;
 
             if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Nomadic))
-                number_of_settled_tiles += 1;
+                number_of_settled_provinces += 1;
             if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Sedentary))
-                number_of_settled_tiles -= 1;
+                number_of_settled_provinces -= 1;
 
-            if (number_of_settled_tiles > possible_target_tile.Count)
-                number_of_settled_tiles = possible_target_tile.Count;
+            if (number_of_settled_provinces > possible_target_province.Count)
+                number_of_settled_provinces = possible_target_province.Count;
 
-            List<Tile> target_tiles = WeightedObjects<Tile>.ChooseXHeaviestObjects(possible_target_tile, number_of_settled_tiles);
+            List<Province> target_provinces = WeightedObjects<Province>.ChooseXHeaviestObjects(possible_target_province, number_of_settled_provinces);
 
-            foreach (Tile tile in target_tiles)
+            foreach (Province province in target_provinces)
             {
-                tile.SettledRaces.Add(_commanded_race);
-                _commanded_race.SettledTiles.Add(tile);
+                province.SettledRaces.Add(_commanded_race);
+                _commanded_race.SettledProvinces.Add(province);
             }         
         }
 

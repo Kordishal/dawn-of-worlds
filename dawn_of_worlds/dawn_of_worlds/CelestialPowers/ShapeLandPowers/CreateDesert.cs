@@ -21,10 +21,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Tile> candidate_terrain()
+        private List<Province> candidate_terrain()
         {
-            List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.Tiles)
+            List<Province> terrain_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
             {
                 if (terrain.isDefault && terrain.Type == TerrainType.Plain)
                     terrain_list.Add(terrain);
@@ -53,9 +53,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            // Pick a random terrain tile.
-            List<Tile> candidate_desert_locations = candidate_terrain();
-            Tile desert_location = candidate_desert_locations[Constants.Random.Next(candidate_desert_locations.Count)];
+            // Pick a random terrain province.
+            List<Province> candidate_desert_locations = candidate_terrain();
+            Province desert_location = candidate_desert_locations[Constants.Random.Next(candidate_desert_locations.Count)];
 
             Desert desert = new Desert(Constants.Names.GetName("deserts"), desert_location, creator);
 
@@ -86,9 +86,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             desert_location.PrimaryTerrainFeature = desert;
-            desert_location.UnclaimedTerritories.Add(desert);
-            desert_location.UnclaimedTravelAreas.Add(desert);
-            desert_location.UnclaimedHuntingGrounds.Add(desert);
             desert_location.isDefault = false;
 
             // Add forest to the deity.

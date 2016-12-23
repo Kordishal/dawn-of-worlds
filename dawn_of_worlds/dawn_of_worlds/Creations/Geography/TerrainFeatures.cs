@@ -12,40 +12,14 @@ namespace dawn_of_worlds.Creations.Geography
 {
     class TerrainFeatures : Creation
     {
-        public Nation NationalTerritory { get; set; }
-        public Nation HuntingGround { get; set; }
-        public Nation TraveledArea { get; set; }
-
-        public void changeOwnership(Nation to)
-        {
-            switch (to.Type)
-            {
-                case NationTypes.FeudalNation:
-                case NationTypes.TribalNation:
-                case NationTypes.LairTerritory:
-                    NationalTerritory.Territory.Remove(this);
-                    NationalTerritory = to;
-                    break;
-                case NationTypes.NomadicTribe:
-                    TraveledArea.Territory.Remove(this);
-                    TraveledArea = to;
-                    break;
-                case NationTypes.HuntingGrounds:
-                    HuntingGround.Territory.Remove(this);
-                    HuntingGround = to;
-                    break;
-            }
-        }
+        public Province Province { get; set; }
 
         public City City { get; set; }
-
-        public Tile Location { get; set; }
-
         public BiomeType BiomeType { get; set; }
 
-        public TerrainFeatures(string name, Tile location, Deity creator) : base(name, creator)
+        public TerrainFeatures(string name, Province location, Deity creator) : base(name, creator)
         {
-            Location = location;
+            Province = location;
         }
 
         public virtual string printTerrainFeature(Record record)

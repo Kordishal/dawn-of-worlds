@@ -124,11 +124,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                                 case NationTypes.FeudalNation:
                                     if (weighted_war_goal.Object.Type == WarGoalType.CityConquest)
                                         weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
-                                    if (weighted_war_goal.Object.Type == WarGoalType.TerritoryConquest)
+                                    if (weighted_war_goal.Object.Type == WarGoalType.Conquest)
                                         weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                                     break;
                                 case NationTypes.NomadicTribe:
-                                    if (weighted_war_goal.Object.Type == WarGoalType.ExpelNomads)
+                                    if (weighted_war_goal.Object.Type == WarGoalType.RemoveNomadicPresence)
                                         weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                                     break;
                             }

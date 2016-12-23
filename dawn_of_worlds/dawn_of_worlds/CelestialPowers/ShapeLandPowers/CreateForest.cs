@@ -22,24 +22,24 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Tile> candidate_terrain()
+        private List<Province> candidate_terrain()
         {
-            List<Tile> tile_list = new List<Tile>();
-            foreach (Tile tile in _location.Tiles)
+            List<Province> province_list = new List<Province>();
+            foreach (Province province in _location.Provinces)
             {
-                if (tile.isDefault && tile.Type == TerrainType.Plain)
-                    if (tile.LocalClimate != Climate.Arctic)
-                        tile_list.Add(tile);
+                if (province.isDefault && province.Type == TerrainType.Plain)
+                    if (province.LocalClimate != Climate.Arctic)
+                        province_list.Add(province);
             }
 
-            return tile_list;
+            return province_list;
         }
 
 
         public override void Effect(Deity creator)
         {
-            List<Tile> forest_locations = candidate_terrain();
-            Tile forest_location = forest_locations[Constants.Random.Next(forest_locations.Count)];           
+            List<Province> forest_locations = candidate_terrain();
+            Province forest_location = forest_locations[Constants.Random.Next(forest_locations.Count)];           
                            
             Forest forest = new Forest("PlaceHolder", forest_location, creator);
             
@@ -58,13 +58,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     forest.BiomeType = BiomeType.TropicalRainforest;
                     break;
             }
-
-
-
             forest_location.PrimaryTerrainFeature = forest;
-            forest_location.UnclaimedTerritories.Add(forest);
-            forest_location.UnclaimedTravelAreas.Add(forest);
-            forest_location.UnclaimedHuntingGrounds.Add(forest);
             forest_location.isDefault = false;
 
             // Add forest to the deity.

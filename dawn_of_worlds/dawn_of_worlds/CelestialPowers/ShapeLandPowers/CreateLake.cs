@@ -22,10 +22,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Tile> candidate_terrain()
+        private List<Province> candidate_terrain()
         {
-            List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.Tiles)
+            List<Province> terrain_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
             {
                 if (terrain.hasRivers)
                     terrain_list.Add(terrain);
@@ -49,8 +49,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Tile> lake_locations = candidate_terrain();
-            Tile lake_location = lake_locations[Constants.Random.Next(lake_locations.Count)];
+            List<Province> lake_locations = candidate_terrain();
+            Province lake_location = lake_locations[Constants.Random.Next(lake_locations.Count)];
 
             // Create the lake
             Lake lake = new Lake(Constants.Names.GetName("lakes"), lake_location, creator);
@@ -65,9 +65,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             lake.OutGoingRiver = river;
 
             lake_location.SecondaryTerrainFeatures.Add(lake);
-            lake_location.UnclaimedTerritories.Add(lake);
-            lake_location.UnclaimedTravelAreas.Add(lake);
-            lake_location.UnclaimedHuntingGrounds.Add(lake);
 
             // Add lake to deity lists
             creator.TerrainFeatures.Add(lake);

@@ -15,6 +15,13 @@ namespace dawn_of_worlds.WorldClasses
     {
         public string Name { get; set; }
 
+        public List<Region> Regions { get; set; }
+
+        public Area[,] AreaGrid { get; set; }
+        public Area getArea(SystemCoordinates coords) { return AreaGrid[coords.X, coords.Y]; }
+        public Province[,] TileGrid { get; set; }
+        public Province getTile(SystemCoordinates coords) { return TileGrid[coords.X, coords.Y]; }
+
         public List<Deity> Deities { get; set; }
         public List<Race> Races { get; set; }
         public List<Nation> Nations { get; set; }
@@ -22,13 +29,6 @@ namespace dawn_of_worlds.WorldClasses
         public List<Order> Orders { get; set; }
 
         public List<War> OngoingWars { get; set; }
-
-        public List<Region> Regions { get; set; }
-
-        public Area[,] AreaGrid { get; set; }
-        public Area getArea(SystemCoordinates coords) { return AreaGrid[coords.X, coords.Y]; }
-        public Tile[,] TileGrid { get; set; }
-        public Tile getTile(SystemCoordinates coords) { return TileGrid[coords.X, coords.Y]; }
 
         public World(string world_name, int num_regions, int num_areas)
         {
@@ -201,7 +201,7 @@ namespace dawn_of_worlds.WorldClasses
         }
         private void defineAreaAndTerrainCoordiantes()
         {
-            TileGrid = new Tile[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
+            TileGrid = new Province[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
 
             for (int i = 0; i < Constants.AREA_GRID_X; i++)
             {
@@ -212,9 +212,9 @@ namespace dawn_of_worlds.WorldClasses
                     {
                         for (int l = j * 5; l < j * 5 + Constants.AREA_GRID_Y; l++)
                         {
-                            TileGrid[k, l] = new Tile(AreaGrid[i, j], new SystemCoordinates(k, l));
+                            TileGrid[k, l] = new Province(AreaGrid[i, j], new SystemCoordinates(k, l));
                             TileGrid[k, l].initialize();
-                            AreaGrid[i, j].Tiles.Add(TileGrid[k, l]);
+                            AreaGrid[i, j].Provinces.Add(TileGrid[k, l]);
                         }
                     }
                 }
@@ -245,7 +245,7 @@ namespace dawn_of_worlds.WorldClasses
                         next_area = null;
                 }
 
-                if (next_area.Tiles[0].Type == TerrainType.Ocean)
+                if (next_area.Provinces[0].Type == TerrainType.Ocean)
                     next_region = new Region(this, RegionType.Ocean);
                 else
                     next_region = new Region(this, RegionType.Continent);

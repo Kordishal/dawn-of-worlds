@@ -16,6 +16,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
     class CreateCity : CommandNation
     {
 
+        private List<TerrainFeatures> _valid_city_terrains { get; set; }
+
         public override int Cost()
         {
             int cost = base.Cost();
@@ -50,39 +52,49 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             if (!_commanded_nation.hasCities)
                 return false;
 
-            foreach (TerrainFeatures terrain_features in _commanded_nation.Territory)
-            {
-                if (terrain_features.City == null)
-                    return true;
-            }
+            _valid_city_terrains = validTerrainFeatures();
+
+            if (_valid_city_terrains.Count > 0)
+                return true;
 
             return false;
+        }
+
+        private List<TerrainFeatures> validTerrainFeatures()
+        {
+            List<TerrainFeatures> terrain_features = new List<TerrainFeatures>();
+
+            foreach (Province province in _commanded_nation.Territory)
+            {
+                if (province.PrimaryTerrainFeature.City == null)
+                    terrain_features.Add(province.PrimaryTerrainFeature);
+
+                foreach (TerrainFeatures terrain in province.SecondaryTerrainFeatures)
+                {
+                    if (terrain.City == null)
+                        terrain_features.Add(terrain);
+                }
+            }
+
+            return terrain_features;
         }
 
 
         public override void Effect(Deity creator)
         {
-            TerrainFeatures terrain_features = null;
-            List<TerrainFeatures> undeveloped_terrain_features = _commanded_nation.Territory.FindAll(x => x.City == null);
-
             // Choose the city location at random.
-            terrain_features = undeveloped_terrain_features[Constants.Random.Next(undeveloped_terrain_features.Count)];
+            TerrainFeatures construction_site = _valid_city_terrains[Constants.Random.Next(_valid_city_terrains.Count)];
             
-
             // The city is created and placed in the world. The nation is defined as the city owner.
             City founded_city = new City("PlaceHolder", creator);
-            founded_city.CitySphereOfÌnfluence.Add(terrain_features);
+            founded_city.TerrainFeature = construction_site;
             founded_city.Owner = _commanded_nation;
 
             // Tell the location, that it now has a city.
-            terrain_features.City = founded_city;
-            terrain_features.Location.UnclaimedTerritories.Remove(terrain_features);
+            construction_site.City = founded_city;
 
             // add the city to the list of cities owned by the nation.
-            _commanded_nation.Cities.Add(founded_city);
-
-            // Remove war goal for the territory of this city.
-            _commanded_nation.PossibleWarGoals.RemoveAll(x => x.Territory == founded_city.CityLocation);             
+            _commanded_nation.Cities.Add(founded_city);            
 
             //New War Goal to conquer this city.
             _commanded_nation.PossibleWarGoals.Add(new WarGoal(WarGoalType.CityConquest));

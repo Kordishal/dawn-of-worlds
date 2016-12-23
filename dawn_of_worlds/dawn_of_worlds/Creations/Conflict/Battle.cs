@@ -17,8 +17,8 @@ namespace dawn_of_worlds.Creations.Conflict
 
         public void Fight()
         {
-            int attacker_strenght = Main.Constants.Random.Next(2, 13) + AttackerArmy.ArmyStrenghtBonus;
-            int defender_strenght = Main.Constants.Random.Next(2, 13) + AttackerArmy.ArmyStrenghtBonus;
+            int attacker_strenght = Main.Constants.Random.Next(2, 13) + AttackerArmy.StrenghtBonus;
+            int defender_strenght = Main.Constants.Random.Next(2, 13) + AttackerArmy.StrenghtBonus;
 
             // defender wins
             if (defender_strenght >= attacker_strenght)

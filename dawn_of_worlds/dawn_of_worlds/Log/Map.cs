@@ -130,12 +130,12 @@ namespace dawn_of_worlds.Log
         {
             char[,] race_settlement_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
 
-            foreach (Tile tile in Program.World.TileGrid)
+            foreach (Province province in Program.World.TileGrid)
             {
-                if (race.SettledTiles.Contains(tile))
-                    race_settlement_map[tile.Coordinates.X, tile.Coordinates.Y] = '0';
+                if (race.SettledProvinces.Contains(province))
+                    race_settlement_map[province.Coordinates.X, province.Coordinates.Y] = '0';
                 else
-                    race_settlement_map[tile.Coordinates.X, tile.Coordinates.Y] = 'x';
+                    race_settlement_map[province.Coordinates.X, province.Coordinates.Y] = 'x';
             }
 
             return race_settlement_map;

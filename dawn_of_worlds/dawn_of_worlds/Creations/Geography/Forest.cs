@@ -10,7 +10,7 @@ namespace dawn_of_worlds.Creations.Geography
 {
     class Forest : TerrainFeatures
     {
-        public Forest(string name, Tile location, Deity creator) : base(name, location, creator)
+        public Forest(string name, Province location, Deity creator) : base(name, location, creator)
         {
         }
     }

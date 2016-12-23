@@ -153,7 +153,7 @@
     <Compile Include="WorldClasses\Climate.cs" />
     <Compile Include="WorldClasses\Coordinates.cs" />
     <Compile Include="WorldClasses\Region.cs" />
-    <Compile Include="WorldClasses\Tile.cs" />
+    <Compile Include="WorldClasses\Province.cs" />
     <Compile Include="WorldClasses\World.cs" />
   </ItemGroup>
   <ItemGroup>

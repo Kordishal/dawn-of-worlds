@@ -31,36 +31,36 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             return weight >= 0 ? weight : 0;
         }
 
-        private List<WeightedObjects<Tile>> candidate_tiles()
+        private List<WeightedObjects<Province>> candidate_provinces()
         {
-            List<WeightedObjects<Tile>> weighted_tiles = new List<WeightedObjects<Tile>>();
-            foreach (Tile tile in _location.Tiles)
+            List<WeightedObjects<Province>> weighted_provinces = new List<WeightedObjects<Province>>();
+            foreach (Province province in _location.Provinces)
             {
-                if (_climate != tile.LocalClimate)
+                if (_climate != province.LocalClimate)
                 {
-                    WeightedObjects<Tile> weighted_tile = new WeightedObjects<Tile>(tile);
-                    weighted_tile.Weight += 5;
+                    WeightedObjects<Province> weighted_province = new WeightedObjects<Province>(province);
+                    weighted_province.Weight += 5;
 
-                    // If there is a neighbouring tile with the same climate it will be more likely to appear there.
+                    // If there is a neighbouring province with the same climate it will be more likely to appear there.
                     for (int i = 0; i < 8; i++)
                     {
-                        if (tile.Coordinates.GetNeighbour(i).isInTileGridBounds())
+                        if (province.Coordinates.GetNeighbour(i).isInTileGridBounds())
                         {
-                            if (Program.World.getTile(tile.Coordinates.GetNeighbour(i)).LocalClimate == _climate)
-                                weighted_tile.Weight += 10;
+                            if (Program.World.getTile(province.Coordinates.GetNeighbour(i)).LocalClimate == _climate)
+                                weighted_province.Weight += 10;
                         }
                     }
-                    weighted_tiles.Add(weighted_tile);
+                    weighted_provinces.Add(weighted_province);
                 }
             }
 
-            return weighted_tiles;
+            return weighted_provinces;
         }
 
         public override bool Precondition(Deity creator)
         {
-            foreach (Tile tile in _location.Tiles)
-                if (tile.LocalClimate != _climate)
+            foreach (Province province in _location.Provinces)
+                if (province.LocalClimate != _climate)
                     return true;
 
             return false;

@@ -25,53 +25,53 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             return weight >= 0 ? weight : 0;
         }
 
-        private List<WeightedObjects<Tile>> candidate_tiles()
+        private List<WeightedObjects<Province>> candidate_provinces()
         {
-            List<WeightedObjects<Tile>> weighted_tiles = new List<WeightedObjects<Tile>>();
-            foreach (Tile tile in _location.Tiles)
+            List<WeightedObjects<Province>> weighted_provinces = new List<WeightedObjects<Province>>();
+            foreach (Province province in _location.Provinces)
             {
-                int[] climate_count = countClimateNeighbours(tile);
-                switch (tile.LocalClimate)
+                int[] climate_count = countClimateNeighbours(province);
+                switch (province.LocalClimate)
                 {
                     case Climate.Arctic: //  not possible to make colder
                         break;
                     case Climate.SubArctic:
                         if (climate_count[0] >= 2)
                         {
-                            weighted_tiles.Add(new WeightedObjects<Tile>(tile));
-                            weighted_tiles.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[0];
+                            weighted_provinces.Add(new WeightedObjects<Province>(province));
+                            weighted_provinces.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[0];
                         }
                         break;
                     case Climate.Temperate:
                         if (climate_count[1] >= 2)
                         {
-                            weighted_tiles.Add(new WeightedObjects<Tile>(tile));
-                            weighted_tiles.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[1];
+                            weighted_provinces.Add(new WeightedObjects<Province>(province));
+                            weighted_provinces.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[1];
                         }
                         break;
                     case Climate.SubTropical:
                         if (climate_count[2] >= 2)
                         {
-                            weighted_tiles.Add(new WeightedObjects<Tile>(tile));
-                            weighted_tiles.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[2];
+                            weighted_provinces.Add(new WeightedObjects<Province>(province));
+                            weighted_provinces.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[2];
                         }
                         break;
                     case Climate.Tropical:
                         if (climate_count[3] >= 2)
                         {
-                            weighted_tiles.Add(new WeightedObjects<Tile>(tile));
-                            weighted_tiles.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[3];
+                            weighted_provinces.Add(new WeightedObjects<Province>(province));
+                            weighted_provinces.Last().Weight += Constants.WEIGHT_STANDARD_CHANGE * climate_count[3];
                         }
                         break;
                 }
             }
 
-            return weighted_tiles;
+            return weighted_provinces;
         }
 
         public override bool Precondition(Deity creator)
         {
-            if (candidate_tiles().Count > 0)
+            if (candidate_provinces().Count > 0)
                 return true;
 
             return false;
@@ -79,8 +79,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 
         public override void Effect(Deity creator)
         {
-            List<WeightedObjects<Tile>> tiles = candidate_tiles();
-            _chosen_location = WeightedObjects<Tile>.ChooseRandomObject(tiles);
+            List<WeightedObjects<Province>> provinces = candidate_provinces();
+            _chosen_location = WeightedObjects<Province>.ChooseRandomObject(provinces);
 
             // Set new climate
             switch (_chosen_location.LocalClimate)

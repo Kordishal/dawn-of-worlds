@@ -86,9 +86,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
             Army target_army = candidate_armies[Constants.Random.Next(candidate_armies.Count)];
 
             // Move the armies into the same terrain.
-            if (!target_army.ArmyLocation.Equals(_commanded_army.ArmyLocation))
+            if (!target_army.Location.Equals(_commanded_army.Location))
             {
-                _commanded_army.ArmyLocation = target_army.ArmyLocation;
+                _commanded_army.Location = target_army.Location;
             }
 
             Battle battle = new Battle(_commanded_army.Name + " vs. " + target_army.Name, creator, _commanded_army, target_army);

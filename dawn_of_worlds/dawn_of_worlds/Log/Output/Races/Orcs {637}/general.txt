@@ -8,5 +8,5 @@ Lifespan: Average
 Physical Traits: Strong, 
 Social & Cultural Traits: Tribal, 
 Home Area: Terrain: Poulaphouca
-Settled Areas: Terrain: Poulaphouca, Terrain: Tievebulline, Terrain: Mullamore, Terrain: Maynoe, Terrain: Eskra, Terrain: Cahirconnell, Terrain: Droghrim, Terrain: Tramore, Terrain: Carrickbeg, Terrain: Bally, Terrain: Tubbermonfeck, 
+Settled Areas: Terrain: Poulaphouca, Terrain: Tievebulline, Terrain: Mullamore, Terrain: Maynoe, Terrain: Eskra, Terrain: Cahirconnell, Terrain: Bundorack, Terrain: Poulaphouca, Terrain: Cloondrohid, Terrain: Claddagh, 
 Origin Order: Creed of Peace

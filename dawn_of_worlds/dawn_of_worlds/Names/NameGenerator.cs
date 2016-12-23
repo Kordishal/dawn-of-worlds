@@ -39,9 +39,9 @@ namespace dawn_of_worlds.Names
                     {
                         string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
-                        foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                        foreach (Match province in Regex.Matches(template, @"<[a-z_\\]*>"))
                         {
-                            template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
+                            template = template.Replace(province.Value, getNameFromList(set, province.Value.Substring(1, province.Value.Length - 2)));
                         }
 
                         return template;
@@ -101,9 +101,9 @@ namespace dawn_of_worlds.Names
                         foreach (Domain domain in creator.Domains)
                             Domains.Second.Add(domain.ToString());
 
-                        foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                        foreach (Match province in Regex.Matches(template, @"<[a-z_\\]*>"))
                         {
-                            template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
+                            template = template.Replace(province.Value, getNameFromList(set, province.Value.Substring(1, province.Value.Length - 2)));
                         }
 
                         return template;
@@ -132,19 +132,19 @@ namespace dawn_of_worlds.Names
                             Areas = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("area_name", Areas);
                         }
-                        Areas.Second.Add(forest.Location.Area.Name);
+                        Areas.Second.Add(forest.Province.Area.Name);
 
-                        Pair<List<int>, List<string>> Tiles;
-                        if (!set.Names.TryGetValue("tile_name", out Tiles))
+                        Pair<List<int>, List<string>> Provinces;
+                        if (!set.Names.TryGetValue("province_name", out Provinces))
                         {
-                            Tiles = new Pair<List<int>, List<string>>(null, new List<string>());
-                            set.Names.Add("tile_name", Tiles);
+                            Provinces = new Pair<List<int>, List<string>>(null, new List<string>());
+                            set.Names.Add("province_name", Provinces);
                         }
-                        Tiles.Second.Add(forest.Location.Name);
+                        Provinces.Second.Add(forest.Province.Name);
 
-                        foreach (Match tile in Regex.Matches(template, @"<[a-z_\\]*>"))
+                        foreach (Match province in Regex.Matches(template, @"<[a-z_\\]*>"))
                         {
-                            template = template.Replace(tile.Value, getNameFromList(set, tile.Value.Substring(1, tile.Value.Length - 2)));
+                            template = template.Replace(province.Value, getNameFromList(set, province.Value.Substring(1, province.Value.Length - 2)));
                         }
 
                         return template;

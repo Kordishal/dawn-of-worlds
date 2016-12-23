@@ -18,14 +18,14 @@ namespace dawn_of_worlds.WorldClasses
         public SystemCoordinates Coordinates { get; set; }
 
         public Region Region { get; set; }
-        public List<Tile> Tiles { get; set; }
+        public List<Province> Provinces { get; set; }
 
         public Area(Region region)
         {
             Name = Constants.Names.GetName("area");
             Region = region;
 
-            Tiles = new List<Tile>();   
+            Provinces = new List<Province>();   
         }
 
         public override string ToString()

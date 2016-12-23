@@ -22,10 +22,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Tile> candidate_terrain()
+        private List<Province> candidate_terrain()
         {
-            List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.Tiles)
+            List<Province> terrain_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
             {
                 if (terrain.Type == TerrainType.HillRange)
                     terrain_list.Add(terrain);
@@ -46,9 +46,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            // Pick a random terrain tile.
-            List<Tile> hill_locations = candidate_terrain();
-            Tile hill_location = hill_locations[Constants.Random.Next(hill_locations.Count)];
+            // Pick a random terrain province.
+            List<Province> hill_locations = candidate_terrain();
+            Province hill_location = hill_locations[Constants.Random.Next(hill_locations.Count)];
             Hill hill = new Hill("PlaceHolder", hill_location, creator);
 
             int chance = Constants.Random.Next(100);
@@ -98,9 +98,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             // Add hill to hill range.
             ((HillRange)hill_location.PrimaryTerrainFeature).Hills.Add(hill);
             hill.Range = (HillRange)hill_location.PrimaryTerrainFeature;
-            hill_location.UnclaimedTerritories.Add(hill);
-            hill_location.UnclaimedTravelAreas.Add(hill);
-            hill_location.UnclaimedHuntingGrounds.Add(hill);
+            hill_location.SecondaryTerrainFeatures.Add(hill);
 
             // Add mountain to deity lists
             creator.TerrainFeatures.Add(hill);

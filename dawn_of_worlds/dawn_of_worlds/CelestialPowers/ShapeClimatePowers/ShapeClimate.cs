@@ -13,7 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
     abstract class ShapeClimate : Power
     {
         protected Area _location { get; set; }
-        protected Tile _chosen_location { get; set; }
+        protected Province _chosen_location { get; set; }
 
         public override int Cost()
         {
@@ -65,13 +65,13 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             _location = location;
         }
 
-        protected int[] countClimateNeighbours(Tile tile)
+        protected int[] countClimateNeighbours(Province province)
         {
             int[] climate_count = new int[5] { 0, 0, 0, 0, 0 };
             SystemCoordinates coords = null;
             for (int i = 0; i < 8; i++)
             {
-                coords = tile.Coordinates.GetNeighbour(i);
+                coords = province.Coordinates.GetNeighbour(i);
                 // ignore areas outside of the world.
                 if (coords.isInTileGridBounds())
                 {

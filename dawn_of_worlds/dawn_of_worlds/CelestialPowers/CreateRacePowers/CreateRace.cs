@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
     class CreateRace : Power
     {
         private Race _created_race { get; set; }
-        private Tile _terrain { get; set; }
+        private Province _terrain { get; set; }
 
         public override bool Precondition(Deity creator)
         {
@@ -86,7 +86,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             _created_race.OriginOrder = creator_worhip_order;
 
             // The created race is settled 
-            _created_race.SettledTiles.Add(_terrain);
+            _created_race.SettledProvinces.Add(_terrain);
                     
             // Tells the Area that someone is living here.
             _terrain.SettledRaces.Add(_created_race);
@@ -203,7 +203,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             return weight >= 0 ? weight : 0;
         }
 
-        public CreateRace(Race created_race, Tile terrain)
+        public CreateRace(Race created_race, Province terrain)
         {
             Name = "Create Race: " + created_race.Name;
             _created_race = created_race;

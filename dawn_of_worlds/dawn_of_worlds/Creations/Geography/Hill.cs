@@ -12,7 +12,7 @@ namespace dawn_of_worlds.Creations.Geography
     {
         public HillRange Range { get; set; }
 
-        public Hill(string name, Tile location, Deity creator) : base(name, location, creator)
+        public Hill(string name, Province location, Deity creator) : base(name, location, creator)
         {
         }
     }

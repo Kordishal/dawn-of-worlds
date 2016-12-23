@@ -10,7 +10,7 @@ namespace dawn_of_worlds.Creations.Geography
 {
     class Cave : TerrainFeatures
     {
-        public Cave(string name, Tile location, Deity creator) : base(name, location, creator)
+        public Cave(string name, Province location, Deity creator) : base(name, location, creator)
         {
         }
     }

@@ -14,32 +14,19 @@ namespace dawn_of_worlds.Creations.Organisations
         public Nation Owner { get; set; }
 
         // Territory
-        public TerrainFeatures CityLocation
-        {
-            get
-            {
-                return CitySphereOfÌnfluence[0];
-            }
-        }
-        public List<TerrainFeatures> CitySphereOfÌnfluence { get; set; }
+        public TerrainFeatures TerrainFeature { get; set; }
 
         // A city can only raise one army per turn.
         public bool not_hasRaisedArmy { get; set; }
 
         public void changeOwnership(Nation to)
         {
-            foreach (TerrainFeatures sphere_of_influence in CitySphereOfÌnfluence)
-            {
-                sphere_of_influence.NationalTerritory = to;
-                Owner.Territory.Remove(sphere_of_influence);
-            }
             Owner.Cities.Remove(this);
             Owner = to;
         }
 
         public City(string name, Deity creator): base(name, creator)
         {
-            CitySphereOfÌnfluence = new List<TerrainFeatures>();
             not_hasRaisedArmy = true;
         }
     }

@@ -23,14 +23,14 @@ namespace dawn_of_worlds.Creations.Inhabitants
         public List<PhysicalTrait> PhysicalTraits { get; set; }
         public List<SocialCulturalCharacteristic> SocialCulturalCharacteristics { get; set; }
 
-        public Tile HomeTiles { get { return SettledTiles[0]; } }
-        public List<Tile> SettledTiles { get; set; }
+        public Province HomeProvince { get { return SettledProvinces[0]; } }
+        public List<Province> SettledProvinces { get; set; }
 
         public Order OriginOrder { get; set; }
 
         public Race(string name, Deity creator) : base(name, creator)
         {
-            SettledTiles = new List<Tile>();
+            SettledProvinces = new List<Province>();
             Tags = new List<RaceTags>();
 
             PreferredTerrain = new List<RacialPreferredHabitatTerrain>();
@@ -74,9 +74,9 @@ namespace dawn_of_worlds.Creations.Inhabitants
             foreach (SocialCulturalCharacteristic social in SocialCulturalCharacteristics)
                 result += social.ToString() + ", ";
             result += "\n";
-            result += "Home Area: " + HomeTiles + "\n";
+            result += "Home Area: " + HomeProvince + "\n";
             result += "Settled Areas: ";
-            foreach (Tile terrain in SettledTiles)
+            foreach (Province terrain in SettledProvinces)
                 result += terrain.ToString() + ", ";
             result += "\n";
             result += "Origin Order: " + OriginOrder + "\n";
@@ -108,6 +108,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         HillDwellers,
         PlainDwellers,
         DesertDwellers,
+        GrasslandDwellers,
     }
 
     enum RacialPreferredHabitatClimate

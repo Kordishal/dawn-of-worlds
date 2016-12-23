@@ -16,22 +16,22 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
-            if (candidate_tiles().Count == 0)
+            if (candidate_provinces().Count == 0)
                 return false;
 
             return true;
         }
 
-        private List<Tile> candidate_tiles()
+        private List<Province> candidate_provinces()
         {
-            List<Tile> tile_list = new List<Tile>();
-            foreach (Tile terrain in _location.Tiles)
+            List<Province> province_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
             {
                 if (terrain.Type == TerrainType.MountainRange)
-                    tile_list.Add(terrain);
+                    province_list.Add(terrain);
             }
 
-            return tile_list;
+            return province_list;
         }
 
         public override int Weight(Deity creator)
@@ -46,8 +46,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Tile> mountain_locations = candidate_tiles();
-            Tile mountain_location = mountain_locations[Constants.Random.Next(mountain_locations.Count)];
+            List<Province> mountain_locations = candidate_provinces();
+            Province mountain_location = mountain_locations[Constants.Random.Next(mountain_locations.Count)];
             Mountain mountain = new Mountain("PlaceHolder", mountain_location, creator);
 
             int chance = Constants.Random.Next(100);
@@ -85,9 +85,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             mountain.Name = Constants.Names.GetName("mountains");
             ((MountainRange)mountain_location.PrimaryTerrainFeature).Mountains.Add(mountain);
             mountain.Range = (MountainRange)mountain_location.PrimaryTerrainFeature;
-            mountain_location.UnclaimedTerritories.Add(mountain);
-            mountain_location.UnclaimedTravelAreas.Add(mountain);
-            mountain_location.UnclaimedHuntingGrounds.Add(mountain);
+            mountain_location.SecondaryTerrainFeatures.Add(mountain);
+
             creator.TerrainFeatures.Add(mountain);
             creator.LastCreation = mountain;
 

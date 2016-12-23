@@ -20,6 +20,7 @@ namespace dawn_of_worlds.Creations.Organisations
         // Inhabitants
         public Race FoundingRace { get { return InhabitantRaces[0]; } }
         public List<Race> InhabitantRaces { get; set; }
+
         public Avatar Leader { get; set; }
         public List<Avatar> Subjects { get; set; }
 
@@ -35,8 +36,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<City> Cities { get; set; }
 
         // Territory
-        public List<Tile> Tiles { get; set; }
-        public List<TerrainFeatures> Territory { get; set; }
+        public List<Province> Territory { get; set; }
 
         // Conflict 
         public bool isDestroyed { get; set; }
@@ -98,8 +98,7 @@ namespace dawn_of_worlds.Creations.Organisations
             InhabitantRaces = new List<Race>();
             Subjects = new List<Avatar>();
             Cities = new List<City>();
-            Tiles = new List<Tile>();
-            Territory = new List<TerrainFeatures>();            
+            Territory = new List<Province>();         
             Armies = new List<Army>();
             Relationships = new List<Relations>();
             NationalOrders = new List<Order>();

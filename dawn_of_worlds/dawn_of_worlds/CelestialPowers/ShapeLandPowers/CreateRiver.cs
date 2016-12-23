@@ -22,10 +22,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Tile> candidate_terrain()
+        private List<Province> candidate_terrain()
         {
-            List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.Tiles)
+            List<Province> terrain_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
             {
                 if (terrain.Type == TerrainType.MountainRange)
                     terrain_list.Add(terrain);
@@ -49,14 +49,14 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Tile> river_locations = candidate_terrain();
-            Tile river_location = river_locations[Constants.Random.Next(river_locations.Count)];
+            List<Province> river_locations = candidate_terrain();
+            Province river_location = river_locations[Constants.Random.Next(river_locations.Count)];
 
             // Create the river
             River river = new River(Constants.Names.GetName("rivers"), river_location, creator);
             river.BiomeType = BiomeType.PermanentRiver;
             river.Spring = (MountainRange)river_location.PrimaryTerrainFeature;
-            river.Riverbed.Add(river.Spring.Location);
+            river.Riverbed.Add(river.Spring.Province);
 
             // the primary direction of the river. 
             Array directions = Enum.GetValues(typeof(Direction));
@@ -84,7 +84,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             bool[] not_taken_other_direction = new bool[2] { true, true };
 
-            Tile current_location = river_location;
+            Province current_location = river_location;
             bool not_has_found_destination = true;
 
             while (not_has_found_destination)
@@ -178,7 +178,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     }
                     else // if current location is null then the border of the map has been found and the river ends in unknown land.
                     {
-                        river.Destination = new Tile(null, null);
+                        river.Destination = new Province(null, null);
                         river.Destination.Type = TerrainType.Unknown;
                         river.Destination.Name = "Unknown Land";
                         river.Riverbed.Add(river.Destination);
@@ -188,10 +188,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             // Add river to terrains at the end in order to avoid the river ending in itself.
-            foreach (Tile tile in river.Riverbed)
+            foreach (Province province in river.Riverbed)
             {
-                if (tile.Type != TerrainType.Unknown)
-                    tile.SecondaryTerrainFeatures.Add(river);
+                if (province.Type != TerrainType.Unknown)
+                    province.SecondaryTerrainFeatures.Add(river);
             }
 
             // Add river to deity list.

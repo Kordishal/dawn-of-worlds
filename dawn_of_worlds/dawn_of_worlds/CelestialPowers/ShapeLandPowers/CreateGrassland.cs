@@ -13,7 +13,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     class CreateGrassland : ShapeLand
     {
         // Grasslands are never created in landmass, as they are the default terrain type.
-        // but are kept on ocean tiles in case of islands (NYI)
+        // but are kept on ocean provinces in case of islands (NYI)
         public override bool isObsolete
         {
             get
@@ -35,10 +35,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             return true;
         }
 
-        private List<Tile> candidate_terrain()
+        private List<Province> candidate_terrain()
         {
-            List<Tile> terrain_list = new List<Tile>();
-            foreach (Tile terrain in _location.Tiles)
+            List<Province> terrain_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
             {
                 if (terrain.Type == TerrainType.Island)
                     terrain_list.Add(terrain);
@@ -67,8 +67,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Tile> grassland_locations = candidate_terrain();
-            Tile grassland_location = grassland_locations[Constants.Random.Next(grassland_locations.Count)];
+            List<Province> grassland_locations = candidate_terrain();
+            Province grassland_location = grassland_locations[Constants.Random.Next(grassland_locations.Count)];
 
             Grassland grassland = new Grassland("PlaceHolder", grassland_location, creator);
 
@@ -93,9 +93,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             grassland.Name = Constants.Names.GetName("grasslands");
             grassland_location.PrimaryTerrainFeature = grassland;
-            grassland_location.UnclaimedTerritories.Add(grassland);
-            grassland_location.UnclaimedTravelAreas.Add(grassland);
-            grassland_location.UnclaimedHuntingGrounds.Add(grassland);
 
             creator.TerrainFeatures.Add(grassland);
             creator.LastCreation = grassland;

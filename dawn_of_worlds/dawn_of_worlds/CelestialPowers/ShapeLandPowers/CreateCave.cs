@@ -14,23 +14,23 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     {
         public override bool Precondition(Deity creator)
         {
-            // needs a possible tile in the area.
-            if (candidate_tiles().Count == 0)
+            // needs a possible province in the area.
+            if (candidate_provinces().Count == 0)
                 return false;
 
             return true;
         }
 
-        private List<Tile> candidate_tiles()
+        private List<Province> candidate_provinces()
         {
-            List<Tile> tile_list = new List<Tile>();
-            foreach (Tile tile in _location.Tiles)
+            List<Province> province_list = new List<Province>();
+            foreach (Province province in _location.Provinces)
             {
-                if (tile.Type == TerrainType.MountainRange || tile.Type == TerrainType.MountainRange)
-                    tile_list.Add(tile);
+                if (province.Type == TerrainType.MountainRange || province.Type == TerrainType.MountainRange)
+                    province_list.Add(province);
             }
 
-            return tile_list;
+            return province_list;
         }
 
         public override int Weight(Deity creator)
@@ -50,10 +50,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<Tile> cave_locations = candidate_tiles();
+            List<Province> cave_locations = candidate_provinces();
 
             // Caves are placed in a random location within the territory.
-            Tile cave_location = cave_locations[Constants.Random.Next(cave_locations.Count)];
+            Province cave_location = cave_locations[Constants.Random.Next(cave_locations.Count)];
 
             Cave cave = new Cave("PlaceHolder", cave_location, creator);
 
@@ -76,9 +76,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             cave.Name = Constants.Names.GetName("caves");
             cave_location.SecondaryTerrainFeatures.Add(cave);
-            cave_location.UnclaimedTerritories.Add(cave);
-            cave_location.UnclaimedTravelAreas.Add(cave);
-            cave_location.UnclaimedHuntingGrounds.Add(cave);
 
             // Add forest to the deity.
             creator.TerrainFeatures.Add(cave);

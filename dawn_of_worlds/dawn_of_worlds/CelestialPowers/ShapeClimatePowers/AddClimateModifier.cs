@@ -28,8 +28,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 
         public override void Effect(Deity creator)
         {
-            Tile tile = _location.Tiles[Constants.Random.Next(_location.Tiles.Count)];
-            tile.LocalClimateModifier = _modifier;
+            Province province = _location.Provinces[Constants.Random.Next(_location.Provinces.Count)];
+            province.LocalClimateModifier = _modifier;
         }
     }
 }

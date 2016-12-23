@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace dawn_of_worlds.Creations.Diplomacy
         public WarGoalType Type { get; set; }
         public Nation Winner { get; set; }
         public City City { get; set; }
-        public TerrainFeatures Territory { get; set; }
+        public Province Territory { get; set; }
 
         public WarGoal(WarGoalType type)
         {
@@ -72,8 +73,8 @@ namespace dawn_of_worlds.Creations.Diplomacy
     enum WarGoalType
     {
         CityConquest,
-        TerritoryConquest,
-        ExpelNomads,
+        Conquest,
+        RemoveNomadicPresence,
         VassalizeCity,
         TravelAreaConquest,
     }

@@ -106,37 +106,23 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                         return false;
                     break;
             }
+
             switch (_type)
             {
                 case NationTypes.FeudalNation:
                 case NationTypes.TribalNation:
                 case NationTypes.LairTerritory:
-                    foreach (Tile tile in _commanded_race.SettledTiles)
+                    foreach (Province province in _commanded_race.SettledProvinces)
                     {
-                        if (tile.UnclaimedTerritories.Count > 0)
+                        if (province.Owner == null)
                         {
                             return true;
                         }
                     }
                     break;
                 case NationTypes.HuntingGrounds:
-                    foreach (Tile tile in _commanded_race.SettledTiles)
-                    {
-                        if (tile.UnclaimedHuntingGrounds.Count > 0)
-                        {
-                            return true;
-                        }
-                    }
-                    break;
                 case NationTypes.NomadicTribe:
-                    foreach (Tile tile in _commanded_race.SettledTiles)
-                    {
-                        if (tile.UnclaimedTravelAreas.Count > 0)
-                        {
-                            return true;
-                        }
-                    }
-                    break;
+                    return true;
             }
 
             return false;
@@ -144,34 +130,31 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
         public override void Effect(Deity creator)
         {
-            List<WeightedObjects<TerrainFeatures>> possible_locations = new List<WeightedObjects<TerrainFeatures>>();
+            List<WeightedObjects<Province>> possible_locations = new List<WeightedObjects<Province>>();
 
-            foreach (Tile tile in _commanded_race.SettledTiles)
+            foreach (Province province in _commanded_race.SettledProvinces)
             {
                 switch (_type)
                 {
                     case NationTypes.FeudalNation:
                     case NationTypes.TribalNation:
                     case NationTypes.LairTerritory:
-                        foreach (TerrainFeatures feature in tile.UnclaimedTerritories)
-                            possible_locations.Add(new WeightedObjects<TerrainFeatures>(feature));
+                        if (province.Owner == null)
+                            possible_locations.Add(new WeightedObjects<Province>(province));
                         break;
                     case NationTypes.HuntingGrounds:
-                        foreach (TerrainFeatures feature in tile.UnclaimedHuntingGrounds)
-                            possible_locations.Add(new WeightedObjects<TerrainFeatures>(feature));
-                        break;
                     case NationTypes.NomadicTribe:
-                        foreach (TerrainFeatures feature in tile.UnclaimedTravelAreas)
-                            possible_locations.Add(new WeightedObjects<TerrainFeatures>(feature));
+                        possible_locations.Add(new WeightedObjects<Province>(province));
                         break;
                 }
             }
                 
 
-            foreach (WeightedObjects<TerrainFeatures> weighted_feature in possible_locations)
+            foreach (WeightedObjects<Province> weighted_feature in possible_locations)
             {
+                weighted_feature.Weight += 5;
                 // considers the biome of the terrain feature.
-                switch (weighted_feature.Object.BiomeType)
+                switch (weighted_feature.Object.PrimaryTerrainFeature.BiomeType)
                 {
                     case BiomeType.BorealForest:
                     case BiomeType.TemperateDeciduousForest:
@@ -188,7 +171,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                     case BiomeType.TemperateGrassland:
                     case BiomeType.Tundra:
                     case BiomeType.TropicalGrassland:
-                        if (_commanded_race.PreferredTerrain.Exists(x => x == RacialPreferredHabitatTerrain.PlainDwellers))
+                        if (_commanded_race.PreferredTerrain.Exists(x => x == RacialPreferredHabitatTerrain.GrasslandDwellers))
                             weighted_feature.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                         break;
                     case BiomeType.Subterranean:
@@ -196,23 +179,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                             weighted_feature.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                         break;
                 }
-
-                // Considers the type of the terrain feature
-                Type type = weighted_feature.Object.GetType();
-                if (type == typeof(Mountain))
-                    if (_commanded_race.PreferredTerrain.Exists(x => x == RacialPreferredHabitatTerrain.MountainDwellers))
-                        weighted_feature.Weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-                if (type == typeof(Hill))
-                    if (_commanded_race.PreferredTerrain.Exists(x => x == RacialPreferredHabitatTerrain.HillDwellers))
-                        weighted_feature.Weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-                if (type == typeof(Grassland) || type == typeof(Forest) || type == typeof(Desert))
-                    if (_commanded_race.PreferredTerrain.Exists(x => x == RacialPreferredHabitatTerrain.PlainDwellers))
-                        weighted_feature.Weight += Constants.WEIGHT_STANDARD_CHANGE;
-
                 // Considers the generall type of the terrain.
-                switch (weighted_feature.Object.Location.Type)
+                switch (weighted_feature.Object.Type)
                 {
                     case TerrainType.HillRange:
                         if (_commanded_race.PreferredTerrain.Exists(x => x == RacialPreferredHabitatTerrain.HillDwellers))
@@ -227,18 +195,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                             weighted_feature.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                         break;
                 }
-
-                if (weighted_feature.Weight == 0)
-                    weighted_feature.Weight += 5;
             }
 
-            TerrainFeatures location = WeightedObjects<TerrainFeatures>.ChooseRandomObject(possible_locations);
+            Province location = WeightedObjects<Province>.ChooseRandomObject(possible_locations);
             
             Nation founded_nation = new Nation("Nation of " + _commanded_race.Name, creator);
             founded_nation.Type = _type;
             founded_nation.InhabitantRaces.Add(_commanded_race);
             founded_nation.Territory.Add(location);
-            founded_nation.Tiles.Add(location.Location);
 
             // Diplomacy
             if (_commanded_race.Type == SpeciesType.Beasts)
@@ -265,33 +229,26 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 // Nations with cities get their capital city.
                 founded_nation.hasCities = true;
                 founded_nation.Cities.Add(new City("Capital City of " + founded_nation.Name, creator));
-                founded_nation.CapitalCity.CitySphereOfÌnfluence.Add(location);
+                founded_nation.CapitalCity.TerrainFeature = location.PrimaryTerrainFeature;
                 founded_nation.CapitalCity.Owner = founded_nation;
 
-                location.City = founded_nation.CapitalCity;
+                location.PrimaryTerrainFeature.City = founded_nation.CapitalCity;
             }
 
             // Territory
-            founded_nation.Tiles.Add(location.Location);
             founded_nation.Territory.Add(location);
             switch (founded_nation.Type)
             {
                 case NationTypes.FeudalNation:
                 case NationTypes.TribalNation:
                 case NationTypes.LairTerritory:
-                    location.NationalTerritory = founded_nation;
-                    foreach (Tile terrain in _commanded_race.SettledTiles)
-                        terrain.UnclaimedTerritories.Remove(location);
+                    location.Owner = founded_nation;
                     break;
                 case NationTypes.HuntingGrounds:
-                    location.HuntingGround = founded_nation;
-                    foreach (Tile terrain in _commanded_race.SettledTiles)
-                        terrain.UnclaimedHuntingGrounds.Remove(location);
+                    location.HuntingGrounds.Add(founded_nation);
                     break;
                 case NationTypes.NomadicTribe:
-                    location.TraveledArea = founded_nation;
-                    foreach (Tile terrain in _commanded_race.SettledTiles)
-                        terrain.UnclaimedTravelAreas.Remove(location);
+                    location.NomadicPresence.Add(founded_nation);
                     break;
             }
 
@@ -312,17 +269,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 case NationTypes.FeudalNation:
                 case NationTypes.TribalNation:
                 case NationTypes.LairTerritory:
-                    war_goal = new WarGoal(WarGoalType.CityConquest);
-                    war_goal.City = founded_nation.CapitalCity;
+                    war_goal = new WarGoal(WarGoalType.Conquest);
+                    war_goal.Territory = founded_nation.Territory[0];
                     war_goals.Add(war_goal);
                     break;
                 case NationTypes.HuntingGrounds:
                     break;
                 case NationTypes.NomadicTribe:
-                    war_goal = new WarGoal(WarGoalType.ExpelNomads);
-                    war_goals.Add(war_goal);
-                    war_goal = new WarGoal(WarGoalType.TravelAreaConquest);
-                    war_goal.Territory = founded_nation.Territory[0];
+                    war_goal = new WarGoal(WarGoalType.RemoveNomadicPresence);
                     war_goals.Add(war_goal);
                     break;
             }

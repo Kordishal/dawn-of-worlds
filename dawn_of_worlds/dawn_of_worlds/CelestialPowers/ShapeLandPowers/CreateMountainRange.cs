@@ -15,41 +15,41 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override bool Precondition(Deity creator)
         {
             // needs a possible terrain in the area.
-            if (candidate_tiles().Count == 0)
+            if (candidate_provinces().Count == 0)
                 return false;
 
             return true;
         }
 
-        private List<WeightedObjects<Tile>> candidate_tiles()
+        private List<WeightedObjects<Province>> candidate_provinces()
         {
-            List<WeightedObjects<Tile>> tile_list = new List<WeightedObjects<Tile>>();
-            foreach (Tile tile in _location.Tiles)
+            List<WeightedObjects<Province>> province_list = new List<WeightedObjects<Province>>();
+            foreach (Province province in _location.Provinces)
             {
-                if (tile.isDefault && tile.Type == TerrainType.Plain)
+                if (province.isDefault && province.Type == TerrainType.Plain)
                 {
-                    WeightedObjects<Tile> weighted_tile = new WeightedObjects<Tile>(tile);
-                    weighted_tile.Weight += 5; // Add so that each possible tile has at least some weight as otherwise none will be chosen.
+                    WeightedObjects<Province> weighted_province = new WeightedObjects<Province>(province);
+                    weighted_province.Weight += 5; // Add so that each possible province has at least some weight as otherwise none will be chosen.
 
                     for (int i = 0; i < 8; i++)
                     {
-                        SystemCoordinates coords = tile.Coordinates;
+                        SystemCoordinates coords = province.Coordinates;
                         coords = coords.GetNeighbour(i);
 
                         if (coords.isInTileGridBounds())
                         {
                             if (Program.World.TileGrid[coords.X, coords.Y].Type == TerrainType.MountainRange)
-                                weighted_tile.Weight += 20;
+                                weighted_province.Weight += 20;
                             if (Program.World.TileGrid[coords.X, coords.Y].Type == TerrainType.HillRange)
-                                weighted_tile.Weight += 10;
+                                weighted_province.Weight += 10;
                         }
                     }
 
-                    tile_list.Add(weighted_tile);
+                    province_list.Add(weighted_province);
                 }
             }
 
-            return tile_list;
+            return province_list;
         }
 
         public override int Weight(Deity creator)
@@ -65,8 +65,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override void Effect(Deity creator)
         {
-            List<WeightedObjects<Tile>> mountain_range_locations = candidate_tiles();
-            Tile mountain_range_location = WeightedObjects<Tile>.ChooseRandomObject(mountain_range_locations);
+            List<WeightedObjects<Province>> mountain_range_locations = candidate_provinces();
+            Province mountain_range_location = WeightedObjects<Province>.ChooseRandomObject(mountain_range_locations);
             MountainRange mountain_range = new MountainRange(Constants.Names.GetName("mountain_ranges"), mountain_range_location, creator);
             mountain_range_location.Type = TerrainType.MountainRange;
             mountain_range_location.PrimaryTerrainFeature = mountain_range;

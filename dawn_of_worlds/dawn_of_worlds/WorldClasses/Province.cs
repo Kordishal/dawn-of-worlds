@@ -7,7 +7,7 @@ using dawn_of_worlds.Creations.Organisations;
 
 namespace dawn_of_worlds.WorldClasses
 {
-    class Tile
+    class Province
     {
         public string Name { get; set; }
 
@@ -22,6 +22,22 @@ namespace dawn_of_worlds.WorldClasses
         public bool isDefault { get; set; }
         public TerrainFeatures PrimaryTerrainFeature { get; set; }
         public List<TerrainFeatures> SecondaryTerrainFeatures { get; set; }
+
+        public Nation Owner { get; set; }
+        public List<Nation> NomadicPresence { get; set; }
+        public List<Nation> HuntingGrounds { get; set; }
+
+        public void changeOwnership(Nation winner)
+        {
+            List<City> local_cities = Owner.Cities.FindAll(x => x.TerrainFeature.Province == this);
+            foreach (City city in local_cities)
+            {
+                Owner.Cities.Remove(city);
+                city.Owner = winner;
+            }
+            Owner.Territory.Remove(this);
+            Owner = winner;
+        }
 
         public bool hasRivers
         {
@@ -38,24 +54,19 @@ namespace dawn_of_worlds.WorldClasses
 
         public List<Race> SettledRaces { get; set; }
 
-        public List<TerrainFeatures> UnclaimedTerritories { get; set; }
-        public List<TerrainFeatures> UnclaimedTravelAreas { get; set; }
-        public List<TerrainFeatures> UnclaimedHuntingGrounds { get; set; }
-
-        public Tile(Area area, SystemCoordinates coordinates)
+        public Province(Area area, SystemCoordinates coordinates)
         {
             Name = Constants.Names.GetName("area");
             Area = area;
             Coordinates = coordinates;
+            NomadicPresence = new List<Nation>();
+            HuntingGrounds = new List<Nation>();
         }
 
         public void initialize()
         {
             SettledRaces = new List<Race>();
             SecondaryTerrainFeatures = new List<TerrainFeatures>();
-            UnclaimedTerritories = new List<TerrainFeatures>();
-            UnclaimedTravelAreas = new List<TerrainFeatures>();
-            UnclaimedHuntingGrounds = new List<TerrainFeatures>();
             isDefault = true;
 
             if (Coordinates.X < Constants.ARCTIC_CLIMATE_BORDER)
@@ -98,11 +109,6 @@ namespace dawn_of_worlds.WorldClasses
                         PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
                         break;
                 }
-
-                UnclaimedTerritories.Add(PrimaryTerrainFeature);
-                UnclaimedTravelAreas.Add(PrimaryTerrainFeature);
-                UnclaimedHuntingGrounds.Add(PrimaryTerrainFeature);
-
             }
             else
             {
