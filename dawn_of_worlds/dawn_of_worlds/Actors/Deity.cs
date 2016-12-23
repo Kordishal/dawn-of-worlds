@@ -76,7 +76,7 @@ namespace dawn_of_worlds.Actors
             // Create Races
             foreach (Race race in DefinedRaces.DefinedRacesList)
             {
-                foreach (Province province in current_world.TileGrid)
+                foreach (Province province in current_world.ProvinceGrid)
                 {
                     Powers.Add(new CreateRace(race, province));
                 }              

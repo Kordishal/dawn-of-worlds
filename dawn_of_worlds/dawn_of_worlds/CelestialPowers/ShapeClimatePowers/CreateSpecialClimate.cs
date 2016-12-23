@@ -46,7 +46,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
                     {
                         if (province.Coordinates.GetNeighbour(i).isInTileGridBounds())
                         {
-                            if (Program.World.getTile(province.Coordinates.GetNeighbour(i)).LocalClimate == _climate)
+                            if (Program.World.getProvince(province.Coordinates.GetNeighbour(i)).LocalClimate == _climate)
                                 weighted_province.Weight += 10;
                         }
                     }

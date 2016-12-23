@@ -74,7 +74,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            cave.Name = Constants.Names.GetName("caves");
+            cave.Name.Singular = Constants.Names.GetName("caves");
             cave_location.SecondaryTerrainFeatures.Add(cave);
 
             // Add forest to the deity.

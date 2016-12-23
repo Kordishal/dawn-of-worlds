@@ -38,9 +38,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
                         if (coords.isInTileGridBounds())
                         {
-                            if (Program.World.TileGrid[coords.X, coords.Y].Type == TerrainType.MountainRange)
+                            if (Program.World.ProvinceGrid[coords.X, coords.Y].Type == TerrainType.MountainRange)
                                 weighted_province.Weight += 20;
-                            if (Program.World.TileGrid[coords.X, coords.Y].Type == TerrainType.HillRange)
+                            if (Program.World.ProvinceGrid[coords.X, coords.Y].Type == TerrainType.HillRange)
                                 weighted_province.Weight += 10;
                         }
                     }

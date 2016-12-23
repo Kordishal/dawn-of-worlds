@@ -71,7 +71,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             foreach (NationTypes type in Enum.GetValues(typeof(NationTypes)))
                 creator.Powers.Add(new UsePower(created_avatar, new FoundNation(created_avatar.AvatarRace, type)));
 
-            created_avatar.Name = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
+            created_avatar.Name.Singular = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
 
             if (_nation != null && !_nation.isDestroyed)
             {

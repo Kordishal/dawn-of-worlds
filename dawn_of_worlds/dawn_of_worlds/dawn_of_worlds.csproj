@@ -135,6 +135,7 @@
     <Compile Include="Main\Simulation.cs" />
     <Compile Include="Main\TimeLine.cs" />
     <Compile Include="Names\MarkovGenerator\MarkovChain.cs" />
+    <Compile Include="Names\Name.cs" />
     <Compile Include="Names\NameGenerator.cs" />
     <Compile Include="Names\NameSet.cs" />
     <Compile Include="Names\Parser\NameSetFSM.cs" />

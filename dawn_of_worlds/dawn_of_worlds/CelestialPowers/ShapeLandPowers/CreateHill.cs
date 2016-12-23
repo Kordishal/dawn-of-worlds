@@ -93,7 +93,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            hill.Name = Constants.Names.GetName("hills");
+            hill.Name.Singular = Constants.Names.GetName("hills");
 
             // Add hill to hill range.
             ((HillRange)hill_location.PrimaryTerrainFeature).Hills.Add(hill);

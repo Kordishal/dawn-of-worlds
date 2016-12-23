@@ -171,6 +171,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
             defineDragonicRaces();
             defineDwarvenRaces();
             defineOrcishRaces();
+            defineGiantRaces();
         }
 
 
@@ -197,7 +198,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
             DefinedRacesList.Add(Norse);
         }
-
         private static void defineElfishRaces()
         {
             HighElves = new Race("High Elves", null);
@@ -246,7 +246,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
             DefinedRacesList.Add(WildElves);
         }
-
         private static void defineDragonicRaces()
         {
             ProtoDragons = new Race("Protodragons", null);
@@ -287,7 +286,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
             DefinedRacesList.Add(GoldDragons);
         }
-
         private static void defineDwarvenRaces()
         {
             MountainDwarves = new Race("Mountain Dwarves", null);
@@ -310,10 +308,9 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
             DefinedRacesList.Add(HillDwarves);
         }
-
-        private void defineGiantRaces()
+        private static void defineGiantRaces()
         {
-            Giants = new Race("Giants", null);
+            Giants = new Race("Giant", null);
             Giants.Type = SpeciesType.Humanoid;
             Giants.Habitat = RacialHabitat.Terranean;
             Giants.Lifespan = RacialLifespan.Enduring;
@@ -336,8 +333,9 @@ namespace dawn_of_worlds.Creations.Inhabitants
             StormGiants.Lifespan = RacialLifespan.Enduring;
             StormGiants.PhysicalTraits.Add(PhysicalTrait.Strong);
             StormGiants.PreferredTerrain.Add(RacialPreferredHabitatTerrain.MountainDwellers);
-        }
 
+            DefinedRacesList.Add(StormGiants);
+        }
         private static void defineOrcishRaces()
         {
             Orcs = new Race("Orcs", null);
@@ -349,7 +347,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
             DefinedRacesList.Add(Orcs);
         }
-
         private static void defineGoblinoidRaces()
         {
             Goblins = new Race("Goblin", null);
@@ -363,9 +360,25 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(Goblins);
 
             Hobgoblins = new Race("Hobgoblin", null);
+            Hobgoblins.Type = SpeciesType.Humanoid;
+            Hobgoblins.Habitat = RacialHabitat.Terranean;
+            Hobgoblins.Lifespan = RacialLifespan.Average;
+            Hobgoblins.PhysicalTraits.Add(PhysicalTrait.Strong);
+            Hobgoblins.PreferredClimate.Add(RacialPreferredHabitatClimate.Temperate);
+            Hobgoblins.SocialCulturalCharacteristics.Add(SocialCulturalCharacteristic.Tribal);
 
-            Bugbears = new Race("Bugbears", null);
+            Bugbears = new Race("Bugbear", null);
+            Bugbears.Type = SpeciesType.Humanoid;
+            Bugbears.Habitat = RacialHabitat.Terranean;
+            Bugbears.Lifespan = RacialLifespan.Average;
+            Bugbears.PhysicalTraits.Add(PhysicalTrait.Strong);
+            Bugbears.PreferredClimate.Add(RacialPreferredHabitatClimate.Temperate);
         }
+        private static void defineGiantAnimals()
+        {
+
+        }
+
 
     }
 }

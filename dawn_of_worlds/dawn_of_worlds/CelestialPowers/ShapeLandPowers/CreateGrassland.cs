@@ -91,7 +91,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            grassland.Name = Constants.Names.GetName("grasslands");
+            grassland.Name.Singular = Constants.Names.GetName("grasslands");
             grassland_location.PrimaryTerrainFeature = grassland;
 
             creator.TerrainFeatures.Add(grassland);

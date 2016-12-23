@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Names;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace dawn_of_worlds.Creations
         private static int id = 0;
 
         private int _identifier { get; set; }
-        public string Name { get; set; }
+        public Name Name { get; set; }
 
         public Deity Creator { get; set; }
 
@@ -22,7 +23,8 @@ namespace dawn_of_worlds.Creations
             _identifier = id;
             id++;
 
-            Name = name + " {" + id + "}";
+            Name = new Name();
+            Name.Singular = name + " {" + id + "}";
             Creator = creator;
         }
 
@@ -30,7 +32,7 @@ namespace dawn_of_worlds.Creations
 
         public override string ToString()
         {
-            return Name;
+            return Name.Singular;
         }
     }
 }

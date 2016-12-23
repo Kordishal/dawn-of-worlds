@@ -53,7 +53,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         public string printRace()
         {
             string result = "";
-            result += "Name: " + Name + "\n";
+            result += "Name: " + Name.ToString() + "\n";
             result += "Year of Creation: " + YearofCreation + "\n";
             result += "Type: " + Type + "\n";
             result += "Habitat: " + Habitat + "\n";

@@ -75,7 +75,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
                 // ignore areas outside of the world.
                 if (coords.isInTileGridBounds())
                 {
-                    switch (Program.World.TileGrid[coords.X, coords.Y].LocalClimate)
+                    switch (Program.World.ProvinceGrid[coords.X, coords.Y].LocalClimate)
                     {
                         case Climate.Arctic:
                             climate_count[0] += 1;
