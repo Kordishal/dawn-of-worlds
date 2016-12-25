@@ -21,6 +21,7 @@ namespace dawn_of_worlds.Log
         private static StreamWriter AreaWriter { get; set; }
         private static StreamWriter RaceWriter { get; set; }
         private static StreamWriter NationWriter { get; set; }
+        private static StreamWriter WarWriter { get; set; }
 
         public static void cleanDirectories()
         {
@@ -108,6 +109,7 @@ namespace dawn_of_worlds.Log
         private const string DEITIES = @"\Deities\";
         private const string RACE_DIRECTORY = @"\Races\";
         private const string NATION_DIRECTORY = @"\Nations\";
+        private const string WAR_DIRECTORY = @"\Diplomacy\Wars\";
 
         private const string RECORDS_BY_TYPE = @"\RecordsByType\";
 

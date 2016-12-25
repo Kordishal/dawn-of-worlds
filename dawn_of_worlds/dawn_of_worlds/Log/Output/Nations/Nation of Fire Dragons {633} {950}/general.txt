@@ -3,10 +3,10 @@ Type: LairTerritory
 Founding Race: Fire Dragons {633}
 Races: Destroyed: False
 Fire Dragons {633} 
-Leader: Fire Dragons {633} RoyalDynasty
-Avatars: Fire Dragons {633} RoyalDynasty Fire Dragons {633} RoyalDynasty Fire Dragons {633} HighPriest 
+Leader: Fire Dragons {633} LegendaryBeast
+Avatars: Fire Dragons {633} LegendaryBeast 
 Capital City: Capital City of Nation of Fire Dragons {633} {950} {951}
-Cities: Capital City of Nation of Fire Dragons {633} {950} {951} Troy Aenus Laodicea 
-Territory: Toomevagh Letterfrack Money Ballen 
-Orders: Sect of Ishtar {952} 
-Tags: VeryRich GoldMine 
+Cities: Capital City of Nation of Fire Dragons {633} {950} {951} Antine 
+Territory: Termoneyreagh Ballen Toomevagh 
+Orders: Communion of Pakhet {952} 
+Tags: 

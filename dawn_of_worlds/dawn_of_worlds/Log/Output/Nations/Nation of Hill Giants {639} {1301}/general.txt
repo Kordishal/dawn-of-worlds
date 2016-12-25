@@ -1,0 +1,11 @@
+Name: Nation of Hill Giants {639} {1301}
+Type: TribalNation
+Founding Race: Hill Giants {639}
+Races: Destroyed: False
+Hill Giants {639} 
+Avatars: 
+Capital City: Capital City of Nation of Hill Giants {639} {1301} {1302}
+Cities: Capital City of Nation of Hill Giants {639} {1301} {1302} Olynthus Pitida 
+Territory: Mullaghbrack Cappagh Ballyveagh 
+Orders: Wanderers of Pakhet {1303} PlaceHolder {1342} 
+Tags: 

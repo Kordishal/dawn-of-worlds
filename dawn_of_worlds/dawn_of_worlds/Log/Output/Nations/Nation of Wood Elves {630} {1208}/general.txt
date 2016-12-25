@@ -1,0 +1,11 @@
+Name: Nation of Wood Elves {630} {1208}
+Type: FeudalNation
+Founding Race: Wood Elves {630}
+Races: Destroyed: False
+Wood Elves {630} 
+Avatars: 
+Capital City: Capital City of Nation of Wood Elves {630} {1208} {1209}
+Cities: Capital City of Nation of Wood Elves {630} {1208} {1209} 
+Territory: Mulliaghgorml 
+Orders: Church of Mafdet {1210} 
+Tags: 

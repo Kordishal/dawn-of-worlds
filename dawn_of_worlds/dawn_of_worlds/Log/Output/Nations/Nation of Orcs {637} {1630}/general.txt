@@ -1,9 +1,0 @@
-Name: Nation of Orcs {637} {1630}
-Type: NomadicTribe
-Founding Race: Orcs {637}
-Races: Destroyed: False
-Orcs {637} 
-Avatars: 
-Territory: Ball 
-Orders: Cult of Conquest {1631} 
-Tags: 

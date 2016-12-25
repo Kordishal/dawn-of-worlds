@@ -20,13 +20,10 @@ namespace dawn_of_worlds.Actors
     {
         public string Name { get; set; }
         public int PowerPoints { get; set; }
-
-        public Power LastUsedPower { get; set; }
+        public List<Domain> Domains { get; set; }
         public List<Power> Powers { get; set; }
 
-        public List<Domain> Domains { get; set; }
-
-        public Creation LastCreation { get; set; }
+        public DeityModifiers Modifiers { get; set; }
 
         public List<TerrainFeatures> TerrainFeatures { get; set; }
         public List<Race> CreatedRaces { get; set; }
@@ -35,23 +32,25 @@ namespace dawn_of_worlds.Actors
         public List<Nation> FoundedNations { get; set; }
         public List<City> FoundedCities { get; set; }
 
-        public List<string> ActionLog { get; set; }
-
+        public Power LastUsedPower { get; set; }
+        public Creation LastCreation { get; set; }
 
         public Deity(string name, World current_world)
         {
             Name = name;
+
             PowerPoints = 0;
+            Modifiers = new DeityModifiers();
+
             Powers = new List<Power>();
             Domains = new List<Domain>();
+
             TerrainFeatures = new List<TerrainFeatures>();
             CreatedRaces = new List<Race>();
             CreatedOrders = new List<Order>();
             CreatedAvatars = new List<Avatar>();
             FoundedNations = new List<Nation>();
             FoundedCities = new List<City>();
-
-            ActionLog = new List<string>();
 
             foreach (Area area in current_world.AreaGrid)
             {
@@ -84,18 +83,17 @@ namespace dawn_of_worlds.Actors
         }
 
 
-        public void AddPowerPoints()
+        public void calculatePowerPoints()
         {
-            //Console.WriteLine("PowerPoints before new Turn: " + PowerPoints);
-
             if (PowerPoints < 5)
                 PowerPoints = PowerPoints + (5 - PowerPoints);
 
             PowerPoints = PowerPoints + Constants.Random.Next(Constants.DEITY_BASE_POWERPOINT_MIN_GAIN, Constants.DEITY_BASE_POWERPOINT_MAX_GAIN);
 
-            //Console.WriteLine("PowerPoints after adding turn gain: " + PowerPoints);
-        }
+            PowerPoints = PowerPoints + Modifiers.BonusPowerPoints;
 
+            PowerPoints = (int)Math.Floor(PowerPoints * Modifiers.PowerPointModifier);
+        }
         public void Turn()
         {
             List<Power> current_powers = new List<Power>(Powers);
@@ -233,4 +231,17 @@ namespace dawn_of_worlds.Actors
             return result;
         }
     }
+
+    public class DeityModifiers
+    {
+        public int BonusPowerPoints { get; set; }
+        public double PowerPointModifier { get; set; }
+
+        public DeityModifiers()
+        {
+            BonusPowerPoints = 0;
+            PowerPointModifier = 1.0;
+        }
+    }
+
 }

@@ -1,0 +1,10 @@
+Name: Nation of Norse {627} {1117}
+Type: NomadicTribe
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Leader: Norse {627} RoyalDynasty
+Avatars: Norse {627} RoyalDynasty Norse {627} General 
+Territory: Clonmel Ballysallyvea Urlare Donaghagower 
+Orders: Oracles of Conquest {1118} 
+Tags: VeryRich GoldMine 

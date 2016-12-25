@@ -1,0 +1,9 @@
+Name: Nation of Wood Elves {630} {1238}
+Type: NomadicTribe
+Founding Race: Wood Elves {630}
+Races: Destroyed: False
+Wood Elves {630} 
+Avatars: 
+Territory: Poulaphouca Finganbo 
+Orders: Paragons of Ishtar {1239} PlaceHolder {1540} 
+Tags: VeryRich GoldMine 

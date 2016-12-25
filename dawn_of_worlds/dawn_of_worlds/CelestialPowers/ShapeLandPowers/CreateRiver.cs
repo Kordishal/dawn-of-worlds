@@ -194,6 +194,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     province.SecondaryTerrainFeatures.Add(river);
             }
 
+            river.Modifiers.NaturalDefenceValue += 1;
+
             // Add river to deity list.
             creator.TerrainFeatures.Add(river);
             creator.LastCreation = river;

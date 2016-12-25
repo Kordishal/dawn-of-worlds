@@ -3,9 +3,10 @@ Type: TribalNation
 Founding Race: Hill Giants {639}
 Races: Destroyed: False
 Hill Giants {639} 
-Avatars: Hill Giants {639} Champion 
+Leader: Hill Giants {639} RoyalDynasty
+Avatars: Hill Giants {639} Champion Hill Giants {639} RoyalDynasty Hill Giants {639} Champion 
 Capital City: Capital City of Nation of Hill Giants {639} {906} {907}
-Cities: Capital City of Nation of Hill Giants {639} {906} {907} Tyras Artanes 
-Territory: Benbeg Ballaun Killy 
-Orders: Cult of Cold {908} PlaceHolder {1042} PlaceHolder {1172} 
+Cities: Capital City of Nation of Hill Giants {639} {906} {907} Lepreum 
+Territory: Benbeg Ballaun Killy Illaghgormley Glasneve Dona Urlar 
+Orders: Cult of Cold {908} 
 Tags: 

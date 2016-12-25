@@ -10,6 +10,7 @@ using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.CelestialPowers.CommandCityPowers;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Diplomacy;
+using dawn_of_worlds.Creations.Objects;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -105,6 +106,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // Add city related powers and the creator
             creator.FoundedCities.Add(founded_city);
             creator.Powers.Add(new RaiseArmy(founded_city));
+            creator.Powers.Add(new ConstructBuilding(founded_city, BuildingType.CityWall));
 
             creator.LastCreation = founded_city;
 

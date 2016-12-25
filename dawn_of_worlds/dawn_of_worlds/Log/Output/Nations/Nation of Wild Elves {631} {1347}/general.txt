@@ -1,0 +1,11 @@
+Name: Nation of Wild Elves {631} {1347}
+Type: TribalNation
+Founding Race: Wild Elves {631}
+Races: Destroyed: False
+Wild Elves {631} 
+Avatars: Wild Elves {631} General 
+Capital City: Capital City of Nation of Wild Elves {631} {1347} {1348}
+Cities: Capital City of Nation of Wild Elves {631} {1347} {1348} 
+Territory: Inishmaan 
+Orders: Brotherhood of Mafdet {1349} 
+Tags: 

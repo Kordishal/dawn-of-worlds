@@ -61,6 +61,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             forest_location.PrimaryTerrainFeature = forest;
             forest_location.isDefault = false;
 
+            forest.Modifiers.NaturalDefenceValue += 1;
+
             // Add forest to the deity.
             creator.TerrainFeatures.Add(forest);
             creator.LastCreation = forest;

@@ -1,0 +1,11 @@
+Name: Nation of Gold Dragons {634} {1056}
+Type: LairTerritory
+Founding Race: Gold Dragons {634}
+Races: Destroyed: False
+Gold Dragons {634} 
+Avatars: Gold Dragons {634} Champion Gold Dragons {634} HighPriest 
+Capital City: Capital City of Nation of Gold Dragons {634} {1056} {1057}
+Cities: Capital City of Nation of Gold Dragons {634} {1056} {1057} Carysthenedon 
+Territory: Carnmonfeckin Cloughduv 
+Orders: Fellows of Ishtar {1058} 
+Tags: 

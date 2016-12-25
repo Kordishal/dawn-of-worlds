@@ -91,7 +91,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandArmyPowers
                 _commanded_army.Location = target_army.Location;
             }
 
-            Battle battle = new Battle(_commanded_army.Name + " vs. " + target_army.Name, creator, _commanded_army, target_army);
+            Battle battle = new Battle(_commanded_army.Name + " vs. " + target_army.Name, creator, _commanded_army, target_army, target_army.Location);
             battle.Fight();
 
             creator.LastCreation = null;

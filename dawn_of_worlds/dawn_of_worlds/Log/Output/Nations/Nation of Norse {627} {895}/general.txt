@@ -4,7 +4,7 @@ Founding Race: Norse {627}
 Races: Destroyed: False
 Norse {627} 
 Leader: Norse {627} RoyalDynasty
-Avatars: Norse {627} HighPriest Norse {627} RoyalDynasty Norse {627} General 
-Territory: Skeheen Glass Tieve Dona Coomevagh Coolockcorry Poulaphouca Stra 
+Avatars: Norse {627} HighPriest Norse {627} RoyalDynasty Norse {627} Champion Norse {627} General Norse {627} RoyalDynasty Norse {627} RoyalDynasty 
+Territory: Skeheen Glass Tieve Dona Raherafelt Tullagh Coomevagh Tubberclare Portlaoise Croaghmore 
 Orders: Wanderers of Wind {896} 
-Tags: VeryRich GoldMine 
+Tags: 

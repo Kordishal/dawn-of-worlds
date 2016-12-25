@@ -15,7 +15,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
     {
         public override bool Precondition(Deity creator)
         {
-            if (_commanded_city.not_hasRaisedArmy)
+            if (_commanded_city.Modifiers.not_hasRaisedArmy)
                 return true;
 
             return false;
@@ -46,7 +46,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             _commanded_city.Owner.Armies.Add(army);
 
             // City has raised an army and cannot do so until next turn.
-            _commanded_city.not_hasRaisedArmy = false;
+            _commanded_city.Modifiers.not_hasRaisedArmy = false;
 
             // Powers related to this army.
             army.Creator.Powers.Add(new AttackArmy(army));

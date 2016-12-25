@@ -65,6 +65,7 @@
     <Compile Include="CelestialPowers\CommandAvatarPowers\CommandAvatar.cs" />
     <Compile Include="CelestialPowers\CommandAvatarPowers\UsePower.cs" />
     <Compile Include="CelestialPowers\CommandCityPowers\CommandCity.cs" />
+    <Compile Include="CelestialPowers\CommandCityPowers\ConstructBuilding.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CommandNation.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CreateCity.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\DeclareWar.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Creations\Inhabitants\Avatar.cs" />
     <Compile Include="Creations\Inhabitants\DefinedRaces.cs" />
     <Compile Include="Creations\Inhabitants\Race.cs" />
+    <Compile Include="Creations\Objects\Building.cs" />
     <Compile Include="Creations\Organisations\Army.cs" />
     <Compile Include="Creations\Organisations\City.cs" />
     <Compile Include="Creations\Organisations\Nation.cs" />

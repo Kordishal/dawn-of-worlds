@@ -1,0 +1,11 @@
+Name: Nation of Norse {627} {967}
+Type: TribalNation
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Avatars: 
+Capital City: Capital City of Nation of Norse {627} {967} {968}
+Cities: Capital City of Nation of Norse {627} {967} {968} 
+Territory: Loughgorm Ballymonabane Glen 
+Orders: Gathering of Metallurgy {969} 
+Tags: 

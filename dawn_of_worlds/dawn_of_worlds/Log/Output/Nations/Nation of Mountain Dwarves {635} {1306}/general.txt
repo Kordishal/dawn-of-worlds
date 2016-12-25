@@ -1,0 +1,9 @@
+Name: Nation of Mountain Dwarves {635} {1306}
+Type: NomadicTribe
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: 
+Territory: Athlone 
+Orders: Church of Mafdet {1307} 
+Tags: 

@@ -1,0 +1,11 @@
+Name: Nation of Wild Elves {631} {1034}
+Type: FeudalNation
+Founding Race: Wild Elves {631}
+Races: Destroyed: False
+Wild Elves {631} 
+Avatars: Wild Elves {631} General 
+Capital City: Capital City of Nation of Wild Elves {631} {1034} {1035}
+Cities: Capital City of Nation of Wild Elves {631} {1034} {1035} 
+Territory: Poulaphouca Clondrohid 
+Orders: Oracles of Conquest {1036} 
+Tags: 

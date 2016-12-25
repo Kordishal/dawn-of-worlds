@@ -1,0 +1,11 @@
+Name: Nation of Norse {627} {1343}
+Type: FeudalNation
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Avatars: 
+Capital City: Capital City of Nation of Norse {627} {1343} {1344}
+Cities: Capital City of Nation of Norse {627} {1343} {1344} 
+Territory: Cultranorlare 
+Orders: Commune of Thoth {1345} PlaceHolder {1449} 
+Tags: 

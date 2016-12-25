@@ -1,0 +1,11 @@
+Name: Nation of Storm Giants {640} {1503}
+Type: TribalNation
+Founding Race: Storm Giants {640}
+Races: Destroyed: False
+Storm Giants {640} 
+Avatars: 
+Capital City: Capital City of Nation of Storm Giants {640} {1503} {1504}
+Cities: Capital City of Nation of Storm Giants {640} {1503} {1504} 
+Territory: Tobercurryduf 
+Orders: Congregation of Peace {1505} 
+Tags: 

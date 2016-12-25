@@ -1,0 +1,9 @@
+Name: Nation of Dark Elves {629} {1623}
+Type: NomadicTribe
+Founding Race: Dark Elves {629}
+Races: Destroyed: False
+Dark Elves {629} 
+Avatars: 
+Territory: Athlone 
+Orders: Order of Mafdet {1624} 
+Tags: 

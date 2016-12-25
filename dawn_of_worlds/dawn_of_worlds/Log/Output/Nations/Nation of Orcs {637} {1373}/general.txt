@@ -1,0 +1,11 @@
+Name: Nation of Orcs {637} {1373}
+Type: FeudalNation
+Founding Race: Orcs {637}
+Races: Destroyed: False
+Orcs {637} 
+Avatars: 
+Capital City: Capital City of Nation of Orcs {637} {1373} {1374}
+Cities: Capital City of Nation of Orcs {637} {1373} {1374} 
+Territory: Donard 
+Orders: Creed of Mehen {1375} 
+Tags: 

@@ -1,0 +1,9 @@
+Name: Nation of Norse {627} {1645}
+Type: NomadicTribe
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Avatars: 
+Territory: Derry 
+Orders: Congregation of Pakhet {1646} 
+Tags: 

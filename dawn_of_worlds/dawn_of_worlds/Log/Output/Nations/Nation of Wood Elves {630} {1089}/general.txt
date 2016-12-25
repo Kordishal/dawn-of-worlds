@@ -1,0 +1,10 @@
+Name: Nation of Wood Elves {630} {1089}
+Type: NomadicTribe
+Founding Race: Wood Elves {630}
+Races: Destroyed: False
+Wood Elves {630} 
+Leader: Wood Elves {630} RoyalDynasty
+Avatars: Wood Elves {630} RoyalDynasty 
+Territory: Carnmone Eskra Drumshanbaun Bundore 
+Orders: Oracles of Pestilence {1090} 
+Tags: VeryRich GoldMine 

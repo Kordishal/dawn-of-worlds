@@ -100,6 +100,19 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             hill.Range = (HillRange)hill_location.PrimaryTerrainFeature;
             hill_location.SecondaryTerrainFeatures.Add(hill);
 
+            hill.Modifiers.NaturalDefenceValue += 2;
+            switch (hill.BiomeType)
+            {
+                case BiomeType.BorealForest:
+                case BiomeType.TemperateDeciduousForest:
+                case BiomeType.TropicalDryForest:
+                case BiomeType.TropicalRainforest:
+                    hill.Modifiers.NaturalDefenceValue += 1;
+                    break;
+                default:
+                    break;
+            }
+
             // Add mountain to deity lists
             creator.TerrainFeatures.Add(hill);
             creator.LastCreation = hill;

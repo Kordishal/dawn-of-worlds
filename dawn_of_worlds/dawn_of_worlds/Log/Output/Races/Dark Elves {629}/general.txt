@@ -8,5 +8,5 @@ Lifespan: Venerable
 Physical Traits: 
 Social & Cultural Traits: Communal, Sedentary, 
 Home Area: Terrain: Kenmaistir
-Settled Areas: Terrain: Kenmaistir, Terrain: Athlone, Terrain: Owenbeg, Terrain: Loughalee, Terrain: Tobermore, Terrain: Cooranorlar, Terrain: Ballaun, Terrain: Clonmel, 
+Settled Areas: Terrain: Kenmaistir, Terrain: Athlone, Terrain: Owenbeg, Terrain: Cooranorlar, Terrain: Carrickbeg, Terrain: Droghrim, Terrain: Letterkenny, Terrain: Ballaun, Terrain: Clonmel, Terrain: Tobermore, 
 Origin Order: Children of Ishtar

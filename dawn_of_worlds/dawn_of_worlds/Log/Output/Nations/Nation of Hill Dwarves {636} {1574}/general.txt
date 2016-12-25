@@ -1,0 +1,10 @@
+Name: Nation of Hill Dwarves {636} {1574}
+Type: NomadicTribe
+Founding Race: Hill Dwarves {636}
+Races: Destroyed: False
+Hill Dwarves {636} 
+Leader: Hill Dwarves {636} RoyalDynasty
+Avatars: Hill Dwarves {636} RoyalDynasty 
+Territory: Ballymone 
+Orders: Fellowship of Mafdet {1575} 
+Tags: 

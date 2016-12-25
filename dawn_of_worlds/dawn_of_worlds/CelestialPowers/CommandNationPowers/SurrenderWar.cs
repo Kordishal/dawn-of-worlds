@@ -62,6 +62,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                     break;
             }
             _surrendered_war.hasEnded = true;
+            _surrendered_war.End = Simulation.Time.Shuffle;
 
             creator.LastCreation = _surrendered_war;
         }

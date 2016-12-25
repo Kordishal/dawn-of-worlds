@@ -1,11 +1,9 @@
 Name: Nation of Wood Elves {630} {1579}
-Type: FeudalNation
+Type: NomadicTribe
 Founding Race: Wood Elves {630}
 Races: Destroyed: False
 Wood Elves {630} 
 Avatars: 
-Capital City: Capital City of Nation of Wood Elves {630} {1579} {1580}
-Cities: Capital City of Nation of Wood Elves {630} {1579} {1580} 
-Territory: Donagh 
-Orders: Gathering of Conquest {1581} 
+Territory: Mulliaghgorml 
+Orders: Commune of Exploration {1580} 
 Tags: 

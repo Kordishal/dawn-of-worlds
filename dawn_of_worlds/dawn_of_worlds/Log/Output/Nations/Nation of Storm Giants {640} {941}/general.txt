@@ -1,0 +1,11 @@
+Name: Nation of Storm Giants {640} {941}
+Type: FeudalNation
+Founding Race: Storm Giants {640}
+Races: Destroyed: False
+Storm Giants {640} 
+Avatars: Storm Giants {640} General Storm Giants {640} General 
+Capital City: Capital City of Nation of Storm Giants {640} {941} {942}
+Cities: Capital City of Nation of Storm Giants {640} {941} {942} Bergamum Epizephyrenes 
+Territory: Mullamore Cahirconnell Toomkeen Maynoe Magh 
+Orders: Gathering of Mafdet {943} 
+Tags: 

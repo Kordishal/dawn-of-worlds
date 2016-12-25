@@ -87,6 +87,19 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             mountain.Range = (MountainRange)mountain_location.PrimaryTerrainFeature;
             mountain_location.SecondaryTerrainFeatures.Add(mountain);
 
+            mountain.Modifiers.NaturalDefenceValue += 3;
+            switch (mountain.BiomeType)
+            {
+                case BiomeType.BorealForest:
+                case BiomeType.TemperateDeciduousForest:
+                case BiomeType.TropicalDryForest:
+                case BiomeType.TropicalRainforest:
+                    mountain.Modifiers.NaturalDefenceValue += 1;
+                    break;
+                default:
+                    break;
+            }
+
             creator.TerrainFeatures.Add(mountain);
             creator.LastCreation = mountain;
 

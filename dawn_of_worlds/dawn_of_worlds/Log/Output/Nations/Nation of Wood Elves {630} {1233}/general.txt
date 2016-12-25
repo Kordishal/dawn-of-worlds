@@ -1,0 +1,12 @@
+Name: Nation of Wood Elves {630} {1233}
+Type: TribalNation
+Founding Race: Wood Elves {630}
+Races: Destroyed: False
+Wood Elves {630} 
+Leader: Wood Elves {630} RoyalDynasty
+Avatars: Wood Elves {630} RoyalDynasty 
+Capital City: Capital City of Nation of Wood Elves {630} {1233} {1234}
+Cities: Capital City of Nation of Wood Elves {630} {1233} {1234} 
+Territory: Rathfarnmonfe Maynooth 
+Orders: Cult of Ishtar {1235} 
+Tags: VeryRich GoldMine 

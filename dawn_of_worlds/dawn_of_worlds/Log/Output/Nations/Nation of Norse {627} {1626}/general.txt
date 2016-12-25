@@ -1,0 +1,11 @@
+Name: Nation of Norse {627} {1626}
+Type: FeudalNation
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Avatars: 
+Capital City: Capital City of Nation of Norse {627} {1626} {1627}
+Cities: Capital City of Nation of Norse {627} {1626} {1627} 
+Territory: Bundorack 
+Orders: Sect of Mehen {1628} 
+Tags: 

@@ -1,0 +1,9 @@
+Name: Nation of Orcs {637} {1611}
+Type: NomadicTribe
+Founding Race: Orcs {637}
+Races: Destroyed: False
+Orcs {637} 
+Avatars: 
+Territory: Maam Cross 
+Orders: The Chosen Ones of Battle {1612} 
+Tags: 

@@ -1,5 +1,6 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Creations.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,11 @@ namespace dawn_of_worlds.Creations.Organisations
         // Territory
         public TerrainFeatures TerrainFeature { get; set; }
 
-        // A city can only raise one army per turn.
-        public bool not_hasRaisedArmy { get; set; }
+        public List<Building> Buildings { get; set; }
+
+        public CityModifiers Modifiers { get; set; }
+
+
 
         public void changeOwnership(Nation to)
         {
@@ -27,7 +31,20 @@ namespace dawn_of_worlds.Creations.Organisations
 
         public City(string name, Deity creator): base(name, creator)
         {
+            Buildings = new List<Building>();
+            Modifiers = new CityModifiers();
+        }
+    }
+
+    class CityModifiers
+    {
+        public bool not_hasRaisedArmy { get; set; }
+        public int FortificationLevel { get; set; }
+
+        public CityModifiers()
+        {
             not_hasRaisedArmy = true;
+            FortificationLevel = 0;
         }
     }
 }

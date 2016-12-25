@@ -1,0 +1,10 @@
+Name: Nation of Orcs {637} {1259}
+Type: NomadicTribe
+Founding Race: Orcs {637}
+Races: Destroyed: False
+Orcs {637} 
+Leader: Orcs {637} RoyalDynasty
+Avatars: Orcs {637} RoyalDynasty 
+Territory: Ball 
+Orders: Sect of Exploration {1260} 
+Tags: 

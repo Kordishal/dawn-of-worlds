@@ -1,0 +1,11 @@
+Name: Nation of Hill Giants {639} {1025}
+Type: TribalNation
+Founding Race: Hill Giants {639}
+Races: Destroyed: False
+Hill Giants {639} 
+Avatars: 
+Capital City: Capital City of Nation of Hill Giants {639} {1025} {1026}
+Cities: Capital City of Nation of Hill Giants {639} {1025} {1026} Alinda Kos Latos Naxos 
+Territory: Finganbo Poulaphouca Cashel Innishmaan 
+Orders: Fellowship of Pakhet {1027} PlaceHolder {1055} PlaceHolder {1300} 
+Tags: VeryRich GoldMine 

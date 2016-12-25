@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
+using dawn_of_worlds.Creations.Objects;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Log;
 using dawn_of_worlds.WorldClasses;
@@ -12,19 +13,36 @@ namespace dawn_of_worlds.Creations.Geography
 {
     class TerrainFeatures : Creation
     {
+        public BiomeType BiomeType { get; set; }
+
         public Province Province { get; set; }
 
+        public TerrainFeatureModifiers Modifiers { get; set; }
         public City City { get; set; }
-        public BiomeType BiomeType { get; set; }
+        public List<Building> Buildings { get; set; }
+
 
         public TerrainFeatures(string name, Province location, Deity creator) : base(name, creator)
         {
             Province = location;
+            Modifiers = new TerrainFeatureModifiers();
         }
 
         public virtual string printTerrainFeature(Record record)
         {
             return "The deity " + Creator.Name + " created " + this.Name + " in " + record.Year + "\n";
+        }
+    }
+
+    public class TerrainFeatureModifiers
+    {
+        public int NaturalDefenceValue { get; set; }
+        public int FortificationDefenceValue { get; set; }
+
+        public TerrainFeatureModifiers()
+        {
+            NaturalDefenceValue = 0;
+            FortificationDefenceValue = 0;
         }
     }
 

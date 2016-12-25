@@ -1,0 +1,11 @@
+Name: Nation of Dark Elves {629} {1617}
+Type: FeudalNation
+Founding Race: Dark Elves {629}
+Races: Destroyed: False
+Dark Elves {629} 
+Avatars: 
+Capital City: Capital City of Nation of Dark Elves {629} {1617} {1618}
+Cities: Capital City of Nation of Dark Elves {629} {1617} {1618} 
+Territory: Owenbeg 
+Orders: Brotherhood of Pestilence {1619} 
+Tags: 

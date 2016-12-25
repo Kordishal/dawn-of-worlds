@@ -1,0 +1,11 @@
+Name: Nation of Norse {627} {1620}
+Type: FeudalNation
+Founding Race: Norse {627}
+Races: Destroyed: False
+Norse {627} 
+Avatars: 
+Capital City: Capital City of Nation of Norse {627} {1620} {1621}
+Cities: Capital City of Nation of Norse {627} {1620} {1621} 
+Territory: Mullaghgaline 
+Orders: The Chosen Ones of Magic {1622} 
+Tags: 

@@ -31,11 +31,11 @@ namespace dawn_of_worlds.Main
                 Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@  TURN " + i.ToString() + "  @@@@@@@@@@@@@@@@@@@@@@@@@@@");
                 foreach (Deity deity in Program.World.Deities)
                 {
-                    deity.AddPowerPoints();
+                    deity.calculatePowerPoints();
 
                     foreach (City city in deity.FoundedCities)
                     {
-                        city.not_hasRaisedArmy = true;
+                        city.Modifiers.not_hasRaisedArmy = true;
                     }
                 }
 

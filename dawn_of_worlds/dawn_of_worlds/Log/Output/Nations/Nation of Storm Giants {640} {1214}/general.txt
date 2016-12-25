@@ -1,0 +1,11 @@
+Name: Nation of Storm Giants {640} {1214}
+Type: TribalNation
+Founding Race: Storm Giants {640}
+Races: Destroyed: False
+Storm Giants {640} 
+Avatars: Storm Giants {640} Champion 
+Capital City: Capital City of Nation of Storm Giants {640} {1214} {1215}
+Cities: Capital City of Nation of Storm Giants {640} {1214} {1215} 
+Territory: Portlaoise Cashel 
+Orders: Fellows of Cold {1216} PlaceHolder {1334} 
+Tags: 

@@ -8,5 +8,5 @@ Lifespan: Average
 Physical Traits: Strong, 
 Social & Cultural Traits: Tribal, 
 Home Area: Terrain: Ball
-Settled Areas: Terrain: Ball, Terrain: Donard, Terrain: Maam Cross, Terrain: Moneyrea, Terrain: Cloondrohid, Terrain: Eskra, Terrain: Ball, Terrain: Tuam, Terrain: Stranor, Terrain: Ballagh, Terrain: Cloghey, Terrain: Coomevara, Terrain: Ballymonfecki, Terrain: Derry, Terrain: Sragh, Terrain: Carrowdoracla, 
+Settled Areas: Terrain: Ball, Terrain: Donard, Terrain: Maam Cross, Terrain: Moneyrea, Terrain: Cloondrohid, Terrain: Eskra, 
 Origin Order: Healers of Conquest

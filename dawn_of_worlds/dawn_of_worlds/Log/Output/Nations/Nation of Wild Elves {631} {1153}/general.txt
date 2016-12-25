@@ -1,0 +1,11 @@
+Name: Nation of Wild Elves {631} {1153}
+Type: TribalNation
+Founding Race: Wild Elves {631}
+Races: Destroyed: False
+Wild Elves {631} 
+Avatars: Wild Elves {631} Champion 
+Capital City: Capital City of Nation of Wild Elves {631} {1153} {1154}
+Cities: Capital City of Nation of Wild Elves {631} {1153} {1154} 
+Territory: Owenbeg 
+Orders: Paragons of Thoth {1155} 
+Tags: 

@@ -1,0 +1,9 @@
+Name: Nation of Mountain Dwarves {635} {1447}
+Type: NomadicTribe
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: 
+Territory: Ballaun 
+Orders: Congregation of Cold {1448} 
+Tags: 

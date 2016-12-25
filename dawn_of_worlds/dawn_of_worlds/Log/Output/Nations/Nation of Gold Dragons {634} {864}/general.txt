@@ -3,10 +3,9 @@ Type: LairTerritory
 Founding Race: Gold Dragons {634}
 Races: Destroyed: False
 Gold Dragons {634} 
-Leader: Gold Dragons {634} RoyalDynasty
-Avatars: Gold Dragons {634} RoyalDynasty Gold Dragons {634} Champion 
+Avatars: Gold Dragons {634} HighPriest 
 Capital City: Capital City of Nation of Gold Dragons {634} {864} {865}
 Cities: Capital City of Nation of Gold Dragons {634} {864} {865} 
-Territory: Sraghbawn Cloondrohid Inishmaan Portadown Bundore 
-Orders: Cult of Ishtar {866} PlaceHolder {1276} 
+Territory: Sraghbawn Bundore Ballyclar 
+Orders: Cult of Ishtar {866} 
 Tags: 

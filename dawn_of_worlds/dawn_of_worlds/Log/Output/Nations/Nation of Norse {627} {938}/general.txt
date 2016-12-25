@@ -1,9 +1,0 @@
-Name: Nation of Norse {627} {938}
-Type: NomadicTribe
-Founding Race: Norse {627}
-Races: Destroyed: False
-Norse {627} 
-Avatars: Norse {627} Champion 
-Territory: Cloughjordani Loughgormley Mulliagh Carraroe Strabane 
-Orders: Brotherhood of Pakhet {939} PlaceHolder {990} 
-Tags: 

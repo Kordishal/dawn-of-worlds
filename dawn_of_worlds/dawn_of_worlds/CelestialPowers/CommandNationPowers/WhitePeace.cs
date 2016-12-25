@@ -66,6 +66,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                     }
                 }
                 _white_peaced_war.hasEnded = true;
+                _white_peaced_war.End = Simulation.Time.Shuffle;
             }
             else
             {

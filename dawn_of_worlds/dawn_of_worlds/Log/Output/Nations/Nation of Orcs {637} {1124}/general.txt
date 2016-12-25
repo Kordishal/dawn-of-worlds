@@ -1,9 +1,0 @@
-Name: Nation of Orcs {637} {1124}
-Type: NomadicTribe
-Founding Race: Orcs {637}
-Races: Destroyed: False
-Orcs {637} 
-Avatars: Orcs {637} General 
-Territory: Eskra Maam Cross Ball 
-Orders: Followers of Pakhet {1125} PlaceHolder {1221} 
-Tags: 

@@ -23,7 +23,7 @@ namespace dawn_of_worlds.Creations
             _identifier = id;
             id++;
 
-            Name = new Name();
+            Name = new Name(null, null, null);
             Name.Singular = name + " {" + id + "}";
             Creator = creator;
         }

@@ -1,9 +1,0 @@
-Name: Nation of Hill Giants {639} {983}
-Type: NomadicTribe
-Founding Race: Hill Giants {639}
-Races: Destroyed: False
-Hill Giants {639} 
-Avatars: 
-Territory: Termore Drumshanboy Tullagh 
-Orders: Commune of Mehen {984} PlaceHolder {1361} PlaceHolder {1430} 
-Tags: VeryRich GoldMine 

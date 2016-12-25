@@ -1,9 +1,0 @@
-Name: Nation of Humans {626} {1487}
-Type: NomadicTribe
-Founding Race: Humans {626}
-Races: Destroyed: False
-Humans {626} 
-Avatars: 
-Territory: Raherafelt 
-Orders: Band of Mafdet {1488} 
-Tags: 

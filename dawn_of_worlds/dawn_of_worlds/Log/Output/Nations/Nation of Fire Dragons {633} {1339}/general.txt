@@ -1,0 +1,11 @@
+Name: Nation of Fire Dragons {633} {1339}
+Type: LairTerritory
+Founding Race: Fire Dragons {633}
+Races: Destroyed: False
+Fire Dragons {633} 
+Avatars: Fire Dragons {633} Champion 
+Capital City: Capital City of Nation of Fire Dragons {633} {1339} {1340}
+Cities: Capital City of Nation of Fire Dragons {633} {1339} {1340} 
+Territory: Money 
+Orders: Communion of Battle {1341} 
+Tags: 

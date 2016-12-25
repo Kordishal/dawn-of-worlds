@@ -1,9 +1,0 @@
-Name: Nation of Mountain Dwarves {635} {1231}
-Type: NomadicTribe
-Founding Race: Mountain Dwarves {635}
-Races: Destroyed: False
-Mountain Dwarves {635} 
-Avatars: 
-Territory: Corblonog 
-Orders: Sect of Ishtar {1232} 
-Tags: 

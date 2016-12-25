@@ -3,9 +3,9 @@ Type: FeudalNation
 Founding Race: Wood Elves {630}
 Races: Destroyed: False
 Wood Elves {630} 
-Avatars: Wood Elves {630} Champion 
+Avatars: Wood Elves {630} General Wood Elves {630} Champion Wood Elves {630} Champion 
 Capital City: Capital City of Nation of Wood Elves {630} {889} {890}
-Cities: Capital City of Nation of Wood Elves {630} {889} {890} 
-Territory: Cloughgorm Coorack 
+Cities: Capital City of Nation of Wood Elves {630} {889} {890} Phlius Phais 
+Territory: Cloughgorm Clonog Donard Glenties 
 Orders: Healers of Wind {891} 
 Tags: 

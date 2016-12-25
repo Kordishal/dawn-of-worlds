@@ -1,0 +1,11 @@
+Name: Nation of Mountain Dwarves {635} {1114}
+Type: FeudalNation
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: 
+Capital City: Capital City of Nation of Mountain Dwarves {635} {1114} {1115}
+Cities: Capital City of Nation of Mountain Dwarves {635} {1114} {1115} 
+Territory: Athlone Tullaghbawn 
+Orders: Fellowship of Thoth {1116} 
+Tags: 

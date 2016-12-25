@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Log;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace dawn_of_worlds.Creations.Diplomacy
     class War : Creation
     {
         public bool hasEnded { get; set; }
+
+        public int Begin { get; set; }
+        public int End { get; set; }
 
         public List<Nation> Attackers { get; set; }
         public List<Nation> Defenders { get; set; }
@@ -54,6 +58,26 @@ namespace dawn_of_worlds.Creations.Diplomacy
             Attackers = new List<Nation>();
             Defenders = new List<Nation>();
             hasEnded = false;
+        }
+
+        public static string printWar(Record record)
+        {
+            string result = "";
+            result += "Name: " + record.War.Name.Singular + "\n";
+            result += "Beginn: " + record.War.Begin + "\n";
+            if (record.War.hasEnded)
+                result += "End: " + record.War.End + "\n";
+            result += "Attackers: ";
+            foreach (Nation nation in record.War.Attackers)
+                result += nation.Name + " ";
+            result += "\n";
+            result += "Wargoal: " + record.War.WarGoalAttackers + "\n";
+            result += "Defenders: ";
+            foreach (Nation nation in record.War.Defenders)
+                result += nation.Name + " ";
+            result += "\n";
+            result += "Wargoal: " + record.War.WarGoalDefenders + "\n";
+            return result;
         }
     }
 

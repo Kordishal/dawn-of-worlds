@@ -1,0 +1,9 @@
+Name: Nation of Mountain Dwarves {635} {1337}
+Type: NomadicTribe
+Founding Race: Mountain Dwarves {635}
+Races: Destroyed: False
+Mountain Dwarves {635} 
+Avatars: 
+Territory: Mullamore 
+Orders: Band of Mafdet {1338} 
+Tags: VeryRich GoldMine 

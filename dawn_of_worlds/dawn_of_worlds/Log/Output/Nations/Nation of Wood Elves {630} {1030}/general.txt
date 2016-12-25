@@ -1,0 +1,9 @@
+Name: Nation of Wood Elves {630} {1030}
+Type: NomadicTribe
+Founding Race: Wood Elves {630}
+Races: Destroyed: False
+Wood Elves {630} 
+Avatars: 
+Territory: Poulaphouca 
+Orders: Children of Pakhet {1031} 
+Tags: 

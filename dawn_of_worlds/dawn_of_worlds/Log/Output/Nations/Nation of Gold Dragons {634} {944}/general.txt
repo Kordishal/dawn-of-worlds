@@ -1,0 +1,12 @@
+Name: Nation of Gold Dragons {634} {944}
+Type: LairTerritory
+Founding Race: Gold Dragons {634}
+Races: Destroyed: False
+Gold Dragons {634} 
+Leader: Gold Dragons {634} LegendaryBeast
+Avatars: Gold Dragons {634} LegendaryBeast Gold Dragons {634} General Gold Dragons {634} LegendaryBeast Gold Dragons {634} LegendaryBeast 
+Capital City: Capital City of Nation of Gold Dragons {634} {944} {945}
+Cities: Capital City of Nation of Gold Dragons {634} {944} {945} Hierapezu 
+Territory: Mullagh Loughalee Ardglas Droghey Dungar Corblonog Portadown Portnahoe Tramore 
+Orders: Order of Pakhet {946} 
+Tags: 

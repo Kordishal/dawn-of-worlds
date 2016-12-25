@@ -1,0 +1,11 @@
+Name: Nation of Gold Dragons {634} {1297}
+Type: LairTerritory
+Founding Race: Gold Dragons {634}
+Races: Destroyed: False
+Gold Dragons {634} 
+Avatars: 
+Capital City: Capital City of Nation of Gold Dragons {634} {1297} {1298}
+Cities: Capital City of Nation of Gold Dragons {634} {1297} {1298} 
+Territory: Cloondrohid 
+Orders: Followers of Mafdet {1299} 
+Tags: 

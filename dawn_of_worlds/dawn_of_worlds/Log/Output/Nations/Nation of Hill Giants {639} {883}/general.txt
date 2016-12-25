@@ -3,9 +3,9 @@ Type: TribalNation
 Founding Race: Hill Giants {639}
 Races: Destroyed: False
 Hill Giants {639} 
-Avatars: Hill Giants {639} HighPriest 
+Avatars: Hill Giants {639} General 
 Capital City: Capital City of Nation of Hill Giants {639} {883} {884}
-Cities: Capital City of Nation of Hill Giants {639} {883} {884} Zancle Akroinopeion Assus Pavlopolis Kameiraki Antinaras Pylos Akroinopetria Alindus 
-Territory: Portnahoe Drumshanbaun Eskra Killen Casheen Coolock Cornamore Carrickfergus 
-Orders: Sect of Mafdet {885} PlaceHolder {1227} PlaceHolder {1259} 
-Tags: VeryRich GoldMine 
+Cities: Capital City of Nation of Hill Giants {639} {883} {884} 
+Territory: Portnahoe Drumshanbaun Stran Killen Raherdaniel Ballyskeaghed 
+Orders: Sect of Mafdet {885} PlaceHolder {1456} 
+Tags: 

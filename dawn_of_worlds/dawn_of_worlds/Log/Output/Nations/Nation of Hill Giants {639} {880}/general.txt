@@ -4,9 +4,9 @@ Founding Race: Hill Giants {639}
 Races: Destroyed: False
 Hill Giants {639} 
 Leader: Hill Giants {639} RoyalDynasty
-Avatars: Hill Giants {639} RoyalDynasty Hill Giants {639} HighPriest 
+Avatars: Hill Giants {639} RoyalDynasty 
 Capital City: Capital City of Nation of Hill Giants {639} {880} {881}
-Cities: Capital City of Nation of Hill Giants {639} {880} {881} 
-Territory: Cloughadee Cregganbaunma Clonmel Cappaghagower Ballyskeaghed Doonshel Roscrea 
-Orders: Cult of Pakhet {882} 
-Tags: 
+Cities: Capital City of Nation of Hill Giants {639} {880} {881} Agrina Sklavokampsac Pharnae Lisso Amaris 
+Territory: Cloughadee Cregganbaunma Roscrea Portnahoe Doonshel 
+Orders: Cult of Pakhet {882} PlaceHolder {1606} 
+Tags: VeryRich GoldMine 

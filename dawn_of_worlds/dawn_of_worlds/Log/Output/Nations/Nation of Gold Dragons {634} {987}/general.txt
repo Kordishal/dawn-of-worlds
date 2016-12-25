@@ -1,0 +1,12 @@
+Name: Nation of Gold Dragons {634} {987}
+Type: LairTerritory
+Founding Race: Gold Dragons {634}
+Races: Destroyed: False
+Gold Dragons {634} 
+Leader: Gold Dragons {634} LegendaryBeast
+Avatars: Gold Dragons {634} General Gold Dragons {634} HighPriest Gold Dragons {634} General Gold Dragons {634} LegendaryBeast 
+Capital City: Capital City of Nation of Gold Dragons {634} {987} {988}
+Cities: Capital City of Nation of Gold Dragons {634} {987} {988} Colos 
+Territory: Ballysallyvea Clonmel Ballyskeaghal Dona 
+Orders: Paragons of Ishtar {989} PlaceHolder {1148} 
+Tags: 

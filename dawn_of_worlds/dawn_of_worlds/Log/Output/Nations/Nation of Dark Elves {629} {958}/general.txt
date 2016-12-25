@@ -1,0 +1,11 @@
+Name: Nation of Dark Elves {629} {958}
+Type: TribalNation
+Founding Race: Dark Elves {629}
+Races: Destroyed: False
+Dark Elves {629} 
+Avatars: Dark Elves {629} HighPriest 
+Capital City: Capital City of Nation of Dark Elves {629} {958} {959}
+Cities: Capital City of Nation of Dark Elves {629} {958} {959} Emporicussa 
+Territory: Kenmaistir Bally Tuam Illamore Bine 
+Orders: Communion of Ishtar {960} PlaceHolder {1013} PlaceHolder {1472} 
+Tags: 

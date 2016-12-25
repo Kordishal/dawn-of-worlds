@@ -7,6 +7,8 @@ using dawn_of_worlds.Creations.Geography;
 using System.IO;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Creations.Diplomacy;
+using dawn_of_worlds.Creations.Conflict;
 
 namespace dawn_of_worlds.Log
 {
@@ -73,6 +75,19 @@ namespace dawn_of_worlds.Log
             Records.Add(record);
         }
 
+        public void AddRecord(RecordType type, War war, PrintFunction print)
+        {
+            Record record = new Record();
+            record.Type = type;
+            record.War = war;
+
+            record.Turn = Simulation.Time.Turn;
+            record.Year = war.Begin;
+
+            record.printFunction = print;
+            Records.Add(record);
+        }
+
         public History()
         {
             Records = new List<Record>();
@@ -127,6 +142,19 @@ namespace dawn_of_worlds.Log
             return records;
         }
 
+        public string printRecordType(RecordType type, War war)
+        {
+            List<Record> selected_records = Records.FindAll(x => x.War != null && x.Type == type && x.War.Equals(war));
+            selected_records.Sort(Record.CompareTo);
+
+            string records = "";
+            foreach (Record record in selected_records)
+            {
+                records += record.printRecord() + "\n";
+            }
+            return records;
+        }
+
         public override string ToString()
         {
             Records.Sort(Record.CompareTo);
@@ -147,6 +175,8 @@ namespace dawn_of_worlds.Log
         public TerrainFeatures Terrain { get; set; }
         public Race Race { get; set; }
         public Nation Nation { get; set; }
+        public War War { get; set; }
+        public Battle Battle { get; set; }
         public char[,] Map { get; set; }
 
         public int Turn { get; set; }
@@ -192,5 +222,7 @@ namespace dawn_of_worlds.Log
         RaceSettlementMap,
         NationTerritoryMap,
         GlobalTerritoryMap,
+
+        WarReport,
     }
 }

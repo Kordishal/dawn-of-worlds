@@ -8,5 +8,5 @@ Lifespan: Venerable
 Physical Traits: 
 Social & Cultural Traits: Communal, Sedentary, 
 Home Area: Terrain: Donagh
-Settled Areas: Terrain: Donagh, Terrain: Roscreagh, Terrain: Iniskillymena, Terrain: Ballyveaghera, Terrain: Athlonog, Terrain: Glen, Terrain: Cappaghgorm, Terrain: Carrowdore, Terrain: Rathfarnmonfe, Terrain: Inishmaan, Terrain: Inniskin, Terrain: Carry, Terrain: Portlaoise, Terrain: Tullaghbracla, Terrain: Mulliaghgorml, Terrain: Claddagh, Terrain: Aughgallyveag, Terrain: Carnmone, Terrain: Cloughgorm, Terrain: Ardglas, Terrain: Mullagh, Terrain: Ball, Terrain: Poulaphouca, Terrain: Doonshel, Terrain: Clondrohid, Terrain: Dungar, Terrain: Carnmonfeckin, 
+Settled Areas: Terrain: Donagh, Terrain: Roscreagh, Terrain: Iniskillymena, Terrain: Ballyveaghera, Terrain: Athlonog, Terrain: Carrowdore, Terrain: Raherafelt, Terrain: Glen, Terrain: Cappaghgorm, Terrain: Carrowdore, Terrain: Rathfarnmonfe, Terrain: Poulaphouca, Terrain: Ardglas, Terrain: Money, Terrain: Inishmaan, Terrain: Poulaphouca, Terrain: Kinallynooth, Terrain: Finganbo, Terrain: Poulaphouca, Terrain: Owenbeg, Terrain: Stra, Terrain: Loughalee, Terrain: Portnahoe, Terrain: Claddagh, Terrain: Aughgallyveag, Terrain: Cloonshel, Terrain: Mulliaghgorml, Terrain: Sragh, Terrain: Mullymonabate, Terrain: Bundon, Terrain: Poulaphouca, 
 Origin Order: Church of Drought

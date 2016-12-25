@@ -1,0 +1,11 @@
+Name: Nation of Gold Dragons {634} {1402}
+Type: LairTerritory
+Founding Race: Gold Dragons {634}
+Races: Destroyed: False
+Gold Dragons {634} 
+Avatars: Gold Dragons {634} HighPriest Gold Dragons {634} HighPriest 
+Capital City: Capital City of Nation of Gold Dragons {634} {1402} {1403}
+Cities: Capital City of Nation of Gold Dragons {634} {1402} {1403} 
+Territory: Tulliagh Letterfrack 
+Orders: Healers of Magic {1404} PlaceHolder {1608} 
+Tags: 

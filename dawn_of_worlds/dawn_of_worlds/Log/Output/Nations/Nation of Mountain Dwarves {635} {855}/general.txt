@@ -3,9 +3,9 @@ Type: FeudalNation
 Founding Race: Mountain Dwarves {635}
 Races: Destroyed: False
 Mountain Dwarves {635} 
-Avatars: Mountain Dwarves {635} General 
+Avatars: Mountain Dwarves {635} General Mountain Dwarves {635} General Mountain Dwarves {635} General Mountain Dwarves {635} Champion 
 Capital City: Capital City of Nation of Mountain Dwarves {635} {855} {856}
-Cities: Capital City of Nation of Mountain Dwarves {635} {855} {856} Atherapezu 
-Territory: Donagh Enniskin Urlare Cloughadee Donaghagower Portadown Tievenagh 
-Orders: Angels of Ishtar {857} PlaceHolder {887} PlaceHolder {1138} 
+Cities: Capital City of Nation of Mountain Dwarves {635} {855} {856} Onchesmos Lissa 
+Territory: Donagh Enniskin Urlare Dromore Poulaphouca Clonmel Illaunmare Cloughadee Dromore Creggan Benbeg Ball Corblonog Cornamore Raheny Urlare 
+Orders: Angels of Ishtar {857} PlaceHolder {887} PlaceHolder {1052} 
 Tags: 

@@ -8,6 +8,7 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Log;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -163,6 +164,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // Add war to the list of ongoing conflicts.
             Program.World.OngoingWars.Add(declared_war);
 
+            declared_war.Begin = Simulation.Time.Shuffle;
+
             // Add powers related to the war to connected deities.
             // attacker related
             // Only the war leader can surrender as only he stands to lose anything, all other participants can only white peace.
@@ -180,6 +183,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 nation.Creator.Powers.Add(new WhitePeace(nation, declared_war));
             }
             creator.LastCreation = declared_war;
+
+            Program.WorldHistory.AddRecord(RecordType.WarReport, declared_war, War.printWar);
         }
 
         public DeclareWar(Nation commanded_nation) : base(commanded_nation)
