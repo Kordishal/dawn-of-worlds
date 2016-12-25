@@ -1,9 +1,0 @@
-Name: Nation of Orcs {637} {924}
-Type: NomadicTribe
-Founding Race: Orcs {637}
-Races: Destroyed: False
-Orcs {637} 
-Avatars: Orcs {637} General Orcs {637} General Orcs {637} General Orcs {637} HighPriest 
-Territory: Ball Carnmone Eskra Ballagh Donard Cross 
-Orders: Order of Conquest {925} PlaceHolder {1425} 
-Tags: VeryRich GoldMine 

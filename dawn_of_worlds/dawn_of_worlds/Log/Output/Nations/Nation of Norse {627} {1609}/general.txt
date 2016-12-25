@@ -1,9 +1,0 @@
-Name: Nation of Norse {627} {1609}
-Type: NomadicTribe
-Founding Race: Norse {627}
-Races: Destroyed: False
-Norse {627} 
-Avatars: 
-Territory: Ballyskeena 
-Orders: Cult of Ishtar {1610} 
-Tags: 

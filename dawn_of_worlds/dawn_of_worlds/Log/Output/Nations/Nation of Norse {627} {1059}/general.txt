@@ -1,9 +1,0 @@
-Name: Nation of Norse {627} {1059}
-Type: NomadicTribe
-Founding Race: Norse {627}
-Races: Destroyed: False
-Norse {627} 
-Avatars: 
-Territory: Ballyclare Rockcorryduff 
-Orders: Faith of Pestilence {1060} PlaceHolder {1421} 
-Tags: 

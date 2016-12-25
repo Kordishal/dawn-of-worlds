@@ -1,9 +1,0 @@
-Name: Nation of Orcs {637} {1021}
-Type: NomadicTribe
-Founding Race: Orcs {637}
-Races: Destroyed: False
-Orcs {637} 
-Avatars: Orcs {637} General 
-Territory: Ball Eskra Moneyrea 
-Orders: Church of Pakhet {1022} 
-Tags: 

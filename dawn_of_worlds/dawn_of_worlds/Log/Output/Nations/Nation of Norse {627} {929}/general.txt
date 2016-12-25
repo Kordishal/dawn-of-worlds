@@ -1,9 +1,0 @@
-Name: Nation of Norse {627} {929}
-Type: NomadicTribe
-Founding Race: Norse {627}
-Races: Destroyed: False
-Norse {627} 
-Avatars: Norse {627} General Norse {627} Champion Norse {627} General 
-Territory: Tobercurryduf Coomevagh Drumshandore Ballengormley Stra Iniskillymena 
-Orders: Communion of Conquest {930} PlaceHolder {1151} 
-Tags: 

@@ -1,9 +1,0 @@
-Name: Nation of Wild Elves {631} {1023}
-Type: NomadicTribe
-Founding Race: Wild Elves {631}
-Races: Destroyed: False
-Wild Elves {631} 
-Avatars: Wild Elves {631} HighPriest 
-Territory: Rathfarnmonfe Raheny 
-Orders: Sect of Ishtar {1024} 
-Tags: 

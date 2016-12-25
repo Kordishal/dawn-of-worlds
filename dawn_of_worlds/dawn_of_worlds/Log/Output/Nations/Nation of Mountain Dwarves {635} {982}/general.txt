@@ -1,9 +1,0 @@
-Name: Nation of Mountain Dwarves {635} {982}
-Type: NomadicTribe
-Founding Race: Mountain Dwarves {635}
-Races: Destroyed: False
-Mountain Dwarves {635} 
-Avatars: Mountain Dwarves {635} HighPriest 
-Territory: Kenmaistir Tuam Tulliaghbracl Tullagh Carrickbeg 
-Orders: Band of Thoth {983} PlaceHolder {1123} 
-Tags: 

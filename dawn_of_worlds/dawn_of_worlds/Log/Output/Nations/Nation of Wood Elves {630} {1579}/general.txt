@@ -1,9 +1,0 @@
-Name: Nation of Wood Elves {630} {1579}
-Type: NomadicTribe
-Founding Race: Wood Elves {630}
-Races: Destroyed: False
-Wood Elves {630} 
-Avatars: 
-Territory: Mulliaghgorml 
-Orders: Commune of Exploration {1580} 
-Tags: 

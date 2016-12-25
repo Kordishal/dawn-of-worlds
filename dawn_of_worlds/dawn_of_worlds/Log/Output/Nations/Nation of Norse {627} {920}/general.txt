@@ -1,9 +1,0 @@
-Name: Nation of Norse {627} {920}
-Type: NomadicTribe
-Founding Race: Norse {627}
-Races: Destroyed: False
-Norse {627} 
-Avatars: 
-Territory: Ballymonfecki 
-Orders: Brotherhood of Magic {921} PlaceHolder {1020} 
-Tags: VeryRich GoldMine 

@@ -1,9 +1,0 @@
-Name: Nation of Norse {627} {1240}
-Type: NomadicTribe
-Founding Race: Norse {627}
-Races: Destroyed: False
-Norse {627} 
-Avatars: 
-Territory: Tyroneyrea Iniskillymona 
-Orders: Communion of Battle {1241} 
-Tags: VeryRich GoldMine 

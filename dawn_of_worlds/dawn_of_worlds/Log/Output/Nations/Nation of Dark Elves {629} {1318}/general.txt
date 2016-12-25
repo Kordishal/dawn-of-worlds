@@ -1,9 +1,0 @@
-Name: Nation of Dark Elves {629} {1318}
-Type: NomadicTribe
-Founding Race: Dark Elves {629}
-Races: Destroyed: False
-Dark Elves {629} 
-Avatars: 
-Territory: Ballaun 
-Orders: Creed of Wind {1319} 
-Tags: 

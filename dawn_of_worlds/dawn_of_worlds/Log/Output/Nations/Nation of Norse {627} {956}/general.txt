@@ -1,9 +1,0 @@
-Name: Nation of Norse {627} {956}
-Type: NomadicTribe
-Founding Race: Norse {627}
-Races: Destroyed: False
-Norse {627} 
-Avatars: 
-Territory: Cloughjordani Cahircon Gortadown 
-Orders: The Chosen Ones of Pakhet {957} PlaceHolder {1273} 
-Tags: 

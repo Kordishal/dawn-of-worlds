@@ -1,9 +1,0 @@
-Name: Nation of Humans {626} {1648}
-Type: NomadicTribe
-Founding Race: Humans {626}
-Races: Destroyed: False
-Humans {626} 
-Avatars: 
-Territory: Portadown 
-Orders: Children of Conquest {1649} 
-Tags: 

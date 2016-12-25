@@ -1,9 +1,0 @@
-Name: Nation of Hill Giants {639} {1184}
-Type: NomadicTribe
-Founding Race: Hill Giants {639}
-Races: Destroyed: False
-Hill Giants {639} 
-Avatars: 
-Territory: Poulaphouca 
-Orders: Band of Thoth {1185} 
-Tags: 

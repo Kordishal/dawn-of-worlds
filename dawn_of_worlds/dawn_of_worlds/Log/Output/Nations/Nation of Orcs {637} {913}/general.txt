@@ -1,9 +1,0 @@
-Name: Nation of Orcs {637} {913}
-Type: NomadicTribe
-Founding Race: Orcs {637}
-Races: Destroyed: False
-Orcs {637} 
-Avatars: Orcs {637} General Orcs {637} HighPriest 
-Territory: Ball Cooranorlar Mulliaghgorml Cloonshel 
-Orders: Fellows of Magic {914} PlaceHolder {999} PlaceHolder {1205} 
-Tags: 
