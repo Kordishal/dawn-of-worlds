@@ -175,27 +175,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Names\NameSets\00_namesetlist.txt" />
-    <Content Include="Names\NameSets\cities.txt" />
-    <Content Include="Names\NameSets\ocean.txt" />
-    <Content Include="Names\NameSets\religions.txt" />
-    <Content Include="Names\NameSets\hill_ranges.txt" />
-    <Content Include="Names\NameSets\lakes.txt" />
-    <Content Include="Names\NameSets\mountain_ranges.txt" />
-    <Content Include="Names\NameSets\rivers.txt" />
-    <Content Include="Names\NameSets\hills.txt" />
-    <Content Include="Names\NameSets\forests.txt" />
-    <Content Include="Names\NameSets\grasslands.txt" />
-    <Content Include="Names\NameSets\deserts.txt" />
-    <Content Include="Names\NameSets\mountains.txt" />
-    <Content Include="Names\NameSets\caves.txt" />
-    <Content Include="Names\NameSets\english.txt" />
-    <Content Include="Names\NameSets\continent.txt" />
-    <Content Include="Names\NameSets\deities.txt" />
-    <Content Include="Names\NameSets\area.txt" />
-    <Content Include="Names\NameSets\world.txt" />
+    <Content Include="Names\NameSetTemplates\area.txt" />
+    <Content Include="Names\NameSetTemplates\caves.txt" />
+    <Content Include="Names\NameSetTemplates\cities.txt" />
+    <Content Include="Names\NameSetTemplates\continent.txt" />
+    <Content Include="Names\NameSetTemplates\deities.txt" />
+    <Content Include="Names\NameSetTemplates\deserts.txt" />
+    <Content Include="Names\NameSetTemplates\english.txt" />
+    <Content Include="Names\NameSetTemplates\forests.txt" />
+    <Content Include="Names\NameSetTemplates\grasslands.txt" />
+    <Content Include="Names\NameSetTemplates\hills.txt" />
+    <Content Include="Names\NameSetTemplates\hill_ranges.txt" />
+    <Content Include="Names\NameSetTemplates\lakes.txt" />
+    <Content Include="Names\NameSetTemplates\mountains.txt" />
+    <Content Include="Names\NameSetTemplates\mountain_ranges.txt" />
+    <Content Include="Names\NameSetTemplates\ocean.txt" />
+    <Content Include="Names\NameSetTemplates\religions.txt" />
+    <Content Include="Names\NameSetTemplates\rivers.txt" />
+    <Content Include="Names\NameSetTemplates\world.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

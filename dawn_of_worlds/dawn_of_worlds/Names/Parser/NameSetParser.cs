@@ -13,7 +13,16 @@ namespace dawn_of_worlds.Names.Parser
     class NameSetParser
     {
 
-        private const string NAME_SET = @"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Names\NameSets\";
+        public static string NameSetDirectory { get; set; }
+
+        static NameSetParser()
+        {
+            DirectoryInfo bin = Directory.GetParent(Directory.GetCurrentDirectory());
+            string bin_directory = bin.FullName;
+            DirectoryInfo dawn_of_worlds = Directory.GetParent(bin_directory);
+
+            NameSetDirectory = dawn_of_worlds.FullName + @"\Names\NameSetTemplates\";
+        }
 
 
         private Lexer _nameset_lexer { get; set; }
@@ -59,23 +68,13 @@ namespace dawn_of_worlds.Names.Parser
         private List<List<Token>> _tokens { get; set; }
         private void generateTokens()
         {
-            List<string> name_sets = new List<string>();
-            StreamReader reader = new StreamReader(NAME_SET + @"00_namesetlist.txt");
-
-            while (!reader.EndOfStream)
-            {
-                name_sets.Add(reader.ReadLine());
-            }
-
-            reader.Close();
-
             _tokens = new List<List<Token>>();
-
             NameSets = new LinkedList<NameSet>();
-            foreach (string name_set in name_sets)
+            foreach (string name_set in Directory.GetFiles(NameSetDirectory))
             {
-                NameSets.AddLast(new NameSet(name_set));
-                _tokens.Add(new List<Token>(GetTokens(NAME_SET + name_set + ".txt")));
+                string[] temp = Regex.Split(name_set, @"[\\\\]");
+                NameSets.AddLast(new NameSet(temp[temp.Length - 1].Split('.')[0]));
+                _tokens.Add(new List<Token>(GetTokens(name_set)));
             }
         }
 

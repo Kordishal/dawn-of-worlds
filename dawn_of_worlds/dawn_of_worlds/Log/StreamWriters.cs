@@ -14,6 +14,13 @@ namespace dawn_of_worlds.Log
 {
     class StreamWriters
     {
+        public static string OutputDirectory { get; set; }
+
+        static StreamWriters()
+        {
+            OutputDirectory = Directory.GetCurrentDirectory() + @"\Output\";
+        }
+
         private static StreamWriter DeitiesWriter { get; set; }
 
         private static StreamWriter GeneralRecords { get; set; }
@@ -26,7 +33,7 @@ namespace dawn_of_worlds.Log
         public static void cleanDirectories()
         {
             // clean all races for each run of the programm.
-            foreach (string path in Directory.EnumerateDirectories(OUTPUT_FOLDER + RACE_DIRECTORY))
+            foreach (string path in Directory.EnumerateDirectories(OutputDirectory + RACE_DIRECTORY))
             {
                 foreach (string file_path in Directory.EnumerateFiles(path))
                     File.Delete(file_path);
@@ -35,7 +42,7 @@ namespace dawn_of_worlds.Log
             }
 
             // clean all nations for each run of the programm.
-            foreach (string path in Directory.EnumerateDirectories(OUTPUT_FOLDER + NATION_DIRECTORY))
+            foreach (string path in Directory.EnumerateDirectories(OutputDirectory + NATION_DIRECTORY))
             {
                 foreach (string file_path in Directory.EnumerateFiles(path))
                     File.Delete(file_path);
@@ -49,7 +56,7 @@ namespace dawn_of_worlds.Log
             int counter = 0;
             foreach (Deity deity in Program.World.Deities)
             {
-                DeitiesWriter = new StreamWriter(OUTPUT_FOLDER + DEITIES + "deity_" + counter + ".log");
+                DeitiesWriter = new StreamWriter(OutputDirectory + DEITIES + "deity_" + counter + ".log");
                 DeitiesWriter.Write(deity.printDeity());
                 DeitiesWriter.Close();
                 counter++;
@@ -60,13 +67,13 @@ namespace dawn_of_worlds.Log
         {
             foreach (Race race in Program.World.Races)
             {
-                Directory.CreateDirectory(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name.Singular);
-                RaceWriter = new StreamWriter(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name.Singular + @"\general.txt");
+                Directory.CreateDirectory(OutputDirectory + RACE_DIRECTORY + race.Name.Singular);
+                RaceWriter = new StreamWriter(OutputDirectory + RACE_DIRECTORY + race.Name.Singular + @"\general.txt");
                 RaceWriter.Write(race.printRace());
                 RaceWriter.Close();
 
 
-                RaceWriter = new StreamWriter(OUTPUT_FOLDER + RACE_DIRECTORY + race.Name.Singular + @"\territroy_history.log");
+                RaceWriter = new StreamWriter(OutputDirectory + RACE_DIRECTORY + race.Name.Singular + @"\territroy_history.log");
                 RaceWriter.Write(Program.WorldHistory.printRecordType(RecordType.RaceSettlementMap, race));
                 RaceWriter.Close();
             }
@@ -76,13 +83,13 @@ namespace dawn_of_worlds.Log
         {
             foreach (Nation nation in Program.World.Nations)
             {
-                Directory.CreateDirectory(OUTPUT_FOLDER + NATION_DIRECTORY + nation.Name.Singular);
-                RaceWriter = new StreamWriter(OUTPUT_FOLDER + NATION_DIRECTORY + nation.Name.Singular + @"\general.txt");
+                Directory.CreateDirectory(OutputDirectory + NATION_DIRECTORY + nation.Name.Singular);
+                RaceWriter = new StreamWriter(OutputDirectory + NATION_DIRECTORY + nation.Name.Singular + @"\general.txt");
                 RaceWriter.Write(nation.printNation());
                 RaceWriter.Close();
 
 
-                RaceWriter = new StreamWriter(OUTPUT_FOLDER + NATION_DIRECTORY + nation.Name.Singular + @"\settlement_history.log");
+                RaceWriter = new StreamWriter(OutputDirectory + NATION_DIRECTORY + nation.Name.Singular + @"\settlement_history.log");
                 RaceWriter.Write(Program.WorldHistory.printRecordType(RecordType.NationTerritoryMap, nation));
                 RaceWriter.Close();
             }
@@ -90,20 +97,19 @@ namespace dawn_of_worlds.Log
 
         public static void writeRecords()
         {
-            GeneralRecords = new StreamWriter(OUTPUT_FOLDER + ALL_RECORDS);
+            GeneralRecords = new StreamWriter(OutputDirectory + ALL_RECORDS);
             GeneralRecords.Write(Program.WorldHistory.printAllRecords());
             GeneralRecords.Close();
         }
 
         public static void writeRecordType(RecordType type)
         {
-            RecordTypeWriter = new StreamWriter(OUTPUT_FOLDER + RECORDS_BY_TYPE + type.ToString() + ".log");
+            RecordTypeWriter = new StreamWriter(OutputDirectory + RECORDS_BY_TYPE + type.ToString() + ".log");
             RecordTypeWriter.Write(Program.WorldHistory.printRecordType(type));
             RecordTypeWriter.Close();
 
         }
 
-        private const string OUTPUT_FOLDER = @"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Log\Output\";
         private const string ACTION_LOG = @"action.log";
         private const string ALL_RECORDS = @"records.log";
         private const string DEITIES = @"\Deities\";
