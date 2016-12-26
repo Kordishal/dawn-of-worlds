@@ -55,6 +55,16 @@ namespace dawn_of_worlds.Creations.Objects
                     Category = BuildingCategory.Military;
                     Effect = FortressEffect;
                     break;
+                case BuildingType.Temple:
+                    Name = new Name("Temple", "Temples", null);
+                    Category = BuildingCategory.Religious;
+                    Effect = TempleEffect;
+                    break;
+                case BuildingType.Shrine:
+                    Name = new Name("Shrine", "Shrines", null);
+                    Category = BuildingCategory.Religious;
+                    Effect = ShrineEffect;
+                    break;
             }
 
 
@@ -77,6 +87,8 @@ namespace dawn_of_worlds.Creations.Objects
     {
         CityWall,
         Fortress,
+        Temple,
+        Shrine,
     }
 
 }

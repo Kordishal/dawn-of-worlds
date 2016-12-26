@@ -107,6 +107,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             creator.FoundedCities.Add(founded_city);
             creator.Powers.Add(new RaiseArmy(founded_city));
             creator.Powers.Add(new ConstructBuilding(founded_city, BuildingType.CityWall));
+            creator.Powers.Add(new ConstructBuilding(founded_city, BuildingType.Temple));
+            creator.Powers.Add(new ConstructBuilding(founded_city, BuildingType.Shrine));
 
             creator.LastCreation = founded_city;
 

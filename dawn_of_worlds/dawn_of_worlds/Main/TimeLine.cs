@@ -47,7 +47,7 @@ namespace dawn_of_worlds.Main
             CurrentAge = Age.Creation;
             CurrentTime = 0;
             PreviousTime = 0;
-            NewAge = new int[3] { 0, 20, 40 };
+            NewAge = new int[3] { 0, 40, 60 };
             Turn = 0;
         }
     }
