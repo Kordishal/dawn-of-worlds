@@ -11,8 +11,6 @@ namespace dawn_of_worlds.Creations.Organisations
 {
     class Army : Creation
     {
-        public int StrenghtBonus { get; set; }
-
         public Nation Owner { get; set; }
         public Province Location { get; set; }
 
@@ -21,9 +19,14 @@ namespace dawn_of_worlds.Creations.Organisations
 
         public Army(string name, Deity creator) : base(name, creator)
         {
-            StrenghtBonus = 0;
         }
 
+        public int getTotalModifier()
+        {
+            int modifier = 0;
 
+
+            return modifier;
+        }
     }
 }

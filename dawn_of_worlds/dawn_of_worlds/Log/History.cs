@@ -88,6 +88,20 @@ namespace dawn_of_worlds.Log
             Records.Add(record);
         }
 
+        public void AddRecord(RecordType type, War war, Battle battle, PrintFunction print)
+        {
+            Record record = new Record();
+            record.Type = type;
+            record.War = war;
+            record.Battle = battle;
+
+            record.Turn = Simulation.Time.Turn;
+            record.Year = war.Begin;
+
+            record.printFunction = print;
+            Records.Add(record);
+        }
+
         public History()
         {
             Records = new List<Record>();
@@ -145,6 +159,19 @@ namespace dawn_of_worlds.Log
         public string printRecordType(RecordType type, War war)
         {
             List<Record> selected_records = Records.FindAll(x => x.War != null && x.Type == type && x.War.Equals(war));
+            selected_records.Sort(Record.CompareTo);
+
+            string records = "";
+            foreach (Record record in selected_records)
+            {
+                records += record.printRecord() + "\n";
+            }
+            return records;
+        }
+
+        public string printRecordType(RecordType type, Battle battle)
+        {
+            List<Record> selected_records = Records.FindAll(x => x.Battle != null && x.Type == type && x.Battle.Equals(battle));
             selected_records.Sort(Record.CompareTo);
 
             string records = "";
@@ -224,5 +251,6 @@ namespace dawn_of_worlds.Log
         GlobalTerritoryMap,
 
         WarReport,
+        BattleReport,
     }
 }

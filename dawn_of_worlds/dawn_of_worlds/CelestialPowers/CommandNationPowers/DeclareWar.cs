@@ -170,17 +170,23 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // attacker related
             // Only the war leader can surrender as only he stands to lose anything, all other participants can only white peace.
             creator.Powers.Add(new SurrenderWar(_commanded_nation, declared_war));
-            foreach (Nation nation in declared_war.Attackers)
+            foreach (Nation attacker in declared_war.Attackers)
             {
-                creator.Powers.Add(new WhitePeace(nation, declared_war));
+                creator.Powers.Add(new WhitePeace(attacker, declared_war));
+
+                foreach (Nation defender in declared_war.Defenders)
+                    creator.Powers.Add(new AttackNation(attacker, defender, declared_war));
             }
 
 
             // defender related
             declared_war.Defenders[0].Creator.Powers.Add(new SurrenderWar(declared_war.Defenders[0], declared_war));
-            foreach (Nation nation in declared_war.Defenders)
+            foreach (Nation defender in declared_war.Defenders)
             {
-                nation.Creator.Powers.Add(new WhitePeace(nation, declared_war));
+                defender.Creator.Powers.Add(new WhitePeace(defender, declared_war));
+
+                foreach (Nation attacker in declared_war.Defenders)
+                    creator.Powers.Add(new AttackNation(defender, attacker, declared_war));
             }
             creator.LastCreation = declared_war;
 

@@ -44,6 +44,7 @@ namespace dawn_of_worlds
             StreamWriters.writeRecordType(RecordType.CreateTerrainFeature);
 
             StreamWriters.writeRecordType(RecordType.WarReport);
+            StreamWriters.writeRecordType(RecordType.BattleReport);
 
             StreamWriters.writeRaces();
             StreamWriters.writeNations();

@@ -60,12 +60,11 @@
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
     <Compile Include="Actors\Domain.cs" />
-    <Compile Include="CelestialPowers\CommandArmyPowers\AttackArmy.cs" />
-    <Compile Include="CelestialPowers\CommandArmyPowers\CommandArmy.cs" />
     <Compile Include="CelestialPowers\CommandAvatarPowers\CommandAvatar.cs" />
     <Compile Include="CelestialPowers\CommandAvatarPowers\UsePower.cs" />
     <Compile Include="CelestialPowers\CommandCityPowers\CommandCity.cs" />
     <Compile Include="CelestialPowers\CommandCityPowers\ConstructBuilding.cs" />
+    <Compile Include="CelestialPowers\CommandNationPowers\AttackNation.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CommandNation.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\ConstructFortification.cs" />
     <Compile Include="CelestialPowers\CommandNationPowers\CreateCity.cs" />

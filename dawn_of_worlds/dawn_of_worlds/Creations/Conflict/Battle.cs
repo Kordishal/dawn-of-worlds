@@ -8,20 +8,25 @@ using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Log;
+using dawn_of_worlds.Creations.Diplomacy;
 
 namespace dawn_of_worlds.Creations.Conflict
 {
     class Battle : Creation
     {
+        public War War { get; set; }
+
         public Province Province { get; set; }
         private TerrainFeatures Location { get; set; }
 
-        public Army AttackingArmy { get; set; }
-        public Army DefendingArmy { get; set; }
+        // Attacker = 0
+        // Defender = 1
+        public Army[] InvolvedArmies { get; set; }
+        public int[] Modifiers { get; set; }
+        public int[] Score { get; set; }
 
-        public int TotalAttackStrenghtBonus { get; set; }
-        public int TotalDefenceStrenghtBonus { get; set; }
-
+        private int _count { get { return InvolvedArmies.Length; } }
 
         private void chooseBattleLocation()
         {
@@ -45,49 +50,63 @@ namespace dawn_of_worlds.Creations.Conflict
             {
                 terrain.Weight += terrain.Object.Modifiers.NaturalDefenceValue * 10;
 
-                if (Province.Owner == DefendingArmy.Owner)
+                if (Province.Owner == InvolvedArmies[1].Owner)
                     terrain.Weight += terrain.Object.Modifiers.FortificationDefenceValue * 10;
             }
             Location = WeightedObjects<TerrainFeatures>.ChooseXHeaviestObjects(possible_battle_locations, 1)[0];
         }
 
-        private void calculateModifiers()
-        {
-            TotalDefenceStrenghtBonus = DefendingArmy.StrenghtBonus;
-
-            TotalDefenceStrenghtBonus += Location.Modifiers.NaturalDefenceValue;
-            if (DefendingArmy.Owner == Province.Owner)
-                TotalDefenceStrenghtBonus += Location.Modifiers.FortificationDefenceValue;
-
-            TotalAttackStrenghtBonus = AttackingArmy.StrenghtBonus;
-        }
-
         public void Fight()
         {
-            int attacker_strenght = Main.Constants.Random.Next(2, 13) + TotalAttackStrenghtBonus;
-            int defender_strenght = Main.Constants.Random.Next(2, 13) + TotalDefenceStrenghtBonus;
+            for (int i = 0; i < _count; i++)
+            {
+                Modifiers[i] = InvolvedArmies[i].getTotalModifier();
+                Score[i] = Constants.Random.Next(2, 13) + Modifiers[i];
+            }
 
             // defender wins
-            if (defender_strenght >= attacker_strenght)
+            if (Score[0] <= Score[1])
             {
-                AttackingArmy.isScattered = true;
+                InvolvedArmies[0].isScattered = true;
             }
             // attacker wins
             else
             {
-                DefendingArmy.isScattered = true;
+                InvolvedArmies[1].isScattered = true;
             }
+
+            Program.WorldHistory.AddRecord(RecordType.BattleReport, War, this, printBattle);
         }
 
-
-
-        public Battle(string name, Deity creator, Army attacker, Army defender, Province province) : base(name, creator)
+        public static string printBattle(Record record)
         {
+            string result = "";
+            result += "Name: " + record.Battle.Name + "\n";
+            result += "Province: " + record.Battle.Province.Name + "\n";
+            result += "Terrain: " + record.Battle.Location.Name + "\n";
+            result += "Attacker: " + record.Battle.InvolvedArmies[0].Name + "\n";
+            result += "Attacker Bonus: " + record.Battle.Modifiers[0] + "\n";
+            result += "Attacker Score: " + record.Battle.Score[0] + "\n";
+            result += "Defender: " + record.Battle.InvolvedArmies[1].Name + "\n";
+            result += "Defender Bonus: " + record.Battle.Modifiers[1] + "\n";
+            result += "Defender Score: " + record.Battle.Score[1] + "\n";
+            result += "Winner: ";
+            if (record.Battle.InvolvedArmies[0].isScattered)
+                result += record.Battle.InvolvedArmies[1] + "\n";
+            else if (record.Battle.InvolvedArmies[1].isScattered)
+                result += record.Battle.InvolvedArmies[0] + "\n";
+            return result;
+        }
+
+        public Battle(string name, Deity creator, Army attacker, Army defender, Province province, War war) : base(name, creator)
+        {
+            War = war;
             Province = province;
-            AttackingArmy = attacker;
-            DefendingArmy = defender;
-            TotalAttackStrenghtBonus = 0;
-            TotalDefenceStrenghtBonus = 0;
+            InvolvedArmies = new Army[2] { attacker, defender };
+            Modifiers = new int[2] { 0, 0 };
+            Score = new int[2] { 0, 0 };
+
+            chooseBattleLocation();
         }
     }
 }

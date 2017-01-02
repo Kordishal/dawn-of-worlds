@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
-using dawn_of_worlds.CelestialPowers.CommandArmyPowers;
 using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
@@ -47,10 +46,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 
             // City has raised an army and cannot do so until next turn.
             _commanded_city.Modifiers.not_hasRaisedArmy = false;
-
-            // Powers related to this army.
-            army.Creator.Powers.Add(new AttackArmy(army));
-
             creator.LastCreation = army;
         }
 
