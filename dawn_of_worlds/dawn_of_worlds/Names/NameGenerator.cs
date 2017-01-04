@@ -8,6 +8,7 @@ using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Names.MarkovGenerator;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.Names
 {
@@ -98,7 +99,7 @@ namespace dawn_of_worlds.Names
                             Domains = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("domain_names", Domains);
                         }
-                        foreach (Domain domain in creator.Domains)
+                        foreach (Modifier domain in creator.Domains)
                             Domains.Second.Add(domain.ToString());
 
                         foreach (Match province in Regex.Matches(template, @"<[a-z_\\]*>"))

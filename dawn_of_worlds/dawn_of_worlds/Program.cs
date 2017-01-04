@@ -21,7 +21,8 @@ namespace dawn_of_worlds
         {
             Constants.Names = new NameGenerator();
             Log = new StreamWriters();
-            World = new World(Constants.Names.GetName("world"), 5, 5);
+            World = new World(Constants.Names.GetName("world"));
+            World.initialize(5, 5);
             WorldHistory = new History();
             Simulation = new Simulation();
 

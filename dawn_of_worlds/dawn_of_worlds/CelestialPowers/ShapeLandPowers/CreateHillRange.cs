@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,16 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateHillRange : ShapeLand
     {
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Create Hill Range";
+            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Hilly, CreationTag.Earth };
+        }
+
         public override bool Precondition(Deity creator)
         {
+            base.Precondition(creator);
             // needs a possible terrain in the area.
             if (candidate_provinces().Count == 0)
                 return false;
@@ -48,17 +57,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             return province_list;
         }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Earth))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
-
 
         public override void Effect(Deity creator)
         {

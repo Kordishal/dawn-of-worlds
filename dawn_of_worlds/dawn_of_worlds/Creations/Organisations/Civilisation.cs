@@ -12,10 +12,12 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Organisations
 {
-    class Nation : Creation
+    class Civilisation : Creation
     {
         // General
-        public NationTypes Type { get; set; }
+        public SocialOrganisation Type { get; set; }
+
+        public GovernmentForm GovernmentForm { get; set; }
 
         // Inhabitants
         public Race FoundingRace { get { return InhabitantRaces[0]; } }
@@ -71,7 +73,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<Order> NationalOrders { get; set; }
 
         // Status
-        public List<NationalTags> Tags { get; set; }
+        public List<CivilisationTags> Tags { get; set; }
 
         public void DestroyNation()
         {
@@ -92,7 +94,7 @@ namespace dawn_of_worlds.Creations.Organisations
             }
         }
 
-        public Nation(string name, Deity creator) :base(name, creator)
+        public Civilisation(string name, Deity creator) :base(name, creator)
         {
             InhabitantRaces = new List<Race>();
             Avatars = new List<Avatar>();
@@ -101,16 +103,16 @@ namespace dawn_of_worlds.Creations.Organisations
             Armies = new List<Army>();
             Relationships = new List<Relations>();
             NationalOrders = new List<Order>();
-            Tags = new List<NationalTags>();
+            Tags = new List<CivilisationTags>();
             PossibleWarGoals = new List<WarGoal>();
             isDestroyed = false;       
         }
 
-        public string printNation()
+        public string printCivilisation()
         {
             string result = "";
             result += "Name: " + Name + "\n";
-            result += "Type: " + Type + "\n";
+            result += "Type: " + GovernmentForm + "\n";
             result += "Founding Race: " + FoundingRace.Name + "\n";
             result += "Races: ";
             result += "Destroyed: " + isDestroyed + "\n";
@@ -142,15 +144,30 @@ namespace dawn_of_worlds.Creations.Organisations
                 result += order.Name + " ";
             result += "\n";
             result += "Tags: ";
-            foreach (NationalTags tag in Tags)
+            foreach (CivilisationTags tag in Tags)
                 result += tag + " ";
             result += "\n";
             return result;
         }
     }
 
-    enum NationTypes
+    enum SocialOrganisation
     {
+        BandSociety,
+        TribalSociety,
+        Chiefdom,
+        State,
+    }
+
+    enum GovernmentForm
+    {
+        Band,
+        Pack,
+        Herd,
+        Brood,
+
+
+
         LairTerritory,
         NomadicTribe,
         TribalNation,
@@ -158,7 +175,7 @@ namespace dawn_of_worlds.Creations.Organisations
         HuntingGrounds,
     }
 
-    enum NationalTags
+    enum CivilisationTags
     {
         VeryRich,
         GoldMine,

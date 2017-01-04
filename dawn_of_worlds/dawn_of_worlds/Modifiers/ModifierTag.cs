@@ -4,17 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dawn_of_worlds.Actors
+namespace dawn_of_worlds.Modifiers
 {
-    enum Domain
+    enum ModifierTag
     {
+        // Leave this here as this is what variable are initialized with when not defined.
+        Default,
+
+        DomainsBegin,
+
         // General
         Creation,
         Nature,
         Exploration,
         Architecture,
         Community,
+        Solitary,
         Metallurgy,
+        Health,
 
         // Elements
         Earth,
@@ -35,5 +42,13 @@ namespace dawn_of_worlds.Actors
         Drought,
         Pestilence,
         Magic,
+        AntiMagic,
+
+        DomainsEnd,
+        // END DOMAINS
+
+        // RACIAL MODIFIERS
+        RacialModifiersBegin,
+        RacialEpidemic,
     }
 }

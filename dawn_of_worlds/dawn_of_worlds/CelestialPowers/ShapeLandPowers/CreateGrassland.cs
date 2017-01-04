@@ -7,11 +7,20 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateGrassland : ShapeLand
     {
+
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Create Grassland";
+            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Plain, CreationTag.Earth };
+        }
+
         // Grasslands are never created in landmass, as they are the default terrain type.
         // but are kept on ocean provinces in case of islands (NYI)
         public override bool isObsolete
@@ -25,44 +34,13 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override bool Precondition(Deity creator)
         {
-            if (isObsolete)
-                return false;
+            base.Precondition(creator);
 
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
                 return false;
 
             return true;
-        }
-
-        private List<Province> candidate_terrain()
-        {
-            List<Province> terrain_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.Type == TerrainType.Island)
-                    terrain_list.Add(terrain);
-            }
-
-            return terrain_list;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Nature))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Drought))
-                weight -= Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
-
-        public CreateGrassland(Area location) : base(location)
-        {
-            Name = "Create Grassland in Area " + location.Name;
         }
 
         public override void Effect(Deity creator)
@@ -98,6 +76,20 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = grassland;
 
             Program.WorldHistory.AddRecord(grassland, grassland.printTerrainFeature);
+        }
+
+        public CreateGrassland(Area location) : base(location) { }
+
+        private List<Province> candidate_terrain()
+        {
+            List<Province> terrain_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
+            {
+                if (terrain.Type == TerrainType.Island)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
         }
     }
 }

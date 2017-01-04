@@ -15,52 +15,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 
         protected City _commanded_city;
 
-        public override int Cost()
+        protected override void initialize()
         {
-            int cost = 0;
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    cost += 6;
-                    break;
-                case Age.Races:
-                    cost += 4;
-                    break;
-                case Age.Relations:
-                    cost += 2;
-                    break;
-            }
+            Name = "Command City";
+            BaseCost = new int[] { 6, 4, 2 };
+            CostChange = Constants.COST_CHANGE_VALUE;
 
-            if (_commanded_city.Owner.Tags.Contains(NationalTags.VeryRich))
-                cost -= 2;
-
-            return cost;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = 0;
-
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    weight += Constants.WEIGHT_STANDARD_LOW;
-                    break;
-                case Age.Races:
-                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
-                    break;
-                case Age.Relations:
-                    weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-            }
-
-            int cost = Cost();
-            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
-                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-            else
-                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-
-            return weight >= 0 ? weight : 0;
+            BaseWeight = new int[] { Constants.WEIGHT_STANDARD_LOW, Constants.WEIGHT_STANDARD_MEDIUM, Constants.WEIGHT_STANDARD_HIGH };
+            WeightChange = Constants.WEIGHT_STANDARD_CHANGE;
         }
 
         public CommandCity(City command_city)

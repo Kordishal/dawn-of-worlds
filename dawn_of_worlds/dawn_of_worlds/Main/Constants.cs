@@ -54,6 +54,9 @@ namespace dawn_of_worlds.Main
 
         public const int WEIGHT_MANY_COST_DEVIATION = 1;
 
+        public const int COST_CHANGE_VALUE = 2;
+
+
         static Constants()
         {
             Random = new Random(100);

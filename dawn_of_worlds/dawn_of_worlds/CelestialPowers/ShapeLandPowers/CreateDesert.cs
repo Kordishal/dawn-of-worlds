@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -12,43 +13,22 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateDesert : ShapeLand
     {
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Create Desert";
+            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Plain, CreationTag.Dry };
+        }
+
+
         public override bool Precondition(Deity creator)
         {
+            base.Precondition(creator);
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
                 return false;
 
             return true;
-        }
-
-        private List<Province> candidate_terrain()
-        {
-            List<Province> terrain_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.isDefault && terrain.Type == TerrainType.Plain)
-                    terrain_list.Add(terrain);
-            }
-
-            return terrain_list;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Drought))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Water))
-                weight -= Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
-
-        public CreateDesert(Area location) : base(location)
-        {
-            Name = "Create Desert in Area " + location.Name;
         }
 
         public override void Effect(Deity creator)
@@ -93,6 +73,21 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = desert;
 
             Program.WorldHistory.AddRecord(desert, desert.printTerrainFeature);
+        }
+
+        public CreateDesert(Area location) : base(location) { }
+
+
+        private List<Province> candidate_terrain()
+        {
+            List<Province> terrain_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
+            {
+                if (terrain.isDefault && terrain.Type == TerrainType.Plain)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
         }
     }
 }

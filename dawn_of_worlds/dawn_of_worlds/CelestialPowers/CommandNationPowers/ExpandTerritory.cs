@@ -6,6 +6,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Diplomacy;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -13,11 +14,49 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
     {
         public override bool Precondition(Deity creator)
         {
+            base.Precondition(creator);
             if (targetProvinces().Count > 0)
                 return true;
             else
                 return false;
         }
+
+
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Expand National Territory: " + _commanded_nation.Name;
+            Tags = new List<CreationTag>() { CreationTag.Expansion };
+        }
+
+        public override void Effect(Deity creator)
+        {
+            List<Province> provinces = targetProvinces();
+
+            Province new_territory = provinces[Constants.Random.Next(provinces.Count)];
+            _commanded_nation.Territory.Add(new_territory);
+            switch (_commanded_nation.GovernmentForm)
+            {
+                case GovernmentForm.FeudalNation:
+                case GovernmentForm.TribalNation:
+                case GovernmentForm.LairTerritory:
+                    new_territory.Owner = _commanded_nation;
+                    break;
+                case GovernmentForm.HuntingGrounds:
+                    new_territory.HuntingGrounds.Add(_commanded_nation);
+                    break;
+                case GovernmentForm.NomadicTribe:
+                    new_territory.NomadicPresence.Add(_commanded_nation);
+                    break;
+            }
+
+            WarGoal war_goal = new WarGoal(WarGoalType.Conquest);
+            war_goal.Territory = new_territory;
+            _commanded_nation.PossibleWarGoals.Add(war_goal);
+        }
+
+
+        public ExpandTerritory(Civilisation commanded_nation) : base(commanded_nation) { initialize(); }
 
         private List<Province> targetProvinces()
         {
@@ -36,16 +75,16 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                         if (_commanded_nation.Territory.Contains(neighbour_province))
                             continue;
 
-                        switch (_commanded_nation.Type)
+                        switch (_commanded_nation.GovernmentForm)
                         {
-                            case NationTypes.FeudalNation:
-                            case NationTypes.TribalNation:
-                            case NationTypes.LairTerritory:
+                            case GovernmentForm.FeudalNation:
+                            case GovernmentForm.TribalNation:
+                            case GovernmentForm.LairTerritory:
                                 if (neighbour_province.Owner == null)
                                     target_provinces.Add(neighbour_province);
                                 break;
-                            case NationTypes.HuntingGrounds:
-                            case NationTypes.NomadicTribe:
+                            case GovernmentForm.HuntingGrounds:
+                            case GovernmentForm.NomadicTribe:
                                 target_provinces.Add(neighbour_province);
                                 break;
                         }
@@ -55,53 +94,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             return target_provinces;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            weight += Constants.TOTAL_PROVINCE_NUMBER;
-            weight -= _commanded_nation.Territory.Count;
-
-
-            if (creator.Domains.Contains(Domain.Conquest))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
-
-
-        public override void Effect(Deity creator)
-        {
-            List<Province> provinces = targetProvinces();
-
-            Province new_territory = provinces[Constants.Random.Next(provinces.Count)];
-            _commanded_nation.Territory.Add(new_territory);
-            switch (_commanded_nation.Type)
-            {
-                case NationTypes.FeudalNation:
-                case NationTypes.TribalNation:
-                case NationTypes.LairTerritory:
-                    new_territory.Owner = _commanded_nation;
-                    break;
-                case NationTypes.HuntingGrounds:
-                    new_territory.HuntingGrounds.Add(_commanded_nation);
-                    break;
-                case NationTypes.NomadicTribe:
-                    new_territory.NomadicPresence.Add(_commanded_nation);
-                    break;
-            }
-
-            WarGoal war_goal = new WarGoal(WarGoalType.Conquest);
-            war_goal.Territory = new_territory;
-            _commanded_nation.PossibleWarGoals.Add(war_goal);
-        }
-
-
-        public ExpandTerritory(Nation commanded_nation) : base(commanded_nation)
-        {
-            Name = "Expand National Territory: " + commanded_nation.Name;
         }
     }
 }

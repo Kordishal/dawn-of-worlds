@@ -81,11 +81,11 @@ namespace dawn_of_worlds.Log
 
         public static void writeNations()
         {
-            foreach (Nation nation in Program.World.Nations)
+            foreach (Civilisation nation in Program.World.Nations)
             {
                 Directory.CreateDirectory(OutputDirectory + NATION_DIRECTORY + nation.Name.Singular);
                 RaceWriter = new StreamWriter(OutputDirectory + NATION_DIRECTORY + nation.Name.Singular + @"\general.txt");
-                RaceWriter.Write(nation.printNation());
+                RaceWriter.Write(nation.printCivilisation());
                 RaceWriter.Close();
 
 

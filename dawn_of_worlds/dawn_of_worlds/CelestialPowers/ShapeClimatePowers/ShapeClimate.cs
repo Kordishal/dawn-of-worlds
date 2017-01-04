@@ -15,49 +15,14 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         protected Area _location { get; set; }
         protected Province _chosen_location { get; set; }
 
-        public override int Cost()
+        protected override void initialize()
         {
-            int cost = 0;
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    cost += 2;
-                    break;
-                case Age.Races:
-                    cost += 4;
-                    break;
-                case Age.Relations:
-                    cost += 6;
-                    break;
-            }
+            Name = "Shape Climate";
+            BaseCost = new int[] { 2, 4, 6 };
+            CostChange = 2;
 
-            return cost;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = 0;
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    weight += Constants.WEIGHT_MANY_HIGH;
-                    break;
-                case Age.Races:
-                    weight += Constants.WEIGHT_MANY_MEDIUM;
-                    break;
-                case Age.Relations:
-                    weight += Constants.WEIGHT_MANY_LOW;
-                    break;
-            }
-
-            int cost = Cost();
-            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
-                weight += cost * Constants.WEIGHT_MANY_COST_DEVIATION;
-            else
-                weight -= cost * Constants.WEIGHT_MANY_COST_DEVIATION;
-
-
-            return weight >= 0 ? weight : 0;
+            BaseWeight = new int[] { 20, 15, 10 };
+            WeightChange = 5;
         }
 
         public ShapeClimate(Area location)

@@ -6,6 +6,7 @@ using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Objects;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -15,10 +16,37 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override bool Precondition(Deity creator)
         {
+            base.Precondition(creator);
             if (potential_construction_sites().Count > 0)
                 return true;
             else
                 return false;
+        }
+
+
+        protected override void initialize()
+        {
+            Name = "Construct Fortification (" + _type.ToString() + ")";
+            Tags = new List<CreationTag>() { CreationTag.Construction, CreationTag.Military };
+        }
+
+
+        public override void Effect(Deity creator)
+        {
+            TerrainFeatures terrain = WeightedObjects<TerrainFeatures>.ChooseRandomObject(potential_construction_sites());
+
+            Building building = new Building(null, creator, _type);
+            building.Terrain = terrain;
+            building.Effect();
+
+            terrain.Buildings.Add(building);
+
+        }
+
+        public ConstructFortification(Civilisation commanded_nation, BuildingType type) : base(commanded_nation)
+        {
+            _type = type;
+            initialize();
         }
 
         private List<WeightedObjects<TerrainFeatures>> potential_construction_sites()
@@ -42,24 +70,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             return terrain_features;
-        }
-
-        public ConstructFortification(Nation commanded_nation, BuildingType type) : base(commanded_nation)
-        {
-            Name = "Construct Fortification (" + type + ")";
-            _type = type;
-        }
-
-        public override void Effect(Deity creator)
-        {
-            TerrainFeatures terrain = WeightedObjects<TerrainFeatures>.ChooseRandomObject(potential_construction_sites());
-
-            Building building = new Building(null, creator, _type);
-            building.Terrain = terrain;
-            building.Effect();
-
-            terrain.Buildings.Add(building);
-
         }
     }
 }

@@ -14,26 +14,24 @@ using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
 using dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Diplomacy;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
     class FoundNation : CommandRace
     {
-        private NationTypes _type { get; set; }
+        private GovernmentForm _type { get; set; }
+
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Found Nation (" + _type.ToString() + ")";
+            Tags = new List<CreationTag>() { CreationTag.Community, CreationTag.Law };
+        }
 
         public override int Weight(Deity creator)
         {
             int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Creation))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Community))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (_commanded_race.Tags.Contains(RaceTags.RacialEpidemic))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
 
             // Some social & cultural practices have an effect on the type of nation created.
             foreach (SocialCulturalCharacteristic social_cultural_characteristic in _commanded_race.SocialCulturalCharacteristics)
@@ -43,27 +41,27 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                     case SocialCulturalCharacteristic.Communal:
                         break;
                     case SocialCulturalCharacteristic.Nomadic:
-                        if (_type == NationTypes.NomadicTribe)
+                        if (_type == GovernmentForm.NomadicTribe)
                             weight += Constants.WEIGHT_STANDARD_CHANGE;
                         break;
                     case SocialCulturalCharacteristic.Sedentary:
-                        if (_type == NationTypes.NomadicTribe)
+                        if (_type == GovernmentForm.NomadicTribe)
                             weight -= Constants.WEIGHT_STANDARD_CHANGE;
                         break;
                     case SocialCulturalCharacteristic.Tribal:
-                        if (_type == NationTypes.TribalNation)
+                        if (_type == GovernmentForm.TribalNation)
                             weight += Constants.WEIGHT_STANDARD_CHANGE;
-                        if (_type == NationTypes.NomadicTribe)
+                        if (_type == GovernmentForm.NomadicTribe)
                             weight += Constants.WEIGHT_STANDARD_CHANGE;
                         break;
                     case SocialCulturalCharacteristic.Territorial:
-                        if (_type == NationTypes.LairTerritory)
+                        if (_type == GovernmentForm.LairTerritory)
                             weight += Constants.WEIGHT_STANDARD_CHANGE;
-                        if (_type == NationTypes.HuntingGrounds)
+                        if (_type == GovernmentForm.HuntingGrounds)
                             weight += Constants.WEIGHT_STANDARD_CHANGE;
                         break;
                     case SocialCulturalCharacteristic.Elitist:
-                        if (_type == NationTypes.FeudalNation)
+                        if (_type == GovernmentForm.FeudalNation)
                             weight += Constants.WEIGHT_STANDARD_CHANGE;
                         break;
                 }              
@@ -73,45 +71,43 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
         public override bool Precondition(Deity creator)
         {
-            if (isObsolete)
-                return false;
-
+            base.Precondition(creator);
 
             switch (_commanded_race.Type)
             {
                 case SpeciesType.Humanoid:
-                    if (_type == NationTypes.HuntingGrounds)
+                    if (_type == GovernmentForm.HuntingGrounds)
                         return false;
-                    if (_type == NationTypes.LairTerritory)
+                    if (_type == GovernmentForm.LairTerritory)
                         return false;
                     break;
                 case SpeciesType.Dragonoid:
-                    if (_type == NationTypes.HuntingGrounds)
+                    if (_type == GovernmentForm.HuntingGrounds)
                         return false;
-                    if (_type == NationTypes.NomadicTribe)
+                    if (_type == GovernmentForm.NomadicTribe)
                         return false;
-                    if (_type == NationTypes.TribalNation)
+                    if (_type == GovernmentForm.TribalNation)
                         return false;
-                    if (_type == NationTypes.FeudalNation)
+                    if (_type == GovernmentForm.FeudalNation)
                         return false;
                     break;
                 case SpeciesType.Beasts:
-                    if (_type == NationTypes.LairTerritory)
+                    if (_type == GovernmentForm.LairTerritory)
                         return false;
-                    if (_type == NationTypes.NomadicTribe)
+                    if (_type == GovernmentForm.NomadicTribe)
                         return false;
-                    if (_type == NationTypes.TribalNation)
+                    if (_type == GovernmentForm.TribalNation)
                         return false;
-                    if (_type == NationTypes.FeudalNation)
+                    if (_type == GovernmentForm.FeudalNation)
                         return false;
                     break;
             }
 
             switch (_type)
             {
-                case NationTypes.FeudalNation:
-                case NationTypes.TribalNation:
-                case NationTypes.LairTerritory:
+                case GovernmentForm.FeudalNation:
+                case GovernmentForm.TribalNation:
+                case GovernmentForm.LairTerritory:
                     foreach (Province province in _commanded_race.SettledProvinces)
                     {
                         if (province.Owner == null)
@@ -120,8 +116,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                         }
                     }
                     break;
-                case NationTypes.HuntingGrounds:
-                case NationTypes.NomadicTribe:
+                case GovernmentForm.HuntingGrounds:
+                case GovernmentForm.NomadicTribe:
                     return true;
             }
 
@@ -136,14 +132,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             {
                 switch (_type)
                 {
-                    case NationTypes.FeudalNation:
-                    case NationTypes.TribalNation:
-                    case NationTypes.LairTerritory:
+                    case GovernmentForm.FeudalNation:
+                    case GovernmentForm.TribalNation:
+                    case GovernmentForm.LairTerritory:
                         if (province.Owner == null)
                             possible_locations.Add(new WeightedObjects<Province>(province));
                         break;
-                    case NationTypes.HuntingGrounds:
-                    case NationTypes.NomadicTribe:
+                    case GovernmentForm.HuntingGrounds:
+                    case GovernmentForm.NomadicTribe:
                         possible_locations.Add(new WeightedObjects<Province>(province));
                         break;
                 }
@@ -199,8 +195,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             Province location = WeightedObjects<Province>.ChooseRandomObject(possible_locations);
             
-            Nation founded_nation = new Nation("Nation of " + _commanded_race.Name, creator);
-            founded_nation.Type = _type;
+            Civilisation founded_nation = new Civilisation("Nation of " + _commanded_race.Name, creator);
+            founded_nation.GovernmentForm = _type;
             founded_nation.InhabitantRaces.Add(_commanded_race);
 
             // Diplomacy
@@ -211,7 +207,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             else
             {
                 founded_nation.hasDiplomacy = true;
-                foreach (Nation nation in Program.World.Nations)
+                foreach (Civilisation nation in Program.World.Nations)
                 {
                     nation.Relationships.Add(new Relations(founded_nation));
                     founded_nation.Relationships.Add(new Relations(nation));
@@ -219,7 +215,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             }
 
             // Cities
-            if (founded_nation.Type == NationTypes.HuntingGrounds || founded_nation.Type == NationTypes.NomadicTribe)
+            if (founded_nation.GovernmentForm == GovernmentForm.HuntingGrounds || founded_nation.GovernmentForm == GovernmentForm.NomadicTribe)
             {
                 founded_nation.hasCities = false;
             }
@@ -236,17 +232,17 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             // Territory
             founded_nation.Territory.Add(location);
-            switch (founded_nation.Type)
+            switch (founded_nation.GovernmentForm)
             {
-                case NationTypes.FeudalNation:
-                case NationTypes.TribalNation:
-                case NationTypes.LairTerritory:
+                case GovernmentForm.FeudalNation:
+                case GovernmentForm.TribalNation:
+                case GovernmentForm.LairTerritory:
                     location.Owner = founded_nation;
                     break;
-                case NationTypes.HuntingGrounds:
+                case GovernmentForm.HuntingGrounds:
                     location.HuntingGrounds.Add(founded_nation);
                     break;
-                case NationTypes.NomadicTribe:
+                case GovernmentForm.NomadicTribe:
                     location.NomadicPresence.Add(founded_nation);
                     break;
             }
@@ -263,18 +259,18 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             // Possible War Goals
             WarGoal war_goal;
             List<WarGoal> war_goals = new List<WarGoal>();
-            switch (founded_nation.Type)
+            switch (founded_nation.GovernmentForm)
             {
-                case NationTypes.FeudalNation:
-                case NationTypes.TribalNation:
-                case NationTypes.LairTerritory:
+                case GovernmentForm.FeudalNation:
+                case GovernmentForm.TribalNation:
+                case GovernmentForm.LairTerritory:
                     war_goal = new WarGoal(WarGoalType.Conquest);
                     war_goal.Territory = founded_nation.Territory[0];
                     war_goals.Add(war_goal);
                     break;
-                case NationTypes.HuntingGrounds:
+                case GovernmentForm.HuntingGrounds:
                     break;
-                case NationTypes.NomadicTribe:
+                case GovernmentForm.NomadicTribe:
                     war_goal = new WarGoal(WarGoalType.RemoveNomadicPresence);
                     war_goals.Add(war_goal);
                     break;
@@ -325,10 +321,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             creator.LastCreation = founded_nation;
         }
 
-        public FoundNation (Race command_race, NationTypes type) : base(command_race)
+        public FoundNation (Race command_race, GovernmentForm type) : base(command_race)
         {
-            Name = "Found Nation: " + command_race.Name + " " + type.ToString();
             _type = type;
+            initialize();
         }
     }
 }

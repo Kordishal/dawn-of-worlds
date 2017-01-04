@@ -23,11 +23,11 @@ namespace dawn_of_worlds.WorldClasses
         public TerrainFeatures PrimaryTerrainFeature { get; set; }
         public List<TerrainFeatures> SecondaryTerrainFeatures { get; set; }
 
-        public Nation Owner { get; set; }
-        public List<Nation> NomadicPresence { get; set; }
-        public List<Nation> HuntingGrounds { get; set; }
+        public Civilisation Owner { get; set; }
+        public List<Civilisation> NomadicPresence { get; set; }
+        public List<Civilisation> HuntingGrounds { get; set; }
 
-        public void changeOwnership(Nation winner)
+        public void changeOwnership(Civilisation winner)
         {
             List<City> local_cities = Owner.Cities.FindAll(x => x.TerrainFeature.Province == this);
             foreach (City city in local_cities)
@@ -59,8 +59,8 @@ namespace dawn_of_worlds.WorldClasses
             Name = Constants.Names.GetName("area");
             Area = area;
             Coordinates = coordinates;
-            NomadicPresence = new List<Nation>();
-            HuntingGrounds = new List<Nation>();
+            NomadicPresence = new List<Civilisation>();
+            HuntingGrounds = new List<Civilisation>();
         }
 
         public void initialize()

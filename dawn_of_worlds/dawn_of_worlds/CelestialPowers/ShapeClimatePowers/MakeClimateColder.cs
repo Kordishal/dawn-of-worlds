@@ -7,23 +7,54 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 {
     class MakeClimateColder : ShapeClimate
     {
-        public override int Weight(Deity creator)
+        protected override void initialize()
         {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Cold))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Wind))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
+            base.initialize();
+            Name = "Make Climate Colder";
+            Tags = new List<CreationTag>() { CreationTag.Cold, CreationTag.Climate };
         }
+
+        public override bool Precondition(Deity creator)
+        {
+            base.Precondition(creator);
+            if (candidate_provinces().Count > 0)
+                return true;
+
+            return false;
+        }
+
+        public override void Effect(Deity creator)
+        {
+            List<WeightedObjects<Province>> provinces = candidate_provinces();
+            _chosen_location = WeightedObjects<Province>.ChooseRandomObject(provinces);
+
+            // Set new climate
+            switch (_chosen_location.LocalClimate)
+            {
+                case Climate.Tropical:
+                    _chosen_location.LocalClimate = Climate.SubTropical;
+                    break;
+                case Climate.SubTropical:
+                    _chosen_location.LocalClimate = Climate.Temperate;
+                    break;
+                case Climate.Temperate:
+                    _chosen_location.LocalClimate = Climate.SubArctic;
+                    break;
+                case Climate.SubArctic:
+                    _chosen_location.LocalClimate = Climate.Arctic;
+                    break;
+            }
+
+            adjustTerrainFeatureBiomes();
+        }
+
+        public MakeClimateColder(Area location) : base(location) { initialize(); }
 
         private List<WeightedObjects<Province>> candidate_provinces()
         {
@@ -67,44 +98,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             }
 
             return weighted_provinces;
-        }
-
-        public override bool Precondition(Deity creator)
-        {
-            if (candidate_provinces().Count > 0)
-                return true;
-
-            return false;
-        }
-
-        public override void Effect(Deity creator)
-        {
-            List<WeightedObjects<Province>> provinces = candidate_provinces();
-            _chosen_location = WeightedObjects<Province>.ChooseRandomObject(provinces);
-
-            // Set new climate
-            switch (_chosen_location.LocalClimate)
-            {
-                case Climate.Tropical:
-                    _chosen_location.LocalClimate = Climate.SubTropical;
-                    break;
-                case Climate.SubTropical:
-                    _chosen_location.LocalClimate = Climate.Temperate;
-                    break;
-                case Climate.Temperate:
-                    _chosen_location.LocalClimate = Climate.SubArctic;
-                    break;
-                case Climate.SubArctic:
-                    _chosen_location.LocalClimate = Climate.Arctic;
-                    break;
-            }
-
-            adjustTerrainFeatureBiomes();
-        }
-
-        public MakeClimateColder(Area location) : base(location)
-        {
-            Name = "Make Climate Colder in " + location.Name;
         }
     }
 }

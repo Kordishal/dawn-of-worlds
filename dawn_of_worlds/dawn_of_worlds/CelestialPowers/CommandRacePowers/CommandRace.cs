@@ -14,49 +14,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
     {
         protected Race _commanded_race { get; set; }
 
-        public override int Cost()
+        protected override void initialize()
         {
-            int cost = 0;
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    cost += 8;
-                    break;
-                case Age.Races:
-                    cost += 4;
-                    break;
-                case Age.Relations:
-                    cost += 3;
-                    break;
-            }
+            Name = "Command Race";
+            BaseCost = new int[] { 8, 4, 3 };
+            CostChange = Constants.COST_CHANGE_VALUE;
 
-            return cost;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = 0;
-
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    weight += Constants.WEIGHT_STANDARD_LOW;
-                    break;
-                case Age.Races:
-                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
-                    break;
-                case Age.Relations:
-                    weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-            }
-
-            int cost = Cost();
-            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
-                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-            else
-                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-
-            return weight >= 0 ? weight : 0;
+            BaseWeight = new int[] { Constants.WEIGHT_STANDARD_LOW, Constants.WEIGHT_STANDARD_MEDIUM, Constants.WEIGHT_STANDARD_HIGH };
+            WeightChange = Constants.WEIGHT_STANDARD_CHANGE;
         }
 
         public CommandRace(Race commanded_race)

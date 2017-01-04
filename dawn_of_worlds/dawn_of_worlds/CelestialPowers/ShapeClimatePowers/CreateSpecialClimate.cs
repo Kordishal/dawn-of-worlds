@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 {
@@ -10,25 +11,38 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
     {
         private Climate _climate { get; set; }
 
-        public CreateSpecialClimate(Area location, Climate climate) : base(location)
+        protected override void initialize()
         {
-            Name = "Create Special Climate (" + climate.ToString() + ")";
-            _climate = climate;
+            base.initialize();
+            Name = "Create Special Climate (" + _climate.ToString() + ")";
+            Tags = new List<CreationTag>() { CreationTag.Climate };
+            switch (_climate)
+            {
+                case Climate.Inferno:
+                     Tags.AddRange(new List<CreationTag>() { CreationTag.Fire, CreationTag.Heat, CreationTag.Destruction });
+                    break;
+            }
         }
 
-        public override int Weight(Deity creator)
+        public override bool Precondition(Deity creator)
         {
-            int weight = base.Weight(creator);
+            base.Precondition(creator);
+            foreach (Province province in _location.Provinces)
+                if (province.LocalClimate != _climate)
+                    return true;
 
-            if (_climate == Climate.Inferno)
-            {
-                if (creator.Domains.Contains(Domain.Heat) || creator.Domains.Contains(Domain.Fire))
-                    weight += Constants.WEIGHT_MANY_CHANGE * 2;
-                else
-                    weight = 0;
-            }
+            return false;
+        }
 
-            return weight >= 0 ? weight : 0;
+        public override void Effect(Deity creator)
+        {
+            
+        }
+
+        public CreateSpecialClimate(Area location, Climate climate) : base(location)
+        {
+            _climate = climate;
+            initialize();
         }
 
         private List<WeightedObjects<Province>> candidate_provinces()
@@ -57,18 +71,5 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             return weighted_provinces;
         }
 
-        public override bool Precondition(Deity creator)
-        {
-            foreach (Province province in _location.Provinces)
-                if (province.LocalClimate != _climate)
-                    return true;
-
-            return false;
-        }
-
-        public override void Effect(Deity creator)
-        {
-            
-        }
     }
 }

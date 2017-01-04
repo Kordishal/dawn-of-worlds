@@ -7,6 +7,7 @@ using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,9 @@ namespace dawn_of_worlds.Actors
     {
         public string Name { get; set; }
         public int PowerPoints { get; set; }
-        public List<Domain> Domains { get; set; }
+
+        public Modifier[] Domains { get; set; }
+
         public List<Power> Powers { get; set; }
 
         public DeityModifiers Modifiers { get; set; }
@@ -29,13 +32,13 @@ namespace dawn_of_worlds.Actors
         public List<Race> CreatedRaces { get; set; }
         public List<Order> CreatedOrders { get; set; }
         public List<Avatar> CreatedAvatars { get; set; }
-        public List<Nation> FoundedNations { get; set; }
+        public List<Civilisation> FoundedNations { get; set; }
         public List<City> FoundedCities { get; set; }
 
         public Power LastUsedPower { get; set; }
         public Creation LastCreation { get; set; }
 
-        public Deity(string name, World current_world)
+        public Deity(string name)
         {
             Name = name;
 
@@ -43,16 +46,17 @@ namespace dawn_of_worlds.Actors
             Modifiers = new DeityModifiers();
 
             Powers = new List<Power>();
-            Domains = new List<Domain>();
+
+            Domains = new Modifier[5];
 
             TerrainFeatures = new List<TerrainFeatures>();
             CreatedRaces = new List<Race>();
             CreatedOrders = new List<Order>();
             CreatedAvatars = new List<Avatar>();
-            FoundedNations = new List<Nation>();
+            FoundedNations = new List<Civilisation>();
             FoundedCities = new List<City>();
 
-            foreach (Area area in current_world.AreaGrid)
+            foreach (Area area in Program.World.AreaGrid)
             {
                 // Shape Land
                 Powers.Add(new CreateForest(area));
@@ -75,7 +79,7 @@ namespace dawn_of_worlds.Actors
             // Create Races
             foreach (Race race in DefinedRaces.DefinedRacesList)
             {
-                foreach (Province province in current_world.ProvinceGrid)
+                foreach (Province province in Program.World.ProvinceGrid)
                 {
                     Powers.Add(new CreateRace(race, province));
                 }              
@@ -102,7 +106,7 @@ namespace dawn_of_worlds.Actors
 
             foreach (Power p in current_powers)
             {
-                if (PowerPoints - p.Cost() >= 0)
+                if (PowerPoints - p.Cost(this) >= 0)
                 {
                     if (p.Precondition(this))
                     {
@@ -126,9 +130,9 @@ namespace dawn_of_worlds.Actors
                     //Console.WriteLine("Cost: " + p.Cost(current_age));
                     //Console.WriteLine("PowerPoints: " + PowerPoints);
                     p.Effect(this);
-                    PowerPoints = PowerPoints - p.Cost();
+                    PowerPoints = PowerPoints - p.Cost(this);
                     // For the Action Log entry.
-                    _total_power_points += p.Cost();
+                    _total_power_points += p.Cost(this);
                     LastUsedPower = p;
                     break;
                 }
@@ -146,7 +150,7 @@ namespace dawn_of_worlds.Actors
             string result = "";
             result += "Name: " + Name + "\n";
             result += "Domains: ";
-            foreach (Domain domain in Domains)
+            foreach (Modifier domain in Domains)
                 result += domain.ToString() + ", ";
             result += "\n";
             result += "Total PowerPoints Used: " + _total_power_points + "\n";
@@ -191,7 +195,7 @@ namespace dawn_of_worlds.Actors
             result += "\n\n";
             result += "NationsCount: " + FoundedNations.Count.ToString() + "\n";
             result += "Nations: \n";
-            foreach (Nation nation in FoundedNations)
+            foreach (Civilisation nation in FoundedNations)
             {
                 result += nation.Name;
                 counter++;

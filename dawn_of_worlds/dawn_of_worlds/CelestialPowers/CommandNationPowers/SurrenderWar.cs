@@ -9,11 +9,20 @@ using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class SurrenderWar : CommandNation
     {
+        private War _surrendered_war { get; set; }
+
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Surrender War (" + _commanded_nation.Name + ")";
+            Tags = new List<CreationTag>() { CreationTag.Peace, CreationTag.Diplomacy };
+        }
 
         public override bool isObsolete
         {
@@ -23,13 +32,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
         }
 
-        private War _surrendered_war { get; set; }
-
         public override bool Precondition(Deity creator)
         {
-            // If nation no longer exists.
-            if (isObsolete)
-                return false;
+            base.Precondition(creator);
 
             if (!_commanded_nation.hasDiplomacy)
                 return false;
@@ -37,52 +42,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return true;
         }
 
-        public override void Effect(Deity creator)
-        {
-            // The war goal which will change hands.
-            WarGoal war_goal;
-            if (_surrendered_war.isAttacker(_commanded_nation))
-                war_goal = _surrendered_war.WarGoalDefenders;
-            else
-                war_goal = _surrendered_war.WarGoalAttackers;
-
-            // Remove war from war lists
-            Program.World.OngoingWars.Remove(_surrendered_war);
-
-            switch (war_goal.Type)
-            {
-                case WarGoalType.Conquest:
-                    war_goal.Territory.changeOwnership(war_goal.Winner);
-                    if (_commanded_nation.Territory.Count == 0)
-                        _commanded_nation.DestroyNation();
-                    break;
-                case WarGoalType.RemoveNomadicPresence:
-                    break;
-                case WarGoalType.VassalizeCity:
-                    break;
-            }
-            _surrendered_war.hasEnded = true;
-            _surrendered_war.End = Simulation.Time.Shuffle;
-
-            creator.LastCreation = _surrendered_war;
-        }
-
-
         public override int Weight(Deity creator)
         {
             int weight = base.Weight(creator);
 
-            if (creator.Domains.Contains(Domain.War))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Peace))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-
             int army_count_attacker = 0;
             int army_count_defender = 0;
 
-            foreach (Nation attacker in _surrendered_war.Attackers)
+            foreach (Civilisation attacker in _surrendered_war.Attackers)
             {
                 for (int i = 0; i < attacker.Armies.Count; i++)
                 {
@@ -90,7 +57,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                         army_count_attacker += 1;
                 }
             }
-            foreach (Nation defender in _surrendered_war.Defenders)
+            foreach (Civilisation defender in _surrendered_war.Defenders)
             {
                 for (int i = 0; i < defender.Armies.Count; i++)
                 {
@@ -151,11 +118,44 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public SurrenderWar(Nation surrendering_nation, War surrendered_war) : base(surrendering_nation)
+        public override void Effect(Deity creator)
         {
-            Name = "Surrender War (" + surrendered_war.Name + "): " + surrendering_nation;
+            // The war goal which will change hands.
+            WarGoal war_goal;
+            if (_surrendered_war.isAttacker(_commanded_nation))
+                war_goal = _surrendered_war.WarGoalDefenders;
+            else
+                war_goal = _surrendered_war.WarGoalAttackers;
 
-            _surrendered_war = surrendered_war;
+            // Remove war from war lists
+            Program.World.OngoingWars.Remove(_surrendered_war);
+
+            switch (war_goal.Type)
+            {
+                case WarGoalType.Conquest:
+                    war_goal.Territory.changeOwnership(war_goal.Winner);
+                    if (_commanded_nation.Territory.Count == 0)
+                        _commanded_nation.DestroyNation();
+                    break;
+                case WarGoalType.RemoveNomadicPresence:
+                    break;
+                case WarGoalType.VassalizeCity:
+                    break;
+            }
+            _surrendered_war.hasEnded = true;
+            _surrendered_war.End = Simulation.Time.Shuffle;
+
+            creator.LastCreation = _surrendered_war;
         }
+
+        public SurrenderWar(Civilisation surrendering_nation, War surrendered_war) : base(surrendering_nation)
+        {
+            _surrendered_war = surrendered_war;
+            initialize();
+        }
+
+
+
+    
     }
 }

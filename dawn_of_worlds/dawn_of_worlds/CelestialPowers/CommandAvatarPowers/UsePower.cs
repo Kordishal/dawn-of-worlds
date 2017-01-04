@@ -14,14 +14,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandAvatarPowers
     {
         private Power _power;
 
-        public override bool Precondition(Deity creator)
+        protected override void initialize()
         {
-            return _power.Precondition(creator);
-        }
-
-        public override int Weight(Deity creator)
-        {
-            return _power.Weight(creator);
+            Name = "Use Power: " + _power.Name;
         }
 
         public override bool isObsolete
@@ -32,15 +27,28 @@ namespace dawn_of_worlds.CelestialPowers.CommandAvatarPowers
             }
         }
 
-        public UsePower(Avatar avatar, Power power) : base(avatar)
+        public override bool Precondition(Deity creator)
         {
-            Name = "Use Power: " + power.Name;
-            _power = power;
+            return _power.Precondition(creator);
+        }
+        public override int Cost(Deity creator)
+        {
+            return _power.Cost(creator);
+        }
+        public override int Weight(Deity creator)
+        {
+            return _power.Weight(creator);
         }
 
         public override void Effect(Deity creator)
         {
             _power.Effect(creator);
+        }
+
+        public UsePower(Avatar avatar, Power power) : base(avatar)
+        {
+            _power = power;
+            initialize();
         }
     }
 }

@@ -9,12 +9,13 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
 {
     abstract class NationalEvent : SpawnEvent
     {
-        protected Nation _nation { get; set; }
+        protected Civilisation _nation { get; set; }
 
 
-        public NationalEvent(Nation nation)
+        public NationalEvent(Civilisation nation)
         {
             _nation = nation;
+            initialize();
         }
     }
 }

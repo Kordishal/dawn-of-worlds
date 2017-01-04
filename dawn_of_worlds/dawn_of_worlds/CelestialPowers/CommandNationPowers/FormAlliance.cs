@@ -8,32 +8,24 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class FormAlliance : CommandNation
     {
+        private List<Civilisation> candidate_nations { get; set; }
 
-        private List<Nation> candidate_nations { get; set; }
-
-        public override int Weight(Deity creator)
+        protected override void initialize()
         {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.War))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Peace))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
+            base.initialize();
+            Name = "Form Alliance: " + _commanded_nation.Name;
+            Tags = new List<CreationTag>() { CreationTag.Alliance, CreationTag.Diplomacy };
         }
 
         public override bool Precondition(Deity creator)
         {
-            // If nation no longer exists.
-            if (isObsolete)
-                return false;
+            base.Precondition(creator);
 
             if (!_commanded_nation.hasDiplomacy)
                 return false;
@@ -51,11 +43,31 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return false;
         }
 
+
+
+        public override void Effect(Deity creator)
+        {
+            compile_candidate_nations();
+
+            // The new ally will be chosen amongst the possible allies at random.
+            Civilisation new_ally = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
+
+            _commanded_nation.Relationships.Find(x => x.Target == new_ally).Status = RelationStatus.Allied;
+            new_ally.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Allied;
+            creator.LastCreation = null;
+        }
+
+
+        public FormAlliance(Civilisation commanded_nation): base(commanded_nation)
+        {
+            initialize();
+        }
+
         private void compile_candidate_nations()
         {
-            candidate_nations.Clear();
+            candidate_nations = new List<Civilisation>();
 
-            foreach(Relations relation in _commanded_nation.Relationships)
+            foreach (Relations relation in _commanded_nation.Relationships)
             {
                 if (relation.Status == RelationStatus.Known)
                 {
@@ -65,24 +77,5 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         }
 
-        public override void Effect(Deity creator)
-        {
-            compile_candidate_nations();
-
-            // The new ally will be chosen amongst the possible allies at random.
-            Nation new_ally = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
-
-            _commanded_nation.Relationships.Find(x => x.Target == new_ally).Status = RelationStatus.Allied;
-            new_ally.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Allied;
-            creator.LastCreation = null;
-        }
-
-
-        public FormAlliance(Nation commanded_nation): base(commanded_nation)
-        {
-            Name = "Form Alliance: " + commanded_nation.Name;
-            candidate_nations = new List<Nation>();
-            compile_candidate_nations();
-        }
     }
 }

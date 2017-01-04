@@ -14,7 +14,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
         public Race AvatarRace { get; set; }
 
-        public Nation MasterNation { get; set; }
+        public Civilisation MasterNation { get; set; }
 
         public Order OrderMembership { get; set; }
 

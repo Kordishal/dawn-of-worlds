@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -12,40 +13,21 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateCave : ShapeLand
     {
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Create Cave";
+            Tags = new List<CreationTag>() { CreationTag.Subterranean, CreationTag.Earth };
+        }
+
         public override bool Precondition(Deity creator)
         {
+            base.Precondition(creator);
             // needs a possible province in the area.
             if (candidate_provinces().Count == 0)
                 return false;
 
             return true;
-        }
-
-        private List<Province> candidate_provinces()
-        {
-            List<Province> province_list = new List<Province>();
-            foreach (Province province in _location.Provinces)
-            {
-                if (province.Type == TerrainType.MountainRange || province.Type == TerrainType.MountainRange)
-                    province_list.Add(province);
-            }
-
-            return province_list;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Earth))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
-
-        public CreateCave(Area location) : base(location)
-        {
-            Name = "Create Cave in Area " + location.Name;
         }
 
         public override void Effect(Deity creator)
@@ -84,6 +66,20 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = cave;
 
             Program.WorldHistory.AddRecord(cave, cave.printTerrainFeature);
+        }
+
+        public CreateCave(Area location) : base(location) { }
+
+        private List<Province> candidate_provinces()
+        {
+            List<Province> province_list = new List<Province>();
+            foreach (Province province in _location.Provinces)
+            {
+                if (province.Type == TerrainType.MountainRange || province.Type == TerrainType.MountainRange)
+                    province_list.Add(province);
+            }
+
+            return province_list;
         }
     }
 }

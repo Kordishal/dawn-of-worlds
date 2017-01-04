@@ -5,11 +5,19 @@ using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class WhitePeace : CommandNation
     {
+
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "White Peace (" + _white_peaced_war.Name + ")";
+            Tags = new List<CreationTag>() { CreationTag.Peace, CreationTag.Diplomacy };
+        }
 
         public override bool isObsolete
         {
@@ -23,9 +31,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override bool Precondition(Deity creator)
         {
-            // If nation no longer exists.
-            if (isObsolete)
-                return false;
+            base.Precondition(creator);
 
             if (!_commanded_nation.hasDiplomacy)
                 return false;
@@ -42,9 +48,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 Program.World.OngoingWars.Remove(_white_peaced_war);
 
                 // reset all the relations statuses of each nation.
-                foreach (Nation defender in _white_peaced_war.Defenders)
+                foreach (Civilisation defender in _white_peaced_war.Defenders)
                 {
-                    foreach (Nation attacker in _white_peaced_war.Attackers)
+                    foreach (Civilisation attacker in _white_peaced_war.Attackers)
                     {
                         Relations temp = defender.Relationships.Find(x => x.Target == attacker);
                         if (temp != null)
@@ -54,9 +60,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                     }
                 }
 
-                foreach (Nation attacker in _white_peaced_war.Attackers)
+                foreach (Civilisation attacker in _white_peaced_war.Attackers)
                 {
-                    foreach (Nation defender in _white_peaced_war.Defenders)
+                    foreach (Civilisation defender in _white_peaced_war.Defenders)
                     {
                         Relations temp = attacker.Relationships.Find(x => x.Target == defender);
                         if (temp != null)
@@ -75,7 +81,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 {
                     _white_peaced_war.Attackers.Remove(_commanded_nation);
 
-                    foreach (Nation defender in _white_peaced_war.Defenders)
+                    foreach (Civilisation defender in _white_peaced_war.Defenders)
                     {
                         defender.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Known;
                         _commanded_nation.Relationships.Find(x => x.Target == defender).Status = RelationStatus.Known;
@@ -85,7 +91,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 {
                     _white_peaced_war.Defenders.Remove(_commanded_nation);
 
-                    foreach (Nation attacker in _white_peaced_war.Attackers)
+                    foreach (Civilisation attacker in _white_peaced_war.Attackers)
                     {
                         attacker.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Known;
                         _commanded_nation.Relationships.Find(x => x.Target == attacker).Status = RelationStatus.Known;
@@ -100,17 +106,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             int weight = base.Weight(creator);
 
-            if (creator.Domains.Contains(Domain.War))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Peace))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-
             int army_count_attacker = 0;
             int army_count_defender = 0;
 
-            foreach (Nation attacker in _white_peaced_war.Attackers)
+            foreach (Civilisation attacker in _white_peaced_war.Attackers)
             {
                 for (int i = 0; i < attacker.Armies.Count; i++)
                 {
@@ -118,7 +117,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                         army_count_attacker += 1;
                 }
             }
-            foreach (Nation defender in _white_peaced_war.Defenders)
+            foreach (Civilisation defender in _white_peaced_war.Defenders)
             {
                 for (int i = 0; i < defender.Armies.Count; i++)
                 {
@@ -180,10 +179,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         }
 
 
-        public WhitePeace(Nation commanded_nation, War white_peace_war) : base(commanded_nation)
+        public WhitePeace(Civilisation commanded_nation, War white_peace_war) : base(commanded_nation)
         {
-            Name = "Declare White Peace: " + white_peace_war.Name;
             _white_peaced_war = white_peace_war;
+            initialize();
         }
     }
 }

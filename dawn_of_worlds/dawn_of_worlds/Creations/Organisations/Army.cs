@@ -11,7 +11,7 @@ namespace dawn_of_worlds.Creations.Organisations
 {
     class Army : Creation
     {
-        public Nation Owner { get; set; }
+        public Civilisation Owner { get; set; }
         public Province Location { get; set; }
 
         public bool isScattered { get; set; }

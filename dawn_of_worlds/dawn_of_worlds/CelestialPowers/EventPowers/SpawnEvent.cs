@@ -11,50 +11,14 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers
 {
     abstract class SpawnEvent : Power
     {
-        public override int Cost()
+        protected override void initialize()
         {
-            int cost = 0;
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    cost += 10;
-                    break;
-                case Age.Races:
-                    cost += 7;
-                    break;
-                case Age.Relations:
-                    cost += 9;
-                    break;
-            }
+            Name = "Spawn Event";
+            BaseCost = new int[] { 10, 7, 9 };
+            CostChange = Constants.COST_CHANGE_VALUE;
 
-            return cost;
+            BaseWeight = new int[] { Constants.WEIGHT_STANDARD_LOW, Constants.WEIGHT_STANDARD_MEDIUM, Constants.WEIGHT_STANDARD_HIGH };
+            WeightChange = Constants.WEIGHT_STANDARD_CHANGE;
         }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = 0;
-
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    weight += Constants.WEIGHT_STANDARD_LOW;
-                    break;
-                case Age.Races:
-                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
-                    break;
-                case Age.Relations:
-                    weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-            }
-
-            int cost = Cost();
-            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
-                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-            else
-                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-
-            return weight >= 0 ? weight : 0;
-        }
-
     }
 }

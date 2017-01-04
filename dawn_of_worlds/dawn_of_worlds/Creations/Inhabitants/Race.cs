@@ -1,5 +1,6 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Modifiers;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace dawn_of_worlds.Creations.Inhabitants
 {
     class Race : Creation
     {
-        public List<RaceTags> Tags { get; set; }
-
         public int YearofCreation { get; set; }
+
+        public List<Modifier> Modifiers { get; set; }
+
+        public List<CreationTag> Tags { get; set; }
 
         public SpeciesType Type { get; set; }
         public RacialHabitat Habitat { get; set; }
@@ -30,8 +33,9 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
         public Race(string name, Deity creator) : base(name, creator)
         {
+            Modifiers = new List<Modifier>();
+            Tags = new List<CreationTag>();
             SettledProvinces = new List<Province>();
-            Tags = new List<RaceTags>();
 
             PreferredTerrain = new List<RacialPreferredHabitatTerrain>();
             PreferredClimate = new List<RacialPreferredHabitatClimate>();

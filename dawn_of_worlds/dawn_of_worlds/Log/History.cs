@@ -61,7 +61,7 @@ namespace dawn_of_worlds.Log
             Records.Add(record);
         }
 
-        public void AddRecord(RecordType type, Nation nation, char[,] map, PrintFunction print)
+        public void AddRecord(RecordType type, Civilisation nation, char[,] map, PrintFunction print)
         {
             Record record = new Record();
             record.Type = type;
@@ -143,7 +143,7 @@ namespace dawn_of_worlds.Log
             }
             return records;
         }
-        public string printRecordType(RecordType type, Nation nation)
+        public string printRecordType(RecordType type, Civilisation nation)
         {
             List<Record> selected_records = Records.FindAll(x => x.Nation != null && x.Type == type && x.Nation.Equals(nation));
             selected_records.Sort(Record.CompareTo);
@@ -201,7 +201,7 @@ namespace dawn_of_worlds.Log
         public RecordType Type { get; set; }
         public TerrainFeatures Terrain { get; set; }
         public Race Race { get; set; }
-        public Nation Nation { get; set; }
+        public Civilisation Nation { get; set; }
         public War War { get; set; }
         public Battle Battle { get; set; }
         public char[,] Map { get; set; }

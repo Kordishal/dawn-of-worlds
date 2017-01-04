@@ -7,30 +7,27 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 {
     class RaiseArmy : CommandCity
     {
+
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Raise Army: " + _commanded_city.Name;
+            Tags = new List<CreationTag>() { CreationTag.Peace, CreationTag.Diplomacy };
+        }
+
         public override bool Precondition(Deity creator)
         {
+            base.Precondition(creator);
             if (_commanded_city.Modifiers.not_hasRaisedArmy)
                 return true;
 
             return false;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.War))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Peace))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
         }
 
 
@@ -52,7 +49,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 
         public RaiseArmy(City commanded_city) : base(commanded_city)
         {
-            Name = "Raise Army: " + commanded_city.Name;
+            initialize();
         }
     }
 }

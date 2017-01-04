@@ -17,7 +17,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public Race OrderRace { get; set; }
 
         public bool isNationalOrder { get { return OrderNation != null; } }
-        public Nation OrderNation { get; set; }
+        public Civilisation OrderNation { get; set; }
 
         public Avatar Leader { get; set; }
         public List<Avatar> Members { get; set; }

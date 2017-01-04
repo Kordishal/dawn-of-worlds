@@ -70,7 +70,7 @@ namespace dawn_of_worlds.Main
                     Program.WorldHistory.AddRecord(RecordType.RaceSettlementMap, race, Map.generateRaceSettlementMap(race), Map.printMap);
                 }
 
-                foreach (Nation nation in Program.World.Nations)
+                foreach (Civilisation nation in Program.World.Nations)
                 {
                     Program.WorldHistory.AddRecord(RecordType.NationTerritoryMap, nation, Map.generateNationTerritoryMap(nation), Map.printMap);
                 }

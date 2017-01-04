@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Deity.cs" />
-    <Compile Include="Actors\Domain.cs" />
     <Compile Include="CelestialPowers\CommandAvatarPowers\CommandAvatar.cs" />
     <Compile Include="CelestialPowers\CommandAvatarPowers\UsePower.cs" />
     <Compile Include="CelestialPowers\CommandCityPowers\CommandCity.cs" />
@@ -135,6 +134,9 @@
     <Compile Include="Main\Constants.cs" />
     <Compile Include="Main\Simulation.cs" />
     <Compile Include="Main\TimeLine.cs" />
+    <Compile Include="Modifiers\CreationTag.cs" />
+    <Compile Include="Modifiers\Modifier.cs" />
+    <Compile Include="Modifiers\ModifierTag.cs" />
     <Compile Include="Names\MarkovGenerator\MarkovChain.cs" />
     <Compile Include="Names\Name.cs" />
     <Compile Include="Names\NameGenerator.cs" />

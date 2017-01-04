@@ -4,36 +4,33 @@ using dawn_of_worlds.Main;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.EventPowers.RacialEvents
 {
     class EndRacialEpidemic : RacialEvent
     {
-        public EndRacialEpidemic(Race race) : base(race)
+        protected override void initialize()
         {
-            Name = "Racial Event: End Racial Epidemic!";
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Pestilence))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
+            base.initialize();
+            Name = "Racial Event: End Racial Epidemic (" + _race.Name + ")";
+            Tags = new List<CreationTag>() { CreationTag.Health };
         }
 
         public override bool Precondition(Deity creator)
         {
-            return _race.Tags.Contains(RaceTags.RacialEpidemic);
+            base.Precondition(creator);
+
+            return _race.Modifiers.Exists(x => x.Tag == ModifierTag.RacialEpidemic);
         }
 
         public override void Effect(Deity creator)
         {
-            _race.Tags.Remove(RaceTags.RacialEpidemic);
-
+            _race.Modifiers.Remove(_race.Modifiers.Find(x => x.Tag == ModifierTag.RacialEpidemic));
+       
             creator.LastCreation = _race;
         }
+
+        public EndRacialEpidemic(Race race) : base(race) { }
     }
 }

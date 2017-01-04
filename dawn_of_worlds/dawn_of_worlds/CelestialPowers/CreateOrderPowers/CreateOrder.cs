@@ -11,6 +11,7 @@ using dawn_of_worlds.CelestialPowers.CommandNationPowers;
 using dawn_of_worlds.CelestialPowers.CommandCityPowers;
 using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
 {
@@ -21,8 +22,20 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
         private OrderType _type { get; set; }
         private OrderPurpose _purpose { get; set; }
 
-        private Nation _nation { get; set; }
+        private Civilisation _nation { get; set; }
         private Race _race { get; set; }
+
+        protected override void initialize()
+        {
+            Name = "Create Order: " + Enum.GetName(typeof(OrderType), _type) + "|" + Enum.GetName(typeof(OrderPurpose), _purpose);
+            BaseCost = new int[] { 8, 6, 4 };
+            CostChange = Constants.COST_CHANGE_VALUE;
+
+            BaseWeight = new int[] { Constants.WEIGHT_STANDARD_LOW, Constants.WEIGHT_STANDARD_MEDIUM, Constants.WEIGHT_STANDARD_HIGH };
+            WeightChange = Constants.WEIGHT_STANDARD_CHANGE;
+
+            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Community };
+        }
 
         public override bool isObsolete
         {
@@ -32,23 +45,15 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
             }
         }
 
-        public override int Cost()
-        {
-            int cost = 0;
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    cost += 8;
-                    break;
-                case Age.Races:
-                    cost += 6;
-                    break;
-                case Age.Relations:
-                    cost += 4;
-                    break;
-            }
 
-            return cost;
+        public override bool Precondition(Deity creator)
+        {
+            base.Precondition(creator);
+
+            if (_nation != null && _nation.isDestroyed)
+                return false;
+
+            return true;
         }
 
         public override void Effect(Deity creator)
@@ -94,52 +99,15 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
             creator.LastCreation = created_order;
         }
 
-        public override int Weight(Deity creator)
+
+        public CreateOrder(OrderType type, OrderPurpose purpose, Civilisation nation, Race race)
         {
-            int weight = 0;
-
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    weight += Constants.WEIGHT_STANDARD_LOW;
-                    break;
-                case Age.Races:
-                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
-                    break;
-                case Age.Relations:
-                    weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-            }
-
-            int cost = Cost();
-            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
-                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-            else
-                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-
-
-            if (creator.Domains.Contains(Domain.Creation))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
-
-        public override bool Precondition(Deity creator)
-        {
-            if (_nation.isDestroyed)
-                return false;
-
-            return true;
-        }
-
-        public CreateOrder(OrderType type, OrderPurpose purpose, Nation nation, Race race)
-        {
-            Name = "Create Order: " + Enum.GetName(typeof(OrderType), type) + "|" + Enum.GetName(typeof(OrderPurpose), purpose);
             _type = type;
             _purpose = purpose;
             _nation = nation;
             _race = race;
             isCreated = false;
+            initialize();
         }
     }
 }

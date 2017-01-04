@@ -18,34 +18,34 @@ namespace dawn_of_worlds.Creations.Diplomacy
         public int Begin { get; set; }
         public int End { get; set; }
 
-        public List<Nation> Attackers { get; set; }
-        public List<Nation> Defenders { get; set; }
+        public List<Civilisation> Attackers { get; set; }
+        public List<Civilisation> Defenders { get; set; }
 
         public WarGoal WarGoalAttackers { get; set; }
         public WarGoal WarGoalDefenders { get; set; }
 
-        public bool isInWar(Nation nation)
+        public bool isInWar(Civilisation nation)
         {
             return isDefender(nation) || isAttacker(nation);
         }
-        public bool isWarLeader(Nation nation)
+        public bool isWarLeader(Civilisation nation)
         {
             if (Attackers[0] == nation || Defenders[0] == nation)
                 return true;
             else
                 return false;
         }
-        public bool isDefender(Nation nation)
+        public bool isDefender(Civilisation nation)
         {
-            foreach (Nation defender in Defenders)
+            foreach (Civilisation defender in Defenders)
                 if (defender == nation)
                     return true;
 
             return false;
         }
-        public bool isAttacker(Nation nation)
+        public bool isAttacker(Civilisation nation)
         {
-            foreach (Nation attacker in Attackers)
+            foreach (Civilisation attacker in Attackers)
                 if (attacker == nation)
                     return true;
 
@@ -55,8 +55,8 @@ namespace dawn_of_worlds.Creations.Diplomacy
 
         public War(string name, Deity creator) : base(name, creator)
         {
-            Attackers = new List<Nation>();
-            Defenders = new List<Nation>();
+            Attackers = new List<Civilisation>();
+            Defenders = new List<Civilisation>();
             hasEnded = false;
         }
 
@@ -68,12 +68,12 @@ namespace dawn_of_worlds.Creations.Diplomacy
             if (record.War.hasEnded)
                 result += "End: " + record.War.End + "\n";
             result += "Attackers: ";
-            foreach (Nation nation in record.War.Attackers)
+            foreach (Civilisation nation in record.War.Attackers)
                 result += nation.Name + " ";
             result += "\n";
             result += "Wargoal: " + record.War.WarGoalAttackers + "\n";
             result += "Defenders: ";
-            foreach (Nation nation in record.War.Defenders)
+            foreach (Civilisation nation in record.War.Defenders)
                 result += nation.Name + " ";
             result += "\n";
             result += "Wargoal: " + record.War.WarGoalDefenders + "\n";
@@ -84,7 +84,7 @@ namespace dawn_of_worlds.Creations.Diplomacy
     class WarGoal
     {
         public WarGoalType Type { get; set; }
-        public Nation Winner { get; set; }
+        public Civilisation Winner { get; set; }
         public City City { get; set; }
         public Province Territory { get; set; }
 

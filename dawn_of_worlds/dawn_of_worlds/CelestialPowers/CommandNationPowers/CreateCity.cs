@@ -11,44 +11,25 @@ using dawn_of_worlds.CelestialPowers.CommandCityPowers;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Objects;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class CreateCity : CommandNation
     {
-
         private List<TerrainFeatures> _valid_city_terrains { get; set; }
 
-        public override int Cost()
+        protected override void initialize()
         {
-            int cost = base.Cost();
-
-            if (_commanded_nation.Tags.Contains(NationalTags.VeryRich))
-                cost -= 2;
-
-            return cost;
+            base.initialize();
+            Name = "Create City: " + _commanded_nation.Name + " in Area " + _commanded_nation.Territory[0].Name;
+            Tags = new List<CreationTag>() { CreationTag.Community, CreationTag.Construction, CreationTag.Trade };
         }
 
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Creation))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Architecture))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (_commanded_nation.Tags.Contains(NationalTags.VeryRich))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
 
         public override bool Precondition(Deity creator)
         {
-            if (isObsolete)
-                return false;
+            base.Precondition(creator);
 
             if (!_commanded_nation.hasCities)
                 return false;
@@ -116,9 +97,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         }
 
 
-        public CreateCity(Nation commanded_nation) : base(commanded_nation)
+        public CreateCity(Civilisation commanded_nation) : base(commanded_nation)
         {
-            Name = "Create City: " + commanded_nation.Name + " in Area " + commanded_nation.Territory[0].Name;
+            initialize();
         }
 
     }

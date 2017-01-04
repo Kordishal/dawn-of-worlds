@@ -13,6 +13,7 @@ using dawn_of_worlds.CelestialPowers.CommandRacePowers;
 using dawn_of_worlds.CelestialPowers.CommandNationPowers;
 using dawn_of_worlds.CelestialPowers.CreateOrderPowers;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
 {
@@ -20,8 +21,26 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
     {
         private AvatarType _type { get; set; }
         private Race _race { get; set; }
-        private Nation _nation { get; set; }
+        private Civilisation _nation { get; set; }
         private Order _order { get; set; }
+
+        protected override void initialize()
+        {
+            Name = "Create Avatar: " + _type + "|" + (_race != null ? _race.ToString() : "") + "|" + (_nation != null ? _nation.ToString() : "") + "|" + (_order != null ? _order.ToString() : "");
+            BaseCost = new int[] { 10, 7, 8 };
+            CostChange = Constants.COST_CHANGE_VALUE;
+
+            BaseWeight = new int[] { Constants.WEIGHT_STANDARD_LOW, Constants.WEIGHT_STANDARD_MEDIUM, Constants.WEIGHT_STANDARD_HIGH };
+            WeightChange = Constants.WEIGHT_STANDARD_CHANGE;
+
+            Tags = new List<CreationTag>() { CreationTag.Creation };
+        }
+
+        public override bool Precondition(Deity creator)
+        {
+            base.Precondition(creator);
+            return true;
+        }
 
         public override void Effect(Deity creator)
         {
@@ -36,11 +55,11 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
 
             created_avatar.OrderMembership = _order;
             if (created_avatar.OrderMembership != null)
-                created_avatar.OrderMembership.Members.Add(created_avatar);     
+                created_avatar.OrderMembership.Members.Add(created_avatar);
 
             switch (created_avatar.Type)
             {
-                case AvatarType.Champion: 
+                case AvatarType.Champion:
                     break;
                 case AvatarType.General:
                     break;
@@ -52,7 +71,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
                     else if (_nation != null)
                     {
                         creator.Powers.Add(new UsePower(created_avatar, new CreateOrder(OrderType.Church, OrderPurpose.FounderWorship, _nation, null)));
-                    }                    
+                    }
                     break;
                 case AvatarType.LegendaryBeast:
                     if (_nation != null)
@@ -64,11 +83,11 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
                     if (_nation != null)
                     {
                         created_avatar.MasterNation.Leader = created_avatar;
-                    }                
+                    }
                     break;
             }
 
-            foreach (NationTypes type in Enum.GetValues(typeof(NationTypes)))
+            foreach (GovernmentForm type in Enum.GetValues(typeof(GovernmentForm)))
                 creator.Powers.Add(new UsePower(created_avatar, new FoundNation(created_avatar.AvatarRace, type)));
 
             created_avatar.Name.Singular = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
@@ -92,70 +111,15 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             creator.LastCreation = created_avatar;
         }
 
-        public override int Cost()
+        public CreateAvatar(AvatarType type, Race race, Civilisation nation, Order order)
         {
-            int cost = 0;
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    cost += 10;
-                    break;
-                case Age.Races:
-                    cost += 7;
-                    break;
-                case Age.Relations:
-                    cost += 8;
-                    break;
-            }
 
-            return cost;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = 0;
-
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    weight += Constants.WEIGHT_STANDARD_LOW;
-                    break;
-                case Age.Races:
-                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
-                    break;
-                case Age.Relations:
-                    weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-            }
-
-            int cost = Cost();
-            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
-                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-            else
-                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-
-
-            if (creator.Domains.Contains(Domain.Creation))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (_type == AvatarType.LegendaryBeast && _race.Type == SpeciesType.Dragonoid)
-                weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
-
-            if (_type == AvatarType.LegendaryBeast && _race.Type == SpeciesType.Humanoid)
-                weight -= Constants.WEIGHT_STANDARD_CHANGE * 2;
-
-            return weight >= 0 ? weight : 0;
-        }
-
-
-
-        public CreateAvatar(AvatarType type, Race race, Nation nation, Order order)
-        {
-            Name = "Create Avatar: " + type + "|" + (race != null ? race.ToString() : "") + "|" + (nation != null ? nation.ToString() : "") + "|" + (order != null ? order.ToString() : "");
             _type = type;
             _race = race;
             _nation = nation;
             _order = order;
+
+            initialize();
         }
     }
 }

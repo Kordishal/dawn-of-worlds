@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 {
@@ -10,26 +11,32 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
     {
         private ClimateModifier _modifier { get; set; }
 
-        public AddClimateModifier(Area location, ClimateModifier modifier) : base(location)
+        protected override void initialize()
         {
-            Name = "Add Climate Modifer: " + modifier.ToString();
-            _modifier = modifier;
+            base.initialize();
+            Name = "Add Climate Modifer (" + _modifier.ToString() + ")";
+            Tags = new List<CreationTag>() { CreationTag.Climate, CreationTag.Magic };
         }
 
-        public override int Weight(Deity creator)
+        public override bool Precondition(Deity creator)
         {
-            int weight = base.Weight(creator);
+            base.Precondition(creator);
+            if (_location.Provinces.Exists(x => x.LocalClimateModifier != _modifier))
+                return true;
 
-            if (_modifier == ClimateModifier.MagicInfused && creator.Domains.Contains(Domain.Magic))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
+            return false;
         }
 
         public override void Effect(Deity creator)
         {
             Province province = _location.Provinces[Constants.Random.Next(_location.Provinces.Count)];
             province.LocalClimateModifier = _modifier;
+        }
+
+        public AddClimateModifier(Area location, ClimateModifier modifier) : base(location)
+        {   
+            _modifier = modifier;
+            initialize();
         }
     }
 }

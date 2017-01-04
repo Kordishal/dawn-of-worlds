@@ -1,42 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using dawn_of_worlds.Actors;
-using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Log;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class DeclareWar : CommandNation
     {
-        private List<Nation> candidate_nations { get; set; }
+        private List<Civilisation> candidate_nations { get; set; }
 
-        public override int Weight(Deity creator)
+        protected override void initialize()
         {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.War))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Battle))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Peace))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
+            base.initialize();
+            Name = "Declare War: " + _commanded_nation.Name;
+            Tags = new List<CreationTag>() { CreationTag.War };
         }
 
         public override bool Precondition(Deity creator)
         {
-            // If nation no longer exists.
-            if (isObsolete)
-                return false;
+            base.Precondition(creator);
 
             if (!_commanded_nation.hasDiplomacy)
                 return false;
@@ -58,21 +43,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return false;
         }
 
-        private void compile_candidate_nations()
-        {
-            candidate_nations.Clear();
 
-            foreach (Relations relation in _commanded_nation.Relationships)
-            {
-                if (relation.Status == RelationStatus.Known)
-                    candidate_nations.Add(relation.Target);
-            }
-
-        }
 
         public override void Effect(Deity creator)
         {
-            Nation war_target = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
+            Civilisation war_target = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
 
             // The war to be declared.
             War declared_war = new War("War of " + _commanded_nation.Name + " vs. " + war_target.Name, creator);
@@ -99,7 +74,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
                 foreach (WeightedObjects<WarGoal> weighted_war_goal in war_goals[i])
                 {
-                    Nation taker, target;
+                    Civilisation taker, target;
                     if (i == 0)
                     {
                         taker = _commanded_nation;
@@ -113,37 +88,37 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
                     weighted_war_goal.Object.Winner = taker;
 
-                    switch (taker.Type)
+                    switch (taker.GovernmentForm)
                     {
-                        case NationTypes.TribalNation:
-                        case NationTypes.LairTerritory:
-                        case NationTypes.FeudalNation:
-                            switch (target.Type)
+                        case GovernmentForm.TribalNation:
+                        case GovernmentForm.LairTerritory:
+                        case GovernmentForm.FeudalNation:
+                            switch (target.GovernmentForm)
                             {
-                                case NationTypes.LairTerritory:
-                                case NationTypes.TribalNation:
-                                case NationTypes.FeudalNation:
+                                case GovernmentForm.LairTerritory:
+                                case GovernmentForm.TribalNation:
+                                case GovernmentForm.FeudalNation:
                                     if (weighted_war_goal.Object.Type == WarGoalType.CityConquest)
                                         weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
                                     if (weighted_war_goal.Object.Type == WarGoalType.Conquest)
                                         weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                                     break;
-                                case NationTypes.NomadicTribe:
+                                case GovernmentForm.NomadicTribe:
                                     if (weighted_war_goal.Object.Type == WarGoalType.RemoveNomadicPresence)
                                         weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                                     break;
                             }
                             break;
-                        case NationTypes.NomadicTribe:
-                            switch (target.Type)
+                        case GovernmentForm.NomadicTribe:
+                            switch (target.GovernmentForm)
                             {
-                                case NationTypes.FeudalNation:
-                                case NationTypes.TribalNation:
-                                case NationTypes.LairTerritory:
+                                case GovernmentForm.FeudalNation:
+                                case GovernmentForm.TribalNation:
+                                case GovernmentForm.LairTerritory:
                                     if (weighted_war_goal.Object.Type == WarGoalType.VassalizeCity)
                                         weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                                     break;
-                                case NationTypes.NomadicTribe:
+                                case GovernmentForm.NomadicTribe:
                                     if (weighted_war_goal.Object.Type == WarGoalType.TravelAreaConquest)
                                         weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                                     break;
@@ -170,22 +145,22 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             // attacker related
             // Only the war leader can surrender as only he stands to lose anything, all other participants can only white peace.
             creator.Powers.Add(new SurrenderWar(_commanded_nation, declared_war));
-            foreach (Nation attacker in declared_war.Attackers)
+            foreach (Civilisation attacker in declared_war.Attackers)
             {
                 creator.Powers.Add(new WhitePeace(attacker, declared_war));
 
-                foreach (Nation defender in declared_war.Defenders)
+                foreach (Civilisation defender in declared_war.Defenders)
                     creator.Powers.Add(new AttackNation(attacker, defender, declared_war));
             }
 
 
             // defender related
             declared_war.Defenders[0].Creator.Powers.Add(new SurrenderWar(declared_war.Defenders[0], declared_war));
-            foreach (Nation defender in declared_war.Defenders)
+            foreach (Civilisation defender in declared_war.Defenders)
             {
                 defender.Creator.Powers.Add(new WhitePeace(defender, declared_war));
 
-                foreach (Nation attacker in declared_war.Defenders)
+                foreach (Civilisation attacker in declared_war.Defenders)
                     creator.Powers.Add(new AttackNation(defender, attacker, declared_war));
             }
             creator.LastCreation = declared_war;
@@ -193,10 +168,21 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             Program.WorldHistory.AddRecord(RecordType.WarReport, declared_war, War.printWar);
         }
 
-        public DeclareWar(Nation commanded_nation) : base(commanded_nation)
+        public DeclareWar(Civilisation commanded_nation) : base(commanded_nation)
         {
-            Name = "Declare War: " + commanded_nation.Name;
-            candidate_nations = new List<Nation>();
+            initialize();
+        }
+
+        private void compile_candidate_nations()
+        {
+            candidate_nations = new List<Civilisation>();
+
+            foreach (Relations relation in _commanded_nation.Relationships)
+            {
+                if (relation.Status == RelationStatus.Known)
+                    candidate_nations.Add(relation.Target);
+            }
+
         }
     }
 }

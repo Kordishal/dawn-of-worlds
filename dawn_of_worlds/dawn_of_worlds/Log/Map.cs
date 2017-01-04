@@ -141,7 +141,7 @@ namespace dawn_of_worlds.Log
             return race_settlement_map;
         }
 
-        public static char[,] generateNationTerritoryMap(Nation nation)
+        public static char[,] generateNationTerritoryMap(Civilisation nation)
         {
             char[,] nation_territory_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
 

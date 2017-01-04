@@ -12,6 +12,7 @@ using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
 using dawn_of_worlds.CelestialPowers.EventPowers.RacialEvents;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 {
@@ -20,11 +21,21 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
         private Race _created_race { get; set; }
         private Province _terrain { get; set; }
 
+        protected override void initialize()
+        {
+            Name = "Create Race";
+            BaseCost = new int[] { 22, 6, 15 };
+            CostChange = Constants.COST_CHANGE_VALUE;
+
+            BaseWeight = new int[] { Constants.WEIGHT_STANDARD_LOW, Constants.WEIGHT_STANDARD_HIGH, Constants.WEIGHT_STANDARD_MEDIUM };
+            WeightChange = Constants.WEIGHT_STANDARD_CHANGE;
+
+            Tags = new List<CreationTag>() { CreationTag.Creation };
+        }
+
         public override bool Precondition(Deity creator)
         {
-            // No longer valid once used.
-            if (isObsolete)
-                return false;
+            base.Precondition(creator);
 
             // Aquatic, exclude all areas, which do not have water to live in.
             if (_created_race.Habitat == RacialHabitat.Aquatic)
@@ -42,25 +53,6 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                     return false;
 
             return true;
-        }
-
-        public override int Cost()
-        {
-            int cost = 0;
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    cost += 22;
-                    break;
-                case Age.Races:
-                    cost += 6;
-                    break;
-                case Age.Relations:
-                    cost += 15;
-                    break;
-            }
-
-            return cost;
         }
 
         // Once the race is created and has a creator it becomes obsolete and can no longer be used.
@@ -98,7 +90,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             foreach (Area area in Program.World.AreaGrid)
                 creator.Powers.Add(new SettleTile(_created_race, area));
 
-            foreach (NationTypes type in Enum.GetValues(typeof(NationTypes)))
+            foreach (GovernmentForm type in Enum.GetValues(typeof(GovernmentForm)))
                 creator.Powers.Add(new FoundNation(_created_race, type));
 
             foreach (Deity deity in Program.World.Deities)
@@ -120,33 +112,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 
         public override int Weight(Deity creator)
         {
-            int weight = 0;
-
-            switch (Simulation.Time.CurrentAge)
-            {
-                case Age.Creation:
-                    weight += Constants.WEIGHT_STANDARD_LOW;
-                    break;
-                case Age.Races:
-                    weight += Constants.WEIGHT_STANDARD_HIGH;
-                    break;
-                case Age.Relations:
-                    weight += Constants.WEIGHT_STANDARD_MEDIUM;
-                    break;
-                default:
-                    weight += 0;
-                    break;
-            }
-
-            int cost = Cost();
-            if (cost > Constants.WEIGHT_COST_DEVIATION_MEDIUM)
-                weight += cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-            else
-                weight -= cost * Constants.WEIGHT_STANDARD_COST_DEVIATION;
-
-
-            if (creator.Domains.Contains(Domain.Creation))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
+            int weight = base.Weight(creator);
 
             foreach (RacialPreferredHabitatTerrain terrain in _created_race.PreferredTerrain)
             {
@@ -198,17 +164,14 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
                 }
             }
 
-
-
             return weight >= 0 ? weight : 0;
         }
 
         public CreateRace(Race created_race, Province terrain)
         {
-            Name = "Create Race: " + created_race.Name;
             _created_race = created_race;
             _terrain = terrain;
-
+            initialize();
         }
     }
 }

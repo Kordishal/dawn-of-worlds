@@ -7,35 +7,34 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
 {
     class VastGoldMineEstablised : NationalEvent
     {
-        public VastGoldMineEstablised(Nation nation) : base(nation)
+
+        protected override void initialize()
         {
-            Name = "National Event: Vast Gold Vein Found";
+            base.initialize();
+            Name = "National Event: Vast Gold Vein Established (" + _nation.Name + ")";
+            Tags = new List<CreationTag>() { CreationTag.Gold };
         }
 
-        public override int Weight(Deity creator)
+        public override bool Precondition(Deity creator)
         {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Exploration))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Metallurgy))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
+            base.Precondition(creator);
+            return true;
         }
 
         public override void Effect(Deity creator)
         {
-            _nation.Tags.Add(NationalTags.VeryRich);
-            _nation.Tags.Add(NationalTags.GoldMine);
+            _nation.Tags.Add(CivilisationTags.VeryRich);
+            _nation.Tags.Add(CivilisationTags.GoldMine);
 
             creator.LastCreation = _nation;
         }
+
+        public VastGoldMineEstablised(Civilisation nation) : base(nation) { }
     }
 }

@@ -13,31 +13,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class AttackNation : CommandNation
     {
-        private Nation _attacked_nation { get; set; }
+        private Civilisation _attacked_nation { get; set; }
         private War _war { get; set; }
         private List<WeightedObjects<Army>> _possible_attackers { get; set; }
         private List<WeightedObjects<Army>> _possible_targets { get; set; }
 
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Battle))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.War))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Peace))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
-
         public override bool Precondition(Deity creator)
         {
-            if (isObsolete)
-                return false;
+            base.Precondition(creator);
 
             possible_target_armies();
 
@@ -48,6 +31,33 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 return false;
 
             return true;
+        }
+
+        public override void Effect(Deity creator)
+        {
+            possible_target_armies();
+
+            Army target_army = WeightedObjects<Army>.ChooseRandomObject(_possible_targets);
+            Army attacker_army = WeightedObjects<Army>.ChooseRandomObject(_possible_attackers);
+
+            // Move the armies into the same terrain.
+            if (!target_army.Location.Equals(attacker_army.Location))
+            {
+                attacker_army.Location = target_army.Location;
+            }
+
+            Battle battle = new Battle(attacker_army.Name + " vs. " + target_army.Name, creator, attacker_army, target_army, target_army.Location, _war);
+            battle.Fight();
+
+            creator.LastCreation = null;
+        }
+
+
+        public AttackNation(Civilisation commanded_nation, Civilisation target_nation, War war) : base(commanded_nation)
+        {
+            _attacked_nation = target_nation;
+            _war = war;
+            initialize();
         }
 
         private void possible_target_armies()
@@ -80,32 +90,5 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         }
 
-
-        public override void Effect(Deity creator)
-        {
-            possible_target_armies();
-
-            Army target_army = WeightedObjects<Army>.ChooseRandomObject(_possible_targets);
-            Army attacker_army = WeightedObjects<Army>.ChooseRandomObject(_possible_attackers);
-
-            // Move the armies into the same terrain.
-            if (!target_army.Location.Equals(attacker_army.Location))
-            {
-                attacker_army.Location = target_army.Location;
-            }
-
-            Battle battle = new Battle(attacker_army.Name + " vs. " + target_army.Name, creator, attacker_army, target_army, target_army.Location, _war);
-            battle.Fight();
-
-            creator.LastCreation = null;
-        }
-
-
-        public AttackNation(Nation commanded_nation, Nation target_nation, War war) : base(commanded_nation)
-        {
-            Name = "Attack Nation: " + commanded_nation.Name;
-            _attacked_nation = target_nation;
-            _war = war;
-        }
     }
 }

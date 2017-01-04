@@ -16,6 +16,7 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers
         public RacialEvent(Race race)
         {
             _race = race;
+            initialize();
         }
     }
 }

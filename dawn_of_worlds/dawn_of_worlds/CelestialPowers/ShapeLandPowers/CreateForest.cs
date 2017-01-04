@@ -7,34 +7,28 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateForest : ShapeLand
     {
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Create Forest";
+            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Nature };
+        }
+
         public override bool Precondition(Deity creator)
         {
-
+            base.Precondition(creator);
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
                 return false;
 
             return true;
         }
-
-        private List<Province> candidate_terrain()
-        {
-            List<Province> province_list = new List<Province>();
-            foreach (Province province in _location.Provinces)
-            {
-                if (province.isDefault && province.Type == TerrainType.Plain)
-                    if (province.LocalClimate != Climate.Arctic)
-                        province_list.Add(province);
-            }
-
-            return province_list;
-        }
-
 
         public override void Effect(Deity creator)
         {
@@ -71,22 +65,19 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Program.WorldHistory.AddRecord(forest, forest.printTerrainFeature);        
         }
 
-        public override int Weight(Deity creator)
+        public CreateForest(Area location) : base(location) { }
+
+        private List<Province> candidate_terrain()
         {
-            int weight = base.Weight(creator);
+            List<Province> province_list = new List<Province>();
+            foreach (Province province in _location.Provinces)
+            {
+                if (province.isDefault && province.Type == TerrainType.Plain)
+                    if (province.LocalClimate != Climate.Arctic)
+                        province_list.Add(province);
+            }
 
-            if (creator.Domains.Contains(Domain.Nature))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Drought))
-                weight -= Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
-        }
-
-        public CreateForest(Area location) : base (location)
-        {
-            Name = "Create Forest in Area " + location.Name;
+            return province_list;
         }
     }
 }

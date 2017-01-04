@@ -7,44 +7,27 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateRiver : ShapeLand
     {
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Create River";
+            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Water, CreationTag.Trade };
+        }
 
         public override bool Precondition(Deity creator)
         {
+            base.Precondition(creator);
             // needs a possible terrain in the area.
             if (candidate_terrain().Count == 0)
                 return false;
 
             return true;
-        }
-
-        private List<Province> candidate_terrain()
-        {
-            List<Province> terrain_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.Type == TerrainType.MountainRange)
-                    terrain_list.Add(terrain);
-            }
-
-            return terrain_list;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Water))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            if (creator.Domains.Contains(Domain.Drought))
-                weight -= Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
         }
 
         public override void Effect(Deity creator)
@@ -60,7 +43,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             // the primary direction of the river. 
             Array directions = Enum.GetValues(typeof(Direction));
-            Direction primary_direction = (Direction)directions.GetValue(Constants.Random.Next(directions.Length));           
+            Direction primary_direction = (Direction)directions.GetValue(Constants.Random.Next(directions.Length));
             Direction[] other_directions = new Direction[2];
             switch (primary_direction)
             {
@@ -90,7 +73,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             while (not_has_found_destination)
             {
                 // Check if there are any lakes and/or rivers in this area, then let this new river flow into a random one.
-                if (current_location.SecondaryTerrainFeatures.Exists(x => x.GetType() == typeof(Lake)) || 
+                if (current_location.SecondaryTerrainFeatures.Exists(x => x.GetType() == typeof(Lake)) ||
                     current_location.SecondaryTerrainFeatures.Exists(y => y.GetType() == typeof(River)))
                 {
                     List<TerrainFeatures> lakes_and_rivers = current_location.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Lake) || x.GetType() == typeof(River));
@@ -184,7 +167,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                         river.Riverbed.Add(river.Destination);
                         not_has_found_destination = false;
                     }
-                }                
+                }
             }
 
             // Add river to terrains at the end in order to avoid the river ending in itself.
@@ -203,6 +186,19 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Program.WorldHistory.AddRecord(river, river.printTerrainFeature);
         }
 
+        public CreateRiver(Area location) : base(location) { }
+
+        private List<Province> candidate_terrain()
+        {
+            List<Province> terrain_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
+            {
+                if (terrain.Type == TerrainType.MountainRange)
+                    terrain_list.Add(terrain);
+            }
+
+            return terrain_list;
+        }
 
         enum Direction
         {
@@ -210,11 +206,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             East,
             South,
             West,
-        }
-
-        public CreateRiver(Area location) : base (location)
-        {
-            Name = "Create River in Area " + location.Name;
         }
     }
 }

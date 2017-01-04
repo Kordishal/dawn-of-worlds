@@ -3,6 +3,7 @@ using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,23 +25,26 @@ namespace dawn_of_worlds.WorldClasses
 
         public List<Deity> Deities { get; set; }
         public List<Race> Races { get; set; }
-        public List<Nation> Nations { get; set; }
+        public List<Civilisation> Nations { get; set; }
         public List<City> Cities { get; set; }
         public List<Order> Orders { get; set; }
 
         public List<War> OngoingWars { get; set; }
 
-        public World(string world_name, int num_regions, int num_areas)
+        public World(string world_name)
         {
             Races = new List<Race>();
             Regions = new List<Region>();
             Deities = new List<Deity>();
-            Nations = new List<Nation>();
+            Nations = new List<Civilisation>();
             Cities = new List<City>();
             Orders = new List<Order>();
             OngoingWars = new List<War>();
             Name = world_name;
+        }
 
+        public void initialize(int num_regions, int num_areas)
+        {
             generateWorldRegions(num_regions, num_areas);
             generateAreaGrid();
             defineAreaAndTerrainCoordiantes();
@@ -287,19 +291,31 @@ namespace dawn_of_worlds.WorldClasses
         {
             for (int i = 0; i < 5; i++)
             {
-                Deities.Add(new Deity(Constants.Names.GetName("deities"), this));
+                Deities.Add(new Deity(Constants.Names.GetName("deities")));
             }
 
+            List<ModifierTag> domain_tags = new List<ModifierTag>();
+            Array modifier_tags = Enum.GetValues(typeof(ModifierTag));
+            for (int i = (int)ModifierTag.DomainsBegin + 1; i < (int)ModifierTag.DomainsEnd; i++)
+                domain_tags.Add((ModifierTag)modifier_tags.GetValue(i));
 
-            int max_domains = Main.Constants.Random.Next(3, 6);
-            int number_of_domains = Enum.GetValues(typeof(Domain)).Length;
             foreach (Deity deity in Deities)
             {
-                for (int i = 0; i < max_domains; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    Domain domain = (Domain)Enum.GetValues(typeof(Domain)).GetValue(Main.Constants.Random.Next(number_of_domains));
-                    if (!deity.Domains.Contains(domain))                     
-                        deity.Domains.Add(domain);
+                    while (deity.Domains[i] == null)
+                    {
+                        bool is_valid_domain = true;
+                        ModifierTag domain = domain_tags[Constants.Random.Next(domain_tags.Count)];
+
+                        // Checks whether there is an incompatible domain and whether there is the same domain already in.
+                        for (int j = 0; j < 5; j++)
+                            if (deity.Domains[j] != null && (deity.Domains[j].Excludes != null && deity.Domains[j].Excludes.Contains(domain) || deity.Domains[j].Tag == domain))
+                                is_valid_domain = false;
+
+                        if (is_valid_domain)
+                            deity.Domains[i] = new Modifier(domain);
+                    }
                 }
             }
         }

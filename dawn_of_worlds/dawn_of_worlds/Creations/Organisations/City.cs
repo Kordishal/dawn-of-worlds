@@ -12,7 +12,7 @@ namespace dawn_of_worlds.Creations.Organisations
     class City : Creation
     {
         // Owner Nation
-        public Nation Owner { get; set; }
+        public Civilisation Owner { get; set; }
 
         // Territory
         public TerrainFeatures TerrainFeature { get; set; }
@@ -23,7 +23,7 @@ namespace dawn_of_worlds.Creations.Organisations
 
 
 
-        public void changeOwnership(Nation to)
+        public void changeOwnership(Civilisation to)
         {
             Owner.Cities.Remove(this);
             Owner = to;

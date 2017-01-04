@@ -7,41 +7,28 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class CreateMountain : ShapeLand
     {
 
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Create Mountain";
+            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Earth };
+        }
+
         public override bool Precondition(Deity creator)
         {
+            base.Precondition(creator);
             // needs a possible terrain in the area.
             if (candidate_provinces().Count == 0)
                 return false;
 
             return true;
-        }
-
-        private List<Province> candidate_provinces()
-        {
-            List<Province> province_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.Type == TerrainType.MountainRange)
-                    province_list.Add(terrain);
-            }
-
-            return province_list;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Earth))
-                weight += Constants.WEIGHT_MANY_CHANGE;
-
-            return weight >= 0 ? weight : 0;
         }
 
         public override void Effect(Deity creator)
@@ -107,9 +94,18 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         }
 
 
-        public CreateMountain(Area location) : base (location)
+        public CreateMountain(Area location) : base(location) { }
+
+        private List<Province> candidate_provinces()
         {
-            Name = "Create Mountain in Area " + location.Name;
+            List<Province> province_list = new List<Province>();
+            foreach (Province terrain in _location.Provinces)
+            {
+                if (terrain.Type == TerrainType.MountainRange)
+                    province_list.Add(terrain);
+            }
+
+            return province_list;
         }
     }
 }

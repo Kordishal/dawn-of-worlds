@@ -8,12 +8,79 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Modifiers;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
     class SettleTile : CommandRace
     {
         private Area _settling_area { get; set; }
+
+        protected override void initialize()
+        {
+            base.initialize();
+            Name = "Settle Province (" + _settling_area.ToString() + ")";
+            Tags = new List<CreationTag>() { CreationTag.Exploration };
+        }
+
+        public override int Weight(Deity creator)
+        {
+            int weight = base.Weight(creator);
+
+            if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Nomadic))
+                weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+
+            if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Sedentary))
+                weight -= Constants.WEIGHT_STANDARD_CHANGE * 2;
+
+            // The less settled provinces the more likle to settle new ones.
+            weight += Constants.TOTAL_PROVINCE_NUMBER;
+            weight -= _commanded_race.SettledProvinces.Count;
+
+
+
+            return weight >= 0 ? weight : 0;
+        }
+
+        public override bool Precondition(Deity creator)
+        {
+            base.Precondition(creator);
+            if (candidate_provinces().Count > 0)
+                return true;
+            else
+                return false;
+        }
+
+
+        public override void Effect(Deity creator)
+        {
+            List<WeightedObjects<Province>> possible_target_province = candidate_provinces();
+
+            int number_of_settled_provinces = Constants.BASE_TILES_SETTLED_BY_RACE;
+
+            if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Nomadic))
+                number_of_settled_provinces += 1;
+            if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Sedentary))
+                number_of_settled_provinces -= 1;
+
+            if (number_of_settled_provinces > possible_target_province.Count)
+                number_of_settled_provinces = possible_target_province.Count;
+
+            List<Province> target_provinces = WeightedObjects<Province>.ChooseXHeaviestObjects(possible_target_province, number_of_settled_provinces);
+
+            foreach (Province province in target_provinces)
+            {
+                province.SettledRaces.Add(_commanded_race);
+                _commanded_race.SettledProvinces.Add(province);
+            }         
+        }
+
+
+        public SettleTile(Race commanded_race, Area area) : base(commanded_race)
+        {
+            _settling_area = area;
+            initialize();
+        }
 
         private List<WeightedObjects<Province>> candidate_provinces()
         {
@@ -116,78 +183,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                     possible_locations.Add(candidate_province);
             }
             return possible_locations;
-        }
-
-
-        public override int Cost()
-        {
-            int cost = base.Cost();
-            cost -= 2;
-            return cost;
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            if (creator.Domains.Contains(Domain.Exploration))
-                weight += Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (_commanded_race.Tags.Contains(RaceTags.RacialEpidemic))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE;
-
-            if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Nomadic))
-                weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
-
-            if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Sedentary))
-                weight -= Constants.WEIGHT_STANDARD_CHANGE * 2;
-
-            // The less settled provinces the more likle to settle new ones.
-            weight += Constants.TOTAL_PROVINCE_NUMBER;
-            weight -= _commanded_race.SettledProvinces.Count;
-
-
-
-            return weight >= 0 ? weight : 0;
-        }
-
-        public override bool Precondition(Deity creator)
-        {
-            if (candidate_provinces().Count > 0)
-                return true;
-            else
-                return false;
-        }
-
-
-        public override void Effect(Deity creator)
-        {
-            List<WeightedObjects<Province>> possible_target_province = candidate_provinces();
-
-            int number_of_settled_provinces = Constants.BASE_TILES_SETTLED_BY_RACE;
-
-            if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Nomadic))
-                number_of_settled_provinces += 1;
-            if (_commanded_race.SocialCulturalCharacteristics.Contains(SocialCulturalCharacteristic.Sedentary))
-                number_of_settled_provinces -= 1;
-
-            if (number_of_settled_provinces > possible_target_province.Count)
-                number_of_settled_provinces = possible_target_province.Count;
-
-            List<Province> target_provinces = WeightedObjects<Province>.ChooseXHeaviestObjects(possible_target_province, number_of_settled_provinces);
-
-            foreach (Province province in target_provinces)
-            {
-                province.SettledRaces.Add(_commanded_race);
-                _commanded_race.SettledProvinces.Add(province);
-            }         
-        }
-
-
-        public SettleTile(Race commanded_race, Area area) : base(commanded_race)
-        {
-            Name = "Settle Terrain: " + commanded_race.Name + " in " + area.Name;
-            _settling_area = area;
         }
     }
 }
