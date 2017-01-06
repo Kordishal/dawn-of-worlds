@@ -126,7 +126,7 @@
     <Compile Include="Creations\Objects\Building.cs" />
     <Compile Include="Creations\Organisations\Army.cs" />
     <Compile Include="Creations\Organisations\City.cs" />
-    <Compile Include="Creations\Organisations\Nation.cs" />
+    <Compile Include="Creations\Organisations\Civilisation.cs" />
     <Compile Include="Creations\Organisations\Order.cs" />
     <Compile Include="Log\StreamWriters.cs" />
     <Compile Include="Log\History.cs" />
