@@ -5,10 +5,11 @@ using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Actors;
 using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
 {
-    class VastGoldMineDepleted : NationalEvent
+    class VastGoldMineDepleted : CivilisationEvents
     {
         protected override void initialize()
         {
@@ -22,7 +23,7 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
         {
             base.Precondition(creator);
 
-            if (!_nation.Tags.Contains(CivilisationTags.GoldMine))
+            if (!_nation.LocalTags.Contains(CivilisationTags.GoldMine))
                 return false;
 
             return true;
@@ -30,8 +31,8 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
 
         public override void Effect(Deity creator)
         {
-            _nation.Tags.Remove(CivilisationTags.VeryRich);
-            _nation.Tags.Remove(CivilisationTags.GoldMine);
+            _nation.LocalTags.Remove(CivilisationTags.VeryRich);
+            _nation.LocalTags.Remove(CivilisationTags.GoldMine);
 
             creator.LastCreation = _nation;
         }

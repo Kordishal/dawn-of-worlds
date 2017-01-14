@@ -18,6 +18,8 @@ namespace dawn_of_worlds.Creations
 
         public Deity Creator { get; set; }
 
+        public List<CreationTag> Tags { get; set; }
+
         public Creation(string name, Deity creator)
         {
             _identifier = id;
@@ -26,6 +28,7 @@ namespace dawn_of_worlds.Creations
             Name = new Name(null, null, null);
             Name.Singular = name + " {" + id + "}";
             Creator = creator;
+            Tags = new List<CreationTag>();
         }
 
 

@@ -14,6 +14,7 @@ using dawn_of_worlds.CelestialPowers.CommandNationPowers;
 using dawn_of_worlds.CelestialPowers.CreateOrderPowers;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
 {
@@ -87,8 +88,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
                     break;
             }
 
-            foreach (GovernmentForm type in Enum.GetValues(typeof(GovernmentForm)))
-                creator.Powers.Add(new UsePower(created_avatar, new FoundNation(created_avatar.AvatarRace, type)));
+            
+            //creator.Powers.Add(new UsePower(created_avatar, new FoundNation(created_avatar.AvatarRace, PolityDefinitions.BandSociety)));
 
             created_avatar.Name.Singular = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
 

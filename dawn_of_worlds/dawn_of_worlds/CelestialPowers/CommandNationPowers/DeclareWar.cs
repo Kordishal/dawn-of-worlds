@@ -5,6 +5,7 @@ using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Log;
 using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
@@ -72,6 +73,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 foreach (WarGoal war_goal in war_target.PossibleWarGoals)
                     war_goals[i].Add(new WeightedObjects<WarGoal>(war_goal));
 
+                // determine the weights of each war goal. Certain types of polities can only take certain types of war goals.
                 foreach (WeightedObjects<WarGoal> weighted_war_goal in war_goals[i])
                 {
                     Civilisation taker, target;
@@ -87,45 +89,31 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                     }
 
                     weighted_war_goal.Object.Winner = taker;
-
-                    switch (taker.GovernmentForm)
+            
+                    if (taker.PoliticalOrganisation.isNomadic)
                     {
-                        case GovernmentForm.TribalNation:
-                        case GovernmentForm.LairTerritory:
-                        case GovernmentForm.FeudalNation:
-                            switch (target.GovernmentForm)
-                            {
-                                case GovernmentForm.LairTerritory:
-                                case GovernmentForm.TribalNation:
-                                case GovernmentForm.FeudalNation:
-                                    if (weighted_war_goal.Object.Type == WarGoalType.CityConquest)
-                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
-                                    if (weighted_war_goal.Object.Type == WarGoalType.Conquest)
-                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
-                                    break;
-                                case GovernmentForm.NomadicTribe:
-                                    if (weighted_war_goal.Object.Type == WarGoalType.RemoveNomadicPresence)
-                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
-                                    break;
-                            }
-                            break;
-                        case GovernmentForm.NomadicTribe:
-                            switch (target.GovernmentForm)
-                            {
-                                case GovernmentForm.FeudalNation:
-                                case GovernmentForm.TribalNation:
-                                case GovernmentForm.LairTerritory:
-                                    if (weighted_war_goal.Object.Type == WarGoalType.VassalizeCity)
-                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
-                                    break;
-                                case GovernmentForm.NomadicTribe:
-                                    if (weighted_war_goal.Object.Type == WarGoalType.TravelAreaConquest)
-                                        weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
-                                    break;
-                            }
-                            break;
+                        if (target.PoliticalOrganisation.isNomadic)
+                            if (weighted_war_goal.Object.Type == WarGoalType.Conquest)
+                                weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        else
+                            if (weighted_war_goal.Object.Type == WarGoalType.VassalizeCity)
+                                weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                     }
-
+                    else
+                    {
+                        if (target.PoliticalOrganisation.isNomadic)
+                        {
+                            if (weighted_war_goal.Object.Type == WarGoalType.RemoveNomadicPresence)
+                                weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        }
+                        else
+                        {
+                            if (weighted_war_goal.Object.Type == WarGoalType.CityConquest)
+                                weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE * 2;
+                            if (weighted_war_goal.Object.Type == WarGoalType.Conquest)
+                                weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
+                        }
+                    }
                 }
             }
 

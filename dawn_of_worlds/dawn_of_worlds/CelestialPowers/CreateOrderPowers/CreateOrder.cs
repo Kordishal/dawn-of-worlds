@@ -12,6 +12,7 @@ using dawn_of_worlds.CelestialPowers.CommandCityPowers;
 using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
 {

@@ -16,8 +16,6 @@ namespace dawn_of_worlds.Creations.Inhabitants
 
         public List<Modifier> Modifiers { get; set; }
 
-        public List<CreationTag> Tags { get; set; }
-
         public SpeciesType Type { get; set; }
         public RacialHabitat Habitat { get; set; }
         public List<RacialPreferredHabitatTerrain> PreferredTerrain { get; set; }
@@ -91,7 +89,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
     enum SpeciesType
     {
         Humanoid,
-        Dragonoid,
+        Dragon,
         Beasts,
     }
 

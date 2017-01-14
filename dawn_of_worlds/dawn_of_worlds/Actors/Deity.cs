@@ -3,6 +3,7 @@ using dawn_of_worlds.CelestialPowers.CreateRacePowers;
 using dawn_of_worlds.CelestialPowers.ShapeClimatePowers;
 using dawn_of_worlds.CelestialPowers.ShapeLandPowers;
 using dawn_of_worlds.Creations;
+using dawn_of_worlds.Creations.Civilisations;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;

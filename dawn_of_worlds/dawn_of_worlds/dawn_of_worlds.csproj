@@ -104,6 +104,8 @@
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateMountainRange.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateRiver.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\ShapeLand.cs" />
+    <Compile Include="Creations\Civilisations\CivilisationTags.cs" />
+    <Compile Include="Creations\Civilisations\Polity.cs" />
     <Compile Include="Creations\Conflict\Battle.cs" />
     <Compile Include="Creations\Creation.cs" />
     <Compile Include="Creations\Diplomacy\Relations.cs" />
@@ -126,7 +128,7 @@
     <Compile Include="Creations\Objects\Building.cs" />
     <Compile Include="Creations\Organisations\Army.cs" />
     <Compile Include="Creations\Organisations\City.cs" />
-    <Compile Include="Creations\Organisations\Civilisation.cs" />
+    <Compile Include="Creations\Civilisations\Civilisation.cs" />
     <Compile Include="Creations\Organisations\Order.cs" />
     <Compile Include="Log\StreamWriters.cs" />
     <Compile Include="Log\History.cs" />

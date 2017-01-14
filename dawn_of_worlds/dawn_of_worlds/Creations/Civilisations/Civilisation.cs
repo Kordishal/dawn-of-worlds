@@ -3,6 +3,7 @@ using dawn_of_worlds.CelestialPowers.CommandNationPowers;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
+using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dawn_of_worlds.Creations.Organisations
+namespace dawn_of_worlds.Creations.Civilisations
 {
     class Civilisation : Creation
     {
         // General
-        public SocialOrganisation Type { get; set; }
-
-        public GovernmentForm GovernmentForm { get; set; }
+        public Polity PoliticalOrganisation { get; set; }
 
         // Inhabitants
         public Race FoundingRace { get { return InhabitantRaces[0]; } }
@@ -73,7 +72,7 @@ namespace dawn_of_worlds.Creations.Organisations
         public List<Order> NationalOrders { get; set; }
 
         // Status
-        public List<CivilisationTags> Tags { get; set; }
+        public List<CivilisationTags> LocalTags { get; set; }
 
         public void DestroyNation()
         {
@@ -103,7 +102,7 @@ namespace dawn_of_worlds.Creations.Organisations
             Armies = new List<Army>();
             Relationships = new List<Relations>();
             NationalOrders = new List<Order>();
-            Tags = new List<CivilisationTags>();
+            LocalTags = new List<CivilisationTags>();
             PossibleWarGoals = new List<WarGoal>();
             isDestroyed = false;       
         }
@@ -112,7 +111,7 @@ namespace dawn_of_worlds.Creations.Organisations
         {
             string result = "";
             result += "Name: " + Name + "\n";
-            result += "Type: " + GovernmentForm + "\n";
+            result += PoliticalOrganisation.print() + "\n";
             result += "Founding Race: " + FoundingRace.Name + "\n";
             result += "Races: ";
             result += "Destroyed: " + isDestroyed + "\n";
@@ -144,40 +143,10 @@ namespace dawn_of_worlds.Creations.Organisations
                 result += order.Name + " ";
             result += "\n";
             result += "Tags: ";
-            foreach (CivilisationTags tag in Tags)
+            foreach (CivilisationTags tag in LocalTags)
                 result += tag + " ";
             result += "\n";
             return result;
         }
-    }
-
-    enum SocialOrganisation
-    {
-        BandSociety,
-        TribalSociety,
-        Chiefdom,
-        State,
-    }
-
-    enum GovernmentForm
-    {
-        Band,
-        Pack,
-        Herd,
-        Brood,
-
-
-
-        LairTerritory,
-        NomadicTribe,
-        TribalNation,
-        FeudalNation,
-        HuntingGrounds,
-    }
-
-    enum CivilisationTags
-    {
-        VeryRich,
-        GoldMine,
     }
 }

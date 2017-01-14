@@ -15,113 +15,26 @@ using dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {
     class FoundNation : CommandRace
     {
-        private GovernmentForm _type { get; set; }
+        private Polity _polity { get; set; }
 
         protected override void initialize()
         {
             base.initialize();
-            Name = "Found Nation (" + _type.ToString() + ")";
-            Tags = new List<CreationTag>() { CreationTag.Community, CreationTag.Law };
-        }
-
-        public override int Weight(Deity creator)
-        {
-            int weight = base.Weight(creator);
-
-            // Some social & cultural practices have an effect on the type of nation created.
-            foreach (SocialCulturalCharacteristic social_cultural_characteristic in _commanded_race.SocialCulturalCharacteristics)
-            {
-                switch (social_cultural_characteristic)
-                {
-                    case SocialCulturalCharacteristic.Communal:
-                        break;
-                    case SocialCulturalCharacteristic.Nomadic:
-                        if (_type == GovernmentForm.NomadicTribe)
-                            weight += Constants.WEIGHT_STANDARD_CHANGE;
-                        break;
-                    case SocialCulturalCharacteristic.Sedentary:
-                        if (_type == GovernmentForm.NomadicTribe)
-                            weight -= Constants.WEIGHT_STANDARD_CHANGE;
-                        break;
-                    case SocialCulturalCharacteristic.Tribal:
-                        if (_type == GovernmentForm.TribalNation)
-                            weight += Constants.WEIGHT_STANDARD_CHANGE;
-                        if (_type == GovernmentForm.NomadicTribe)
-                            weight += Constants.WEIGHT_STANDARD_CHANGE;
-                        break;
-                    case SocialCulturalCharacteristic.Territorial:
-                        if (_type == GovernmentForm.LairTerritory)
-                            weight += Constants.WEIGHT_STANDARD_CHANGE;
-                        if (_type == GovernmentForm.HuntingGrounds)
-                            weight += Constants.WEIGHT_STANDARD_CHANGE;
-                        break;
-                    case SocialCulturalCharacteristic.Elitist:
-                        if (_type == GovernmentForm.FeudalNation)
-                            weight += Constants.WEIGHT_STANDARD_CHANGE;
-                        break;
-                }              
-            }
-            return weight >= 0 ? weight : 0;
+            Name = "Found Nation (" + _polity.ToString() + ")";
+            Tags = _polity.Tags;
         }
 
         public override bool Precondition(Deity creator)
         {
             base.Precondition(creator);
 
-            switch (_commanded_race.Type)
-            {
-                case SpeciesType.Humanoid:
-                    if (_type == GovernmentForm.HuntingGrounds)
-                        return false;
-                    if (_type == GovernmentForm.LairTerritory)
-                        return false;
-                    break;
-                case SpeciesType.Dragonoid:
-                    if (_type == GovernmentForm.HuntingGrounds)
-                        return false;
-                    if (_type == GovernmentForm.NomadicTribe)
-                        return false;
-                    if (_type == GovernmentForm.TribalNation)
-                        return false;
-                    if (_type == GovernmentForm.FeudalNation)
-                        return false;
-                    break;
-                case SpeciesType.Beasts:
-                    if (_type == GovernmentForm.LairTerritory)
-                        return false;
-                    if (_type == GovernmentForm.NomadicTribe)
-                        return false;
-                    if (_type == GovernmentForm.TribalNation)
-                        return false;
-                    if (_type == GovernmentForm.FeudalNation)
-                        return false;
-                    break;
-            }
-
-            switch (_type)
-            {
-                case GovernmentForm.FeudalNation:
-                case GovernmentForm.TribalNation:
-                case GovernmentForm.LairTerritory:
-                    foreach (Province province in _commanded_race.SettledProvinces)
-                    {
-                        if (province.Owner == null)
-                        {
-                            return true;
-                        }
-                    }
-                    break;
-                case GovernmentForm.HuntingGrounds:
-                case GovernmentForm.NomadicTribe:
-                    return true;
-            }
-
-            return false;
+            return true;
         }
 
         public override void Effect(Deity creator)
@@ -130,19 +43,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             foreach (Province province in _commanded_race.SettledProvinces)
             {
-                switch (_type)
-                {
-                    case GovernmentForm.FeudalNation:
-                    case GovernmentForm.TribalNation:
-                    case GovernmentForm.LairTerritory:
-                        if (province.Owner == null)
-                            possible_locations.Add(new WeightedObjects<Province>(province));
-                        break;
-                    case GovernmentForm.HuntingGrounds:
-                    case GovernmentForm.NomadicTribe:
+                if (_polity.isNomadic)
+                    possible_locations.Add(new WeightedObjects<Province>(province));
+                else
+                    if (!province.hasOwner)
                         possible_locations.Add(new WeightedObjects<Province>(province));
-                        break;
-                }
             }
                 
 
@@ -195,107 +100,95 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             Province location = WeightedObjects<Province>.ChooseRandomObject(possible_locations);
             
-            Civilisation founded_nation = new Civilisation("Nation of " + _commanded_race.Name, creator);
-            founded_nation.GovernmentForm = _type;
-            founded_nation.InhabitantRaces.Add(_commanded_race);
+            Civilisation founded_civilisation = new Civilisation("Nation of " + _commanded_race.Name, creator);
+            founded_civilisation.PoliticalOrganisation = _polity;
+            founded_civilisation.InhabitantRaces.Add(_commanded_race);
 
             // Diplomacy
             if (_commanded_race.Type == SpeciesType.Beasts)
             {
-                founded_nation.hasDiplomacy = false;
+                founded_civilisation.hasDiplomacy = false;
             }
             else
             {
-                founded_nation.hasDiplomacy = true;
+                founded_civilisation.hasDiplomacy = true;
                 foreach (Civilisation nation in Program.World.Nations)
                 {
-                    nation.Relationships.Add(new Relations(founded_nation));
-                    founded_nation.Relationships.Add(new Relations(nation));
+                    nation.Relationships.Add(new Relations(founded_civilisation));
+                    founded_civilisation.Relationships.Add(new Relations(nation));
                 }
             }
 
             // Cities
-            if (founded_nation.GovernmentForm == GovernmentForm.HuntingGrounds || founded_nation.GovernmentForm == GovernmentForm.NomadicTribe)
-            {
-                founded_nation.hasCities = false;
-            }
+            // Herds and Packs of Anmimals/Beasts do not have cities.
+            if (founded_civilisation.PoliticalOrganisation.isNomadic)
+                founded_civilisation.hasCities = false;
             else
             {
                 // Nations with cities get their capital city.
-                founded_nation.hasCities = true;
-                founded_nation.Cities.Add(new City("Capital City of " + founded_nation.Name, creator));
-                founded_nation.CapitalCity.TerrainFeature = location.PrimaryTerrainFeature;
-                founded_nation.CapitalCity.Owner = founded_nation;
+                founded_civilisation.hasCities = true;
+                founded_civilisation.Cities.Add(new City("Capital City of " + founded_civilisation.Name, creator));
+                founded_civilisation.CapitalCity.TerrainFeature = location.PrimaryTerrainFeature;
+                founded_civilisation.CapitalCity.Owner = founded_civilisation;
 
-                location.PrimaryTerrainFeature.City = founded_nation.CapitalCity;
+                location.PrimaryTerrainFeature.City = founded_civilisation.CapitalCity;
             }
 
             // Territory
-            founded_nation.Territory.Add(location);
-            switch (founded_nation.GovernmentForm)
-            {
-                case GovernmentForm.FeudalNation:
-                case GovernmentForm.TribalNation:
-                case GovernmentForm.LairTerritory:
-                    location.Owner = founded_nation;
-                    break;
-                case GovernmentForm.HuntingGrounds:
-                    location.HuntingGrounds.Add(founded_nation);
-                    break;
-                case GovernmentForm.NomadicTribe:
-                    location.NomadicPresence.Add(founded_nation);
-                    break;
-            }
+            founded_civilisation.Territory.Add(location);
+            if (founded_civilisation.PoliticalOrganisation.isNomadic)
+                location.NomadicPresence.Add(founded_civilisation);
+            else
+                location.Owner = founded_civilisation;
 
 
             // Add origin order -> church. This church is needed to be able to command this nation.
             Order founder_origin_order = new Order(Constants.Names.GetReligionName(creator, _commanded_race), creator, OrderType.Church, OrderPurpose.FounderWorship);
-            founder_origin_order.OrderNation = founded_nation;
+            founder_origin_order.OrderNation = founded_civilisation;
             founder_origin_order.OrderRace = null;
 
-            founded_nation.NationalOrders.Add(founder_origin_order);
+            founded_civilisation.NationalOrders.Add(founder_origin_order);
             creator.CreatedOrders.Add(founder_origin_order);
 
             // Possible War Goals
             WarGoal war_goal;
             List<WarGoal> war_goals = new List<WarGoal>();
-            switch (founded_nation.GovernmentForm)
+            switch (founded_civilisation.PoliticalOrganisation.Organisation)
             {
-                case GovernmentForm.FeudalNation:
-                case GovernmentForm.TribalNation:
-                case GovernmentForm.LairTerritory:
+                case SocialOrganisation.BandSociety:
                     war_goal = new WarGoal(WarGoalType.Conquest);
-                    war_goal.Territory = founded_nation.Territory[0];
+                    war_goal.Territory = location;
+                    war_goal.City = null;
                     war_goals.Add(war_goal);
                     break;
-                case GovernmentForm.HuntingGrounds:
+                case SocialOrganisation.TribalSociety:
                     break;
-                case GovernmentForm.NomadicTribe:
-                    war_goal = new WarGoal(WarGoalType.RemoveNomadicPresence);
-                    war_goals.Add(war_goal);
+                case SocialOrganisation.Chiefdom:
+                    break;
+                case SocialOrganisation.State:
                     break;
             }
 
-            founded_nation.PossibleWarGoals.AddRange(war_goals);
+            founded_civilisation.PossibleWarGoals.AddRange(war_goals);
 
             // Add nation to the creator and Powers related to this nation.
-            creator.FoundedNations.Add(founded_nation);
-            Program.World.Nations.Add(founded_nation);
-            creator.CreatedOrders.Add(founded_nation.OriginOrder);
+            creator.FoundedNations.Add(founded_civilisation);
+            Program.World.Nations.Add(founded_civilisation);
+            creator.CreatedOrders.Add(founded_civilisation.OriginOrder);
 
-            if (founded_nation.hasCities)
+            if (founded_civilisation.hasCities)
             {
-                creator.Powers.Add(new CreateCity(founded_nation));
-                creator.FoundedCities.Add(founded_nation.CapitalCity);
-                Program.World.Cities.Add(founded_nation.CapitalCity);
+                creator.Powers.Add(new CreateCity(founded_civilisation));
+                creator.FoundedCities.Add(founded_civilisation.CapitalCity);
+                Program.World.Cities.Add(founded_civilisation.CapitalCity);
             }
             
-            if (founded_nation.hasDiplomacy)
+            if (founded_civilisation.hasDiplomacy)
             {
-                creator.Powers.Add(new ExpandTerritory(founded_nation));
-                creator.Powers.Add(new EstablishContact(founded_nation));
-                creator.Powers.Add(new FormAlliance(founded_nation));
-                creator.Powers.Add(new DeclareWar(founded_nation));
+                creator.Powers.Add(new ExpandTerritory(founded_civilisation));
+                creator.Powers.Add(new EstablishContact(founded_civilisation));
+                creator.Powers.Add(new FormAlliance(founded_civilisation));
+                creator.Powers.Add(new DeclareWar(founded_civilisation));
             }
 
 
@@ -304,26 +197,26 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 // Add avatars
                 foreach (AvatarType type in Enum.GetValues(typeof(AvatarType)))
                 {
-                    deity.Powers.Add(new CreateAvatar(type, founded_nation.FoundingRace, founded_nation, null));
+                    deity.Powers.Add(new CreateAvatar(type, founded_civilisation.FoundingRace, founded_civilisation, null));
                 }
 
                 // Add Events
-                deity.Powers.Add(new VastGoldMineEstablised(founded_nation));
-                deity.Powers.Add(new VastGoldMineDepleted(founded_nation));
+                deity.Powers.Add(new VastGoldMineEstablised(founded_civilisation));
+                deity.Powers.Add(new VastGoldMineDepleted(founded_civilisation));
             }
 
             foreach (Deity deity in Program.World.Deities)
             {
                 if (!(deity == creator))
-                    deity.Powers.Add(new CreateOrder(OrderType.Church, OrderPurpose.FounderWorship, founded_nation, null));
+                    deity.Powers.Add(new CreateOrder(OrderType.Church, OrderPurpose.FounderWorship, founded_civilisation, null));
             }
 
-            creator.LastCreation = founded_nation;
+            creator.LastCreation = founded_civilisation;
         }
 
-        public FoundNation (Race command_race, GovernmentForm type) : base(command_race)
+        public FoundNation (Race command_race, Polity polity) : base(command_race)
         {
-            _type = type;
+            _polity = polity;
             initialize();
         }
     }

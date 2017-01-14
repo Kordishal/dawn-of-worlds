@@ -13,6 +13,7 @@ using dawn_of_worlds.CelestialPowers.EventPowers.RacialEvents;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 {
@@ -90,8 +91,11 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             foreach (Area area in Program.World.AreaGrid)
                 creator.Powers.Add(new SettleTile(_created_race, area));
 
-            foreach (GovernmentForm type in Enum.GetValues(typeof(GovernmentForm)))
-                creator.Powers.Add(new FoundNation(_created_race, type));
+            if (_created_race.Type == SpeciesType.Humanoid)
+                creator.Powers.Add(new FoundNation(_created_race, PolityDefinitions.BandSociety));
+
+            if (_created_race.Type == SpeciesType.Dragon)
+                creator.Powers.Add(new FoundNation(_created_race, PolityDefinitions.DragonBrood));
 
             foreach (Deity deity in Program.World.Deities)
             {

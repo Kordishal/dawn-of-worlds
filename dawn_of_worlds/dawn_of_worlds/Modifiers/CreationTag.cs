@@ -84,5 +84,6 @@ namespace dawn_of_worlds.Modifiers
 
         Metal,
         Gold,
+        Elderly,
     }
 }

@@ -249,7 +249,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         private static void defineDragonicRaces()
         {
             ProtoDragons = new Race("Protodragons", null);
-            ProtoDragons.Type = SpeciesType.Dragonoid;
+            ProtoDragons.Type = SpeciesType.Dragon;
             ProtoDragons.Habitat = RacialHabitat.Terranean;
             ProtoDragons.Lifespan = RacialLifespan.EternalLife;
             ProtoDragons.PhysicalTraits.Add(PhysicalTrait.Winged);
@@ -261,7 +261,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(ProtoDragons);
 
             FireDragons = new Race("Fire Dragons", null);
-            FireDragons.Type = SpeciesType.Dragonoid;
+            FireDragons.Type = SpeciesType.Dragon;
             FireDragons.Habitat = RacialHabitat.Terranean;
             FireDragons.Lifespan = RacialLifespan.EternalLife;
             FireDragons.PreferredClimate.Add(RacialPreferredHabitatClimate.Tropical);
@@ -275,7 +275,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
             DefinedRacesList.Add(FireDragons);
 
             GoldDragons = new Race("Gold Dragons", null);
-            GoldDragons.Type = SpeciesType.Dragonoid;
+            GoldDragons.Type = SpeciesType.Dragon;
             GoldDragons.Habitat = RacialHabitat.Terranean;
             GoldDragons.Lifespan = RacialLifespan.EternalLife;
             GoldDragons.PhysicalTraits.Add(PhysicalTrait.Winged);

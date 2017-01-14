@@ -4,6 +4,7 @@ using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
+using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.WorldClasses
 {
@@ -23,6 +24,7 @@ namespace dawn_of_worlds.WorldClasses
         public TerrainFeatures PrimaryTerrainFeature { get; set; }
         public List<TerrainFeatures> SecondaryTerrainFeatures { get; set; }
 
+        public bool hasOwner { get { return Owner != null; } }
         public Civilisation Owner { get; set; }
         public List<Civilisation> NomadicPresence { get; set; }
         public List<Civilisation> HuntingGrounds { get; set; }

@@ -1,4 +1,5 @@
-﻿using dawn_of_worlds.Log;
+﻿using dawn_of_worlds.Creations.Civilisations;
+using dawn_of_worlds.Log;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Names;
 using dawn_of_worlds.WorldClasses;
@@ -20,6 +21,7 @@ namespace dawn_of_worlds
         static void Main(string[] args)
         {
             Constants.Names = new NameGenerator();
+            PolityDefinitions.DefinePolities();
             Log = new StreamWriters();
             World = new World(Constants.Names.GetName("world"));
             World.initialize(5, 5);
