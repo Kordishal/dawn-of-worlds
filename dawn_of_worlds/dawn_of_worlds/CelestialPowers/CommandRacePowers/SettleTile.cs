@@ -8,7 +8,7 @@ using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 {

@@ -1,6 +1,6 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Organisations;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 using dawn_of_worlds.WorldClasses;
 using System;
 using System.Collections.Generic;

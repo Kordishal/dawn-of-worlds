@@ -10,7 +10,7 @@ using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Log;
 using dawn_of_worlds.Creations.Diplomacy;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.Creations.Conflict
 {

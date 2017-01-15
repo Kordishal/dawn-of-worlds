@@ -4,7 +4,7 @@ using dawn_of_worlds.Creations.Diplomacy;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Main;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

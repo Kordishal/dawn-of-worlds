@@ -6,7 +6,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Diplomacy;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.CelestialPowers.CommandNationPowers

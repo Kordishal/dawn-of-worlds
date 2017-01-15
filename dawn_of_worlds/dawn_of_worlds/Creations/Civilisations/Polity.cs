@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.Creations.Civilisations
 {

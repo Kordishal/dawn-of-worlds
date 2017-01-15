@@ -1,5 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 using dawn_of_worlds.Names;
 using System;
 using System.Collections.Generic;

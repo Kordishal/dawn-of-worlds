@@ -8,7 +8,7 @@ using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Names.MarkovGenerator;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.Names
 {

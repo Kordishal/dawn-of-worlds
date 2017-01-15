@@ -4,7 +4,7 @@ using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Objects;
-using dawn_of_worlds.Modifiers;
+using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 {
