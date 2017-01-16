@@ -36,7 +36,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
             Province new_territory = provinces[Constants.Random.Next(provinces.Count)];
             _commanded_nation.Territory.Add(new_territory);
-            if (_commanded_nation.PoliticalOrganisation.isNomadic)
+            if (_commanded_nation.isNomadic)
                 new_territory.NomadicPresence.Add(_commanded_nation);
             else
                 new_territory.Owner = _commanded_nation;
@@ -66,7 +66,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                         if (_commanded_nation.Territory.Contains(neighbour_province))
                             continue;
 
-                       if (_commanded_nation.PoliticalOrganisation.isNomadic)
+                       if (_commanded_nation.isNomadic)
                             target_provinces.Add(neighbour_province);
                        else
                             if (!neighbour_province.hasOwner)

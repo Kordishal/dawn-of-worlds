@@ -90,9 +90,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
                     weighted_war_goal.Object.Winner = taker;
             
-                    if (taker.PoliticalOrganisation.isNomadic)
+                    if (taker.isNomadic)
                     {
-                        if (target.PoliticalOrganisation.isNomadic)
+                        if (target.isNomadic)
                             if (weighted_war_goal.Object.Type == WarGoalType.Conquest)
                                 weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                         else
@@ -101,7 +101,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                     }
                     else
                     {
-                        if (target.PoliticalOrganisation.isNomadic)
+                        if (target.isNomadic)
                         {
                             if (weighted_war_goal.Object.Type == WarGoalType.RemoveNomadicPresence)
                                 weighted_war_goal.Weight += Constants.WEIGHT_STANDARD_CHANGE;

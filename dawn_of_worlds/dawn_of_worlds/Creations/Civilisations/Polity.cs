@@ -10,16 +10,12 @@ namespace dawn_of_worlds.Creations.Civilisations
 {
     class Polity : Creation
     {
-        public Polity(string name, Deity creator) : base(name, creator)
-        {
-        }
+        public Polity(string name, Deity creator) : base(name, creator) { }
 
         public SocialOrganisation Organisation { get; set; }
         public PolityForm Form { get; set; }
         public PowerSource Source { get; set; }
         public RulerType Ruler { get; set; }
-
-        public bool isNomadic { get; set; }
 
         public string print()
         {
@@ -34,8 +30,14 @@ namespace dawn_of_worlds.Creations.Civilisations
 
     struct PolityDefinitions
     {
+        // Band Societies
         public static Polity BandSociety { get; set; }
         public static Polity DragonBrood { get; set; }
+
+        // Tribal Societies
+        public static Polity ClanCouncil { get; set; }
+        public static Polity DespoticTribe { get; set; }
+        public static Polity TribalKingdom { get; set; }
 
         public static void DefinePolities()
         {
@@ -44,8 +46,6 @@ namespace dawn_of_worlds.Creations.Civilisations
             BandSociety.Form = PolityForm.Band;
             BandSociety.Source = PowerSource.Democratic;
             BandSociety.Ruler = RulerType.Gerontocracy;
-            BandSociety.isNomadic = true;
-
             BandSociety.Tags = new List<CreationTag>() { CreationTag.Community, CreationTag.Elderly, CreationTag.Exploration };
 
             DragonBrood = new Polity("Brood", null);
@@ -53,9 +53,28 @@ namespace dawn_of_worlds.Creations.Civilisations
             DragonBrood.Form = PolityForm.Brood;
             DragonBrood.Source = PowerSource.Autocratic;
             DragonBrood.Ruler = RulerType.Kraterocracy;
-            DragonBrood.isNomadic = false;
-
             DragonBrood.Tags = new List<CreationTag>() { };
+
+            ClanCouncil = new Polity("Clan Council", null);
+            ClanCouncil.Organisation = SocialOrganisation.TribalSociety;
+            ClanCouncil.Form = PolityForm.Tribe;
+            ClanCouncil.Source = PowerSource.Oligarchic;
+            ClanCouncil.Ruler = RulerType.Gerontocracy;
+            ClanCouncil.Tags = new List<CreationTag>() { };
+
+            DespoticTribe = new Polity("Despotic Tribe", null);
+            DespoticTribe.Organisation = SocialOrganisation.TribalSociety;
+            DespoticTribe.Form = PolityForm.Tribe;
+            DespoticTribe.Source = PowerSource.Autocratic;
+            DespoticTribe.Ruler = RulerType.Stratocracy;
+            DespoticTribe.Tags = new List<CreationTag>() { };
+
+            TribalKingdom = new Polity("Tribal Kingdom", null);
+            TribalKingdom.Organisation = SocialOrganisation.TribalSociety;
+            TribalKingdom.Form = PolityForm.Tribe;
+            TribalKingdom.Source = PowerSource.Autocratic;
+            TribalKingdom.Ruler = RulerType.Stratocracy;
+            TribalKingdom.Tags = new List<CreationTag>() { };
         }
     }
 
@@ -73,6 +92,7 @@ namespace dawn_of_worlds.Creations.Civilisations
         Pack,
         Herd,
         Brood,
+        Tribe,
     }
 
     enum PowerSource

@@ -17,6 +17,7 @@ namespace dawn_of_worlds.Creations.Civilisations
     {
         // General
         public Polity PoliticalOrganisation { get; set; }
+        public bool isNomadic { get; set; }
 
         // Inhabitants
         public Race FoundingRace { get { return InhabitantRaces[0]; } }

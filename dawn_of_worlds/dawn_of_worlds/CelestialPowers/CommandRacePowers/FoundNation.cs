@@ -43,11 +43,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             foreach (Province province in _commanded_race.SettledProvinces)
             {
-                if (_polity.isNomadic)
+                if (!province.hasOwner)
                     possible_locations.Add(new WeightedObjects<Province>(province));
-                else
-                    if (!province.hasOwner)
-                        possible_locations.Add(new WeightedObjects<Province>(province));
             }
                 
 
@@ -104,6 +101,31 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             founded_civilisation.PoliticalOrganisation = _polity;
             founded_civilisation.InhabitantRaces.Add(_commanded_race);
 
+            // Nomadic?
+            switch (founded_civilisation.PoliticalOrganisation.Organisation)
+            {
+                case SocialOrganisation.BandSociety:
+                    switch (founded_civilisation.PoliticalOrganisation.Form)
+                    {
+                        case PolityForm.Band:
+                        case PolityForm.Herd:
+                        case PolityForm.Pack:
+                            founded_civilisation.isNomadic = true;
+                            break;
+                        case PolityForm.Brood:
+                            founded_civilisation.isNomadic = false;
+                            break;
+                    }
+                    break;
+                case SocialOrganisation.TribalSociety:
+                    int rnd = Constants.Random.Next(50);
+                    if (rnd < 25)
+                        founded_civilisation.isNomadic = true;
+                    else
+                        founded_civilisation.isNomadic = false;
+                    break;
+            }
+
             // Diplomacy
             if (_commanded_race.Type == SpeciesType.Beasts)
             {
@@ -121,7 +143,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             // Cities
             // Herds and Packs of Anmimals/Beasts do not have cities.
-            if (founded_civilisation.PoliticalOrganisation.isNomadic)
+            if (founded_civilisation.isNomadic)
                 founded_civilisation.hasCities = false;
             else
             {
@@ -136,7 +158,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             // Territory
             founded_civilisation.Territory.Add(location);
-            if (founded_civilisation.PoliticalOrganisation.isNomadic)
+            if (founded_civilisation.isNomadic)
                 location.NomadicPresence.Add(founded_civilisation);
             else
                 location.Owner = founded_civilisation;
