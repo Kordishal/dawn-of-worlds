@@ -82,9 +82,8 @@
     <Compile Include="CelestialPowers\EventPowers\NationalEvents\NationalEvent.cs" />
     <Compile Include="CelestialPowers\EventPowers\NationalEvents\VastGoldMineDepleted.cs" />
     <Compile Include="CelestialPowers\EventPowers\NationalEvents\VastGoldMineEstablished.cs" />
-    <Compile Include="CelestialPowers\EventPowers\RacialEvents\EndRacialEpidemic.cs" />
-    <Compile Include="CelestialPowers\EventPowers\RacialEvents\RacialEpidemic.cs" />
-    <Compile Include="CelestialPowers\EventPowers\RacialEvents\RacialEvent.cs" />
+    <Compile Include="CelestialPowers\EventPowers\ProvincialEvents\PlagueBreakOut.cs" />
+    <Compile Include="CelestialPowers\EventPowers\ProvincialEvents\ProvincialEvent.cs" />
     <Compile Include="CelestialPowers\EventPowers\SpawnEvent.cs" />
     <Compile Include="CelestialPowers\Power.cs" />
     <Compile Include="CelestialPowers\CreateRacePowers\CreateRace.cs" />
@@ -130,6 +129,7 @@
     <Compile Include="Creations\Organisations\City.cs" />
     <Compile Include="Creations\Civilisations\Civilisation.cs" />
     <Compile Include="Creations\Organisations\Order.cs" />
+    <Compile Include="Effects\Disease.cs" />
     <Compile Include="Log\StreamWriters.cs" />
     <Compile Include="Log\History.cs" />
     <Compile Include="Log\Map.cs" />

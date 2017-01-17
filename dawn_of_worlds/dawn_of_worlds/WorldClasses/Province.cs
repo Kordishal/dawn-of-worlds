@@ -5,6 +5,7 @@ using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Civilisations;
+using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.WorldClasses
 {
@@ -27,7 +28,8 @@ namespace dawn_of_worlds.WorldClasses
         public bool hasOwner { get { return Owner != null; } }
         public Civilisation Owner { get; set; }
         public List<Civilisation> NomadicPresence { get; set; }
-        public List<Civilisation> HuntingGrounds { get; set; }
+
+        public List<Modifier> ProvincialModifiers { get; set; }
 
         public void changeOwnership(Civilisation winner)
         {
@@ -62,7 +64,7 @@ namespace dawn_of_worlds.WorldClasses
             Area = area;
             Coordinates = coordinates;
             NomadicPresence = new List<Civilisation>();
-            HuntingGrounds = new List<Civilisation>();
+            ProvincialModifiers = new List<Modifier>();
         }
 
         public void initialize()

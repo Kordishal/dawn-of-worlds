@@ -41,9 +41,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             else
                 new_territory.Owner = _commanded_nation;
 
-            WarGoal war_goal = new WarGoal(WarGoalType.Conquest);
-            war_goal.Territory = new_territory;
-            _commanded_nation.PossibleWarGoals.Add(war_goal);
+            //WarGoal war_goal = new WarGoal(WarGoalType.Conquest);
+            //war_goal.Territory = new_territory;
+            //_commanded_nation.PossibleWarGoals.Add(war_goal);
         }
 
 

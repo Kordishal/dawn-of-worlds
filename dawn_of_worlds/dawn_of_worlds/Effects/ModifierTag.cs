@@ -47,8 +47,11 @@ namespace dawn_of_worlds.Effects
         DomainsEnd,
         // END DOMAINS
 
-        // RACIAL MODIFIERS
-        RacialModifiersBegin,
-        RacialEpidemic,
+        // PROVINCIAL MODIFIERS
+        //
+        BeginProvince,
+        ThePlague,
+
+        EndProvince,
     }
 }

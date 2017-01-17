@@ -142,12 +142,11 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             }
 
             // Cities
-            // Herds and Packs of Anmimals/Beasts do not have cities.
+            // Nomadic civilisations do not have cities
             if (founded_civilisation.isNomadic)
                 founded_civilisation.hasCities = false;
             else
             {
-                // Nations with cities get their capital city.
                 founded_civilisation.hasCities = true;
                 founded_civilisation.Cities.Add(new City("Capital City of " + founded_civilisation.Name, creator));
                 founded_civilisation.CapitalCity.TerrainFeature = location.PrimaryTerrainFeature;
@@ -178,10 +177,6 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             switch (founded_civilisation.PoliticalOrganisation.Organisation)
             {
                 case SocialOrganisation.BandSociety:
-                    war_goal = new WarGoal(WarGoalType.Conquest);
-                    war_goal.Territory = location;
-                    war_goal.City = null;
-                    war_goals.Add(war_goal);
                     break;
                 case SocialOrganisation.TribalSociety:
                     break;

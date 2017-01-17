@@ -167,7 +167,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
             foreach (Relations relation in _commanded_nation.Relationships)
             {
-                if (relation.Status == RelationStatus.Known)
+                if (relation.Status == RelationStatus.Known && relation.Target.PossibleWarGoals.Count > 0)
                     candidate_nations.Add(relation.Target);
             }
 

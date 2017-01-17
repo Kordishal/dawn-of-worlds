@@ -1,6 +1,5 @@
 ﻿using dawn_of_worlds.Creations.Civilisations;
 using dawn_of_worlds.Creations.Inhabitants;
-using dawn_of_worlds.Creations.Organisations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +8,6 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Effects
 {
-    delegate void RacialModifierEffect(Race race);
-    delegate void NationalModifierEffect(Civilisation nation);
-
-
     class Modifier
     {
         public ModifierCategory Category { get; set; }
@@ -29,21 +24,29 @@ namespace dawn_of_worlds.Effects
         public CreationTag[] IncreaseCost { get; set; }
         public CreationTag[] DecreaseCost { get; set; }
 
-        public RacialModifierEffect RaceEffect { get; set; }
-        public NationalModifierEffect NationEffect { get; set; }
-
-        public Modifier(ModifierTag tag)
+        public Modifier(ModifierCategory category, ModifierTag tag)
         {
             Tag = tag;
-            defineDomains(tag);
+            Category = category;
+            switch (Category)
+            {
+                case ModifierCategory.Domain:
+                    defineDomains(tag);
+                    break;
+                case ModifierCategory.Province:
+                    defineProvincialModifiers(tag);
+                    break;
+            }
+
+
+            
         }
 
         private void defineDomains(ModifierTag tag)
         {
             switch (tag)
             {
-                case ModifierTag.Architecture:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Architecture:                
                     Excludes = null;
                     Forbids = null;
                     IncreasesWeight = new CreationTag[] { CreationTag.Construction };
@@ -52,8 +55,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Construction };
                     break;
-                case ModifierTag.Battle:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Battle:                  
                     Excludes = new ModifierTag[] { ModifierTag.Peace };
                     Forbids = null;
                     IncreasesWeight = new CreationTag[] { CreationTag.Military, CreationTag.Battle, CreationTag.Combat };
@@ -62,8 +64,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = new CreationTag[] { CreationTag.Peace };
                     DecreaseCost = new CreationTag[] { CreationTag.Battle };
                     break;
-                case ModifierTag.Cold:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Cold:                 
                     Excludes = new ModifierTag[] { ModifierTag.Heat, ModifierTag.Fire };
                     Forbids = new CreationTag[] { CreationTag.Heat };
                     IncreasesWeight = new CreationTag[] { CreationTag.Cold };
@@ -72,8 +73,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = new CreationTag[] { CreationTag.Cold };
                     DecreaseCost = new CreationTag[] { CreationTag.Heat };
                     break;
-                case ModifierTag.Community:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Community:                
                     Excludes = new ModifierTag[] { ModifierTag.Solitary };
                     Forbids = new CreationTag[] { CreationTag.Solitary };
                     IncreasesWeight = new CreationTag[] { CreationTag.Community };
@@ -82,8 +82,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Community };
                     break;
-                case ModifierTag.Conquest:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Conquest:                
                     Excludes = new ModifierTag[] { ModifierTag.Peace };
                     Forbids = null;
                     IncreasesWeight = new CreationTag[] { CreationTag.Military, CreationTag.War, CreationTag.Expansion };
@@ -92,8 +91,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = new CreationTag[] { CreationTag.Peace };
                     DecreaseCost = new CreationTag[] { CreationTag.Expansion };
                     break;
-                case ModifierTag.Creation:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Creation:                 
                     Excludes = null;
                     Forbids = null;
                     IncreasesWeight = new CreationTag[] { CreationTag.Creation };
@@ -102,8 +100,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Creation };
                     break;
-                case ModifierTag.Drought:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Drought:           
                     Excludes = new ModifierTag[] { ModifierTag.Water };
                     Forbids = new CreationTag[] { CreationTag.Water };
                     IncreasesWeight = new CreationTag[] { CreationTag.Dry };
@@ -112,8 +109,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Dry };
                     break;
-                case ModifierTag.Earth:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Earth:                   
                     Excludes = new ModifierTag[] { ModifierTag.Water };
                     Forbids = new CreationTag[] { CreationTag.Water };
                     IncreasesWeight = new CreationTag[] { CreationTag.Earth };
@@ -122,8 +118,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Earth };
                     break;
-                case ModifierTag.Exploration:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Exploration:                
                     Excludes = null;
                     Forbids = null;
                     IncreasesWeight = new CreationTag[] { CreationTag.Exploration, CreationTag.Expansion };
@@ -132,8 +127,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Exploration };
                     break;
-                case ModifierTag.Fire:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Fire:                  
                     Excludes = new ModifierTag[] { ModifierTag.Water };
                     Forbids = new CreationTag[] { CreationTag.Water };
                     IncreasesWeight = new CreationTag[] { CreationTag.Fire, CreationTag.Heat, CreationTag.Resurrection };
@@ -142,8 +136,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = new CreationTag[] { CreationTag.Cold };
                     DecreaseCost = new CreationTag[] { CreationTag.Fire };
                     break;
-                case ModifierTag.Heat:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Heat:                   
                     Excludes = new ModifierTag[] { ModifierTag.Cold };
                     Forbids = new CreationTag[] { CreationTag.Cold };
                     IncreasesWeight = new CreationTag[] { CreationTag.Heat, CreationTag.Fire };
@@ -152,8 +145,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Heat };
                     break;
-                case ModifierTag.Magic:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Magic:                 
                     Excludes = new ModifierTag[] { ModifierTag.AntiMagic };
                     Forbids = new CreationTag[] { CreationTag.AntiMagic };
                     IncreasesWeight = new CreationTag[] { CreationTag.Magic };
@@ -163,7 +155,7 @@ namespace dawn_of_worlds.Effects
                     DecreaseCost = new CreationTag[] { CreationTag.Magic };
                     break;
                 case ModifierTag.Metallurgy:
-                    Category = ModifierCategory.Domain;
+                    
                     Excludes = null;
                     Forbids = null;
                     IncreasesWeight = new CreationTag[] { CreationTag.Metal };
@@ -172,8 +164,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Metal };
                     break;
-                case ModifierTag.Nature:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Nature:                
                     Excludes = null;
                     Forbids = null;
                     IncreasesWeight = new CreationTag[] { CreationTag.Nature };
@@ -182,8 +173,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Nature };
                     break;
-                case ModifierTag.Peace:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Peace:                 
                     Excludes = new ModifierTag[] { ModifierTag.War };
                     Forbids = new CreationTag[] { CreationTag.War };
                     IncreasesWeight = new CreationTag[] { CreationTag.Peace, CreationTag.Alliance };
@@ -193,7 +183,7 @@ namespace dawn_of_worlds.Effects
                     DecreaseCost = new CreationTag[] { CreationTag.Peace };
                     break;
                 case ModifierTag.Pestilence:
-                    Category = ModifierCategory.Domain;
+                    
                     Excludes = new ModifierTag[] { ModifierTag.Health };
                     Forbids = new CreationTag[] { CreationTag.Health };
                     IncreasesWeight = new CreationTag[] { CreationTag.Disease };
@@ -202,8 +192,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = null;
                     DecreaseCost = new CreationTag[] { CreationTag.Disease };
                     break;
-                case ModifierTag.Solitary:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Solitary:              
                     Excludes = new ModifierTag[] { ModifierTag.Community };
                     Forbids = null;
                     IncreasesWeight = new CreationTag[] { CreationTag.Solitary, CreationTag.Isolationism };
@@ -212,8 +201,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = new CreationTag[] { CreationTag.Community };
                     DecreaseCost = new CreationTag[] { CreationTag.Solitary };
                     break;
-                case ModifierTag.War:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.War:              
                     Excludes = new ModifierTag[] { ModifierTag.Peace };
                     Forbids = new CreationTag[] { CreationTag.Peace };
                     IncreasesWeight = new CreationTag[] { CreationTag.War, CreationTag.Military };
@@ -223,7 +211,7 @@ namespace dawn_of_worlds.Effects
                     DecreaseCost = new CreationTag[] { CreationTag.War };
                     break;
                 case ModifierTag.Water:
-                    Category = ModifierCategory.Domain;
+                    
                     Excludes = new ModifierTag[] { ModifierTag.Fire };
                     Forbids = new CreationTag[] { CreationTag.Fire };
                     IncreasesWeight = new CreationTag[] { CreationTag.Water };
@@ -232,8 +220,7 @@ namespace dawn_of_worlds.Effects
                     IncreaseCost = new CreationTag[] { CreationTag.Dry };
                     DecreaseCost = new CreationTag[] { CreationTag.Water };
                     break;
-                case ModifierTag.Wind:
-                    Category = ModifierCategory.Domain;
+                case ModifierTag.Wind:             
                     Excludes = new ModifierTag[] { ModifierTag.Earth };
                     Forbids = new CreationTag[] { CreationTag.Earth };
                     IncreasesWeight = new CreationTag[] { CreationTag.Wind };
@@ -245,11 +232,19 @@ namespace dawn_of_worlds.Effects
             }
         }
 
-        private void defineRacialModifiers(ModifierTag tag)
+        private void defineProvincialModifiers(ModifierTag tag)
         {
             switch (tag)
             {
-                case ModifierTag.RacialEpidemic:
+                case ModifierTag.ThePlague:
+                    Excludes = null;
+                    Forbids = new CreationTag[] { CreationTag.Creation };
+
+                    IncreasesWeight = null;
+                    DecreasesWeight = new CreationTag[] { CreationTag.Conquest, CreationTag.Construction, CreationTag.Army };
+
+                    IncreaseCost = null;
+                    DecreaseCost = null;
                     break;
             }
         }
@@ -264,7 +259,6 @@ namespace dawn_of_worlds.Effects
     enum ModifierCategory
     {
         Domain,
-        Race,
-        Nation,
+        Province,
     }
 }

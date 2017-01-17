@@ -9,7 +9,6 @@ using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.CelestialPowers.CommandRacePowers;
 using dawn_of_worlds.CelestialPowers.CreateAvatarPowers;
-using dawn_of_worlds.CelestialPowers.EventPowers.RacialEvents;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Effects;
@@ -99,9 +98,6 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
 
             foreach (Deity deity in Program.World.Deities)
             {
-                // Add racial events.
-                deity.Powers.Add(new RacialEpidemic(_created_race));
-                deity.Powers.Add(new EndRacialEpidemic(_created_race));
                 // Add avatars for this race.
                 foreach (AvatarType type in Enum.GetValues(typeof(AvatarType)))
                 {

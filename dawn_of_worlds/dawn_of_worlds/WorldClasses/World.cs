@@ -315,7 +315,7 @@ namespace dawn_of_worlds.WorldClasses
                                 is_valid_domain = false;
 
                         if (is_valid_domain)
-                            deity.Domains[i] = new Modifier(domain);
+                            deity.Domains[i] = new Modifier(ModifierCategory.Domain, domain);
                     }
                 }
             }
