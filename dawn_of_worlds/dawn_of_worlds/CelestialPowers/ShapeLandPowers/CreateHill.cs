@@ -17,28 +17,24 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             base.initialize();
             Name = "Create Hill";
+            isPrimary = false;
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Earth };
         }
 
-        public override bool Precondition(Deity creator)
+        protected override bool selectionModifier(Province province)
         {
-            base.Precondition(creator);
-            // needs a possible terrain in the area.
-            if (candidate_terrain().Count == 0)
+            if (province.Type == TerrainType.HillRange)
+                return true;
+            else
                 return false;
-
-            return true;
         }
 
         public override void Effect(Deity creator)
         {
-            // Pick a random terrain province.
-            List<Province> hill_locations = candidate_terrain();
-            Province hill_location = hill_locations[Constants.Random.Next(hill_locations.Count)];
-            Hill hill = new Hill("PlaceHolder", hill_location, creator);
+            Hill hill = new Hill("PlaceHolder", SelectedProvince, creator);
 
             int chance = Constants.Random.Next(100);
-            switch (hill_location.LocalClimate)
+            switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:
                     hill.BiomeType = BiomeType.Tundra;
@@ -82,9 +78,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             hill.Name.Singular = Constants.Names.GetName("hills");
 
             // Add hill to hill range.
-            ((HillRange)hill_location.PrimaryTerrainFeature).Hills.Add(hill);
-            hill.Range = (HillRange)hill_location.PrimaryTerrainFeature;
-            hill_location.SecondaryTerrainFeatures.Add(hill);
+            ((HillRange)SelectedProvince.PrimaryTerrainFeature).Hills.Add(hill);
+            hill.Range = (HillRange)SelectedProvince.PrimaryTerrainFeature;
+            SelectedProvince.SecondaryTerrainFeatures.Add(hill);
 
             hill.Modifiers.NaturalDefenceValue += 2;
             switch (hill.BiomeType)
@@ -104,22 +100,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = hill;
 
             Program.WorldHistory.AddRecord(hill, hill.printTerrainFeature);
-        }
-
-
-        public CreateHill(Area location) : base(location) { }
-
-
-        private List<Province> candidate_terrain()
-        {
-            List<Province> terrain_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.Type == TerrainType.HillRange)
-                    terrain_list.Add(terrain);
-            }
-
-            return terrain_list;
         }
     }
 }

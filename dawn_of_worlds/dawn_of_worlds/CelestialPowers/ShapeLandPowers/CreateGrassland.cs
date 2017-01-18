@@ -18,6 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             base.initialize();
             Name = "Create Grassland";
+            isPrimary = true;
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Plain, CreationTag.Earth };
         }
 
@@ -27,30 +28,16 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             get
             {
-                return _location.Region.Type == RegionType.Continent;
+                //return _location.Region.Type == RegionType.Continent;
+                return true;
             }
-        }
-
-
-        public override bool Precondition(Deity creator)
-        {
-            base.Precondition(creator);
-
-            // needs a possible terrain in the area.
-            if (candidate_terrain().Count == 0)
-                return false;
-
-            return true;
         }
 
         public override void Effect(Deity creator)
         {
-            List<Province> grassland_locations = candidate_terrain();
-            Province grassland_location = grassland_locations[Constants.Random.Next(grassland_locations.Count)];
+            Grassland grassland = new Grassland("PlaceHolder", SelectedProvince, creator);
 
-            Grassland grassland = new Grassland("PlaceHolder", grassland_location, creator);
-
-            switch (grassland_location.LocalClimate)
+            switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:
                     grassland.BiomeType = BiomeType.Tundra;
@@ -70,26 +57,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             grassland.Name.Singular = Constants.Names.GetName("grasslands");
-            grassland_location.PrimaryTerrainFeature = grassland;
+            SelectedProvince.PrimaryTerrainFeature = grassland;
 
             creator.TerrainFeatures.Add(grassland);
             creator.LastCreation = grassland;
 
             Program.WorldHistory.AddRecord(grassland, grassland.printTerrainFeature);
-        }
-
-        public CreateGrassland(Area location) : base(location) { }
-
-        private List<Province> candidate_terrain()
-        {
-            List<Province> terrain_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.Type == TerrainType.Island)
-                    terrain_list.Add(terrain);
-            }
-
-            return terrain_list;
         }
     }
 }

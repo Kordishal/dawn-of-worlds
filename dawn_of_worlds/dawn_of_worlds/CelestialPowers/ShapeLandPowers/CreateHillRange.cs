@@ -14,64 +14,21 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             base.initialize();
             Name = "Create Hill Range";
+            isPrimary = true;
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Hilly, CreationTag.Earth };
-        }
-
-        public override bool Precondition(Deity creator)
-        {
-            base.Precondition(creator);
-            // needs a possible terrain in the area.
-            if (candidate_provinces().Count == 0)
-                return false;
-
-            return true;
-        }
-
-        private List<WeightedObjects<Province>> candidate_provinces()
-        {
-            List<WeightedObjects<Province>> province_list = new List<WeightedObjects<Province>>();
-            foreach (Province province in _location.Provinces)
-            {
-                if (province.isDefault && province.Type == TerrainType.Plain)
-                {
-                    WeightedObjects<Province> weighted_province = new WeightedObjects<Province>(province);
-                    weighted_province.Weight += 5;
-
-                    for (int i = 0; i < 8; i++)
-                    {
-                        SystemCoordinates coords = province.Coordinates;
-                        coords = coords.GetNeighbour(i);
-
-                        if (coords.isInTileGridBounds())
-                        {
-                            if (Program.World.ProvinceGrid[coords.X, coords.Y].Type == TerrainType.HillRange)
-                                weighted_province.Weight += 20;
-                            if (Program.World.ProvinceGrid[coords.X, coords.Y].Type == TerrainType.MountainRange)
-                                weighted_province.Weight += 10;
-                        }
-                    }
-
-                    province_list.Add(weighted_province);
-                }
-            }
-
-            return province_list;
         }
 
         public override void Effect(Deity creator)
         {
-            List<WeightedObjects<Province>> hill_range_locations = candidate_provinces();
-            Province hill_range_location = WeightedObjects<Province>.ChooseRandomObject(hill_range_locations);
-
-            HillRange hill_range = new HillRange(Constants.Names.GetName("hill_ranges"), hill_range_location, creator);
-            hill_range_location.Type = TerrainType.HillRange;
-            hill_range_location.PrimaryTerrainFeature = hill_range;
-            hill_range_location.isDefault = false;
+            HillRange hill_range = new HillRange(Constants.Names.GetName("hill_ranges"), SelectedProvince, creator);
+            SelectedProvince.Type = TerrainType.HillRange;
+            SelectedProvince.PrimaryTerrainFeature = hill_range;
+            SelectedProvince.isDefault = false;
             creator.TerrainFeatures.Add(hill_range);
             creator.LastCreation = hill_range;
 
             int chance = Constants.Random.Next(100);
-            switch (hill_range_location.LocalClimate)
+            switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:
                     hill_range.BiomeType = BiomeType.PolarDesert;
@@ -103,11 +60,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             Program.WorldHistory.AddRecord(hill_range, hill_range.printTerrainFeature);
-        }
-
-        public CreateHillRange(Area location) : base (location)
-        {
-            Name = "Create Hill Range in Area " + location.Name;
         }
     }
 }

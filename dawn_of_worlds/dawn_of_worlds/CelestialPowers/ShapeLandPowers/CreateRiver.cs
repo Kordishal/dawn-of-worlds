@@ -17,28 +17,24 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             base.initialize();
             Name = "Create River";
+            isPrimary = false;
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Water, CreationTag.Trade };
         }
 
-        public override bool Precondition(Deity creator)
+        protected override bool selectionModifier(Province province)
         {
-            base.Precondition(creator);
-            // needs a possible terrain in the area.
-            if (candidate_terrain().Count == 0)
+            if (!(province.Type == TerrainType.MountainRange))
                 return false;
-
-            return true;
+            else
+                return true;
         }
 
         public override void Effect(Deity creator)
         {
-            List<Province> river_locations = candidate_terrain();
-            Province river_location = river_locations[Constants.Random.Next(river_locations.Count)];
-
             // Create the river
-            River river = new River(Constants.Names.GetName("rivers"), river_location, creator);
+            River river = new River(Constants.Names.GetName("rivers"), SelectedProvince, creator);
             river.BiomeType = BiomeType.PermanentRiver;
-            river.Spring = (MountainRange)river_location.PrimaryTerrainFeature;
+            river.Spring = (MountainRange)SelectedProvince.PrimaryTerrainFeature;
             river.Riverbed.Add(river.Spring.Province);
 
             // the primary direction of the river. 
@@ -67,7 +63,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             bool[] not_taken_other_direction = new bool[2] { true, true };
 
-            Province current_location = river_location;
+            Province current_location = SelectedProvince;
             bool not_has_found_destination = true;
 
             while (not_has_found_destination)
@@ -184,20 +180,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = river;
 
             Program.WorldHistory.AddRecord(river, river.printTerrainFeature);
-        }
-
-        public CreateRiver(Area location) : base(location) { }
-
-        private List<Province> candidate_terrain()
-        {
-            List<Province> terrain_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.Type == TerrainType.MountainRange)
-                    terrain_list.Add(terrain);
-            }
-
-            return terrain_list;
         }
 
         enum Direction

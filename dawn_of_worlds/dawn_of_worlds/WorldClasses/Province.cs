@@ -95,6 +95,7 @@ namespace dawn_of_worlds.WorldClasses
                     case Climate.Arctic:
                         PrimaryTerrainFeature = new Desert(Constants.Names.GetName("deserts"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.PolarDesert;
+                        ProvincialModifiers.Add(new Modifier(ModifierCategory.Province, ModifierTag.Permafrost));
                         break;
                     case Climate.SubArctic:
                         PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);

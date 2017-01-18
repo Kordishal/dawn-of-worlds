@@ -50,6 +50,7 @@ namespace dawn_of_worlds.Effects
         // PROVINCIAL MODIFIERS
         //
         BeginProvince,
+        Permafrost,
         ThePlague,
 
         EndProvince,

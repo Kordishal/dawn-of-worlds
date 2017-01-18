@@ -57,19 +57,20 @@ namespace dawn_of_worlds.Actors
             FoundedNations = new List<Civilisation>();
             FoundedCities = new List<City>();
 
+            // Shape Land
+            Powers.Add(new CreateForest());
+            Powers.Add(new CreateGrassland());
+            Powers.Add(new CreateDesert());
+            Powers.Add(new CreateCave());
+            Powers.Add(new CreateLake());
+            Powers.Add(new CreateRiver());
+            Powers.Add(new CreateMountainRange());
+            Powers.Add(new CreateMountain());
+            Powers.Add(new CreateHillRange());
+            Powers.Add(new CreateHill());
+
             foreach (Area area in Program.World.AreaGrid)
             {
-                // Shape Land
-                Powers.Add(new CreateForest(area));
-                Powers.Add(new CreateGrassland(area));
-                Powers.Add(new CreateDesert(area));
-                Powers.Add(new CreateCave(area));
-                Powers.Add(new CreateLake(area));
-                Powers.Add(new CreateRiver(area));
-                Powers.Add(new CreateMountainRange(area));
-                Powers.Add(new CreateMountain(area));
-                Powers.Add(new CreateHillRange(area));
-                Powers.Add(new CreateHill(area));
                 // Shape Climate
                 Powers.Add(new MakeClimateWarmer(area));
                 Powers.Add(new MakeClimateColder(area));

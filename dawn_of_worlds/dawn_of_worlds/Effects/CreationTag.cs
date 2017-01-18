@@ -85,5 +85,6 @@ namespace dawn_of_worlds.Effects
         Metal,
         Gold,
         Elderly,
+        Tree,
     }
 }

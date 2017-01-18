@@ -239,10 +239,16 @@ namespace dawn_of_worlds.Effects
                 case ModifierTag.ThePlague:
                     Excludes = null;
                     Forbids = new CreationTag[] { CreationTag.Creation };
-
                     IncreasesWeight = null;
                     DecreasesWeight = new CreationTag[] { CreationTag.Conquest, CreationTag.Construction, CreationTag.Army };
-
+                    IncreaseCost = null;
+                    DecreaseCost = null;
+                    break;
+                case ModifierTag.Permafrost:
+                    Excludes = null;
+                    Forbids = new CreationTag[] { CreationTag.Tree };
+                    IncreasesWeight = null;
+                    DecreasesWeight = new CreationTag[] { CreationTag.Life };
                     IncreaseCost = null;
                     DecreaseCost = null;
                     break;

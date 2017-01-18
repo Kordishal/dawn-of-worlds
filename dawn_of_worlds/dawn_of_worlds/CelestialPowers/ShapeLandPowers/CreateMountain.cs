@@ -18,27 +18,23 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             base.initialize();
             Name = "Create Mountain";
+            isPrimary = false;
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Earth };
         }
 
-        public override bool Precondition(Deity creator)
+        protected override bool selectionModifier(Province province)
         {
-            base.Precondition(creator);
-            // needs a possible terrain in the area.
-            if (candidate_provinces().Count == 0)
+            if (province.Type == TerrainType.MountainRange)
+                return true;
+            else
                 return false;
-
-            return true;
         }
-
         public override void Effect(Deity creator)
         {
-            List<Province> mountain_locations = candidate_provinces();
-            Province mountain_location = mountain_locations[Constants.Random.Next(mountain_locations.Count)];
-            Mountain mountain = new Mountain("PlaceHolder", mountain_location, creator);
+            Mountain mountain = new Mountain("PlaceHolder", SelectedProvince, creator);
 
             int chance = Constants.Random.Next(100);
-            switch (mountain_location.LocalClimate)
+            switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:
                     mountain.BiomeType = BiomeType.Tundra;
@@ -70,9 +66,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             mountain.Name.Singular = Constants.Names.GetName("mountains");
-            ((MountainRange)mountain_location.PrimaryTerrainFeature).Mountains.Add(mountain);
-            mountain.Range = (MountainRange)mountain_location.PrimaryTerrainFeature;
-            mountain_location.SecondaryTerrainFeatures.Add(mountain);
+            ((MountainRange)SelectedProvince.PrimaryTerrainFeature).Mountains.Add(mountain);
+            mountain.Range = (MountainRange)SelectedProvince.PrimaryTerrainFeature;
+            SelectedProvince.SecondaryTerrainFeatures.Add(mountain);
 
             mountain.Modifiers.NaturalDefenceValue += 3;
             switch (mountain.BiomeType)
@@ -91,21 +87,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = mountain;
 
             Program.WorldHistory.AddRecord(mountain, mountain.printTerrainFeature);
-        }
-
-
-        public CreateMountain(Area location) : base(location) { }
-
-        private List<Province> candidate_provinces()
-        {
-            List<Province> province_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.Type == TerrainType.MountainRange)
-                    province_list.Add(terrain);
-            }
-
-            return province_list;
         }
     }
 }

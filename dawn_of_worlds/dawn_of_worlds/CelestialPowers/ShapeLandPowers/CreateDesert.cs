@@ -17,30 +17,16 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             base.initialize();
             Name = "Create Desert";
+            isPrimary = true;
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Plain, CreationTag.Dry };
-        }
-
-
-        public override bool Precondition(Deity creator)
-        {
-            base.Precondition(creator);
-            // needs a possible terrain in the area.
-            if (candidate_terrain().Count == 0)
-                return false;
-
-            return true;
         }
 
         public override void Effect(Deity creator)
         {
-            // Pick a random terrain province.
-            List<Province> candidate_desert_locations = candidate_terrain();
-            Province desert_location = candidate_desert_locations[Constants.Random.Next(candidate_desert_locations.Count)];
-
-            Desert desert = new Desert(Constants.Names.GetName("deserts"), desert_location, creator);
+            Desert desert = new Desert(Constants.Names.GetName("deserts"), SelectedProvince, creator);
 
             int chance = Constants.Random.Next(100);
-            switch (desert_location.LocalClimate)
+            switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:
                     desert.BiomeType = BiomeType.PolarDesert;
@@ -65,29 +51,13 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            desert_location.PrimaryTerrainFeature = desert;
-            desert_location.isDefault = false;
+            SelectedProvince.PrimaryTerrainFeature = desert;
+            SelectedProvince.isDefault = false;
 
-            // Add forest to the deity.
             creator.TerrainFeatures.Add(desert);
             creator.LastCreation = desert;
 
             Program.WorldHistory.AddRecord(desert, desert.printTerrainFeature);
-        }
-
-        public CreateDesert(Area location) : base(location) { }
-
-
-        private List<Province> candidate_terrain()
-        {
-            List<Province> terrain_list = new List<Province>();
-            foreach (Province terrain in _location.Provinces)
-            {
-                if (terrain.isDefault && terrain.Type == TerrainType.Plain)
-                    terrain_list.Add(terrain);
-            }
-
-            return terrain_list;
         }
     }
 }
