@@ -44,6 +44,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             {
                 bool add_province = true;
 
+                add_province = selectionModifier(province);
+
                 // Do not change the primary terrain feature more than once.
                 if (!province.isDefault && isPrimary)
                     add_province = false;
@@ -55,8 +57,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                             if (Tags.Contains(modifier.Forbids[i]))
                                 add_province = false;                                    
                 }
-
-                add_province = selectionModifier(province);
 
                 if (add_province)
                     weighted_provinces.Add(new WeightedObjects<Province>(province));
