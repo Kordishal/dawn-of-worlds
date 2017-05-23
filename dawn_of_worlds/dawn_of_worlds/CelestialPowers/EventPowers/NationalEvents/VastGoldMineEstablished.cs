@@ -25,12 +25,14 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
         public override bool Precondition(Deity creator)
         {
             base.Precondition(creator);
+            if (_nation.LocalTags.Contains(CivilisationTags.GoldMine))
+                return false;
+
             return true;
         }
 
         public override void Effect(Deity creator)
         {
-            _nation.LocalTags.Add(CivilisationTags.VeryRich);
             _nation.LocalTags.Add(CivilisationTags.GoldMine);
 
             creator.LastCreation = _nation;

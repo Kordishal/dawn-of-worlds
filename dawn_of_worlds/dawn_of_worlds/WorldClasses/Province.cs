@@ -31,6 +31,8 @@ namespace dawn_of_worlds.WorldClasses
 
         public List<Modifier> ProvincialModifiers { get; set; }
 
+        public List<Resource> ProvincialResources { get; set; }
+
         public void changeOwnership(Civilisation winner)
         {
             List<City> local_cities = Owner.Cities.FindAll(x => x.TerrainFeature.Province == this);

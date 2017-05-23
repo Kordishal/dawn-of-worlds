@@ -92,6 +92,7 @@
     <Compile Include="CelestialPowers\ShapeClimatePowers\MakeClimateColder.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\MakeClimateWarmer.cs" />
     <Compile Include="CelestialPowers\ShapeClimatePowers\ShapeClimate.cs" />
+    <Compile Include="CelestialPowers\ShapeLandPowers\AddResource.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateCave.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateDesert.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateForest.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Creations\Civilisations\Civilisation.cs" />
     <Compile Include="Creations\Organisations\Order.cs" />
     <Compile Include="Effects\Disease.cs" />
+    <Compile Include="Creations\Geography\Resource.cs" />
     <Compile Include="Log\StreamWriters.cs" />
     <Compile Include="Log\History.cs" />
     <Compile Include="Log\Map.cs" />
