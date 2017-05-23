@@ -27,6 +27,7 @@ namespace dawn_of_worlds.Actors
 
         public List<Power> Powers { get; set; }
 
+        // Modifiers applied to power point generatio.
         public DeityModifiers Modifiers { get; set; }
 
         public List<TerrainFeatures> TerrainFeatures { get; set; }
@@ -238,6 +239,9 @@ namespace dawn_of_worlds.Actors
         }
     }
 
+    /// <summary>
+    /// Modifies the amount of power points the deity gets each turn. 
+    /// </summary>
     public class DeityModifiers
     {
         public int BonusPowerPoints { get; set; }
