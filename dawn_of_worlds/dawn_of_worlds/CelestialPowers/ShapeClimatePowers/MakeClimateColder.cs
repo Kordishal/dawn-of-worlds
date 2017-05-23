@@ -54,12 +54,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             adjustTerrainFeatureBiomes();
         }
 
-        public MakeClimateColder(Area location) : base(location) { initialize(); }
+        public MakeClimateColder() { initialize(); }
 
         private List<WeightedObjects<Province>> candidate_provinces()
         {
             List<WeightedObjects<Province>> weighted_provinces = new List<WeightedObjects<Province>>();
-            foreach (Province province in _location.Provinces)
+            foreach (Province province in Program.World.ProvinceGrid)
             {
                 int[] climate_count = countClimateNeighbours(province);
                 switch (province.LocalClimate)

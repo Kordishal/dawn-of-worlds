@@ -13,33 +13,39 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 {
     class ExpandTerritory : CommandNation
     {
+        private List<Province> ExpansionTargetProvinces { get; set; }
+
         public override bool Precondition(Deity creator)
         {
             base.Precondition(creator);
-            if (targetProvinces().Count > 0)
+            if (ExpansionTargetProvinces.Count > 0)
                 return true;
             else
                 return false;
         }
-
 
         protected override void initialize()
         {
             base.initialize();
             Name = "Expand National Territory: " + _commanded_nation.Name;
             Tags = new List<CreationTag>() { CreationTag.Expansion };
+            ExpansionTargetProvinces = new List<Province>();
+            foreach (Province province in _commanded_nation.Territory)
+            {
+                ExpansionTargetProvinces.AddRange(newExpansionProvinces(province));
+            }
         }
 
         public override void Effect(Deity creator)
         {
-            List<Province> provinces = targetProvinces();
-
-            Province new_territory = provinces[Constants.Random.Next(provinces.Count)];
+            Province new_territory = ExpansionTargetProvinces[Constants.Random.Next(ExpansionTargetProvinces.Count)];
             _commanded_nation.Territory.Add(new_territory);
             if (_commanded_nation.isNomadic)
                 new_territory.NomadicPresence.Add(_commanded_nation);
             else
                 new_territory.Owner = _commanded_nation;
+
+            ExpansionTargetProvinces.AddRange(newExpansionProvinces(new_territory));
 
             //WarGoal war_goal = new WarGoal(WarGoalType.Conquest);
             //war_goal.Territory = new_territory;
@@ -49,31 +55,32 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public ExpandTerritory(Civilisation commanded_nation) : base(commanded_nation) { initialize(); }
 
-        private List<Province> targetProvinces()
+        private List<Province> newExpansionProvinces(Province province)
         {
             List<Province> target_provinces = new List<Province>();
 
-            foreach (Province province in _commanded_nation.Territory)
+            for (int i = 0; i < 8; i++)
             {
-                for (int i = 0; i < 8; i++)
+                SystemCoordinates coords = province.Coordinates.GetNeighbour(i);
+
+                if (coords.isInTileGridBounds())
                 {
-                    SystemCoordinates coords = province.Coordinates.GetNeighbour(i);
+                    Province neighbour_province = Program.World.getProvince(coords);
 
-                    if (coords.isInTileGridBounds())
-                    {
-                        Province neighbour_province = Program.World.getProvince(coords);
-                        // Ignore this if it is already part of the territory.
-                        if (_commanded_nation.Territory.Contains(neighbour_province))
-                            continue;
+                    // Ignore this if it is already part of the territory.
+                    if (_commanded_nation.Territory.Contains(neighbour_province))
+                        continue;
+                    // Do not duplicate provinces in this list.
+                    if (ExpansionTargetProvinces.Contains(neighbour_province))
+                        continue;
 
-                       if (_commanded_nation.isNomadic)
-                            target_provinces.Add(neighbour_province);
-                       else
-                            if (!neighbour_province.hasOwner)
-                                    target_provinces.Add(neighbour_province);
-                    }
+                    if (_commanded_nation.isNomadic)
+                        target_provinces.Add(neighbour_province);
+                    else
+                        if (!neighbour_province.hasOwner)
+                                target_provinces.Add(neighbour_province);
                 }
-            }
+            }         
 
             return target_provinces;
         }

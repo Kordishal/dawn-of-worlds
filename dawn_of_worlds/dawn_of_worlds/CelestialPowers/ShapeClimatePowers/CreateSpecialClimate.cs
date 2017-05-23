@@ -27,9 +27,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         public override bool Precondition(Deity creator)
         {
             base.Precondition(creator);
-            foreach (Province province in _location.Provinces)
-                if (province.LocalClimate != _climate)
-                    return true;
+
+            if (candidate_provinces().Count > 0)
+                return true;
 
             return false;
         }
@@ -39,7 +39,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             
         }
 
-        public CreateSpecialClimate(Area location, Climate climate) : base(location)
+        public CreateSpecialClimate(Climate climate)
         {
             _climate = climate;
             initialize();
@@ -48,7 +48,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         private List<WeightedObjects<Province>> candidate_provinces()
         {
             List<WeightedObjects<Province>> weighted_provinces = new List<WeightedObjects<Province>>();
-            foreach (Province province in _location.Provinces)
+            foreach (Province province in Program.World.ProvinceGrid)
             {
                 if (_climate != province.LocalClimate)
                 {

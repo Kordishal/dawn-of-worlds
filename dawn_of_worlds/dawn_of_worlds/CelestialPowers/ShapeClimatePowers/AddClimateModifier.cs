@@ -20,20 +20,14 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 
         public override bool Precondition(Deity creator)
         {
-            base.Precondition(creator);
-            if (_location.Provinces.Exists(x => x.LocalClimateModifier != _modifier))
-                return true;
-
             return false;
         }
 
         public override void Effect(Deity creator)
         {
-            Province province = _location.Provinces[Constants.Random.Next(_location.Provinces.Count)];
-            province.LocalClimateModifier = _modifier;
         }
 
-        public AddClimateModifier(Area location, ClimateModifier modifier) : base(location)
+        public AddClimateModifier(ClimateModifier modifier)
         {   
             _modifier = modifier;
             initialize();

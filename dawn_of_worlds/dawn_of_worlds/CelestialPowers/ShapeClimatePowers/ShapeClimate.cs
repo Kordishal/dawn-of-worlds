@@ -12,7 +12,6 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 {
     abstract class ShapeClimate : Power
     {
-        protected Area _location { get; set; }
         protected Province _chosen_location { get; set; }
 
         protected override void initialize()
@@ -25,14 +24,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             WeightChange = 5;
         }
 
-        public ShapeClimate(Area location)
-        {
-            _location = location;
-        }
-
         protected int[] countClimateNeighbours(Province province)
         {
-            int[] climate_count = new int[5] { 0, 0, 0, 0, 0 };
+            int[] climate_count = new int[6] { 0, 0, 0, 0, 0, 0 };
             SystemCoordinates coords = null;
             for (int i = 0; i < 8; i++)
             {
@@ -56,6 +50,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
                             break;
                         case Climate.Tropical:
                             climate_count[4] += 1;
+                            break;
+                        case Climate.Inferno:
+                            climate_count[5] += 1;
                             break;
                         default:
                             break;

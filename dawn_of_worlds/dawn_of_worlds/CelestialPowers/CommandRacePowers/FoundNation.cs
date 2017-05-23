@@ -95,6 +95,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 }
             }
 
+            if (possible_locations.Count == 0)
+                return;
+
             Province location = WeightedObjects<Province>.ChooseRandomObject(possible_locations);
             
             Civilisation founded_civilisation = new Civilisation("Nation of " + _commanded_race.Name, creator);

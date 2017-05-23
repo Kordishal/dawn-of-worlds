@@ -11,6 +11,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
     {
         protected bool isPrimary { get; set; }
         protected Province SelectedProvince { get; set; }
+        private List<Province> PotentialProvinces { get; set; }
 
         protected override void initialize()
         {
@@ -19,7 +20,10 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             CostChange = 2;
 
             BaseWeight = new int[] { 20, 15, 10 };
-            WeightChange = 5; 
+            WeightChange = 5;
+            PotentialProvinces = new List<Province>();
+            foreach (Province province in Program.World.ProvinceGrid)
+                PotentialProvinces.Add(province);
         }
 
         public override bool Precondition(Deity creator)
@@ -40,13 +44,20 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         protected Province selectProvince()
         {
             List<WeightedObjects<Province>> weighted_provinces = new List<WeightedObjects<Province>>();
-            foreach (Province province in Program.World.ProvinceGrid)
+            List<Province> obsolete_provinces = new List<Province>();
+            foreach (Province province in PotentialProvinces)
             {
                 bool add_province = true;
 
+                add_province = selectionModifier(province);
+
                 // Do not change the primary terrain feature more than once.
                 if (!province.isDefault && isPrimary)
+                {
                     add_province = false;
+                    obsolete_provinces.Add(province);
+                }
+
 
                 foreach (Modifier modifier in province.ProvincialModifiers)
                 {
@@ -56,11 +67,12 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                                 add_province = false;                                    
                 }
 
-                add_province = selectionModifier(province);
-
                 if (add_province)
                     weighted_provinces.Add(new WeightedObjects<Province>(province));
             }
+
+            foreach (Province province in obsolete_provinces)
+                PotentialProvinces.Remove(province);
 
             foreach(WeightedObjects<Province> weighted_province in weighted_provinces)
             {

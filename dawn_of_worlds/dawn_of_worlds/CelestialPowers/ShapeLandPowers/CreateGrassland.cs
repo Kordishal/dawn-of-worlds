@@ -58,6 +58,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             grassland.Name.Singular = Constants.Names.GetName("grasslands");
             SelectedProvince.PrimaryTerrainFeature = grassland;
+            SelectedProvince.isDefault = false;
 
             creator.TerrainFeatures.Add(grassland);
             creator.LastCreation = grassland;

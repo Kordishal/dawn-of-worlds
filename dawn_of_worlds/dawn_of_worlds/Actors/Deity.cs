@@ -68,15 +68,12 @@ namespace dawn_of_worlds.Actors
             Powers.Add(new CreateMountain());
             Powers.Add(new CreateHillRange());
             Powers.Add(new CreateHill());
+            // Shape Climate
+            Powers.Add(new MakeClimateWarmer());
+            Powers.Add(new MakeClimateColder());
+            Powers.Add(new AddClimateModifier(ClimateModifier.MagicInfused));
+            Powers.Add(new CreateSpecialClimate(Climate.Inferno));
 
-            foreach (Area area in Program.World.AreaGrid)
-            {
-                // Shape Climate
-                Powers.Add(new MakeClimateWarmer(area));
-                Powers.Add(new MakeClimateColder(area));
-                Powers.Add(new AddClimateModifier(area, ClimateModifier.MagicInfused));
-                Powers.Add(new CreateSpecialClimate(area, Climate.Inferno));
-            }
 
             // Create Races
             foreach (Race race in DefinedRaces.DefinedRacesList)
