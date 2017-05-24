@@ -18,6 +18,15 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Actors
 {
+    /// <summary>
+    /// The deities are the only actors in dawn of worlds. 
+    /// Everything which happens is because of divine intervention. 
+    /// 
+    /// Deities affect their changes to the world with powers. Each powers costs power points.
+    /// Each deity gets a random amount of power points per turn. 
+    /// 
+    /// The deities can use several powers per turn. 
+    /// </summary>
     class Deity
     {
         public string Name { get; set; }
@@ -132,7 +141,7 @@ namespace dawn_of_worlds.Actors
                     p.Effect(this);
                     PowerPoints = PowerPoints - p.Cost(this);
                     // For the Action Log entry.
-                    _total_power_points += p.Cost(this);
+                    _total_power_points_used += p.Cost(this);
                     LastUsedPower = p;
                     break;
                 }
@@ -142,8 +151,15 @@ namespace dawn_of_worlds.Actors
             }
         }
 
-        private int _total_power_points;
+        /// <summary>
+        /// A local property which stores the total number of power points used by the deity.
+        /// </summary>
+        private int _total_power_points_used { get; set; }
 
+        /// <summary>
+        /// Puts all the attributes of the deity into a string.
+        /// </summary>
+        /// <returns>Description of the deity.</returns>
         public string printDeity()
         {
             int counter = 0;
@@ -153,7 +169,7 @@ namespace dawn_of_worlds.Actors
             foreach (Modifier domain in Domains)
                 result += domain.ToString() + ", ";
             result += "\n";
-            result += "Total PowerPoints Used: " + _total_power_points + "\n";
+            result += "Total PowerPoints Used: " + _total_power_points_used + "\n";
             result += "CreationsCount: " + TerrainFeatures.Count.ToString() + "\n";
             result += "Creations: \n";
             foreach (Creation creation in TerrainFeatures)
