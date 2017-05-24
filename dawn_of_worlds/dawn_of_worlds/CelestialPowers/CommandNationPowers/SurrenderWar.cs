@@ -119,7 +119,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return weight >= 0 ? weight : 0;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             // The war goal which will change hands.
             WarGoal war_goal;
@@ -147,6 +147,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             _surrendered_war.End = Simulation.Time.Shuffle;
 
             creator.LastCreation = _surrendered_war;
+
+            return 0;
         }
 
         public SurrenderWar(Civilisation surrendering_nation, War surrendered_war) : base(surrendering_nation)

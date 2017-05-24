@@ -20,7 +20,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Mountainous, CreationTag.Earth };
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             MountainRange mountain_range = new MountainRange(Constants.Names.GetName("mountain_ranges"), SelectedProvince, creator);
             SelectedProvince.Type = TerrainType.MountainRange;
@@ -64,6 +64,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = mountain_range;
 
             Program.WorldHistory.AddRecord(mountain_range, mountain_range.printTerrainFeature);
+
+            return 0;
         }
     }
 }

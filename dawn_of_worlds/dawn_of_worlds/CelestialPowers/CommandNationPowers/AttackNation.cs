@@ -34,7 +34,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             possible_target_armies();
 
@@ -51,6 +51,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             battle.Fight();
 
             creator.LastCreation = null;
+
+            return 0;
         }
 
 

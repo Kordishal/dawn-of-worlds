@@ -40,9 +40,9 @@ namespace dawn_of_worlds.CelestialPowers.CommandAvatarPowers
             return _power.Weight(creator);
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
-            _power.Effect(creator);
+            return _power.Effect(creator);
         }
 
         public UsePower(Avatar avatar, Power power) : base(avatar)

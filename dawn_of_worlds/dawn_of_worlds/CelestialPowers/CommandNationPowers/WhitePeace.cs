@@ -40,7 +40,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             // if the nation calling for white peace is a war leader the war ends.
             if (_white_peaced_war.isWarLeader(_commanded_nation))
@@ -101,6 +101,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
             
             creator.LastCreation = _white_peaced_war;
+
+            return 0;
         }
 
         public override int Weight(Deity creator)

@@ -57,7 +57,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
             return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Order created_order = new Order("PlaceHolder", creator, _type, _purpose);
             creator.CreatedOrders.Add(created_order);
@@ -98,6 +98,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
             //created_order.Name = Constants.Names.GetReligionName(creator, created_order.OrderRace);
            
             creator.LastCreation = created_order;
+
+            return 0;
         }
 
 

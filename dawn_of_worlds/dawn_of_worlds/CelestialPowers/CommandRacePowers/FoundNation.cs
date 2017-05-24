@@ -37,7 +37,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             List<WeightedObjects<Province>> possible_locations = new List<WeightedObjects<Province>>();
 
@@ -96,7 +96,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             }
 
             if (possible_locations.Count == 0)
-                return;
+                return 1;
 
             Province location = WeightedObjects<Province>.ChooseRandomObject(possible_locations);
             
@@ -232,6 +232,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             }
 
             creator.LastCreation = founded_civilisation;
+
+            return 0;
         }
 
         public FoundNation (Race command_race, Polity polity) : base(command_race)

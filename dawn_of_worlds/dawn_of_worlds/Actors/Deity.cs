@@ -219,12 +219,20 @@ namespace dawn_of_worlds.Actors
                     current_weight += p.Weight(this);
                     if (prev_weight <= chance && chance < current_weight)
                     {
-                        p.Effect(this);
-                        PowerPoints = PowerPoints - p.Cost(this);
-                        // For the Action Log entry.
-                        _total_power_points_used += p.Cost(this);
-                        LastUsedPower = p;
-                        break;
+                        int return_value = p.Effect(this);
+                        if (return_value == 0)
+                        {
+                            PowerPoints = PowerPoints - p.Cost(this);
+                            // For the Action Log entry.
+                            _total_power_points_used += p.Cost(this);
+                            LastUsedPower = p;
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+
                     }
 
 

@@ -29,12 +29,14 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
             return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             _nation.LocalTags.Remove(CivilisationTags.VeryRich);
             _nation.LocalTags.Remove(CivilisationTags.GoldMine);
 
             creator.LastCreation = _nation;
+
+            return 0;
         }
 
 

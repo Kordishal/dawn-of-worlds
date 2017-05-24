@@ -106,7 +106,7 @@ namespace dawn_of_worlds.CelestialPowers
             return weight >= 0 ? weight : 0;
         }
 
-        abstract public void Effect(Deity creator);
+        abstract public int Effect(Deity creator);
 
         public Power()
         {

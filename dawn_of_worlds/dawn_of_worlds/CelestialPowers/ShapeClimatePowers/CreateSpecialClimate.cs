@@ -34,9 +34,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             return false;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
-            
+            return 1;
         }
 
         public CreateSpecialClimate(Climate climate)

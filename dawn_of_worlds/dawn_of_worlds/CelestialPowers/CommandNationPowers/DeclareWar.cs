@@ -46,7 +46,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
 
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Civilisation war_target = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
 
@@ -154,6 +154,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             creator.LastCreation = declared_war;
 
             Program.WorldHistory.AddRecord(RecordType.WarReport, declared_war, War.printWar);
+
+            return 0;
         }
 
         public DeclareWar(Civilisation commanded_nation) : base(commanded_nation)

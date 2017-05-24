@@ -43,7 +43,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Avatar created_avatar = new Avatar("PlaceHolder", creator);
 
@@ -110,6 +110,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             creator.CreatedAvatars.Add(created_avatar);
 
             creator.LastCreation = created_avatar;
+
+            return 0;
         }
 
         public CreateAvatar(AvatarType type, Race race, Civilisation nation, Order order)

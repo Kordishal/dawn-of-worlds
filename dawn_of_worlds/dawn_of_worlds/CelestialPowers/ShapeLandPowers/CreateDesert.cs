@@ -21,7 +21,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Plain, CreationTag.Dry };
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Desert desert = new Desert(Constants.Names.GetName("deserts"), SelectedProvince, creator);
 
@@ -58,6 +58,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = desert;
 
             Program.WorldHistory.AddRecord(desert, desert.printTerrainFeature);
+
+            return 0;
         }
     }
 }

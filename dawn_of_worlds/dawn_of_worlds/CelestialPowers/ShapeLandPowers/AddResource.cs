@@ -8,11 +8,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 {
     class AddResource : Power
     {
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
 
 
-
+            return 0;
         }
 
         protected override void initialize()

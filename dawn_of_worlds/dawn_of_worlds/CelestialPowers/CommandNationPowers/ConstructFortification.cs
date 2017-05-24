@@ -32,7 +32,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         }
 
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             TerrainFeatures terrain = WeightedObjects<TerrainFeatures>.ChooseRandomObject(potential_construction_sites());
 
@@ -42,6 +42,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
             terrain.Buildings.Add(building);
 
+            return 0;
         }
 
         public ConstructFortification(Civilisation commanded_nation, BuildingType type) : base(commanded_nation)

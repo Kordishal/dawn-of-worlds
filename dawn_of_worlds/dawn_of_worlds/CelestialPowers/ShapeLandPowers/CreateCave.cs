@@ -21,7 +21,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Tags = new List<CreationTag>() { CreationTag.Subterranean, CreationTag.Earth };
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Cave cave = new Cave("PlaceHolder", SelectedProvince, creator);
 
@@ -36,6 +36,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(cave);
             creator.LastCreation = cave;
             Program.WorldHistory.AddRecord(cave, cave.printTerrainFeature);
+
+            return 0;
         }
     }
 }

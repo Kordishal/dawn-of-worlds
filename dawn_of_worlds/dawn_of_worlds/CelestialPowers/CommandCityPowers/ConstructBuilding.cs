@@ -19,7 +19,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             Tags = new List<CreationTag>() { CreationTag.Construction };
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Building building = new Building(null, creator, _type);
 
@@ -29,6 +29,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             building.Terrain = _commanded_city.TerrainFeature;
 
             building.Effect();
+            return 0;
         }
 
         public override bool Precondition(Deity creator)

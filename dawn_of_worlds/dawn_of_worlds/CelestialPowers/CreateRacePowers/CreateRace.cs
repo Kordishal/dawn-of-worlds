@@ -64,7 +64,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             }
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             _created_race.YearofCreation = Simulation.Time.Shuffle;
                 
@@ -108,6 +108,8 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             // Add the race to the world overview.
             Program.World.Races.Add(_created_race);
             creator.LastCreation = _created_race;
+
+            return 0;
         }
 
         public override int Weight(Deity creator)

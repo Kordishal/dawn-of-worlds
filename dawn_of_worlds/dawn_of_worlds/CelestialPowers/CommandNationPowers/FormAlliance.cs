@@ -46,7 +46,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
 
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             compile_candidate_nations();
 
@@ -56,6 +56,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             _commanded_nation.Relationships.Find(x => x.Target == new_ally).Status = RelationStatus.Allied;
             new_ally.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Allied;
             creator.LastCreation = null;
+
+            return 0;
         }
 
 

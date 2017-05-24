@@ -31,11 +31,12 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
             return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             _nation.LocalTags.Add(CivilisationTags.GoldMine);
 
             creator.LastCreation = _nation;
+            return 0;
         }
 
         public VastGoldMineEstablised(Civilisation nation) : base(nation) { }

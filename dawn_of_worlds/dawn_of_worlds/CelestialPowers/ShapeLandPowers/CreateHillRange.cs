@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Hilly, CreationTag.Earth };
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             HillRange hill_range = new HillRange(Constants.Names.GetName("hill_ranges"), SelectedProvince, creator);
             SelectedProvince.Type = TerrainType.HillRange;
@@ -60,6 +60,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
 
             Program.WorldHistory.AddRecord(hill_range, hill_range.printTerrainFeature);
+
+            return 0;
         }
     }
 }

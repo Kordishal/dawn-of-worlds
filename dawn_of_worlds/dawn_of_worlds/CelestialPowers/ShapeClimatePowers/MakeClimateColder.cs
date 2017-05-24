@@ -29,7 +29,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             return false;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             List<WeightedObjects<Province>> provinces = candidate_provinces();
             _chosen_location = WeightedObjects<Province>.ChooseRandomObject(provinces);
@@ -52,6 +52,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
             }
 
             adjustTerrainFeatureBiomes();
+
+            return 0;
         }
 
         public MakeClimateColder() { initialize(); }

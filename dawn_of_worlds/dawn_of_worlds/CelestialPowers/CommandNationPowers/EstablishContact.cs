@@ -41,7 +41,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             return false;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             compile_candidate_nations();
 
@@ -51,6 +51,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             _commanded_nation.Relationships.Find(x => x.Target.Equals(new_contact)).Status = RelationStatus.Known;
             new_contact.Relationships.Find(x => x.Target.Equals(_commanded_nation)).Status = RelationStatus.Known;
             creator.LastCreation = null;
+
+            return 0;
         }
 
 

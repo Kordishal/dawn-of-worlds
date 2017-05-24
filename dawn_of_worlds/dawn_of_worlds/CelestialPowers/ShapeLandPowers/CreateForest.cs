@@ -21,7 +21,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Nature, CreationTag.Tree };
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {           
             Forest forest = new Forest("PlaceHolder", SelectedProvince, creator);
             
@@ -50,7 +50,9 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = forest;
 
             forest.Name.Singular = Constants.Names.GetForestName(forest);
-            Program.WorldHistory.AddRecord(forest, forest.printTerrainFeature);        
+            Program.WorldHistory.AddRecord(forest, forest.printTerrainFeature);
+
+            return 0;      
         }
     }
 }

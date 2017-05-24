@@ -36,7 +36,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Province new_territory = ExpansionTargetProvinces[Constants.Random.Next(ExpansionTargetProvinces.Count)];
             _commanded_nation.Territory.Add(new_territory);
@@ -50,6 +50,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             //WarGoal war_goal = new WarGoal(WarGoalType.Conquest);
             //war_goal.Territory = new_territory;
             //_commanded_nation.PossibleWarGoals.Add(war_goal);
+
+            return 0;
         }
 
 

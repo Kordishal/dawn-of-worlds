@@ -29,7 +29,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             // Create the river
             River river = new River(Constants.Names.GetName("rivers"), SelectedProvince, creator);
@@ -180,6 +180,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = river;
 
             Program.WorldHistory.AddRecord(river, river.printTerrainFeature);
+
+            return 0;
         }
 
         enum Direction

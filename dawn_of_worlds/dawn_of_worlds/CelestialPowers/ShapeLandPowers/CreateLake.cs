@@ -29,7 +29,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 return false;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Lake lake = new Lake(Constants.Names.GetName("lakes"), SelectedProvince, creator);
             lake.BiomeType = BiomeType.PermanentFreshWaterLake;
@@ -49,6 +49,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = lake;
 
             Program.WorldHistory.AddRecord(lake, lake.printTerrainFeature);
+
+            return 0;
         }
     }
 }

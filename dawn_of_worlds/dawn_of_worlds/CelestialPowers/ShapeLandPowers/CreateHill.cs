@@ -29,7 +29,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 return false;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Hill hill = new Hill("PlaceHolder", SelectedProvince, creator);
 
@@ -100,6 +100,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = hill;
 
             Program.WorldHistory.AddRecord(hill, hill.printTerrainFeature);
+
+            return 0;
         }
     }
 }

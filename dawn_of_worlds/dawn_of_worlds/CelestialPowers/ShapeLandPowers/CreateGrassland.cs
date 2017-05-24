@@ -33,7 +33,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             }
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Grassland grassland = new Grassland("PlaceHolder", SelectedProvince, creator);
 
@@ -64,6 +64,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = grassland;
 
             Program.WorldHistory.AddRecord(grassland, grassland.printTerrainFeature);
+
+            return 0;
         }
     }
 }

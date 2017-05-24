@@ -63,7 +63,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         }
 
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             // Choose the city location at random.
             TerrainFeatures construction_site = _valid_city_terrains[Constants.Random.Next(_valid_city_terrains.Count)];
@@ -95,6 +95,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             creator.LastCreation = founded_city;
 
             //Program.WorldHistory.AddRecord(founded_city);
+
+            return 0;
         }
 
 

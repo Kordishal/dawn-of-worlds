@@ -30,8 +30,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             return false;
         }
 
-
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             // Create a new army and place it on the map.
             Army army = new Army(_commanded_city.Name + " Army", creator);
@@ -44,6 +43,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
             // City has raised an army and cannot do so until next turn.
             _commanded_city.Modifiers.not_hasRaisedArmy = false;
             creator.LastCreation = army;
+            return 0;
         }
 
 

@@ -34,10 +34,12 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.ProvincialEvents
             return true;
         }
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Diseases.Plague.AffectedProvinces.Add(_affected_province);
             _affected_province.ProvincialModifiers.Add(Diseases.Plague.Effect);
+
+            return 0;
         }
 
         public PlagueBreakOut(Province affected_province) : base(affected_province)

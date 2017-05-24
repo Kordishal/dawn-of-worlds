@@ -29,7 +29,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             else
                 return false;
         }
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             Mountain mountain = new Mountain("PlaceHolder", SelectedProvince, creator);
 
@@ -87,6 +87,8 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.LastCreation = mountain;
 
             Program.WorldHistory.AddRecord(mountain, mountain.printTerrainFeature);
+
+            return 0;
         }
     }
 }

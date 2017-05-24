@@ -52,7 +52,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         }
 
 
-        public override void Effect(Deity creator)
+        public override int Effect(Deity creator)
         {
             List<WeightedObjects<Province>> possible_target_province = candidate_provinces();
 
@@ -72,7 +72,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             {
                 province.SettledRaces.Add(_commanded_race);
                 _commanded_race.SettledProvinces.Add(province);
-            }         
+            }
+            return 0;
         }
 
 
