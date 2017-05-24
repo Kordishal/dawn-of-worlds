@@ -292,32 +292,7 @@ namespace dawn_of_worlds.WorldClasses
         {
             for (int i = 0; i < 5; i++)
             {
-                Deities.Add(new Deity(Constants.Names.GetName("deities")));
-            }
-
-            List<ModifierTag> domain_tags = new List<ModifierTag>();
-            Array modifier_tags = Enum.GetValues(typeof(ModifierTag));
-            for (int i = (int)ModifierTag.DomainsBegin + 1; i < (int)ModifierTag.DomainsEnd; i++)
-                domain_tags.Add((ModifierTag)modifier_tags.GetValue(i));
-
-            foreach (Deity deity in Deities)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    while (deity.Domains[i] == null)
-                    {
-                        bool is_valid_domain = true;
-                        ModifierTag domain = domain_tags[Constants.Random.Next(domain_tags.Count)];
-
-                        // Checks whether there is an incompatible domain and whether there is the same domain already in.
-                        for (int j = 0; j < 5; j++)
-                            if (deity.Domains[j] != null && (deity.Domains[j].Excludes != null && deity.Domains[j].Excludes.Contains(domain) || deity.Domains[j].Tag == domain))
-                                is_valid_domain = false;
-
-                        if (is_valid_domain)
-                            deity.Domains[i] = new Modifier(ModifierCategory.Domain, domain);
-                    }
-                }
+                Deities.Add(new Deity());
             }
         }
     }

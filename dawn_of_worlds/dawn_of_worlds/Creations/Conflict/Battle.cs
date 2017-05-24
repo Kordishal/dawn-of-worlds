@@ -33,16 +33,7 @@ namespace dawn_of_worlds.Creations.Conflict
         {
             List<WeightedObjects<TerrainFeatures>> possible_battle_locations = new List<WeightedObjects<TerrainFeatures>>();
 
-            switch (Province.Type)
-            {
-                case TerrainType.Plain:
-                    possible_battle_locations.Add(new WeightedObjects<TerrainFeatures>(Province.PrimaryTerrainFeature));
-                    break;
-                case TerrainType.MountainRange:
-                case TerrainType.HillRange:
-                case TerrainType.Ocean:
-                    break;
-            }
+            possible_battle_locations.Add(new WeightedObjects<TerrainFeatures>(Province.PrimaryTerrainFeature));
 
             foreach (TerrainFeatures terrain in Province.SecondaryTerrainFeatures)
                 possible_battle_locations.Add(new WeightedObjects<TerrainFeatures>(terrain));
@@ -54,6 +45,7 @@ namespace dawn_of_worlds.Creations.Conflict
                 if (Province.Owner == InvolvedArmies[1].Owner)
                     terrain.Weight += terrain.Object.Modifiers.FortificationDefenceValue * 10;
             }
+
             Location = WeightedObjects<TerrainFeatures>.ChooseXHeaviestObjects(possible_battle_locations, 1)[0];
         }
 

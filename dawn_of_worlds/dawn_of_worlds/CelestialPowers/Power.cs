@@ -69,7 +69,7 @@ namespace dawn_of_worlds.CelestialPowers
                             cost -= CostChange;
             }
                
-            return cost >= 0 ? cost : 0;
+            return cost > 0 ? cost : 1;
         }
         virtual public int Weight(Deity creator)
         {

@@ -29,16 +29,37 @@ namespace dawn_of_worlds.Actors
     /// </summary>
     class Deity
     {
+
+        /// <summary>
+        /// Name of the deity. Randomly assigned. Used to name things created by this deity.
+        /// </summary>
         public string Name { get; set; }
+
+        // Resource to use powers.
         public int PowerPoints { get; set; }
 
-        public Modifier[] Domains { get; set; }
 
+        /// <summary>
+        /// Each deity has a set amount of domains. They influence what powers the deity uses.
+        /// </summary>
+        public Modifier[] Domains { get; set; }
+        private int _num_of_domains = 5;
+
+
+        /// <summary>
+        /// A list of all powers the deity can currently use.
+        /// </summary>
         public List<Power> Powers { get; set; }
 
-        // Modifiers applied to power point generatio.
+        /// <summary>
+        /// Modifiers applied to power point generation each turn.
+        /// </summary>
         public DeityModifiers Modifiers { get; set; }
 
+
+        /// <summary>
+        /// Stores all the terrain features created by this deity.
+        /// </summary>
         public List<TerrainFeatures> TerrainFeatures { get; set; }
         public List<Race> CreatedRaces { get; set; }
         public List<Order> CreatedOrders { get; set; }
@@ -46,19 +67,57 @@ namespace dawn_of_worlds.Actors
         public List<Civilisation> FoundedNations { get; set; }
         public List<City> FoundedCities { get; set; }
 
+
+        /// <summary>
+        /// The last used power of this deity. Currently not used.
+        /// </summary>
         public Power LastUsedPower { get; set; }
+
+
+        /// <summary>
+        /// Last creation of the deity.
+        /// </summary>
         public Creation LastCreation { get; set; }
 
-        public Deity(string name)
+        /// <summary>
+        /// Creates a deity with a name, x domains and the powers useable in the beginning.
+        /// </summary>
+        /// <param name="name"></param>
+        public Deity()
         {
-            Name = name;
+            // takes a name from the deities name set.
+            Name = Constants.Names.GetName("deities");
 
+            // starts with no power points and no modifiers.
             PowerPoints = 0;
             Modifiers = new DeityModifiers();
 
             Powers = new List<Power>();
 
-            Domains = new Modifier[5];
+            Domains = new Modifier[_num_of_domains];
+  
+            // choose x random domains without duplicates and no opposits.
+            List<ModifierTag> domain_tags = new List<ModifierTag>();
+            Array modifier_tags = Enum.GetValues(typeof(ModifierTag));
+            for (int i = (int)ModifierTag.DomainsBegin + 1; i < (int)ModifierTag.DomainsEnd; i++)
+                domain_tags.Add((ModifierTag)modifier_tags.GetValue(i));
+            for (int i = 0; i < _num_of_domains; i++)
+            {
+                while (Domains[i] == null)
+                {
+                    bool is_valid_domain = true;
+                    ModifierTag domain = domain_tags[Constants.Random.Next(domain_tags.Count)];
+
+                    // Checks whether there is an incompatible domain and whether there is the same domain already in.
+                    for (int j = 0; j < _num_of_domains; j++)
+                        if (Domains[j] != null && (Domains[j].Excludes != null && Domains[j].Excludes.Contains(domain) || Domains[j].Tag == domain))
+                            is_valid_domain = false;
+
+                    if (is_valid_domain)
+                        Domains[i] = new Modifier(ModifierCategory.Domain, domain);
+                }
+            }
+            
 
             TerrainFeatures = new List<TerrainFeatures>();
             CreatedRaces = new List<Race>();
@@ -67,7 +126,7 @@ namespace dawn_of_worlds.Actors
             FoundedNations = new List<Civilisation>();
             FoundedCities = new List<City>();
 
-            // Shape Land
+            // Shape Land Powers
             Powers.Add(new CreateForest());
             Powers.Add(new CreateGrassland());
             Powers.Add(new CreateDesert());
@@ -78,14 +137,14 @@ namespace dawn_of_worlds.Actors
             Powers.Add(new CreateMountain());
             Powers.Add(new CreateHillRange());
             Powers.Add(new CreateHill());
-            // Shape Climate
+            // Shape Climate Powers
             Powers.Add(new MakeClimateWarmer());
             Powers.Add(new MakeClimateColder());
             Powers.Add(new AddClimateModifier(ClimateModifier.MagicInfused));
             Powers.Add(new CreateSpecialClimate(Climate.Inferno));
 
 
-            // Create Races
+            // Create Races Powers
             foreach (Race race in DefinedRaces.DefinedRacesList)
             {
                 foreach (Province province in Program.World.ProvinceGrid)
@@ -96,59 +155,84 @@ namespace dawn_of_worlds.Actors
         }
 
 
-        public void calculatePowerPoints()
+        private int _low_point_turn_bonus { get; set; }
+
+        /// <summary>
+        /// Add power points for a new turn.
+        /// </summary>
+        public void addPowerPoints()
         {
-            if (PowerPoints < 5)
-                PowerPoints = PowerPoints + (5 - PowerPoints);
+            int gain = 0;
 
-            PowerPoints = PowerPoints + Constants.Random.Next(Constants.DEITY_BASE_POWERPOINT_MIN_GAIN, Constants.DEITY_BASE_POWERPOINT_MAX_GAIN);
+            // Any deity with less than 5 points gets +1 point gain. This gain is cummulative to a max of +3
+            // this is to encourage action.
+            if (PowerPoints <= 5 && _low_point_turn_bonus < 3)
+                 _low_point_turn_bonus += 1;
+            else if (PowerPoints > 5)
+                _low_point_turn_bonus = 0;
 
-            PowerPoints = PowerPoints + Modifiers.BonusPowerPoints;
+            gain += _low_point_turn_bonus;
+            gain += Constants.Random.Next(Constants.DEITY_BASE_POWERPOINT_MIN_GAIN, Constants.DEITY_BASE_POWERPOINT_MAX_GAIN);
+            gain += Modifiers.BonusPowerPoints;
+            gain += (int)Math.Floor(gain * Modifiers.PowerPointModifier);
 
-            PowerPoints = (int)Math.Floor(PowerPoints * Modifiers.PowerPointModifier);
+            PowerPoints = PowerPoints + gain;
         }
+
+        /// <summary>
+        /// What a deity does when they take a turn.
+        /// </summary>
         public void Turn()
         {
             List<Power> current_powers = new List<Power>(Powers);
             List<Power> possible_powers = new List<Power>();
-            int total_weight = 0;
 
-            foreach (Power p in current_powers)
+            // take actions as long as there are actions to be taken.
+            do
             {
-                if (PowerPoints - p.Cost(this) >= 0)
+                possible_powers = new List<Power>();
+
+                int total_weight = 0;
+
+                foreach (Power p in current_powers)
                 {
-                    if (p.Precondition(this))
+                    // no powers that are too expensive.
+                    if (PowerPoints - p.Cost(this) >= 0)
                     {
-                        possible_powers.Add(p);
-                        total_weight += p.Weight(this);
+                        // no powers where the precondition is not met.
+                        if (p.Precondition(this))
+                        {
+                            possible_powers.Add(p);
+                            total_weight += p.Weight(this);
+                        }
                     }
-                }                    
-            }
-
-            //Console.WriteLine("Possible Actions Count: " + possible_powers.Count);
-
-            int chance = Constants.Random.Next(total_weight);
-            int prev_weight = 0, current_weight = 0;
-            foreach (Power p in possible_powers)
-            {
-                current_weight += p.Weight(this);
-                if (prev_weight <= chance && chance < current_weight)
-                {
-                    //Console.WriteLine("TAKE ACTION");
-                    //Console.WriteLine("Action: " + p);
-                    //Console.WriteLine("Cost: " + p.Cost(current_age));
-                    //Console.WriteLine("PowerPoints: " + PowerPoints);
-                    p.Effect(this);
-                    PowerPoints = PowerPoints - p.Cost(this);
-                    // For the Action Log entry.
-                    _total_power_points_used += p.Cost(this);
-                    LastUsedPower = p;
-                    break;
                 }
 
+                // leave this loop when there are no possible powers.
+                if (possible_powers.Count == 0)
+                    break;
 
-                prev_weight += p.Weight(this);
-            }
+                int chance = Constants.Random.Next(total_weight);
+                int prev_weight = 0, current_weight = 0;
+                foreach (Power p in possible_powers)
+                {
+                    current_weight += p.Weight(this);
+                    if (prev_weight <= chance && chance < current_weight)
+                    {
+                        p.Effect(this);
+                        PowerPoints = PowerPoints - p.Cost(this);
+                        // For the Action Log entry.
+                        _total_power_points_used += p.Cost(this);
+                        LastUsedPower = p;
+                        break;
+                    }
+
+
+                    prev_weight += p.Weight(this);
+                }
+
+            } while (possible_powers.Count != 0);
+            
         }
 
         /// <summary>
