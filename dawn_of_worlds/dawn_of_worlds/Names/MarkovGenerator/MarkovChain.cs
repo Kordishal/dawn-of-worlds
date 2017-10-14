@@ -13,7 +13,7 @@ namespace dawn_of_worlds.Names.MarkovGenerator
         public List<string> InitialLetters { get; set; }
         public Dictionary<string, List<string>> Observations { get; set; }
 
-        private void createDictionary()
+        private void CreateDictionary()
         {
             List<char> values = new List<char>();
             string key = "";
@@ -40,8 +40,7 @@ namespace dawn_of_worlds.Names.MarkovGenerator
                     else
                         value = "";
 
-                    List<string> temp;
-                    if (!Observations.TryGetValue(key, out temp))
+                    if (!Observations.TryGetValue(key, out List<string> temp))
                     {
                         temp = new List<string>();
                         Observations.Add(key, temp);
@@ -51,17 +50,16 @@ namespace dawn_of_worlds.Names.MarkovGenerator
             }
         }
 
-        public string generateWord()
+        public string GenerateWord()
         {
             bool no_end = true;
-            List<string> values;
             string last_key = InitialLetters[Constants.Random.Next(InitialLetters.Count)].ToString();
             StringBuilder builder = new StringBuilder();
             builder.Append(last_key);
             while (no_end)
 
             {
-                if (Observations.TryGetValue(last_key, out values))
+                if (Observations.TryGetValue(last_key, out List<string> values))
                 {
                     string value = "";
                     // Name cannot be shorter than Length[0].
@@ -87,13 +85,13 @@ namespace dawn_of_worlds.Names.MarkovGenerator
             return builder.ToString();
         }
 
-        public List<string> generateWords(int count)
+        public List<string> GenerateWords(int count)
         {
             List<string> words = new List<string>();
 
             for (int i = 0; i < count; i++)
             {
-                words.Add(generateWord());
+                words.Add(GenerateWord());
             }
 
             return words;
@@ -107,7 +105,7 @@ namespace dawn_of_worlds.Names.MarkovGenerator
             Alphabet = alphabet;
             InitialLetters = new List<string>();
             Observations = new Dictionary<string, List<string>>();
-            createDictionary();
+            CreateDictionary();
         }
     }
 }

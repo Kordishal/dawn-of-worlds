@@ -134,7 +134,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             switch (war_goal.Type)
             {
                 case WarGoalType.Conquest:
-                    war_goal.Territory.changeOwnership(war_goal.Winner);
+                    war_goal.Territory.ChangeOwnership(war_goal.Winner);
                     if (_commanded_nation.Territory.Count == 0)
                         _commanded_nation.DestroyNation();
                     break;

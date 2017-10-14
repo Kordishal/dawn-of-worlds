@@ -35,8 +35,7 @@ namespace dawn_of_worlds.Names
             {
                 if (set.Name == namelist)
                 {
-                    Pair<List<int>, List<string>> Templates;
-                    if (set.Names.TryGetValue("templates", out Templates))
+                    if (set.Names.TryGetValue("templates", out Pair<List<int>, List<string>> Templates))
                     {
                         string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
@@ -62,7 +61,7 @@ namespace dawn_of_worlds.Names
                 if (Names.First != null)
                 {
                     MarkovChain markov = new MarkovChain(Names.First[0], Names.First[1], Names.First[2], Names.Second);
-                    return markov.generateWord();
+                    return markov.GenerateWord();
                 }
                 else
                 {
@@ -80,21 +79,18 @@ namespace dawn_of_worlds.Names
             {
                 if (set.Name == "religions")
                 {
-                    Pair<List<int>, List<string>> Templates;
-                    if (set.Names.TryGetValue("templates", out Templates))
+                    if (set.Names.TryGetValue("templates", out Pair<List<int>, List<string>> Templates))
                     {
                         string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
-                        Pair<List<int>, List<string>> Deities;
-                        if (!set.Names.TryGetValue("deity_name", out Deities))
+                        if (!set.Names.TryGetValue("deity_name", out Pair<List<int>, List<string>> Deities))
                         {
                             Deities = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("deity_name", Deities);
                         }
                         Deities.Second.Add(creator.Name);
 
-                        Pair<List<int>, List<string>> Domains;
-                        if (!set.Names.TryGetValue("domain_names", out Domains))
+                        if (!set.Names.TryGetValue("domain_names", out Pair<List<int>, List<string>> Domains))
                         {
                             Domains = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("domain_names", Domains);
@@ -122,21 +118,18 @@ namespace dawn_of_worlds.Names
             {
                 if (set.Name == "forests")
                 {
-                    Pair<List<int>, List<string>> Templates;
-                    if (set.Names.TryGetValue("templates", out Templates))
+                    if (set.Names.TryGetValue("templates", out Pair<List<int>, List<string>> Templates))
                     {
                         string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
-                        Pair<List<int>, List<string>> Areas;
-                        if (!set.Names.TryGetValue("area_name", out Areas))
+                        if (!set.Names.TryGetValue("area_name", out Pair<List<int>, List<string>> Areas))
                         {
                             Areas = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("area_name", Areas);
                         }
                         Areas.Second.Add(forest.Province.Area.Name);
 
-                        Pair<List<int>, List<string>> Provinces;
-                        if (!set.Names.TryGetValue("province_name", out Provinces))
+                        if (!set.Names.TryGetValue("province_name", out Pair<List<int>, List<string>> Provinces))
                         {
                             Provinces = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("province_name", Provinces);
