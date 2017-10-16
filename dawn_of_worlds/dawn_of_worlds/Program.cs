@@ -21,6 +21,9 @@ namespace dawn_of_worlds
 
         static void Main(string[] args)
         {
+
+            var elastic = new ElasticSearch.ElasticSearchController();
+
             Constants.Names = new NameGenerator();
             PolityDefinitions.DefinePolities();
             Diseases.DefineDiseases();
