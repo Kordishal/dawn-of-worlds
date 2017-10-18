@@ -144,6 +144,7 @@
     <Compile Include="Names\MarkovGenerator\MarkovChain.cs" />
     <Compile Include="Names\Name.cs" />
     <Compile Include="Names\NameGenerator.cs" />
+    <Compile Include="Names\NameGeneratorNew.cs" />
     <Compile Include="Names\NameSet.cs" />
     <Compile Include="Names\Parser\NameSetFSM.cs" />
     <Compile Include="Names\Parser\NameSetParser.cs" />

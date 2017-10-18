@@ -35,7 +35,8 @@ namespace dawn_of_worlds.Names
             {
                 if (set.Name == namelist)
                 {
-                    if (set.Names.TryGetValue("templates", out Pair<List<int>, List<string>> Templates))
+                    Pair<List<int>, List<string>> Templates;
+                    if (set.Names.TryGetValue("templates", out Templates))
                     {
                         string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
@@ -79,18 +80,21 @@ namespace dawn_of_worlds.Names
             {
                 if (set.Name == "religions")
                 {
-                    if (set.Names.TryGetValue("templates", out Pair<List<int>, List<string>> Templates))
+                    Pair<List<int>, List<string>> Templates;
+                    if (set.Names.TryGetValue("templates", out Templates))
                     {
                         string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
-                        if (!set.Names.TryGetValue("deity_name", out Pair<List<int>, List<string>> Deities))
+                        Pair<List<int>, List<string>> Deities;
+                        if (!set.Names.TryGetValue("deity_name", out Deities))
                         {
                             Deities = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("deity_name", Deities);
                         }
                         Deities.Second.Add(creator.Name);
 
-                        if (!set.Names.TryGetValue("domain_names", out Pair<List<int>, List<string>> Domains))
+                        Pair<List<int>, List<string>> Domains;
+                        if (!set.Names.TryGetValue("domain_names", out Domains))
                         {
                             Domains = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("domain_names", Domains);
@@ -118,18 +122,21 @@ namespace dawn_of_worlds.Names
             {
                 if (set.Name == "forests")
                 {
-                    if (set.Names.TryGetValue("templates", out Pair<List<int>, List<string>> Templates))
+                    Pair<List<int>, List<string>> Templates;
+                    if (set.Names.TryGetValue("templates", out Templates))
                     {
                         string template = Templates.Second[Constants.Random.Next(Templates.Second.Count)];
 
-                        if (!set.Names.TryGetValue("area_name", out Pair<List<int>, List<string>> Areas))
+                        Pair<List<int>, List<string>> Areas;
+                        if (!set.Names.TryGetValue("area_name", out Areas))
                         {
                             Areas = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("area_name", Areas);
                         }
                         Areas.Second.Add(forest.Province.Area.Name);
 
-                        if (!set.Names.TryGetValue("province_name", out Pair<List<int>, List<string>> Provinces))
+                        Pair<List<int>, List<string>> Provinces;
+                        if (!set.Names.TryGetValue("province_name", out Provinces))
                         {
                             Provinces = new Pair<List<int>, List<string>>(null, new List<string>());
                             set.Names.Add("province_name", Provinces);

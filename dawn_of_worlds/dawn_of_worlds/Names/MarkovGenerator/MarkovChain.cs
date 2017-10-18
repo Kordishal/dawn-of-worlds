@@ -1,6 +1,6 @@
-﻿using System;
+﻿using dawn_of_worlds.Main;
+using System;
 using System.Collections.Generic;
-using dawn_of_worlds.Main;
 using System.Text;
 
 namespace dawn_of_worlds.Names.MarkovGenerator
@@ -39,8 +39,8 @@ namespace dawn_of_worlds.Names.MarkovGenerator
                         value = word[i + Order].ToString();
                     else
                         value = "";
-
-                    if (!Observations.TryGetValue(key, out List<string> temp))
+                    List<string> temp;
+                    if (!Observations.TryGetValue(key, out temp))
                     {
                         temp = new List<string>();
                         Observations.Add(key, temp);
@@ -52,6 +52,7 @@ namespace dawn_of_worlds.Names.MarkovGenerator
 
         public string GenerateWord()
         {
+            List<string> values;
             bool no_end = true;
             string last_key = InitialLetters[Constants.Random.Next(InitialLetters.Count)].ToString();
             StringBuilder builder = new StringBuilder();
@@ -59,7 +60,7 @@ namespace dawn_of_worlds.Names.MarkovGenerator
             while (no_end)
 
             {
-                if (Observations.TryGetValue(last_key, out List<string> values))
+                if (Observations.TryGetValue(last_key, out values))
                 {
                     string value = "";
                     // Name cannot be shorter than Length[0].
