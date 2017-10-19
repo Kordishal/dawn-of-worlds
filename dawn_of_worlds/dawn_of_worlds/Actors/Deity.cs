@@ -86,7 +86,7 @@ namespace dawn_of_worlds.Actors
         public Deity()
         {
             // takes a name from the deities name set.
-            Name = Constants.Names.GetName("deities");
+            Name = Program.GenerateNames.GetName("deity_names");
 
             // starts with no power points and no modifiers.
             PowerPoints = 0;

@@ -11,8 +11,6 @@ namespace dawn_of_worlds.Main
     {
         static public Random Random { get; set; }
 
-        public static NameGenerator Names { get; set; }
-
         public const string HISTORY_FOLDER = @"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Log\Output\History\";
 
         public const int TOTAL_TURNS = 100;

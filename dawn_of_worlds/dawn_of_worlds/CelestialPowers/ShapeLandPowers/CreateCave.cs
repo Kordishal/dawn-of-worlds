@@ -28,7 +28,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             int chance = Constants.Random.Next(100);
             cave.BiomeType = BiomeType.Subterranean;
 
-            cave.Name.Singular = Constants.Names.GetName("caves");
+            cave.Name.Singular = Program.GenerateNames.GetName("cave_names");
             SelectedProvince.SecondaryTerrainFeatures.Add(cave);
 
             // Caves offer some protection for defenders.

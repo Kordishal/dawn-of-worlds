@@ -32,7 +32,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         public override int Effect(Deity creator)
         {
             // Create the river
-            River river = new River(Constants.Names.GetName("rivers"), SelectedProvince, creator);
+            River river = new River(Program.GenerateNames.GetName("river_names"), SelectedProvince, creator);
             river.BiomeType = BiomeType.PermanentRiver;
             river.Spring = (MountainRange)SelectedProvince.PrimaryTerrainFeature;
             river.Riverbed.Add(river.Spring.Province);

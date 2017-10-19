@@ -18,14 +18,16 @@ namespace dawn_of_worlds
         public static History WorldHistory { get; set; }
         public static StreamWriters Log { get; set; }
         public static Simulation Simulation { get; set; }
+        public static NameGenerator GenerateNames { get; set; }
 
         static void Main(string[] args)
         {
-            Constants.Names = new NameGenerator();
+            GenerateNames = new NameGenerator(@"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Names\NameSets", 121328);
+
             PolityDefinitions.DefinePolities();
             Diseases.DefineDiseases();
             Log = new StreamWriters();
-            World = new World(Constants.Names.GetName("world"));
+            World = new World(GenerateNames.GetName());
             World.initialize(5, 5);
             WorldHistory = new History();
             Simulation = new Simulation();

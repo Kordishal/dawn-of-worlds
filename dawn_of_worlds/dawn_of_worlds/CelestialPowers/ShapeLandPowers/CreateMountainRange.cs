@@ -22,7 +22,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override int Effect(Deity creator)
         {
-            MountainRange mountain_range = new MountainRange(Constants.Names.GetName("mountain_ranges"), SelectedProvince, creator);
+            MountainRange mountain_range = new MountainRange(Program.GenerateNames.GetName("mountain_range_names"), SelectedProvince, creator);
             SelectedProvince.Type = TerrainType.MountainRange;
             SelectedProvince.PrimaryTerrainFeature = mountain_range;
         

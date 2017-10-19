@@ -19,7 +19,7 @@ namespace dawn_of_worlds.Effects
 
         public Disease(string name, int virulence, Modifier effect)
         {
-            Name = new Name(name, null, null);
+            Name = new Name(name, name + "s", name.ToLower());
             Virulence = virulence;
             Effect = effect;
             AffectedProvinces = new List<Province>();

@@ -31,7 +31,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override int Effect(Deity creator)
         {
-            Lake lake = new Lake(Constants.Names.GetName("lakes"), SelectedProvince, creator);
+            Lake lake = new Lake(Program.GenerateNames.GetName("lake_names"), SelectedProvince, creator);
             lake.BiomeType = BiomeType.PermanentFreshWaterLake;
 
             // Choose random river which the lake is connected to.

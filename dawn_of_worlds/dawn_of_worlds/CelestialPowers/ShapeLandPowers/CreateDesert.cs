@@ -23,7 +23,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override int Effect(Deity creator)
         {
-            Desert desert = new Desert(Constants.Names.GetName("deserts"), SelectedProvince, creator);
+            Desert desert = new Desert(Program.GenerateNames.GetName("desert_names"), SelectedProvince, creator);
 
             int chance = Constants.Random.Next(100);
             switch (SelectedProvince.LocalClimate)
