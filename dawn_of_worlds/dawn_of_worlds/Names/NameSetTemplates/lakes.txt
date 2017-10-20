@@ -1,7 +1,0 @@
-﻿templates = {
-	"<lake> Lake"
-}
-
-lake = {
-	Still Great 
-}

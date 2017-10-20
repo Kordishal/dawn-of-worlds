@@ -1,7 +1,0 @@
-﻿templates = {
-	"<real_world>"
-}
-
-real_world = {
-		"Atlantic Ocean" "Pacific Ocean" "Mediterraean Sea" "Indian Ocean" "Arctic Ocean" "Southern Ocean"
-}

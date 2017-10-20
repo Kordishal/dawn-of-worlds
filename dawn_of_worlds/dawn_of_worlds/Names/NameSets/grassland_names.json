@@ -1,0 +1,46 @@
+{
+  "Name": "Grassland Names",
+  "Tag": "grassland_names",
+  "Templates": [
+    {
+      "Content": "<fantasy_name> <grassland_type>",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "Fantasy Names",
+      "Tag": "fantasy_name",
+      "MarkovProperties": {
+        "Order": 3,
+        "Length": [
+          4,
+          12
+        ]
+      },
+      "Names": [
+        "Ogas",
+        "Drurun",
+        "Procis",
+        "Topone",
+        "Iunoth",
+        "Traekuan",
+        "Latriavuin",
+        "Isatica",
+        "Iosinoa",
+        "Sheozilera"
+      ]
+    },
+     {
+      "Name": "Grassland Types",
+      "Tag": "grassland_type",
+      "MarkovProperties": null,
+      "Names": [
+        "Meadow",
+        "Steppe",
+        "Expanse",
+        "Plains"
+      ]
+    }
+  ]
+}

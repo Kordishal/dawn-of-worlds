@@ -1,0 +1,36 @@
+{
+  "Name": "River Names",
+  "Tag": "river_names",
+  "Templates": [
+    {
+      "Content": "The <river_name> <river_description>",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "River Names",
+      "Tag": "river_name",
+      "MarkovProperties": {
+        "Order": 3,
+        "Length": [
+          4,
+          12
+        ]
+      },
+      "Names": [
+         "Ialis"
+      ]
+    },
+     {
+      "Name": "River Descriptions",
+      "Tag": "river_description",
+      "MarkovProperties": null,
+      "Names": [
+        "Stream",
+        "Creek",
+        "River"
+      ]
+    }
+  ]
+}

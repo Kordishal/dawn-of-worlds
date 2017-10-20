@@ -1,0 +1,47 @@
+{
+  "Name": "Lake Names",
+  "Tag": "lake_names",
+  "Templates": [
+    {
+      "Content": "<fantasy_name> <lake_type>",
+      "Weight": 1
+    },
+    {
+      "Content": "<real_world_name>",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "Fantasy Name",
+      "Tag": "fantasy_name",
+      "MarkovProperties": {
+        "Order": 3,
+        "Length": [
+          4,
+          12
+        ]
+      },
+      "Names": [
+        "Opsilar"
+      ]
+    },
+    {
+      "Name": "Real World Names",
+      "Tag": "real_world_name",
+      "MarkovProperties": null,
+      "Names": [
+        "Titicaca Lake",
+        "Lake Victoria"
+      ]
+    },
+    {
+      "Name": "Lake Types",
+      "Tag": "lake_type",
+      "MarkovProperties": null,
+      "Names": [
+        "Lake"
+      ]
+    }
+  ]
+}

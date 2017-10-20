@@ -9,6 +9,10 @@
     {
       "Content": "<cardinal_direction> <irish_place_names>",
       "Weight": 5
+    },
+    {
+      "Content": "$parent_location$",
+      "Weight": 5
     }
   ],
   "NameLists": [

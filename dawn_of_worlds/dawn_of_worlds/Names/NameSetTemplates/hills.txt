@@ -1,7 +1,0 @@
-﻿templates = {
-	"<hill> Hill"
-}
-
-hill = {
-	Flat 
-}

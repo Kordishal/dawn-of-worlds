@@ -1,0 +1,42 @@
+{
+  "Name": "Religion Names",
+  "Tag": "religion_name",
+  "Templates": [
+    {
+      "Content": "<community>",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "Community Names",
+      "Tag": "<community",
+      "MarkovProperties": null,
+      "Names": [
+        "Children",
+        "Cult",
+        "Creed",
+        "Church",
+        "Faith",
+        "Fellowship",
+        "Brotherhood",
+        "Sisterhood",
+        "Followers",
+        "Commune",
+        "Communion",
+        "Fellows",
+        "Congregation",
+        "Paragons",
+        "Order",
+        "Angels",
+        "Band",
+        "The Chosen Ones",
+        "Healers",
+        "Gathering",
+        "Oracles",
+        "Wanderers",
+        "Sect"
+      ]
+    }
+  ]
+}

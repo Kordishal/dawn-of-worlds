@@ -1,0 +1,58 @@
+{
+  "Name": "Mountain Names",
+  "Tag": "mountain_names",
+  "Templates": [
+    {
+      "Content": "<fantasy_name>",
+      "Weight": 1
+    },
+    {
+      "Content": "<fantasy_name> <mountain_name>",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "Fantasy Names",
+      "Tag": "fantasy_name",
+      "MarkovProperties": {
+        "Order": 3,
+        "Length": [
+          4,
+          12
+        ]
+      },
+      "Names": [
+        "Kirlaron",
+        "Qess",
+        "Kryhan",
+        "Kiihl",
+        "Wriex",
+        "Grerk",
+        "Braln",
+        "Eh",
+        "Paht",
+        "Pylk",
+        "Icyhr",
+        "Grylut", 
+        "Flax",
+        "Wryylt",
+        "Xujib",
+        "Jybors",
+        "Ryrt",
+        "Hylp", 
+        "Fqhn"
+      ]
+    },
+     {
+      "Name": "Mountain Types",
+      "Tag": "mountain_type",
+      "MarkovProperties": null,
+      "Names": [
+        "Mountain",
+        "Massiv",
+        "Peek"
+      ]
+    }
+  ]
+}

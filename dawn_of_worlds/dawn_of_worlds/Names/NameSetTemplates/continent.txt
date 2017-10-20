@@ -1,7 +1,0 @@
-﻿templates = {
-	"<real_world>"
-}
-
-real_world = {
-		Africa Asia "North America" "South America" Antarctica Australia Europe
-}
