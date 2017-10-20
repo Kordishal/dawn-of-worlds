@@ -1,6 +1,7 @@
 {
   "Name": "Forest Names",
-  "Tag": "forest_name",
+  "Tag": "forest_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<tree_name> <forest_names>",

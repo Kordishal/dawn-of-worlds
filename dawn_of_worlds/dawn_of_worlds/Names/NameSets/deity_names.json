@@ -1,6 +1,7 @@
 {
   "Name": "Deity Names",
   "Tag": "deity_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<egyptian_deity>",

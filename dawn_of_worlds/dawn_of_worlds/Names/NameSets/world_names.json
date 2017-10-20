@@ -1,6 +1,7 @@
 {
   "Name": "World Names",
   "Tag": "world_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<world_name>",

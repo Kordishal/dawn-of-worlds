@@ -1,6 +1,7 @@
 {
   "Name": "Desert Names",
   "Tag": "desert_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "The <thematic_name> <desert_type>",

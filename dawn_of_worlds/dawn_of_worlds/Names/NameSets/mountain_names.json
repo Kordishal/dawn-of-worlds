@@ -1,6 +1,7 @@
 {
   "Name": "Mountain Names",
   "Tag": "mountain_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<fantasy_name>",

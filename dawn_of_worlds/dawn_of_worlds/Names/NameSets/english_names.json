@@ -1,6 +1,7 @@
 {
   "Name": "English Names",
   "Tag": "english_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<english_male_first_name> <english_last_name>",

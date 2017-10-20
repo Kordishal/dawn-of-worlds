@@ -1,6 +1,7 @@
 {
   "Name": "Mountain Range Names",
-  "Tag": "mountain_range_name",
+  "Tag": "mountain_range_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<real_world_name>",

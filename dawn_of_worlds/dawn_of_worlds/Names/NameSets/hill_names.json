@@ -1,6 +1,7 @@
 {
   "Name": "Hill Names",
   "Tag": "hill_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<fantasy_name> <hill_type>",

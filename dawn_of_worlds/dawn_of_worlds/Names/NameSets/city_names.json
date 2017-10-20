@@ -1,6 +1,7 @@
 ﻿{
   "Name": "City Names",
   "Tag": "city_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<ancient_greek_city_name>",

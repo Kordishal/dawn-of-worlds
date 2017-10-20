@@ -69,14 +69,26 @@ namespace dawn_of_worlds.Names
         public string GetName(string name_set_tag)
         {
             if (NameSets.Exists(x => x.Tag == name_set_tag))
-                return NameSets.Find(x => x.Tag == name_set_tag).GetName();
+            {
+                var temp = NameSets.Find(x => x.Tag == name_set_tag);
+                if (temp.Active)
+                    return temp.GetName();
+                else
+                    throw new Exception("The name set " + name_set_tag + " is not active.");
+            }             
             else
                 throw new Exception("No NameSet with tag '" + name_set_tag + "'");
         }
 
         public string GetName()
         {
-            return NameSets[Random.Next(0, NameSets.Count)].GetName();
+            NameSet temp;
+            do
+            {
+                temp = NameSets[Random.Next(0, NameSets.Count)];
+            } while (!temp.Active);
+            
+            return temp.GetName();
         }
     }
 
@@ -85,6 +97,8 @@ namespace dawn_of_worlds.Names
     {
         public string Name { get; set; }
         public string Tag { get; set; }
+
+        public bool Active { get; set; }
 
         public List<Template> Templates { get; set; }
 
@@ -163,6 +177,8 @@ namespace dawn_of_worlds.Names
 
         public string GetName()
         {
+            // TODO: Use markov chain to generate a new name if markov properties are not null.
+            // TODO: Only use name lists randomized if they are full names. Add a property to name lists.
             if (Names == null || Names.Count == 0)
                 throw new Exception("No names defined in NameList '" + Name + "'!");
             else

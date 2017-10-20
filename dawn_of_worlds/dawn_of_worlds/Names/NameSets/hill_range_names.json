@@ -1,6 +1,7 @@
 {
   "Name": "Hill Range Names",
-  "Tag": "hill_range_name",
+  "Tag": "hill_range_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<fantasy_name> <hill_range_type>",

@@ -181,6 +181,7 @@
     <None Include="Names\NameSets\ocean_names.json" />
     <None Include="Names\NameSets\mountain_names.json" />
     <None Include="Names\NameSets\city_names.json" />
+    <None Include="Names\NameSets\building_names.json" />
     <None Include="Names\NameSets\_template.json" />
     <None Include="Names\NameSets\area_names.json" />
     <None Include="Names\NameSets\english_names.json" />

@@ -1,6 +1,7 @@
 {
   "Name": "Ocean Names",
   "Tag": "ocean_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<real_world_names>",

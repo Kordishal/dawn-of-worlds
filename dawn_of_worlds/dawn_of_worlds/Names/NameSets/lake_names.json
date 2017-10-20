@@ -1,6 +1,7 @@
 {
   "Name": "Lake Names",
   "Tag": "lake_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<fantasy_name> <lake_type>",

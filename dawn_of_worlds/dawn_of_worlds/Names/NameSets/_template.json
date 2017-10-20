@@ -1,6 +1,7 @@
 {
   "Name": "",
-  "Tag": "",
+  "Tag": "_template",
+  "Active": false,
   "Templates": [
     {
       "Content": "",

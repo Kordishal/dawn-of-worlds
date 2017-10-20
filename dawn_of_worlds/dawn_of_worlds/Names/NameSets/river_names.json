@@ -1,6 +1,7 @@
 {
   "Name": "River Names",
   "Tag": "river_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "The <river_name> <river_description>",

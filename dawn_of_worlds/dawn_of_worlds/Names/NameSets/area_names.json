@@ -1,6 +1,7 @@
 {
   "Name": "Area Names",
   "Tag": "area_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<irish_place_names>",

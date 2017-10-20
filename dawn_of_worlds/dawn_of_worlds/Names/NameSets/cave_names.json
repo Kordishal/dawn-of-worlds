@@ -1,6 +1,7 @@
 {
   "Name": "Cave Names",
   "Tag": "cave_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<cave_name> <cave_type>",

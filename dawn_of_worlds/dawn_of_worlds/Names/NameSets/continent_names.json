@@ -1,6 +1,7 @@
 {
   "Name": "Continent Names",
   "Tag": "continent_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<real_world>",

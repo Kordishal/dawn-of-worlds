@@ -1,6 +1,7 @@
 {
   "Name": "Religion Names",
-  "Tag": "religion_name",
+  "Tag": "religion_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<community>",

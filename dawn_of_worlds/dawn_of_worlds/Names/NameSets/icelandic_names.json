@@ -1,6 +1,7 @@
 {
   "Name": "Icelandic Names",
   "Tag": "icelandic_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<icelandic_male_first_name> <icelandic_male_last_name>",

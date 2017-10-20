@@ -1,6 +1,7 @@
 {
   "Name": "Grassland Names",
   "Tag": "grassland_names",
+  "Active": true,
   "Templates": [
     {
       "Content": "<fantasy_name> <grassland_type>",
