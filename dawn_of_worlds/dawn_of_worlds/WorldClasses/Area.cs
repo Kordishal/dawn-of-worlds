@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.WorldClasses
 {
+    [Serializable]
     class Area
     {
         public string Name { get; set; }

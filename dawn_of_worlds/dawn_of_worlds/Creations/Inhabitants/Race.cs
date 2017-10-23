@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Inhabitants
 {
+    [Serializable]
     class Race : Creation
     {
         public int YearofCreation { get; set; }

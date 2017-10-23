@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Diplomacy
 {
+    [Serializable]
     class War : Creation
     {
         public bool hasEnded { get; set; }

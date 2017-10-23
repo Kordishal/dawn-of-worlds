@@ -9,6 +9,7 @@ using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.Creations.Inhabitants
 {
+    [Serializable]
     class Avatar : Creation
     {
         public AvatarType Type { get; set; }

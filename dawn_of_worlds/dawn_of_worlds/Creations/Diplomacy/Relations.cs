@@ -5,6 +5,7 @@ using dawn_of_worlds.Creations.Civilisations;
 
 namespace dawn_of_worlds.Creations.Diplomacy
 {
+    [Serializable]
     class Relations
     {
         public Civilisation Target { get; set; }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.WorldClasses
 {
+    [Serializable]
     enum Climate
     {
         Arctic,
@@ -17,7 +18,7 @@ namespace dawn_of_worlds.WorldClasses
         Inferno
     }
 
-
+    [Serializable]
     enum ClimateModifier
     {
         None,

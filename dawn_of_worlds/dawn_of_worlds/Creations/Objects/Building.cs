@@ -9,6 +9,7 @@ using dawn_of_worlds.Names;
 
 namespace dawn_of_worlds.Creations.Objects
 {
+    [Serializable]
     class Building : Creation
     {
         public BuildingCategory Category { get; set; }

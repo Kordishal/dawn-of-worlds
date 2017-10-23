@@ -8,6 +8,7 @@ using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.Creations.Civilisations
 {
+    [Serializable]
     class Polity : Creation
     {
         public Polity(string name, Deity creator) : base(name, creator) { }

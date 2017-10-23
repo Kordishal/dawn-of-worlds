@@ -9,6 +9,7 @@ using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.WorldClasses
 {
+    [Serializable]
     class Province
     {
         public string Name { get; set; }

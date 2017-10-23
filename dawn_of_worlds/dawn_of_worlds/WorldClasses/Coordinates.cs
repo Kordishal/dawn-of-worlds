@@ -4,6 +4,7 @@ using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.WorldClasses
 {
+    [Serializable]
     class SystemCoordinates
     {
         public int X;
