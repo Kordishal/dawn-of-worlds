@@ -8,6 +8,16 @@ using System.Text;
 
 namespace dawn_of_worlds.Names
 {
+
+    // WISHLIST: Improve the existing name lists and add more name lists.
+    // WISHLIST: Implement a way to reference generated names from objects.
+    // WISHLIST: Allow templates to reference namelists in any nameset.
+
+    // TODO: Properly document Name Generator.
+    // TODO: Use Markov Chain for name generation.
+    // TODO: Add more ways to get a name for a specific purpose.
+    // TODO: Create unit tests for Name Generator
+
     class NameGenerator
     {
         private string NameListDirectory { get; set; }
