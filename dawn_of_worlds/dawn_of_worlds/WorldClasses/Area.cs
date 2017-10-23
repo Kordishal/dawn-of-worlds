@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.WorldClasses
 {
+    [Serializable]
     class Area
     {
         public string Name { get; set; }
@@ -22,7 +23,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public Area(Region region)
         {
-            Name = Constants.Names.GetName("area");
+            Name = Program.GenerateNames.GetName("area_names");
             Region = region;
 
             Provinces = new List<Province>();   

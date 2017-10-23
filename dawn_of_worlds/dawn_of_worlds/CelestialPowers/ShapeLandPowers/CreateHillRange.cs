@@ -20,7 +20,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
         public override int Effect(Deity creator)
         {
-            HillRange hill_range = new HillRange(Constants.Names.GetName("hill_ranges"), SelectedProvince, creator);
+            HillRange hill_range = new HillRange(Program.GenerateNames.GetName("hill_range_names"), SelectedProvince, creator);
             SelectedProvince.Type = TerrainType.HillRange;
             SelectedProvince.PrimaryTerrainFeature = hill_range;
             SelectedProvince.isDefault = false;

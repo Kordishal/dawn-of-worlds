@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Organisations
 {
+    [Serializable]
     class Army : Creation
     {
         public Civilisation Owner { get; set; }

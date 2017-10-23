@@ -144,8 +144,7 @@
     <Compile Include="Creations\Organisations\Order.cs" />
     <Compile Include="Effects\Disease.cs" />
     <Compile Include="Creations\Geography\Resource.cs" />
-    <Compile Include="ElasticSearch\ElasticSearchController.cs" />
-    <Compile Include="ElasticSearch\MapRecord.cs" />
+    <Compile Include="Log\ElasticSearch.cs" />
     <Compile Include="Log\StreamWriters.cs" />
     <Compile Include="Log\History.cs" />
     <Compile Include="Log\Map.cs" />
@@ -155,12 +154,8 @@
     <Compile Include="Effects\CreationTag.cs" />
     <Compile Include="Effects\Modifier.cs" />
     <Compile Include="Effects\ModifierTag.cs" />
-    <Compile Include="Names\MarkovGenerator\MarkovChain.cs" />
+    <Compile Include="Names\GenerateNames.cs" />
     <Compile Include="Names\Name.cs" />
-    <Compile Include="Names\NameGenerator.cs" />
-    <Compile Include="Names\NameSet.cs" />
-    <Compile Include="Names\Parser\NameSetFSM.cs" />
-    <Compile Include="Names\Parser\NameSetParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupportClasses\LexerClasses\ILexer.cs" />
@@ -180,6 +175,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Names\NameSets\world_names.json" />
+    <None Include="Names\NameSets\river_names.json" />
+    <None Include="Names\NameSets\deity_names.json" />
+    <None Include="Names\NameSets\continent_names.json" />
+    <None Include="Names\NameSets\desert_names.json" />
+    <None Include="Names\NameSets\religion_names.json" />
+    <None Include="Names\NameSets\forest_names.json" />
+    <None Include="Names\NameSets\hill_range_names.json" />
+    <None Include="Names\NameSets\hill_names.json" />
+    <None Include="Names\NameSets\lake_names.json" />
+    <None Include="Names\NameSets\grassland_names.json" />
+    <None Include="Names\NameSets\mountain_range_names.json" />
+    <None Include="Names\NameSets\ocean_names.json" />
+    <None Include="Names\NameSets\mountain_names.json" />
+    <None Include="Names\NameSets\city_names.json" />
+    <None Include="Names\NameSets\building_names.json" />
+    <None Include="Names\NameSets\_template.json" />
+    <None Include="Names\NameSets\area_names.json" />
+    <None Include="Names\NameSets\english_names.json" />
+    <None Include="Names\NameSets\cave_names.json" />
+    <None Include="Names\NameSets\icelandic_names.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -193,26 +209,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Names\NameSetTemplates\area.txt" />
-    <Content Include="Names\NameSetTemplates\caves.txt" />
-    <Content Include="Names\NameSetTemplates\cities.txt" />
-    <Content Include="Names\NameSetTemplates\continent.txt" />
-    <Content Include="Names\NameSetTemplates\deities.txt" />
-    <Content Include="Names\NameSetTemplates\deserts.txt" />
-    <Content Include="Names\NameSetTemplates\english.txt" />
-    <Content Include="Names\NameSetTemplates\forests.txt" />
-    <Content Include="Names\NameSetTemplates\grasslands.txt" />
-    <Content Include="Names\NameSetTemplates\hills.txt" />
-    <Content Include="Names\NameSetTemplates\hill_ranges.txt" />
-    <Content Include="Names\NameSetTemplates\lakes.txt" />
-    <Content Include="Names\NameSetTemplates\mountains.txt" />
-    <Content Include="Names\NameSetTemplates\mountain_ranges.txt" />
-    <Content Include="Names\NameSetTemplates\ocean.txt" />
-    <Content Include="Names\NameSetTemplates\religions.txt" />
-    <Content Include="Names\NameSetTemplates\rivers.txt" />
-    <Content Include="Names\NameSetTemplates\world.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

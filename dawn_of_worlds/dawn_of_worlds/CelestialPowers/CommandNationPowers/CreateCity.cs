@@ -83,7 +83,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             _commanded_nation.PossibleWarGoals.Add(new WarGoal(WarGoalType.CityConquest));
             _commanded_nation.PossibleWarGoals.Last().City = founded_city;
 
-            founded_city.Name.Singular = Constants.Names.GetName("cities");
+            founded_city.Name.Singular = Program.GenerateNames.GetName("city_names");
 
             // Add city related powers and the creator
             creator.FoundedCities.Add(founded_city);

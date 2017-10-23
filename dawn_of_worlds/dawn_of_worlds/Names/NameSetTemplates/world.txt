@@ -1,6 +1,0 @@
-﻿templates = {
-	"<world>"
-}
-world = {
-	Biorka Arkadia Orora Ugone Ewune Einush Eicica Aesios Xovrotea Klaicizoth Ariapeth Jiokocix	
-}

@@ -1,0 +1,97 @@
+{
+  "Name": "Forest Names",
+  "Tag": "forest_names",
+  "Active": true,
+  "Templates": [
+    {
+      "Content": "<tree_name> <forest_names>",
+      "Weight": 1
+    },
+    {
+      "Content": "<cardinal_direction> <area_name> <forest_names>",
+      "Weight": 1
+    },
+    {
+      "Content": "<area_name> <forest_names>",
+      "Weight": 1
+    },
+    {
+      "Content": "<forest_colour> <forest_names> of <area_name>",
+      "Weight": 1
+    },
+    {
+      "Content": "<province_name> <forest_names>",
+      "Weight": 1
+    },
+    {
+      "Content": "<province_name> <tree_name> <forest_names>",
+      "Weight": 1
+    },
+    {
+      "Content": "<forest_colour> <forest_names> of <province_name>",
+      "Weight": 1
+    },
+    {
+      "Content": "<forest_atmosphere> <forest_names> of <province_name>",
+      "Weight": 1
+    },
+    {
+      "Content": "<forest_colour> <forest_names>",
+      "Weight": 1
+    },
+    {
+      "Content": "<forest_atmosphere> <forest_names>",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "Tree Names",
+      "Tag": "tree_name",
+      "MarkovProperties": null,
+      "Names": [
+        "Birch",
+        "Fir",
+        "Ash",
+        "Larch"
+      ]
+    },
+    {
+      "Name": "Forest Colours",
+      "Tag": "forest_colour",
+      "MarkovProperties": null,
+      "Names": [
+        "Green",
+        "Evergreen"
+      ]
+    },
+    {
+      "Name": "Forest Names",
+      "Tag": "forest_name",
+      "MarkovProperties": null,
+      "Names": [
+        "Woods",
+        "Woodlands",
+        "Forest",
+        "Thicket",
+        "Wilds",
+        "Grove",
+        "Covert"
+      ]
+    },
+    {
+      "Name": "Forest Athmosphere",
+      "Tag": "forest_athmosphere",
+      "MarkovProperties": null,
+      "Names": [
+        "Dark",
+        "Light",
+        "Rainy",
+        "Silent",
+        "Creepy",
+        "Thick",
+        "Vast"
+      ]
+    }
+  ]
+}

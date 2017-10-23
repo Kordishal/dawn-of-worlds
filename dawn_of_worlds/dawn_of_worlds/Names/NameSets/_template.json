@@ -1,0 +1,37 @@
+{
+  "Name": "",
+  "Tag": "_template",
+  "Active": false,
+  "Templates": [
+    {
+      "Content": "",
+      "Weight": 1
+    },
+    {
+      "Content": "",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "",
+      "Tag": "",
+      "MarkovProperties": {
+        "Order": 3,
+        "Length": [
+          4,
+          12
+        ]
+      },
+      "Names": [
+      ]
+    },
+     {
+      "Name": "",
+      "Tag": "",
+      "MarkovProperties": null,
+      "Names": [
+      ]
+    }
+  ]
+}

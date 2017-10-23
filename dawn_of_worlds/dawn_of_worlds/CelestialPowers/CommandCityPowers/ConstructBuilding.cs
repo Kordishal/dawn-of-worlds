@@ -21,7 +21,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
 
         public override int Effect(Deity creator)
         {
-            Building building = new Building(null, creator, _type);
+            Building building = new Building(Program.GenerateNames.GetName("building_names"), creator, _type);
 
             building.City = _commanded_city;
             _commanded_city.Buildings.Add(building);

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Organisations
 {
+    [Serializable]
     class Order : Creation 
     {
         public OrderType Type { get; set; }

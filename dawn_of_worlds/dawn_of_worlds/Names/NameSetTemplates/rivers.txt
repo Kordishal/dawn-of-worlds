@@ -1,7 +1,0 @@
-﻿templates = {
-	"The <river> Stream"
-}
-
-river = {
-	Ialis
-}

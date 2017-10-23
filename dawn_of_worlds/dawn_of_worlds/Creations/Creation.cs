@@ -25,8 +25,7 @@ namespace dawn_of_worlds.Creations
             _identifier = id;
             id++;
 
-            Name = new Name(null, null, null);
-            Name.Singular = name + " {" + id + "}";
+            Name = new Name(name + " {" + id + "}", name + "s", name.ToLower());
             Creator = creator;
             Tags = new List<CreationTag>();
         }

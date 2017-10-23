@@ -4,12 +4,9 @@ using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.Names
 {
+    [Serializable]
     class Name
     {
-        public string Singular { get; set; }
-        public string Plural { get; set; }
-        public string Adjective { get; set; }
-
         public Name(string singular, string plural, string adjective)
         {
             Singular = singular;
@@ -17,9 +14,10 @@ namespace dawn_of_worlds.Names
             Adjective = adjective;
         }
 
-        public override string ToString()
-        {
-            return Singular;
-        }
+        public string Singular { get; set; }
+        public string Plural { get; set; }
+
+        public string Adjective { get; set; }
+
     }
 }

@@ -9,6 +9,7 @@ using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.WorldClasses
 {
+    [Serializable]
     class Province
     {
         public string Name { get; set; }
@@ -33,7 +34,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public List<Resource> ProvincialResources { get; set; }
 
-        public void changeOwnership(Civilisation winner)
+        public void ChangeOwnership(Civilisation winner)
         {
             List<City> local_cities = Owner.Cities.FindAll(x => x.TerrainFeature.Province == this);
             foreach (City city in local_cities)
@@ -62,7 +63,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public Province(Area area, SystemCoordinates coordinates)
         {
-            Name = Constants.Names.GetName("area");
+            Name = Program.GenerateNames.GetName("area_names");
             Area = area;
             Coordinates = coordinates;
             NomadicPresence = new List<Civilisation>();
@@ -95,24 +96,24 @@ namespace dawn_of_worlds.WorldClasses
                 switch (LocalClimate)
                 {
                     case Climate.Arctic:
-                        PrimaryTerrainFeature = new Desert(Constants.Names.GetName("deserts"), this, null);
+                        PrimaryTerrainFeature = new Desert(Program.GenerateNames.GetName("desert_names"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.PolarDesert;
                         ProvincialModifiers.Add(new Modifier(ModifierCategory.Province, ModifierTag.Permafrost));
                         break;
                     case Climate.SubArctic:
-                        PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
+                        PrimaryTerrainFeature = new Grassland(Program.GenerateNames.GetName("grassland_names"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.Tundra;
                         break;
                     case Climate.Temperate:
-                        PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
+                        PrimaryTerrainFeature = new Grassland(Program.GenerateNames.GetName("grassland_names"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.TemperateGrassland;
                         break;
                     case Climate.SubTropical:
-                        PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
+                        PrimaryTerrainFeature = new Grassland(Program.GenerateNames.GetName("grassland_names"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
                         break;
                     case Climate.Tropical:
-                        PrimaryTerrainFeature = new Grassland(Constants.Names.GetName("grasslands"), this, null);
+                        PrimaryTerrainFeature = new Grassland(Program.GenerateNames.GetName("grassland_names"), this, null);
                         PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
                         break;
                 }

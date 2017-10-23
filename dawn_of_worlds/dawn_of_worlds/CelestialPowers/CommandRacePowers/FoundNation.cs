@@ -167,7 +167,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
 
             // Add origin order -> church. This church is needed to be able to command this nation.
-            Order founder_origin_order = new Order(Constants.Names.GetReligionName(creator, _commanded_race), creator, OrderType.Church, OrderPurpose.FounderWorship);
+            Order founder_origin_order = new Order(Program.GenerateNames.GetName(), creator, OrderType.Church, OrderPurpose.FounderWorship);
             founder_origin_order.OrderNation = founded_civilisation;
             founder_origin_order.OrderRace = null;
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.WorldClasses
 {
+    [Serializable]
     class Region
     {
         public string Name { get; set; }
@@ -31,9 +32,9 @@ namespace dawn_of_worlds.WorldClasses
             Type = type;
 
             if (Type == RegionType.Continent)
-                Name = Constants.Names.GetName("continent");
+                Name = Program.GenerateNames.GetName("continent_names");
             if (Type == RegionType.Ocean)
-                Name = Constants.Names.GetName("ocean");
+                Name = Program.GenerateNames.GetName("ocean_names");
         }
 
         public override string ToString()

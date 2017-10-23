@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Civilisations
 {
+    [Serializable]
     class Civilisation : Creation
     {
         // General

@@ -1,0 +1,85 @@
+{
+  "Name": "Desert Names",
+  "Tag": "desert_names",
+  "Active": true,
+  "Templates": [
+    {
+      "Content": "The <thematic_name> <desert_type>",
+      "Weight": 1
+    },
+    {
+      "Content": "<fantasy_name>",
+      "Weight": 1
+    },
+    {
+      "Content": "<real_world_name>",
+      "Weight": 1
+    },
+    {
+      "Content": "The <fantasy_name> <desert_type>",
+      "Weight": 1
+    },
+    {
+      "Content": "The <thematic_name> <fantasy_name>",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "Fantasy Names",
+      "Tag": "fantasy_name",
+      "MarkovProperties": {
+        "Order": 3,
+        "Length": [
+          4,
+          8
+        ]
+      },
+      "Names": [
+        "Ogas",
+        "Drurun",
+        "Procis",
+        "Topone",
+        "Iunoth",
+        "Traekuan",
+        "Latriavuin",
+        "Isatica",
+        "Iosinoa",
+        "Sheozilera"
+      ]
+    },
+    {
+      "Name": "Real World Names",
+      "Tag": "real_world_name",
+      "MarkovProperties": {
+        "Order": 3,
+        "Length": [
+          4,
+          8
+        ]
+      },
+      "Names": [
+        "Sahara",
+        "Gobi"
+      ]
+    },
+    {
+      "Name": "Thematic Names",
+      "Tag": "thematic_name",
+      "MarkovProperties": null,
+      "Names": [
+        "Infinite",
+        "Great"
+      ]
+    },
+    {
+      "Name": "Desert Types",
+      "Tag": "desert_type",
+      "MarkovProperties": null,
+      "Names": [
+        "Badlands", 
+        "Wastelands"
+      ]
+    }
+  ]
+}

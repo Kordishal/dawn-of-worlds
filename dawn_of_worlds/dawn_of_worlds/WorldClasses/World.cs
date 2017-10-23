@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.WorldClasses
 {
+    [Serializable]
     class World
     {
         public string Name { get; set; }

@@ -72,7 +72,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             Order creator_worhip_order = new Order("PlaceHolder", creator, OrderType.Church, OrderPurpose.FounderWorship);
             creator_worhip_order.OrderRace = _created_race;
             creator_worhip_order.OrderNation = null;
-            creator_worhip_order.Name.Singular = Constants.Names.GetReligionName(creator, creator_worhip_order.OrderRace);
+            creator_worhip_order.Name.Singular = Program.GenerateNames.GetName();
 
             _created_race.Creator = creator;
             _created_race.OriginOrder = creator_worhip_order;

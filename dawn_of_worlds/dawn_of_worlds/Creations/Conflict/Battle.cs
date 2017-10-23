@@ -14,6 +14,7 @@ using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.Creations.Conflict
 {
+    [Serializable]
     class Battle : Creation
     {
         public War War { get; set; }

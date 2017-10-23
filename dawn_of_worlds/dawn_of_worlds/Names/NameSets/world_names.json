@@ -1,0 +1,38 @@
+{
+  "Name": "World Names",
+  "Tag": "world_names",
+  "Active": true,
+  "Templates": [
+    {
+      "Content": "<world_name>",
+      "Weight": 1
+    }
+  ],
+  "NameLists": [
+    {
+      "Name": "World Names",
+      "Tag": "world_name",
+      "MarkovProperties": {
+        "Order": 3,
+        "Length": [
+          4,
+          12
+        ]
+      },
+      "Names": [
+        "Biorka",
+        "Arkadia",
+        "Orora",
+        "Ugone",
+        "Ewune",
+        "Einush",
+        "Eicica",
+        "Aesios",
+        "Xovrotea",
+        "Klaicizoth",
+        "Ariapeth",
+        "Jiokocix"
+      ]
+    }
+  ]
+}
