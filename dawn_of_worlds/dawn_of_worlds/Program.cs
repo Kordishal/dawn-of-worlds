@@ -16,17 +16,17 @@ namespace dawn_of_worlds
     {
         public static World World { get; set; }
         public static History WorldHistory { get; set; }
-        public static StreamWriters Log { get; set; }
+        public static Logger Log { get; set; }
         public static Simulation Simulation { get; set; }
         public static NameGenerator GenerateNames { get; set; }
 
         static void Main(string[] args)
         {
             GenerateNames = new NameGenerator(@"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Names\NameSets", 121328);
+            Log = new Logger(@"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\bin\Debug\Output\");
 
             PolityDefinitions.DefinePolities();
             Diseases.DefineDiseases();
-            Log = new StreamWriters();
             World = new World(GenerateNames.GetName());
             World.initialize(5, 5);
             WorldHistory = new History();
@@ -39,22 +39,8 @@ namespace dawn_of_worlds
 
             Simulation.Run();
 
-            StreamWriters.cleanDirectories();
-
-            StreamWriters.writeDeities();
-
-            StreamWriters.writeRecords();
-            StreamWriters.writeRecordType(RecordType.TerrainMap);
-            StreamWriters.writeRecordType(RecordType.BiomeMap);
-            StreamWriters.writeRecordType(RecordType.ClimateMap);
-            StreamWriters.writeRecordType(RecordType.GlobalTerritoryMap);
-            StreamWriters.writeRecordType(RecordType.CreateTerrainFeature);
-
-            StreamWriters.writeRecordType(RecordType.WarReport);
-            StreamWriters.writeRecordType(RecordType.BattleReport);
-
-            StreamWriters.writeRaces();
-            StreamWriters.writeNations();
+            Log.CleanOutputDirectory();
+            Log.StoreInFile();
 
             Console.WriteLine("END OF APPLICATION");
             Console.ReadKey();

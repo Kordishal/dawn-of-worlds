@@ -11,7 +11,7 @@ namespace dawn_of_worlds.Effects
     class Disease
     {
 
-        public Name Name { get; set; }
+        public string Name { get; set; }
         public int Virulence { get; set; } 
         public Modifier Effect { get; set; }
 
@@ -19,7 +19,7 @@ namespace dawn_of_worlds.Effects
 
         public Disease(string name, int virulence, Modifier effect)
         {
-            Name = new Name(name, name + "s", name.ToLower());
+            Name = name;
             Virulence = virulence;
             Effect = effect;
             AffectedProvinces = new List<Province>();

@@ -91,7 +91,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateAvatarPowers
             
             //creator.Powers.Add(new UsePower(created_avatar, new FoundNation(created_avatar.AvatarRace, PolityDefinitions.BandSociety)));
 
-            created_avatar.Name.Singular = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
+            created_avatar.Name = created_avatar.AvatarRace.Name + " " + created_avatar.Type.ToString();
 
             if (_nation != null && !_nation.isDestroyed)
             {

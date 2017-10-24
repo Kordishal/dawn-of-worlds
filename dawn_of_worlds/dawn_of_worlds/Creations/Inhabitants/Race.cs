@@ -2,6 +2,7 @@
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Effects;
 using dawn_of_worlds.WorldClasses;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,10 @@ namespace dawn_of_worlds.Creations.Inhabitants
         public List<PhysicalTrait> PhysicalTraits { get; set; }
         public List<SocialCulturalCharacteristic> SocialCulturalCharacteristics { get; set; }
 
+        [JsonIgnore]
         public Province HomeProvince { get { return SettledProvinces[0]; } }
+
+        [JsonIgnore]
         public List<Province> SettledProvinces { get; set; }
 
         public Order OriginOrder { get; set; }

@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Civilisations;
 using dawn_of_worlds.Creations.Inhabitants;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace dawn_of_worlds.Creations.Organisations
         public OrderPurpose Purpose { get; set; }
 
         public bool hasRaceRestriction { get { return OrderRace != null; } }
+
+        [JsonIgnore]
         public Race OrderRace { get; set; }
 
         public bool isNationalOrder { get { return OrderNation != null; } }

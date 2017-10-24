@@ -56,7 +56,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;
             }
 
-            grassland.Name.Singular = Program.GenerateNames.GetName("grassland_names");
+            grassland.Name = Program.GenerateNames.GetName("grassland_names");
             SelectedProvince.PrimaryTerrainFeature = grassland;
             SelectedProvince.isDefault = false;
 

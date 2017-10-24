@@ -47,22 +47,22 @@ namespace dawn_of_worlds.Creations.Objects
             switch (Type)
             {
                 case BuildingType.CityWall:
-                    Name = new Name("City Wall", "City Walls", "walled");
+                    Name = "City Wall";
                     Category = BuildingCategory.Military;
                     Effect = CityWallsEffect;
                     break;
                 case BuildingType.Fortress:
-                    Name = new Name("Fortress", "Fortresses", null);
+                    Name = "Fortress";
                     Category = BuildingCategory.Military;
                     Effect = FortressEffect;
                     break;
                 case BuildingType.Temple:
-                    Name = new Name("Temple", "Temples", null);
+                    Name = "Temple";
                     Category = BuildingCategory.Religious;
                     Effect = TempleEffect;
                     break;
                 case BuildingType.Shrine:
-                    Name = new Name("Shrine", "Shrines", null);
+                    Name = "Shrine";
                     Category = BuildingCategory.Religious;
                     Effect = ShrineEffect;
                     break;

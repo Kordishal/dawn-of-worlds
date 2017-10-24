@@ -6,32 +6,49 @@ using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Civilisations;
 using dawn_of_worlds.Effects;
+using Newtonsoft.Json;
 
 namespace dawn_of_worlds.WorldClasses
 {
     [Serializable]
     class Province
     {
+        public static int _id_counter = 0;
+
+        public int Identifier { get; set; }
+
         public string Name { get; set; }
 
         public Area Area { get; set; }
+
+        [JsonIgnore]
         public SystemCoordinates Coordinates { get; set; }
 
         public TerrainType Type { get; set; }
 
         public Climate LocalClimate { get; set; }
+
         public ClimateModifier LocalClimateModifier { get; set; }
 
         public bool isDefault { get; set; }
+
         public TerrainFeatures PrimaryTerrainFeature { get; set; }
+
+        [JsonIgnore]
         public List<TerrainFeatures> SecondaryTerrainFeatures { get; set; }
 
         public bool hasOwner { get { return Owner != null; } }
+
+        [JsonIgnore]
         public Civilisation Owner { get; set; }
+
+        [JsonIgnore]
         public List<Civilisation> NomadicPresence { get; set; }
 
+        [JsonIgnore]
         public List<Modifier> ProvincialModifiers { get; set; }
 
+        [JsonIgnore]
         public List<Resource> ProvincialResources { get; set; }
 
         public void ChangeOwnership(Civilisation winner)
@@ -46,6 +63,7 @@ namespace dawn_of_worlds.WorldClasses
             Owner = winner;
         }
 
+        [JsonIgnore]
         public bool hasRivers
         {
             get
@@ -63,6 +81,9 @@ namespace dawn_of_worlds.WorldClasses
 
         public Province(Area area, SystemCoordinates coordinates)
         {
+            Identifier = _id_counter;
+            _id_counter += 1;
+
             Name = Program.GenerateNames.GetName("area_names");
             Area = area;
             Coordinates = coordinates;

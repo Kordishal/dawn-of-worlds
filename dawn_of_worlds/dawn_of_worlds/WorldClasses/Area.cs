@@ -2,6 +2,7 @@
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Main;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,15 @@ namespace dawn_of_worlds.WorldClasses
     class Area
     {
         public string Name { get; set; }
+
         public AreaType Type { get; set; }
 
+        [JsonIgnore]
         public SystemCoordinates Coordinates { get; set; }
 
         public Region Region { get; set; }
+
+        [JsonIgnore]
         public List<Province> Provinces { get; set; }
 
         public Area(Region region)

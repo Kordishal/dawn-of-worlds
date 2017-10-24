@@ -65,7 +65,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     break;           
             }
 
-            mountain.Name.Singular = Program.GenerateNames.GetName("mountain_names");
+            mountain.Name = Program.GenerateNames.GetName("mountain_names");
             ((MountainRange)SelectedProvince.PrimaryTerrainFeature).Mountains.Add(mountain);
             mountain.Range = (MountainRange)SelectedProvince.PrimaryTerrainFeature;
             SelectedProvince.SecondaryTerrainFeatures.Add(mountain);

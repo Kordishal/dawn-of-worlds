@@ -3,6 +3,7 @@ using dawn_of_worlds.Creations.Objects;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Log;
 using dawn_of_worlds.WorldClasses;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,13 @@ namespace dawn_of_worlds.Creations.Geography
     {
         public BiomeType BiomeType { get; set; }
 
+        [JsonIgnore]
         public Province Province { get; set; }
 
         public TerrainFeatureModifiers Modifiers { get; set; }
+
         public City City { get; set; }
+
         public List<Building> Buildings { get; set; }
 
 
@@ -34,6 +38,7 @@ namespace dawn_of_worlds.Creations.Geography
         }
     }
 
+    [Serializable]
     public class TerrainFeatureModifiers
     {
         public int NaturalDefenceValue { get; set; }
@@ -46,6 +51,7 @@ namespace dawn_of_worlds.Creations.Geography
         }
     }
 
+    [Serializable]
     enum BiomeType
     {
         TropicalRainforest,

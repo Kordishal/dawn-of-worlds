@@ -65,7 +65,7 @@ namespace dawn_of_worlds.Creations.Diplomacy
         public static string printWar(Record record)
         {
             string result = "";
-            result += "Name: " + record.War.Name.Singular + "\n";
+            result += "Name: " + record.War.Name + "\n";
             result += "Beginn: " + record.War.Begin + "\n";
             if (record.War.hasEnded)
                 result += "End: " + record.War.End + "\n";

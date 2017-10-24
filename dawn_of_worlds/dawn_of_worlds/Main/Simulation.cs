@@ -37,6 +37,12 @@ namespace dawn_of_worlds.Main
                 }
 
                 RecordHistory();
+
+                foreach (var province in Program.World.ProvinceGrid)
+                {
+                    Program.Log.WriteToJson(province, i, Program.Log.ProvinceDirectory + province.Name + province.Identifier + ".json");
+                }
+                
             }
         }
 
@@ -61,8 +67,6 @@ namespace dawn_of_worlds.Main
                 foreach (Power power in _powers_for_removal)
                     deity.Powers.Remove(power);
             }
-            
-            
         }
 
         /// <summary>

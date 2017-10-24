@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace dawn_of_worlds.Actors
 {
@@ -60,11 +61,18 @@ namespace dawn_of_worlds.Actors
         /// <summary>
         /// Stores all the terrain features created by this deity.
         /// </summary>
+        /// 
+        [JsonIgnore]
         public List<TerrainFeatures> TerrainFeatures { get; set; }
+        [JsonIgnore]
         public List<Race> CreatedRaces { get; set; }
+        [JsonIgnore]
         public List<Order> CreatedOrders { get; set; }
+        [JsonIgnore]
         public List<Avatar> CreatedAvatars { get; set; }
+        [JsonIgnore]
         public List<Civilisation> FoundedNations { get; set; }
+        [JsonIgnore]
         public List<City> FoundedCities { get; set; }
 
 
@@ -77,6 +85,7 @@ namespace dawn_of_worlds.Actors
         /// <summary>
         /// Last creation of the deity.
         /// </summary>
+        [JsonIgnore]
         public Creation LastCreation { get; set; }
 
         /// <summary>

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace dawn_of_worlds.WorldClasses
 {
@@ -18,8 +19,10 @@ namespace dawn_of_worlds.WorldClasses
     {
         public string Name { get; set; }
 
+        [JsonIgnore]
         public List<Region> Regions { get; set; }
 
+        [JsonIgnore]
         public Area[,] AreaGrid { get; set; }
         public Area getArea(SystemCoordinates coords) { return AreaGrid[coords.X, coords.Y]; }
         public Province[,] ProvinceGrid { get; set; }

@@ -1,4 +1,5 @@
 ﻿using dawn_of_worlds.Main;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,14 @@ namespace dawn_of_worlds.WorldClasses
     class Region
     {
         public string Name { get; set; }
+
+        [JsonIgnore]
         public RegionType Type { get; set; }
+
+        [JsonIgnore]
         public World World { get; set; }
+
+        [JsonIgnore]
         public List<Area> Areas { get; set; }
 
 

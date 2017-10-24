@@ -1,6 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Effects;
 using dawn_of_worlds.Names;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,10 @@ namespace dawn_of_worlds.Creations
         private static int id = 0;
 
         private int _identifier { get; set; }
-        public Name Name { get; set; }
 
+        public string Name { get; set; }
+
+        [JsonIgnore]
         public Deity Creator { get; set; }
 
         public List<CreationTag> Tags { get; set; }
@@ -25,7 +28,7 @@ namespace dawn_of_worlds.Creations
             _identifier = id;
             id++;
 
-            Name = new Name(name + " {" + id + "}", name + "s", name.ToLower());
+            Name = name;
             Creator = creator;
             Tags = new List<CreationTag>();
         }
@@ -34,7 +37,7 @@ namespace dawn_of_worlds.Creations
 
         public override string ToString()
         {
-            return Name.Singular;
+            return Name;
         }
     }
 }

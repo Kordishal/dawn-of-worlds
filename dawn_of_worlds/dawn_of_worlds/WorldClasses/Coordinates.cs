@@ -111,7 +111,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public override string ToString()
         {
-            return "(x:" + X + "|y:" + Y + ")";
+            return "_x_" + X + "_y_" + Y + "_";
         }
 
         public SystemCoordinates(int x, int y)

@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using dawn_of_worlds.WorldClasses;
 using dawn_of_worlds.Actors;
+using Newtonsoft.Json;
 
 namespace dawn_of_worlds.Creations.Geography
 {
     class Lake : TerrainFeatures
     {
-
+        [JsonIgnore]
         public River OutGoingRiver { get; set; }
 
         public List<River> SourceRivers { get; set; }

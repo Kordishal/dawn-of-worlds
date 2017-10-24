@@ -49,7 +49,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(forest);
             creator.LastCreation = forest;
 
-            forest.Name.Singular = Program.GenerateNames.GetName();
+            forest.Name = Program.GenerateNames.GetName();
             Program.WorldHistory.AddRecord(forest, forest.printTerrainFeature);
 
             return 0;      
