@@ -1,7 +1,7 @@
 ﻿using dawn_of_worlds.Actors;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Effects;
-using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.WorldModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

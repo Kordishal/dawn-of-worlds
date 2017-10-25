@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dawn_of_worlds.WorldClasses
+namespace dawn_of_worlds.WorldModel
 {
     [Serializable]
     enum Climate

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using dawn_of_worlds.Main;
 
-namespace dawn_of_worlds.WorldClasses
+namespace dawn_of_worlds.WorldModel
 {
     [Serializable]
     class SystemCoordinates

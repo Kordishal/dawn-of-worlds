@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using dawn_of_worlds.Actors;
-using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.WorldModel;
 using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Geography;

@@ -1,5 +1,5 @@
 ﻿using dawn_of_worlds.Actors;
-using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.WorldModel;
 using dawn_of_worlds.Main;
 using System;
 using System.Collections.Generic;

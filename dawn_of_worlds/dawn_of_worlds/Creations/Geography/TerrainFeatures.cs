@@ -2,7 +2,7 @@
 using dawn_of_worlds.Creations.Objects;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Log;
-using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.WorldModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

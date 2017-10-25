@@ -144,6 +144,7 @@
     <Compile Include="Creations\Organisations\Order.cs" />
     <Compile Include="Effects\Disease.cs" />
     <Compile Include="Creations\Geography\Resource.cs" />
+    <Compile Include="Generators\DeityGenerator.cs" />
     <Compile Include="Log\Logger.cs" />
     <Compile Include="Log\History.cs" />
     <Compile Include="Log\Map.cs" />
@@ -165,12 +166,13 @@
     <Compile Include="SupportClasses\TokenClasses\Token.cs" />
     <Compile Include="SupportClasses\TokenClasses\TokenDefinition.cs" />
     <Compile Include="SupportClasses\TokenClasses\TokenPosition.cs" />
-    <Compile Include="WorldClasses\Area.cs" />
-    <Compile Include="WorldClasses\Climate.cs" />
-    <Compile Include="WorldClasses\Coordinates.cs" />
-    <Compile Include="WorldClasses\Region.cs" />
-    <Compile Include="WorldClasses\Province.cs" />
-    <Compile Include="WorldClasses\World.cs" />
+    <Compile Include="WorldGeneration\BasicWorldGeneration.cs" />
+    <Compile Include="WorldModel\Area.cs" />
+    <Compile Include="WorldModel\Climate.cs" />
+    <Compile Include="WorldModel\Coordinates.cs" />
+    <Compile Include="WorldModel\Region.cs" />
+    <Compile Include="WorldModel\Province.cs" />
+    <Compile Include="WorldModel\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

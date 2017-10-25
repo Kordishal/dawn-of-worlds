@@ -8,7 +8,7 @@ using dawn_of_worlds.Creations.Civilisations;
 using dawn_of_worlds.Effects;
 using Newtonsoft.Json;
 
-namespace dawn_of_worlds.WorldClasses
+namespace dawn_of_worlds.WorldModel
 {
     [Serializable]
     class Province

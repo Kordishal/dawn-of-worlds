@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Creations.Geography;
 using dawn_of_worlds.Creations.Inhabitants;
-using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.WorldModel;
 using dawn_of_worlds.Creations.Organisations;
 using dawn_of_worlds.Creations.Civilisations;
 

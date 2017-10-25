@@ -1,9 +1,10 @@
 ﻿using dawn_of_worlds.Creations.Civilisations;
+using dawn_of_worlds.Creations.Inhabitants;
 using dawn_of_worlds.Effects;
 using dawn_of_worlds.Log;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Names;
-using dawn_of_worlds.WorldClasses;
+using dawn_of_worlds.WorldModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,17 @@ namespace dawn_of_worlds
 
             PolityDefinitions.DefinePolities();
             Diseases.DefineDiseases();
+            DefinedRaces.defineRaces();
+
             State = new GameState();
 
-            State.World = new World(GenerateNames.GetName());
-            State.World.initialize(5, 5);
+            WorldGeneration.BasicWorldGeneration basic_world = new WorldGeneration.BasicWorldGeneration();
+            basic_world.Initialize(5, 5);
+            State.World = basic_world.World;
+
+            Generators.DeityGenerator deity_generation = new Generators.DeityGenerator(100202);
+            deity_generation.BasicGeneration();
+
             WorldHistory = new History();
             Simulation = new Simulation();
 
