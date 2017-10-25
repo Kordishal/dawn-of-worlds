@@ -23,7 +23,7 @@ namespace dawn_of_worlds.Actors
     /// The deities are the only actors in dawn of worlds. 
     /// Everything which happens is because of divine intervention. 
     /// 
-    /// Deities affect their changes to the world with powers. Each powers costs power points.
+    /// Deities affect their changes to the world with powers. Each power costs power points.
     /// Each deity gets a random amount of power points per turn. 
     /// 
     /// The deities can use several powers per turn. 
@@ -44,8 +44,6 @@ namespace dawn_of_worlds.Actors
         /// Each deity has a set amount of domains. They influence what powers the deity uses.
         /// </summary>
         public Modifier[] Domains { get; set; }
-        private int _num_of_domains = 5;
-
 
         /// <summary>
         /// A list of all powers the deity can currently use.
@@ -93,74 +91,13 @@ namespace dawn_of_worlds.Actors
         /// </summary>
         /// <param name="name"></param>
         public Deity()
-        {
-            // takes a name from the deities name set.
-            Name = Program.GenerateNames.GetName("deity_names");
-
-            // starts with no power points and no modifiers.
-            PowerPoints = 0;
-            Modifiers = new DeityModifiers();
-
-            Powers = new List<Power>();
-
-            Domains = new Modifier[_num_of_domains];
-  
-            // choose x random domains without duplicates and no opposits.
-            List<ModifierTag> domain_tags = new List<ModifierTag>();
-            Array modifier_tags = Enum.GetValues(typeof(ModifierTag));
-            for (int i = (int)ModifierTag.DomainsBegin + 1; i < (int)ModifierTag.DomainsEnd; i++)
-                domain_tags.Add((ModifierTag)modifier_tags.GetValue(i));
-            for (int i = 0; i < _num_of_domains; i++)
-            {
-                while (Domains[i] == null)
-                {
-                    bool is_valid_domain = true;
-                    ModifierTag domain = domain_tags[Constants.Random.Next(domain_tags.Count)];
-
-                    // Checks whether there is an incompatible domain and whether there is the same domain already in.
-                    for (int j = 0; j < _num_of_domains; j++)
-                        if (Domains[j] != null && (Domains[j].Excludes != null && Domains[j].Excludes.Contains(domain) || Domains[j].Tag == domain))
-                            is_valid_domain = false;
-
-                    if (is_valid_domain)
-                        Domains[i] = new Modifier(ModifierCategory.Domain, domain);
-                }
-            }
-            
-
+        {   
             TerrainFeatures = new List<TerrainFeatures>();
             CreatedRaces = new List<Race>();
             CreatedOrders = new List<Order>();
             CreatedAvatars = new List<Avatar>();
             FoundedNations = new List<Civilisation>();
             FoundedCities = new List<City>();
-
-            // Shape Land Powers
-            Powers.Add(new CreateForest());
-            Powers.Add(new CreateGrassland());
-            Powers.Add(new CreateDesert());
-            Powers.Add(new CreateCave());
-            Powers.Add(new CreateLake());
-            Powers.Add(new CreateRiver());
-            Powers.Add(new CreateMountainRange());
-            Powers.Add(new CreateMountain());
-            Powers.Add(new CreateHillRange());
-            Powers.Add(new CreateHill());
-            // Shape Climate Powers
-            Powers.Add(new MakeClimateWarmer());
-            Powers.Add(new MakeClimateColder());
-            Powers.Add(new AddClimateModifier(ClimateModifier.MagicInfused));
-            Powers.Add(new CreateSpecialClimate(Climate.Inferno));
-
-
-            // Create Races Powers
-            foreach (Race race in DefinedRaces.DefinedRacesList)
-            {
-                foreach (Province province in Program.State.ProvinceGrid)
-                {
-                    Powers.Add(new CreateRace(race, province));
-                }              
-            }
         }
 
 

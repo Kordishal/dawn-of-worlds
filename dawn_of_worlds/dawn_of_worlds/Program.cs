@@ -38,6 +38,7 @@ namespace dawn_of_worlds
 
             Generators.DeityGenerator deity_generation = new Generators.DeityGenerator(100202);
             deity_generation.BasicGeneration();
+            State.Deities = deity_generation.GeneratedDeities;
 
             WorldHistory = new History();
             Simulation = new Simulation();
