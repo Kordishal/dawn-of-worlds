@@ -19,6 +19,7 @@ namespace dawn_of_worlds.WorldClasses
 
         public string Name { get; set; }
 
+        [JsonIgnore]
         public Area Area { get; set; }
 
         [JsonIgnore]
@@ -77,6 +78,7 @@ namespace dawn_of_worlds.WorldClasses
             }
         }
 
+        [JsonIgnore]
         public List<Race> SettledRaces { get; set; }
 
         public Province(Area area, SystemCoordinates coordinates)

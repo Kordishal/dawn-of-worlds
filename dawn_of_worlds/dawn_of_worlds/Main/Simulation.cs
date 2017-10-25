@@ -30,7 +30,7 @@ namespace dawn_of_worlds.Main
 
                 NewTurn();
 
-                foreach (Deity deity in Program.World.Deities)
+                foreach (Deity deity in Program.State.Deities)
                 {
                     deity.addPowerPoints();
                     deity.Turn();
@@ -38,10 +38,8 @@ namespace dawn_of_worlds.Main
 
                 RecordHistory();
 
-                foreach (var province in Program.World.ProvinceGrid)
-                {
-                    Program.Log.WriteToJson(province, i, Program.Log.ProvinceDirectory + province.Name + province.Identifier + ".json");
-                }
+                Program.Log.WriteToJson(Program.State.World, i, Program.Log.WorldDirectory + Program.State.World.Name + "_" + i + "_" + ".json");
+                
                 
             }
         }
@@ -53,12 +51,12 @@ namespace dawn_of_worlds.Main
         public void NewTurn()
         {
             // all cities can now be used to raise armies again.
-            foreach (City city in Program.World.Cities)
+            foreach (City city in Program.State.Cities)
                 city.Modifiers.not_hasRaisedArmy = true;
 
             // Remove all obsolete powers to save some computing time.
             List<Power> _powers_for_removal = new List<Power>();
-            foreach (Deity deity in Program.World.Deities)
+            foreach (Deity deity in Program.State.Deities)
             {
                 foreach (Power power in deity.Powers)
                     if (power.isObsolete)
@@ -78,12 +76,12 @@ namespace dawn_of_worlds.Main
             Program.WorldHistory.AddRecord(RecordType.BiomeMap, Map.generateBiomeMap(), Map.printMap);
             Program.WorldHistory.AddRecord(RecordType.ClimateMap, Map.generateClimateMap(), Map.printMap);
 
-            foreach (Race race in Program.World.Races)
+            foreach (Race race in Program.State.Races)
             {
                 Program.WorldHistory.AddRecord(RecordType.RaceSettlementMap, race, Map.generateRaceSettlementMap(race), Map.printMap);
             }
 
-            foreach (Civilisation nation in Program.World.Nations)
+            foreach (Civilisation nation in Program.State.Civilizations)
             {
                 Program.WorldHistory.AddRecord(RecordType.NationTerritoryMap, nation, Map.generateNationTerritoryMap(nation), Map.printMap);
             }

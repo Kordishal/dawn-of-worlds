@@ -21,9 +21,9 @@ namespace dawn_of_worlds.WorldClasses
         [JsonIgnore]
         public SystemCoordinates Coordinates { get; set; }
 
-        public Region Region { get; set; }
-
         [JsonIgnore]
+        public Region Region { get; set; }
+       
         public List<Province> Provinces { get; set; }
 
         public Area(Region region)

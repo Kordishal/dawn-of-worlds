@@ -61,7 +61,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
         {
             Order created_order = new Order("PlaceHolder", creator, _type, _purpose);
             creator.CreatedOrders.Add(created_order);
-            Program.World.Orders.Add(created_order);
+            Program.State.Orders.Add(created_order);
 
 
             if (_nation != null)

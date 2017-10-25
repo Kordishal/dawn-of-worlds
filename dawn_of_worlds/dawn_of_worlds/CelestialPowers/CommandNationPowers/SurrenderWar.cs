@@ -129,7 +129,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
                 war_goal = _surrendered_war.WarGoalAttackers;
 
             // Remove war from war lists
-            Program.World.OngoingWars.Remove(_surrendered_war);
+            Program.State.OngoingWars.Remove(_surrendered_war);
 
             switch (war_goal.Type)
             {

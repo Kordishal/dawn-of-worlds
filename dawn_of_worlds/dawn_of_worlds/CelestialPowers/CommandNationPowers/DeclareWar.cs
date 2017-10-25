@@ -125,7 +125,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
 
             // Add war to the list of ongoing conflicts.
-            Program.World.OngoingWars.Add(declared_war);
+            Program.State.OngoingWars.Add(declared_war);
 
             declared_war.Begin = Simulation.Time.Shuffle;
 

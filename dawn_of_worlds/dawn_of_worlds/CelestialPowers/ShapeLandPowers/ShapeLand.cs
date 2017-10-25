@@ -22,7 +22,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             BaseWeight = new int[] { 20, 15, 10 };
             WeightChange = 5;
             PotentialProvinces = new List<Province>();
-            foreach (Province province in Program.World.ProvinceGrid)
+            foreach (Province province in Program.State.ProvinceGrid)
                 PotentialProvinces.Add(province);
         }
 
@@ -94,7 +94,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
                         if (coords.isInTileGridBounds())
                         {
-                            if (Program.World.ProvinceGrid[coords.X, coords.Y].PrimaryTerrainFeature.GetType() == weighted_province.Object.PrimaryTerrainFeature.GetType())
+                            if (Program.State.ProvinceGrid[coords.X, coords.Y].PrimaryTerrainFeature.GetType() == weighted_province.Object.PrimaryTerrainFeature.GetType())
                                 weighted_province.Weight += WeightChange;
                         }
                     }

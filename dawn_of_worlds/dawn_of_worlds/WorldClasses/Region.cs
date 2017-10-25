@@ -13,13 +13,11 @@ namespace dawn_of_worlds.WorldClasses
     {
         public string Name { get; set; }
 
-        [JsonIgnore]
         public RegionType Type { get; set; }
 
         [JsonIgnore]
         public World World { get; set; }
 
-        [JsonIgnore]
         public List<Area> Areas { get; set; }
 
 

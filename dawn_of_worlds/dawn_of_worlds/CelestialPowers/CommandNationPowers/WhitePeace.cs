@@ -46,7 +46,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             if (_white_peaced_war.isWarLeader(_commanded_nation))
             {
                 // Remove war from war lists
-                Program.World.OngoingWars.Remove(_white_peaced_war);
+                Program.State.OngoingWars.Remove(_white_peaced_war);
 
                 // reset all the relations statuses of each nation.
                 foreach (Civilisation defender in _white_peaced_war.Defenders)

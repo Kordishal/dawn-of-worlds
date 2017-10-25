@@ -20,7 +20,7 @@ namespace dawn_of_worlds.Log
             {
                 for (int j = 0; j < Constants.TILE_GRID_Y; j++)
                 {
-                    switch (Program.World.ProvinceGrid[i, j].Type)
+                    switch (Program.State.ProvinceGrid[i, j].Type)
                     {
                         case TerrainType.Plain:
                             terrain_map[i, j] = '_';
@@ -51,7 +51,7 @@ namespace dawn_of_worlds.Log
             {
                 for (int j = 0; j < Constants.TILE_GRID_Y; j++)
                 {
-                    switch (Program.World.ProvinceGrid[i, j].PrimaryTerrainFeature.BiomeType)
+                    switch (Program.State.ProvinceGrid[i, j].PrimaryTerrainFeature.BiomeType)
                     {
                         case BiomeType.PolarDesert:
                             biome_map[i, j] = 'p';
@@ -100,7 +100,7 @@ namespace dawn_of_worlds.Log
             {
                 for (int j = 0; j < Constants.TILE_GRID_Y; j++)
                 {
-                    switch (Program.World.ProvinceGrid[i, j].LocalClimate)
+                    switch (Program.State.ProvinceGrid[i, j].LocalClimate)
                     {
                         case Climate.Arctic:
                             climate_map[i, j] = 'A';
@@ -131,7 +131,7 @@ namespace dawn_of_worlds.Log
         {
             char[,] race_settlement_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
 
-            foreach (Province province in Program.World.ProvinceGrid)
+            foreach (Province province in Program.State.ProvinceGrid)
             {
                 if (race.SettledProvinces.Contains(province))
                     race_settlement_map[province.Coordinates.X, province.Coordinates.Y] = '0';
@@ -146,7 +146,7 @@ namespace dawn_of_worlds.Log
         {
             char[,] nation_territory_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
 
-            foreach (Province province in Program.World.ProvinceGrid)
+            foreach (Province province in Program.State.ProvinceGrid)
             {
                 if (nation.Territory.Contains(province))
                     nation_territory_map[province.Coordinates.X, province.Coordinates.Y] = 'T';
@@ -161,7 +161,7 @@ namespace dawn_of_worlds.Log
         {
             char[,] territroy_map = new char[Constants.TILE_GRID_X, Constants.TILE_GRID_Y];
 
-            foreach (Province province in Program.World.ProvinceGrid)
+            foreach (Province province in Program.State.ProvinceGrid)
             {
                 if (province.Owner != null)
                     territroy_map[province.Coordinates.X, province.Coordinates.Y] = 'T';

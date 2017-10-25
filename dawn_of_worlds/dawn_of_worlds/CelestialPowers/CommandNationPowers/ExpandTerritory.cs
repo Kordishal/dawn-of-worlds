@@ -67,7 +67,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
                 if (coords.isInTileGridBounds())
                 {
-                    Province neighbour_province = Program.World.getProvince(coords);
+                    Province neighbour_province = Program.State.getProvince(coords);
 
                     // Ignore this if it is already part of the territory.
                     if (_commanded_nation.Territory.Contains(neighbour_province))

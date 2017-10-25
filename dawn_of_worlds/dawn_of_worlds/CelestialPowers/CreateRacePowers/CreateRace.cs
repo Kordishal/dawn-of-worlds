@@ -87,7 +87,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             creator.CreatedRaces.Add(_created_race);
             creator.CreatedOrders.Add(creator_worhip_order);
 
-            foreach (Area area in Program.World.AreaGrid)
+            foreach (Area area in Program.State.AreaGrid)
                 creator.Powers.Add(new SettleTile(_created_race, area));
 
             if (_created_race.Type == SpeciesType.Humanoid)
@@ -96,7 +96,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             if (_created_race.Type == SpeciesType.Dragon)
                 creator.Powers.Add(new FoundNation(_created_race, PolityDefinitions.DragonBrood));
 
-            foreach (Deity deity in Program.World.Deities)
+            foreach (Deity deity in Program.State.Deities)
             {
                 // Add avatars for this race.
                 foreach (AvatarType type in Enum.GetValues(typeof(AvatarType)))
@@ -106,7 +106,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             }
 
             // Add the race to the world overview.
-            Program.World.Races.Add(_created_race);
+            Program.State.Races.Add(_created_race);
             creator.LastCreation = _created_race;
 
             return 0;

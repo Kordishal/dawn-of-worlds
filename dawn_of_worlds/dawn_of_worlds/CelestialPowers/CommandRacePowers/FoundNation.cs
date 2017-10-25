@@ -137,7 +137,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             else
             {
                 founded_civilisation.hasDiplomacy = true;
-                foreach (Civilisation nation in Program.World.Nations)
+                foreach (Civilisation nation in Program.State.Civilizations)
                 {
                     nation.Relationships.Add(new Relations(founded_civilisation));
                     founded_civilisation.Relationships.Add(new Relations(nation));
@@ -193,14 +193,14 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
             // Add nation to the creator and Powers related to this nation.
             creator.FoundedNations.Add(founded_civilisation);
-            Program.World.Nations.Add(founded_civilisation);
+            Program.State.Civilizations.Add(founded_civilisation);
             creator.CreatedOrders.Add(founded_civilisation.OriginOrder);
 
             if (founded_civilisation.hasCities)
             {
                 creator.Powers.Add(new CreateCity(founded_civilisation));
                 creator.FoundedCities.Add(founded_civilisation.CapitalCity);
-                Program.World.Cities.Add(founded_civilisation.CapitalCity);
+                Program.State.Cities.Add(founded_civilisation.CapitalCity);
             }
             
             if (founded_civilisation.hasDiplomacy)
@@ -212,7 +212,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             }
 
 
-            foreach (Deity deity in Program.World.Deities)
+            foreach (Deity deity in Program.State.Deities)
             {
                 // Add avatars
                 foreach (AvatarType type in Enum.GetValues(typeof(AvatarType)))
@@ -225,7 +225,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                 deity.Powers.Add(new VastGoldMineDepleted(founded_civilisation));
             }
 
-            foreach (Deity deity in Program.World.Deities)
+            foreach (Deity deity in Program.State.Deities)
             {
                 if (!(deity == creator))
                     deity.Powers.Add(new CreateOrder(OrderType.Church, OrderPurpose.FounderWorship, founded_civilisation, null));

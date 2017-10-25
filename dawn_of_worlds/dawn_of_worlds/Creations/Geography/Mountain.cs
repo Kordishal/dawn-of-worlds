@@ -10,7 +10,6 @@ namespace dawn_of_worlds.Creations.Geography
 {
     class Mountain : TerrainFeatures
     {
-
         public MountainRange Range { get; set; }
 
         public Mountain(string name, Province location, Deity creator) : base(name, location, creator)

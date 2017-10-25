@@ -116,7 +116,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
 
                     if (coords.isInTileGridBounds())
                     {
-                        if (Program.World.getProvince(coords).SettledRaces.Contains(_commanded_race))
+                        if (Program.State.getProvince(coords).SettledRaces.Contains(_commanded_race))
                             candidate_province.Weight += Constants.WEIGHT_STANDARD_CHANGE;
                     }
                 }

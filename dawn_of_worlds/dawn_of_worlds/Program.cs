@@ -14,7 +14,7 @@ namespace dawn_of_worlds
 {
     class Program
     {
-        public static World World { get; set; }
+        public static GameState State { get; set; }
         public static History WorldHistory { get; set; }
         public static Logger Log { get; set; }
         public static Simulation Simulation { get; set; }
@@ -27,8 +27,10 @@ namespace dawn_of_worlds
 
             PolityDefinitions.DefinePolities();
             Diseases.DefineDiseases();
-            World = new World(GenerateNames.GetName());
-            World.initialize(5, 5);
+            State = new GameState();
+
+            State.World = new World(GenerateNames.GetName());
+            State.World.initialize(5, 5);
             WorldHistory = new History();
             Simulation = new Simulation();
 

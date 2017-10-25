@@ -89,7 +89,7 @@ namespace dawn_of_worlds.Creations.Civilisations
             {
                 if (relation.Status == RelationStatus.AtWar)
                 {
-                    (new WhitePeace(this, Program.World.OngoingWars.Find(x => x.isInWar(this) && x.isInWar(relation.Target)))).Effect(Creator);
+                    (new WhitePeace(this, Program.State.OngoingWars.Find(x => x.isInWar(this) && x.isInWar(relation.Target)))).Effect(Creator);
                 }
                 relation.Status = RelationStatus.None;
             }

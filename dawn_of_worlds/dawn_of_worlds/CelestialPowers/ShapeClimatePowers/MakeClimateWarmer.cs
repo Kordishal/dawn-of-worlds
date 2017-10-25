@@ -61,7 +61,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         private List<WeightedObjects<Province>> candidate_provinces()
         {
             List<WeightedObjects<Province>> weighted_provinces = new List<WeightedObjects<Province>>();
-            foreach (Province province in Program.World.ProvinceGrid)
+            foreach (Province province in Program.State.ProvinceGrid)
             {
                 int[] climate_count = countClimateNeighbours(province);
                 switch (province.LocalClimate)

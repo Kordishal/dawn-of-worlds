@@ -134,7 +134,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     if (coords.isInTileGridBounds())
                     {
                         // Assign next location
-                        current_location = Program.World.ProvinceGrid[coords.X, coords.Y];
+                        current_location = Program.State.ProvinceGrid[coords.X, coords.Y];
                     }
                     else
                         current_location = null;

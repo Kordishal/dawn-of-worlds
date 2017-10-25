@@ -48,7 +48,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         private List<WeightedObjects<Province>> candidate_provinces()
         {
             List<WeightedObjects<Province>> weighted_provinces = new List<WeightedObjects<Province>>();
-            foreach (Province province in Program.World.ProvinceGrid)
+            foreach (Province province in Program.State.ProvinceGrid)
             {
                 if (_climate != province.LocalClimate)
                 {
@@ -60,7 +60,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
                     {
                         if (province.Coordinates.GetNeighbour(i).isInTileGridBounds())
                         {
-                            if (Program.World.getProvince(province.Coordinates.GetNeighbour(i)).LocalClimate == _climate)
+                            if (Program.State.getProvince(province.Coordinates.GetNeighbour(i)).LocalClimate == _climate)
                                 weighted_province.Weight += 10;
                         }
                     }

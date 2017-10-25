@@ -21,8 +21,10 @@ namespace dawn_of_worlds.Creations.Geography
 
         public TerrainFeatureModifiers Modifiers { get; set; }
 
+        [JsonIgnore]
         public City City { get; set; }
 
+        [JsonIgnore]
         public List<Building> Buildings { get; set; }
 
 
