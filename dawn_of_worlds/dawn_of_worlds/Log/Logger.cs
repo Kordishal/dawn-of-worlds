@@ -52,7 +52,7 @@ namespace dawn_of_worlds.Log
             foreach (var key in collector.Keys)
             {
                 var temp = new StreamWriter(BaseDataDirectory + key, true);
-                temp.WriteLine(JsonConvert.SerializeObject(collector[key], Formatting.Indented));
+                temp.WriteLine(JsonConvert.SerializeObject(collector[key]));
                 temp.Close();
             }
         }
