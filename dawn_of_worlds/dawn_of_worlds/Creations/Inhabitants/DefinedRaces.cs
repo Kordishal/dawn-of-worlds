@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using dawn_of_worlds.Main;
 using System.IO;
 using Newtonsoft.Json;
+using dawn_of_worlds.CreationData.RacialData;
 
 namespace dawn_of_worlds.Creations.Inhabitants
 {
@@ -177,9 +178,30 @@ namespace dawn_of_worlds.Creations.Inhabitants
             defineOrcishRaces();
             defineGiantRaces();
 
+            var race_attribute = new RaceAttribute()
+            {
+                Identifier = 1,
+                Name = "Humanoid",
+                Category = "Type",
+                MandatoryCategory = true,
+                UniqueCategory = true,
+                Tags = new List<string>()
+                {
+                    "humanoid",
+                    "corporeal",
+                    "flesh",
+                    "life"
+                }
+
+            };
+
+            var writer = new StreamWriter("race_attribute.json");
+            writer.Write(JsonConvert.SerializeObject(race_attribute, Formatting.Indented));
+            writer.Close();
+
             foreach (var race in DefinedRacesList)
             {
-                var writer = new StreamWriter(race.Name + ".json");
+                writer = new StreamWriter(race.Name + ".json");
                 writer.Write(JsonConvert.SerializeObject(race, Formatting.Indented));
                 writer.Close();
             }
