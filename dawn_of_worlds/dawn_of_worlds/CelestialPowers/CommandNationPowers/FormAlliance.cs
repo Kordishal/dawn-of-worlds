@@ -51,7 +51,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             compile_candidate_nations();
 
             // The new ally will be chosen amongst the possible allies at random.
-            Civilisation new_ally = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
+            Civilisation new_ally = candidate_nations[rnd.Next(candidate_nations.Count)];
 
             _commanded_nation.Relationships.Find(x => x.Target == new_ally).Status = RelationStatus.Allied;
             new_ally.Relationships.Find(x => x.Target == _commanded_nation).Status = RelationStatus.Allied;

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Effects
 {
+
+    // TOOD: Define Creation Tags in Json File.
     enum CreationTag
     {
         // Neutral Concepts

@@ -98,7 +98,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
             if (possible_locations.Count == 0)
                 return 1;
 
-            Province location = WeightedObjects<Province>.ChooseRandomObject(possible_locations);
+            Province location = WeightedObjects<Province>.ChooseRandomObject(possible_locations, rnd);
             
             Civilisation founded_civilisation = new Civilisation("Nation of " + _commanded_race.Name, creator);
             founded_civilisation.PoliticalOrganisation = _polity;
@@ -121,8 +121,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
                     }
                     break;
                 case SocialOrganisation.TribalSociety:
-                    int rnd = Constants.Random.Next(50);
-                    if (rnd < 25)
+                    int _dice = rnd.Next(50);
+                    if (_dice < 25)
                         founded_civilisation.isNomadic = true;
                     else
                         founded_civilisation.isNomadic = false;

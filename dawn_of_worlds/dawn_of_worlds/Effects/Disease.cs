@@ -26,6 +26,7 @@ namespace dawn_of_worlds.Effects
         }
     }
 
+    // TODO: Define deseases in json files.
     struct Diseases
     {
         public static List<Disease> DiseasesList { get; set; }

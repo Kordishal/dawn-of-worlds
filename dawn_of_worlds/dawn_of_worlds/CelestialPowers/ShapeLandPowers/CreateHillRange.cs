@@ -27,7 +27,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             creator.TerrainFeatures.Add(hill_range);
             creator.LastCreation = hill_range;
 
-            int chance = Constants.Random.Next(100);
+            int chance = rnd.Next(100);
             switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:

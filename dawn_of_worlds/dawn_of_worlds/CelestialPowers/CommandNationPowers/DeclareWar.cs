@@ -48,7 +48,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override int Effect(Deity creator)
         {
-            Civilisation war_target = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
+            Civilisation war_target = candidate_nations[rnd.Next(candidate_nations.Count)];
 
             // The war to be declared.
             War declared_war = new War("War of " + _commanded_nation.Name + " vs. " + war_target.Name, creator);
@@ -118,10 +118,10 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             }
 
             List<WarGoal> weighted_war_goals = WeightedObjects<WarGoal>.ChooseHeaviestObjects(war_goals[0]);
-            declared_war.WarGoalAttackers = weighted_war_goals[Constants.Random.Next(weighted_war_goals.Count)];
+            declared_war.WarGoalAttackers = weighted_war_goals[rnd.Next(weighted_war_goals.Count)];
 
             weighted_war_goals = WeightedObjects<WarGoal>.ChooseHeaviestObjects(war_goals[1]);
-            declared_war.WarGoalDefenders = weighted_war_goals[Constants.Random.Next(weighted_war_goals.Count)];
+            declared_war.WarGoalDefenders = weighted_war_goals[rnd.Next(weighted_war_goals.Count)];
 
 
             // Add war to the list of ongoing conflicts.

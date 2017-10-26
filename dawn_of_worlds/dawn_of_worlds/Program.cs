@@ -32,7 +32,7 @@ namespace dawn_of_worlds
 
             State = new GameState();
 
-            WorldGeneration.BasicWorldGeneration basic_world = new WorldGeneration.BasicWorldGeneration();
+            WorldGeneration.BasicWorldGeneration basic_world = new WorldGeneration.BasicWorldGeneration(10002212);
             basic_world.Initialize(5, 5);
             State.World = basic_world.World;
 

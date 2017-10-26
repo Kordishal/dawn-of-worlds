@@ -38,8 +38,8 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             possible_target_armies();
 
-            Army target_army = WeightedObjects<Army>.ChooseRandomObject(_possible_targets);
-            Army attacker_army = WeightedObjects<Army>.ChooseRandomObject(_possible_attackers);
+            Army target_army = WeightedObjects<Army>.ChooseRandomObject(_possible_targets, rnd);
+            Army attacker_army = WeightedObjects<Army>.ChooseRandomObject(_possible_attackers, rnd);
 
             // Move the armies into the same terrain.
             if (!target_army.Location.Equals(attacker_army.Location))

@@ -55,7 +55,7 @@ namespace dawn_of_worlds.Creations.Conflict
             for (int i = 0; i < _count; i++)
             {
                 Modifiers[i] = InvolvedArmies[i].getTotalModifier();
-                Score[i] = Constants.Random.Next(2, 13) + Modifiers[i];
+                Score[i] = rnd.Next(2, 13) + Modifiers[i];
             }
 
             // defender wins

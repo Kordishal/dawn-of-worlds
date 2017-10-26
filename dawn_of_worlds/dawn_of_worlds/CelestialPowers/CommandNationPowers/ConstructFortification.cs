@@ -34,7 +34,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override int Effect(Deity creator)
         {
-            TerrainFeatures terrain = WeightedObjects<TerrainFeatures>.ChooseRandomObject(potential_construction_sites());
+            TerrainFeatures terrain = WeightedObjects<TerrainFeatures>.ChooseRandomObject(potential_construction_sites(), rnd);
 
             Building building = new Building(null, creator, _type);
             building.Terrain = terrain;

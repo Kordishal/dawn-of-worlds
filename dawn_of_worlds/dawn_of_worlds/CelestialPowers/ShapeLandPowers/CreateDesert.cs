@@ -25,7 +25,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             Desert desert = new Desert(Program.GenerateNames.GetName("desert_names"), SelectedProvince, creator);
 
-            int chance = Constants.Random.Next(100);
+            int chance = rnd.Next(100);
             switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:

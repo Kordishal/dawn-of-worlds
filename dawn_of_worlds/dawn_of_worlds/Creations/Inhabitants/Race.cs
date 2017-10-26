@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Inhabitants
 {
+
+    // TODO: Move Trait/Type/Characteristics into files defined with json.
     [Serializable]
     class Race : Creation
     {

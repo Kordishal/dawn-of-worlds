@@ -198,6 +198,7 @@ namespace dawn_of_worlds.Names
 
     class MarkovChain
     {
+        public Random rnd { get; set; }
         public int Order { get; set; }
         public int[] Length { get; set; }
         public List<string> Alphabet { get; set; }
@@ -245,7 +246,7 @@ namespace dawn_of_worlds.Names
         {
             List<string> values;
             bool no_end = true;
-            string last_key = InitialLetters[Constants.Random.Next(InitialLetters.Count)].ToString();
+            string last_key = InitialLetters[rnd.Next(InitialLetters.Count)].ToString();
             StringBuilder builder = new StringBuilder();
             builder.Append(last_key);
             while (no_end)
@@ -255,9 +256,9 @@ namespace dawn_of_worlds.Names
                 {
                     string value = "";
                     // Name cannot be shorter than Length[0].
-                    value = values[Constants.Random.Next(values.Count)];
+                    value = values[rnd.Next(values.Count)];
                     while (builder.Length < Length[0] && value == "")
-                        value = values[Constants.Random.Next(values.Count)];
+                        value = values[rnd.Next(values.Count)];
 
                     // When empty value end the name.
                     if (value == "")
@@ -290,13 +291,15 @@ namespace dawn_of_worlds.Names
         }
 
 
-        public MarkovChain(int order, int min_length, int max_length, List<string> alphabet)
+        public MarkovChain(int order, int min_length, int max_length, List<string> alphabet, int seed)
         {
             Order = order;
             Length = new int[2] { min_length, max_length };
             Alphabet = alphabet;
             InitialLetters = new List<string>();
             Observations = new Dictionary<string, List<string>>();
+
+            rnd = new Random(seed);
             CreateDictionary();
         }
     }

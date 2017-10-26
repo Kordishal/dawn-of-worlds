@@ -4,6 +4,8 @@ using dawn_of_worlds.Main;
 
 namespace dawn_of_worlds.Creations.Inhabitants
 {
+    // TODO: Move race definitions into files with json.
+
     class DefinedRaces
     {
         public static List<Race> DefinedRacesList { get; set; }

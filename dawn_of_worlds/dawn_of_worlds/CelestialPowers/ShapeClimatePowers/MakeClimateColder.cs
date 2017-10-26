@@ -32,7 +32,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         public override int Effect(Deity creator)
         {
             List<WeightedObjects<Province>> provinces = candidate_provinces();
-            _chosen_location = WeightedObjects<Province>.ChooseRandomObject(provinces);
+            _chosen_location = WeightedObjects<Province>.ChooseRandomObject(provinces, rnd);
 
             // Set new climate
             switch (_chosen_location.LocalClimate)

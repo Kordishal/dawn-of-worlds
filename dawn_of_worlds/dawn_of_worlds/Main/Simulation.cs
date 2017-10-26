@@ -15,7 +15,7 @@ namespace dawn_of_worlds.Main
 
         public Simulation()
         {
-            Time = new TimeLine();
+            Time = new TimeLine(837432);
         }
 
         /// <summary>

@@ -102,7 +102,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             }
 
-            return WeightedObjects<Province>.ChooseRandomObject(weighted_provinces);
+            return WeightedObjects<Province>.ChooseRandomObject(weighted_provinces, rnd);
         }
 
         public ShapeLand()

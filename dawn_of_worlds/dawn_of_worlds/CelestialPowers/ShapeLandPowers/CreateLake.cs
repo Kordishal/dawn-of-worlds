@@ -36,7 +36,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             // Choose random river which the lake is connected to.
             List<TerrainFeatures> rivers = SelectedProvince.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(River));
-            River river = (River)rivers[Constants.Random.Next(rivers.Count)];
+            River river = (River)rivers[rnd.Next(rivers.Count)];
 
             river.ConnectedLakes.Add(lake);
             lake.SourceRivers.Add(river);

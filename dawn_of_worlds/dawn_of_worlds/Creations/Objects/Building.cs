@@ -9,6 +9,9 @@ using dawn_of_worlds.Names;
 
 namespace dawn_of_worlds.Creations.Objects
 {
+    // TODO: Move building definitions into files with json.
+    // TODO: Move enum definitions into json files.
+    // TODO: Figure out if it is possible to have a way to externalize funtions.
     [Serializable]
     class Building : Creation
     {

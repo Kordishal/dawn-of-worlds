@@ -6,6 +6,8 @@ namespace dawn_of_worlds.Main
 {
     class TimeLine
     {
+        public Random rnd { get; set; }
+
         public Age CurrentAge { get; set; }
 
         public int Turn { get; set; }
@@ -40,15 +42,17 @@ namespace dawn_of_worlds.Main
         }
 
         public int Difference { get { return CurrentTime - PreviousTime; } }
-        public int Shuffle { get { return Constants.Random.Next(PreviousTime, CurrentTime); } }
+        public int Shuffle { get { return rnd.Next(PreviousTime, CurrentTime); } }
 
-        public TimeLine()
+        public TimeLine(int seed)
         {
             CurrentAge = Age.Creation;
             CurrentTime = 0;
             PreviousTime = 0;
             NewAge = new int[3] { 0, 40, 60 };
             Turn = 0;
+
+            rnd = new Random(seed);
         }
     }
 

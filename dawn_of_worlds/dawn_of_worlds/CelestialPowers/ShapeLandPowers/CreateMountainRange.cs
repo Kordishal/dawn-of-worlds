@@ -26,7 +26,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             SelectedProvince.Type = TerrainType.MountainRange;
             SelectedProvince.PrimaryTerrainFeature = mountain_range;
         
-            int chance = Constants.Random.Next(100);
+            int chance = rnd.Next(100);
             switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:

@@ -31,6 +31,8 @@ namespace dawn_of_worlds.Actors
     class Deity
     {
 
+        public Random rnd { get; set; }
+
         /// <summary>
         /// Name of the deity. Randomly assigned. Used to name things created by this deity.
         /// </summary>
@@ -90,7 +92,7 @@ namespace dawn_of_worlds.Actors
         /// Creates a deity with a name, x domains and the powers useable in the beginning.
         /// </summary>
         /// <param name="name"></param>
-        public Deity()
+        public Deity(int seed)
         {   
             TerrainFeatures = new List<TerrainFeatures>();
             CreatedRaces = new List<Race>();
@@ -98,6 +100,8 @@ namespace dawn_of_worlds.Actors
             CreatedAvatars = new List<Avatar>();
             FoundedNations = new List<Civilisation>();
             FoundedCities = new List<City>();
+
+            rnd = new Random(seed);
         }
 
 
@@ -118,7 +122,7 @@ namespace dawn_of_worlds.Actors
                 _low_point_turn_bonus = 0;
 
             gain += _low_point_turn_bonus;
-            gain += Constants.Random.Next(Constants.DEITY_BASE_POWERPOINT_MIN_GAIN, Constants.DEITY_BASE_POWERPOINT_MAX_GAIN);
+            gain += rnd.Next(Constants.DEITY_BASE_POWERPOINT_MIN_GAIN, Constants.DEITY_BASE_POWERPOINT_MAX_GAIN);
             gain += Modifiers.BonusPowerPoints;
             gain += (int)Math.Floor(gain * Modifiers.PowerPointModifier);
 
@@ -158,7 +162,7 @@ namespace dawn_of_worlds.Actors
                 if (possible_powers.Count == 0)
                     break;
 
-                int chance = Constants.Random.Next(total_weight);
+                int chance = rnd.Next(total_weight);
                 int prev_weight = 0, current_weight = 0;
                 foreach (Power p in possible_powers)
                 {

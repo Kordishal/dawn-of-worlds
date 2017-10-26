@@ -46,7 +46,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
             compile_candidate_nations();
 
             // The new contact will be chosen amongst the possible contacts at random.
-            Civilisation new_contact = candidate_nations[Constants.Random.Next(candidate_nations.Count)];
+            Civilisation new_contact = candidate_nations[rnd.Next(candidate_nations.Count)];
 
             _commanded_nation.Relationships.Find(x => x.Target.Equals(new_contact)).Status = RelationStatus.Known;
             new_contact.Relationships.Find(x => x.Target.Equals(_commanded_nation)).Status = RelationStatus.Known;

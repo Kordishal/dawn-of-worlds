@@ -9,6 +9,8 @@ using dawn_of_worlds.Creations.Diplomacy;
 
 namespace dawn_of_worlds.Main
 {
+
+    // TODO: Remove Area Grid and Province Grid from this class. Currently there are too many dependencies.
     class GameState
     {
         public World World { get; set; }

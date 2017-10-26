@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Organisations
 {
+
     [Serializable]
     class Army : Creation
     {
@@ -22,7 +23,8 @@ namespace dawn_of_worlds.Creations.Organisations
         public Army(string name, Deity creator) : base(name, creator)
         {
         }
-
+        // TODO: Implement this funtion... 
+        // Should collect all the modifiers an army can suffer/profit from.
         public int getTotalModifier()
         {
             int modifier = 0;

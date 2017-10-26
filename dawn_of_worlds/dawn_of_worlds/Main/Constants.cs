@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Main
 {
+    // TODO: Move constants into config file/json file
     class Constants
     {
-        static public Random Random { get; set; }
-
         public const string HISTORY_FOLDER = @"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Log\Output\History\";
 
         public const int TOTAL_TURNS = 100;
@@ -53,14 +52,10 @@ namespace dawn_of_worlds.Main
         public const int WEIGHT_MANY_COST_DEVIATION = 1;
 
         public const int COST_CHANGE_VALUE = 2;
-
-
-        static Constants()
-        {
-            Random = new Random(100);
-        }
     }
 
+    // TODO: Move this class somewhere else...
+    // TODO: Expand class with unit tests and documentation.
     class WeightedObjects<S>
     {
         public S Object { get; set; }
@@ -76,9 +71,9 @@ namespace dawn_of_worlds.Main
             return result;
         }
 
-        public static S ChooseRandomObject(List<WeightedObjects<S>> weighted_objects)
+        public static S ChooseRandomObject(List<WeightedObjects<S>> weighted_objects, Random rnd)
         {
-            int chance = Constants.Random.Next(TotalWeight(weighted_objects));
+            int chance = rnd.Next(TotalWeight(weighted_objects));
             int prev_weight = 0, current_weight = 0;
             foreach (WeightedObjects<S> weigted_object in weighted_objects)
             {

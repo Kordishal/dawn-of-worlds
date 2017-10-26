@@ -39,7 +39,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
             // the primary direction of the river. 
             Array directions = Enum.GetValues(typeof(Direction));
-            Direction primary_direction = (Direction)directions.GetValue(Constants.Random.Next(directions.Length));
+            Direction primary_direction = (Direction)directions.GetValue(rnd.Next(directions.Length));
             Direction[] other_directions = new Direction[2];
             switch (primary_direction)
             {
@@ -73,7 +73,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                     current_location.SecondaryTerrainFeatures.Exists(y => y.GetType() == typeof(River)))
                 {
                     List<TerrainFeatures> lakes_and_rivers = current_location.SecondaryTerrainFeatures.FindAll(x => x.GetType() == typeof(Lake) || x.GetType() == typeof(River));
-                    TerrainFeatures destination = lakes_and_rivers[Constants.Random.Next(lakes_and_rivers.Count)];
+                    TerrainFeatures destination = lakes_and_rivers[rnd.Next(lakes_and_rivers.Count)];
 
                     if (typeof(Lake) == destination.GetType())
                     {
@@ -91,7 +91,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 else
                 {
                     // else go towards terrain...
-                    int chance = Constants.Random.Next(100);
+                    int chance = rnd.Next(100);
                     Direction next_direction = Direction.North;
                     // ...straight in primary direction
                     if (chance < 50)

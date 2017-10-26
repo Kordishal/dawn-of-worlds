@@ -10,11 +10,16 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations
 {
+
+    // TODO: Make identifiers public and make sure each creation type can be converted to json to be 
+    // importet into elasticsearch.
     abstract class Creation
     {
         private static int id = 0;
 
-        private int _identifier { get; set; }
+        public int Identifier { get; set; }
+
+        public Random rnd { get; set; }
 
         public string Name { get; set; }
 
@@ -25,12 +30,13 @@ namespace dawn_of_worlds.Creations
 
         public Creation(string name, Deity creator)
         {
-            _identifier = id;
+            Identifier = id;
             id++;
 
             Name = name;
             Creator = creator;
             Tags = new List<CreationTag>();
+            rnd = new Random(Identifier);
         }
 
 

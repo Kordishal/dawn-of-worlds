@@ -12,7 +12,13 @@ namespace dawn_of_worlds.CelestialPowers
 {
     abstract class Power
     {
+        private static int _identifier_count = 100000;
+
+        public int Identifier { get; set; }
+
         public string Name { get; set; }
+
+        public Random rnd { get; set; }
 
         protected List<CreationTag> Tags { get; set; }
         protected int[] BaseCost { get; set; }
@@ -110,6 +116,11 @@ namespace dawn_of_worlds.CelestialPowers
 
         public Power()
         {
+            Identifier = _identifier_count;
+            _identifier_count += 1;
+
+            rnd = new Random(Identifier);
+
             Tags = new List<CreationTag>();
         }
 

@@ -25,7 +25,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             Cave cave = new Cave("PlaceHolder", SelectedProvince, creator);
 
-            int chance = Constants.Random.Next(100);
+            int chance = rnd.Next(100);
             cave.BiomeType = BiomeType.Subterranean;
 
             cave.Name = Program.GenerateNames.GetName("cave_names");

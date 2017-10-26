@@ -8,6 +8,8 @@ using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.Creations.Civilisations
 {
+    // TODO: Move polity definitions into files.
+
     [Serializable]
     class Polity : Creation
     {

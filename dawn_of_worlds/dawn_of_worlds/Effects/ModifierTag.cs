@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Effects
 {
+    // TODO: define modifiers in json files.
     enum ModifierTag
     {
         // Leave this here as this is what variable are initialized with when not defined.

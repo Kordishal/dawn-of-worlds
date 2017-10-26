@@ -65,7 +65,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
 
         protected void adjustTerrainFeatureBiomes()
         {
-            int chance = Constants.Random.Next(100);
+            int chance = rnd.Next(100);
 
                 // change forest biome type
             if (_chosen_location.Type == TerrainType.Plain)

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace dawn_of_worlds.Creations.Organisations
 {
+    // TODO: Move order enums into json.
+    // TODO: Expand order types and their purposes. Figure out what they are supposed to be for.
     [Serializable]
     class Order : Creation 
     {

@@ -66,7 +66,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         public override int Effect(Deity creator)
         {
             // Choose the city location at random.
-            TerrainFeatures construction_site = _valid_city_terrains[Constants.Random.Next(_valid_city_terrains.Count)];
+            TerrainFeatures construction_site = _valid_city_terrains[rnd.Next(_valid_city_terrains.Count)];
             
             // The city is created and placed in the world. The nation is defined as the city owner.
             City founded_city = new City("PlaceHolder", creator);

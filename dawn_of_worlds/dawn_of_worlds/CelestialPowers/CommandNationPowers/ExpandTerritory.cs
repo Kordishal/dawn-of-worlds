@@ -38,7 +38,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
 
         public override int Effect(Deity creator)
         {
-            Province new_territory = ExpansionTargetProvinces[Constants.Random.Next(ExpansionTargetProvinces.Count)];
+            Province new_territory = ExpansionTargetProvinces[rnd.Next(ExpansionTargetProvinces.Count)];
             _commanded_nation.Territory.Add(new_territory);
             if (_commanded_nation.isNomadic)
                 new_territory.NomadicPresence.Add(_commanded_nation);

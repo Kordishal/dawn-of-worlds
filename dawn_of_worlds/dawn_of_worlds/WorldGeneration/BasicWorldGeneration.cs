@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.WorldModel;
+using dawn_of_worlds.Creations.Geography;
+using dawn_of_worlds.Effects;
 
 namespace dawn_of_worlds.WorldGeneration
 {
     class BasicWorldGeneration
     {
+        public Random rnd { get; set; }
 
         public World World { get; set; }
 
-        public BasicWorldGeneration()
+        public BasicWorldGeneration(int seed)
         {
             World = new World(Program.GenerateNames.GetName("world_names"));
+            rnd = new Random(seed);
         }
 
         public void Initialize(int num_regions, int num_areas)
@@ -23,7 +27,7 @@ namespace dawn_of_worlds.WorldGeneration
             generateAreaGrid();
             defineAreaAndTerrainCoordiantes();
 
-            defineContinentsAndOceans();
+            DefineContinentsAndOceans();
 
             for (int i = 0; i < 5; i++)
             {
@@ -83,8 +87,8 @@ namespace dawn_of_worlds.WorldGeneration
                 has_valid_starter_coordinates = false;
                 while (!has_valid_starter_coordinates)
                 {
-                    x = Constants.Random.Next(x_length);
-                    y = Constants.Random.Next(y_length);
+                    x = rnd.Next(x_length);
+                    y = rnd.Next(y_length);
 
                     if (Program.State.AreaGrid[x, y] == null)
                     {
@@ -101,7 +105,7 @@ namespace dawn_of_worlds.WorldGeneration
                     has_valid_neighbour = false;
                     while (!has_valid_neighbour)
                     {
-                        switch (direction.Count > 0 ? direction[Constants.Random.Next(direction.Count)] : 4)
+                        switch (direction.Count > 0 ? direction[rnd.Next(direction.Count)] : 4)
                         {
                             case 0:
                                 if (y + 1 < y_length)
@@ -155,8 +159,8 @@ namespace dawn_of_worlds.WorldGeneration
                                 has_valid_starter_coordinates = false;
                                 while (!has_valid_starter_coordinates)
                                 {
-                                    x = Constants.Random.Next(x_length);
-                                    y = Constants.Random.Next(y_length);
+                                    x = rnd.Next(x_length);
+                                    y = rnd.Next(y_length);
 
                                     if (Program.State.AreaGrid[x, y] == null)
                                     {
@@ -186,7 +190,7 @@ namespace dawn_of_worlds.WorldGeneration
                         for (int l = j * 5; l < j * 5 + Constants.AREA_GRID_Y; l++)
                         {
                             Program.State.ProvinceGrid[k, l] = new Province(Program.State.AreaGrid[i, j], new SystemCoordinates(k, l));
-                            Program.State.ProvinceGrid[k, l].initialize();
+                            InitializeProvince(Program.State.ProvinceGrid[k, l]);
                             Program.State.AreaGrid[i, j].Provinces.Add(Program.State.ProvinceGrid[k, l]);
                         }
                     }
@@ -195,7 +199,62 @@ namespace dawn_of_worlds.WorldGeneration
 
         }
 
-        private void defineContinentsAndOceans()
+        public void InitializeProvince(Province province)
+        {
+
+
+            if (province.Coordinates.X < Constants.ARCTIC_CLIMATE_BORDER)
+                province.LocalClimate = Climate.Arctic;
+            else if (province.Coordinates.X < Constants.SUB_ARCTIC_CLIMATE_BORDER)
+                province.LocalClimate = Climate.SubArctic;
+            else if (province.Coordinates.X < Constants.TEMPERATE_CLIMATE_BORDER)
+                province.LocalClimate = Climate.Temperate;
+            else if (province.Coordinates.X < Constants.SUB_TROPICAL_CLIMATE_BORDER)
+                province.LocalClimate = Climate.SubTropical;
+            else if (province.Coordinates.X < Constants.TROPICAL_CLIMATE_BORDER)
+                province.LocalClimate = Climate.Tropical;
+
+            province.LocalClimateModifier = ClimateModifier.None;
+
+            // Establish a grassland as a base terrain on continents for races/nations to be built on it.
+            if (province.Area != null && province.Area.Type == AreaType.Continent)
+            {
+                province.Type = TerrainType.Plain;
+                switch (province.LocalClimate)
+                {
+                    case Climate.Arctic:
+                        province.PrimaryTerrainFeature = new Desert(Program.GenerateNames.GetName("desert_names"), province, null);
+                        province.PrimaryTerrainFeature.BiomeType = BiomeType.PolarDesert;
+                        province.ProvincialModifiers.Add(new Modifier(ModifierCategory.Province, ModifierTag.Permafrost));
+                        break;
+                    case Climate.SubArctic:
+                        province.PrimaryTerrainFeature = new Grassland(Program.GenerateNames.GetName("grassland_names"), province, null);
+                        province.PrimaryTerrainFeature.BiomeType = BiomeType.Tundra;
+                        break;
+                    case Climate.Temperate:
+                        province.PrimaryTerrainFeature = new Grassland(Program.GenerateNames.GetName("grassland_names"), province, null);
+                        province.PrimaryTerrainFeature.BiomeType = BiomeType.TemperateGrassland;
+                        break;
+                    case Climate.SubTropical:
+                        province.PrimaryTerrainFeature = new Grassland(Program.GenerateNames.GetName("grassland_names"), province, null);
+                        province.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
+                        break;
+                    case Climate.Tropical:
+                        province.PrimaryTerrainFeature = new Grassland(Program.GenerateNames.GetName("grassland_names"), province, null);
+                        province.PrimaryTerrainFeature.BiomeType = BiomeType.TropicalGrassland;
+                        break;
+                }
+            }
+            else
+            {
+                province.Type = TerrainType.Ocean;
+                province.PrimaryTerrainFeature = new Ocean("The Ocean", province, null);
+            }
+
+        }
+
+
+        private void DefineContinentsAndOceans()
         {
             World.Regions = new List<Region>();
             foreach (Area area in Program.State.AreaGrid)
@@ -212,7 +271,7 @@ namespace dawn_of_worlds.WorldGeneration
 
                 while (next_area == null)
                 {
-                    next_area = Program.State.AreaGrid[Constants.Random.Next(Constants.AREA_GRID_X), Constants.Random.Next(Constants.AREA_GRID_Y)];
+                    next_area = Program.State.AreaGrid[rnd.Next(Constants.AREA_GRID_X), rnd.Next(Constants.AREA_GRID_Y)];
 
                     if (next_area.Region != null)
                         next_area = null;
@@ -223,7 +282,7 @@ namespace dawn_of_worlds.WorldGeneration
                 else
                     next_region = new Region(World, RegionType.Continent);
 
-                addArea(next_region, next_area);
+                AddArea(next_region, next_area);
                 World.Regions.Add(next_region);
 
                 bool area_is_not_assigned = false;
@@ -236,7 +295,7 @@ namespace dawn_of_worlds.WorldGeneration
             }
         }
 
-        private void addArea(Region region, Area area)
+        private void AddArea(Region region, Area area)
         {
             region.Areas.Add(area);
             area.Region = region;
@@ -251,7 +310,7 @@ namespace dawn_of_worlds.WorldGeneration
                     if (next_area.Type == AreaType.Continent && region.Type == RegionType.Continent ||
                             next_area.Type == AreaType.Ocean && region.Type == RegionType.Ocean)
                         if (next_area.Region == null)
-                            addArea(region, next_area);
+                            AddArea(region, next_area);
                 }
             }
         }

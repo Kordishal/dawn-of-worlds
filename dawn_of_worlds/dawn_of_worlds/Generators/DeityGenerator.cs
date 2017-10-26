@@ -44,7 +44,7 @@ namespace dawn_of_worlds.Generators
         {
             for (int i = 0; i < rnd.Next(MinNumberDeities, MaxNumberDeities); i++)
             {
-                var deity = new Deity();
+                var deity = new Deity(i * 10293);
 
                 deity.Name = Program.GenerateNames.GetName("deity_names");
 
@@ -67,7 +67,7 @@ namespace dawn_of_worlds.Generators
                     while (deity.Domains[k] == null)
                     {
                         bool is_valid_domain = true;
-                        ModifierTag domain = domain_tags[Constants.Random.Next(domain_tags.Count)];
+                        ModifierTag domain = domain_tags[rnd.Next(domain_tags.Count)];
 
                         // Checks whether there is an incompatible domain and whether there is the same domain already in.
                         for (int l = 0; l < nr_domains; l++)

@@ -33,7 +33,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             Hill hill = new Hill("PlaceHolder", SelectedProvince, creator);
 
-            int chance = Constants.Random.Next(100);
+            int chance = rnd.Next(100);
             switch (SelectedProvince.LocalClimate)
             {
                 case Climate.Arctic:
