@@ -116,6 +116,7 @@
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateMountainRange.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateRiver.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\ShapeLand.cs" />
+    <Compile Include="CreationData\Attribute.cs" />
     <Compile Include="Creations\Civilisations\CivilisationTags.cs" />
     <Compile Include="Creations\Civilisations\Polity.cs" />
     <Compile Include="Creations\Conflict\Battle.cs" />
@@ -211,6 +212,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
