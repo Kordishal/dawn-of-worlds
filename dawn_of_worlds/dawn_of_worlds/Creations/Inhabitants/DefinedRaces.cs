@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using dawn_of_worlds.Main;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace dawn_of_worlds.Creations.Inhabitants
 {
@@ -172,6 +174,13 @@ namespace dawn_of_worlds.Creations.Inhabitants
             defineDwarvenRaces();
             defineOrcishRaces();
             defineGiantRaces();
+
+            foreach (var race in DefinedRacesList)
+            {
+                var writer = new StreamWriter(race.Name + ".json");
+                writer.Write(JsonConvert.SerializeObject(race, Formatting.Indented));
+                writer.Close();
+            }
         }
 
 
