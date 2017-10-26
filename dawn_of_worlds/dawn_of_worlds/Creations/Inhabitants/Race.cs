@@ -34,6 +34,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         [JsonIgnore]
         public List<Province> SettledProvinces { get; set; }
 
+        [JsonIgnore]
         public Order OriginOrder { get; set; }
 
         public Race(string name, Deity creator) : base(name, creator)
