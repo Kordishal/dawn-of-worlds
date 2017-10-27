@@ -15,7 +15,7 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
         {
             base.initialize();
             Name = "National Event: Vast Gold Mine Depleted (" + _nation.Name + ")";
-            Tags = new List<CreationTag>() { CreationTag.Subterranean, CreationTag.Depletion };
+            Tags = new List<string>() { "underground", "void" };
         }
 
 

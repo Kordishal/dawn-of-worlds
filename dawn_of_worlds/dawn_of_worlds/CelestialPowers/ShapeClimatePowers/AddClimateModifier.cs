@@ -15,7 +15,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         {
             base.initialize();
             Name = "Add Climate Modifer (" + _modifier.ToString() + ")";
-            Tags = new List<CreationTag>() { CreationTag.Climate, CreationTag.Magic };
+            Tags = new List<string>() { "climate", "magic" };
         }
 
         public override bool Precondition(Deity creator)

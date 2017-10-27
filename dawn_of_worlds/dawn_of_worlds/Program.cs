@@ -4,6 +4,8 @@ using dawn_of_worlds.Effects;
 using dawn_of_worlds.Log;
 using dawn_of_worlds.Main;
 using dawn_of_worlds.Names;
+using dawn_of_worlds.TagThesaurus;
+using dawn_of_worlds.Utility;
 using dawn_of_worlds.WorldModel;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,10 @@ namespace dawn_of_worlds
 {
     class Program
     {
+        private static TemporaryClass temp { get; set; }
+
+        public static Thesaurus Thesaurus { get; set; }
+
         public static GameState State { get; set; }
         public static History WorldHistory { get; set; }
         public static Logger Log { get; set; }
@@ -23,6 +29,12 @@ namespace dawn_of_worlds
 
         static void Main(string[] args)
         {
+            temp = new TemporaryClass();
+
+            Thesaurus = new Thesaurus(@"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\bin\Debug\Input\tag_thesaurus");
+            Thesaurus.LoadTags();
+            Thesaurus.CheckForDublicates();
+
             GenerateNames = new NameGenerator(@"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\Names\NameSets", 121328);
             Log = new Logger(@"C:\Users\Jonas Waeber\Documents\Projects\dawn_of_worlds\dawn_of_worlds\dawn_of_worlds\bin\Debug\Output\");
 
@@ -47,11 +59,12 @@ namespace dawn_of_worlds
             WorldHistory.AddRecord(RecordType.BiomeMap, Map.generateBiomeMap(), Map.printMap);
             WorldHistory.AddRecord(RecordType.ClimateMap, Map.generateClimateMap(), Map.printMap);
 
-
             Simulation.Run();
 
             Log.CleanOutputDirectory();
             Log.StoreInFile();
+
+            Thesaurus.PrintLog();
 
             Console.WriteLine("END OF APPLICATION");
             Console.ReadKey();

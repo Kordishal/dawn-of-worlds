@@ -19,7 +19,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             base.initialize();
             Name = "Create Grassland";
             isPrimary = true;
-            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Plain, CreationTag.Earth };
+            Tags = new List<string>() { "creation", "plain", "earth" };
         }
 
         // Grasslands are never created in landmass, as they are the default terrain type.

@@ -19,7 +19,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             base.initialize();
             Name = "Create Mountain";
             isPrimary = false;
-            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Earth };
+            Tags = new List<string>() { "creation", "mountain" };
         }
 
         protected override bool selectionModifier(Province province)

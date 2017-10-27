@@ -49,35 +49,35 @@ namespace dawn_of_worlds.Creations.Civilisations
             BandSociety.Form = PolityForm.Band;
             BandSociety.Source = PowerSource.Democratic;
             BandSociety.Ruler = RulerType.Gerontocracy;
-            BandSociety.Tags = new List<CreationTag>() { CreationTag.Community, CreationTag.Elderly, CreationTag.Exploration };
+            BandSociety.Tags = new List<string>() { "communty", "elderly", "exploration" };
 
             DragonBrood = new Polity("Brood", null);
             DragonBrood.Organisation = SocialOrganisation.BandSociety;
             DragonBrood.Form = PolityForm.Brood;
             DragonBrood.Source = PowerSource.Autocratic;
             DragonBrood.Ruler = RulerType.Kraterocracy;
-            DragonBrood.Tags = new List<CreationTag>() { };
+            DragonBrood.Tags = new List<string>() { };
 
             ClanCouncil = new Polity("Clan Council", null);
             ClanCouncil.Organisation = SocialOrganisation.TribalSociety;
             ClanCouncil.Form = PolityForm.Tribe;
             ClanCouncil.Source = PowerSource.Oligarchic;
             ClanCouncil.Ruler = RulerType.Gerontocracy;
-            ClanCouncil.Tags = new List<CreationTag>() { };
+            ClanCouncil.Tags = new List<string>() { };
 
             DespoticTribe = new Polity("Despotic Tribe", null);
             DespoticTribe.Organisation = SocialOrganisation.TribalSociety;
             DespoticTribe.Form = PolityForm.Tribe;
             DespoticTribe.Source = PowerSource.Autocratic;
             DespoticTribe.Ruler = RulerType.Stratocracy;
-            DespoticTribe.Tags = new List<CreationTag>() { };
+            DespoticTribe.Tags = new List<string>() { };
 
             TribalKingdom = new Polity("Tribal Kingdom", null);
             TribalKingdom.Organisation = SocialOrganisation.TribalSociety;
             TribalKingdom.Form = PolityForm.Tribe;
             TribalKingdom.Source = PowerSource.Autocratic;
             TribalKingdom.Ruler = RulerType.Stratocracy;
-            TribalKingdom.Tags = new List<CreationTag>() { };
+            TribalKingdom.Tags = new List<string>() { };
         }
     }
 

@@ -35,7 +35,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateOrderPowers
             BaseWeight = new int[] { Constants.WEIGHT_STANDARD_LOW, Constants.WEIGHT_STANDARD_MEDIUM, Constants.WEIGHT_STANDARD_HIGH };
             WeightChange = Constants.WEIGHT_STANDARD_CHANGE;
 
-            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Community };
+            Tags = new List<string>() { "creation", "community" };
         }
 
         public override bool isObsolete

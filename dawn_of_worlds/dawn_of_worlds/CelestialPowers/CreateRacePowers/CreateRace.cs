@@ -30,7 +30,7 @@ namespace dawn_of_worlds.CelestialPowers.CreateRacePowers
             BaseWeight = new int[] { Constants.WEIGHT_STANDARD_LOW, Constants.WEIGHT_STANDARD_HIGH, Constants.WEIGHT_STANDARD_MEDIUM };
             WeightChange = Constants.WEIGHT_STANDARD_CHANGE;
 
-            Tags = new List<CreationTag>() { CreationTag.Creation };
+            Tags = new List<string>() { "creation" };
         }
 
         public override bool Precondition(Deity creator)

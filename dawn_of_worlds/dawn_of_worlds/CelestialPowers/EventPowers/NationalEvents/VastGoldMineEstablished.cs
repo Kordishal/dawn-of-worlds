@@ -19,7 +19,7 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.NationalEvents
         {
             base.initialize();
             Name = "National Event: Vast Gold Vein Established (" + _nation.Name + ")";
-            Tags = new List<CreationTag>() { CreationTag.Gold };
+            Tags = new List<string>() { "gold", "metal" };
         }
 
         public override bool Precondition(Deity creator)

@@ -15,7 +15,7 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.ProvincialEvents
         {
             base.initialize();
             Name = "Event: Plague Break Out (" +_affected_province.Name + ")";
-            Tags = new List<CreationTag>() { CreationTag.Disease, CreationTag.Death };
+            Tags = new List<string>() { "disease", "death" };
         }
 
 

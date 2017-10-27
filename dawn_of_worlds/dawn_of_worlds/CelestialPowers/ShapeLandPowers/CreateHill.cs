@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             base.initialize();
             Name = "Create Hill";
             isPrimary = false;
-            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Earth };
+            Tags = new List<string>() { "creation", "earth" };
         }
 
         protected override bool selectionModifier(Province province)

@@ -5,7 +5,7 @@ using dawn_of_worlds.Main;
 namespace dawn_of_worlds.CreationData
 {
     [Serializable]
-    class Attribute
+    class CreationAttribute
     {
         public int Identifier { get; set; }
 

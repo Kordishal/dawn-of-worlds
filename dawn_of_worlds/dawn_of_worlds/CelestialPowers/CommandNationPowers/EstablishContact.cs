@@ -22,7 +22,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             base.initialize();
             Name = "Establish Contact (" + _commanded_nation.Name + ")";
-            Tags = new List<CreationTag>() { CreationTag.Diplomacy };
+            Tags = new List<string>() { "diplomacy" };
         }
 
         public override bool Precondition(Deity creator)

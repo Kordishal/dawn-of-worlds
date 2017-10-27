@@ -28,7 +28,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         protected override void initialize()
         {
             Name = "Construct Fortification (" + _type.ToString() + ")";
-            Tags = new List<CreationTag>() { CreationTag.Construction, CreationTag.Military };
+            Tags = new List<string>() { "construction", "military" };
         }
 
 

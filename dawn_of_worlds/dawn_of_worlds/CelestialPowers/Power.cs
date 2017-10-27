@@ -20,7 +20,7 @@ namespace dawn_of_worlds.CelestialPowers
 
         public Random rnd { get; set; }
 
-        protected List<CreationTag> Tags { get; set; }
+        protected List<string> Tags { get; set; }
         protected int[] BaseCost { get; set; }
         protected int CostChange { get; set; }
 
@@ -36,7 +36,7 @@ namespace dawn_of_worlds.CelestialPowers
             foreach (Modifier domain in creator.Domains)
             {
                 if (domain.Forbids != null)
-                    for (int i = 0; i < domain.Forbids.Length; i++)
+                    for (int i = 0; i < domain.Forbids.Count; i++)
                         if (Tags.Contains(domain.Forbids[i]))
                             return false;
             }
@@ -66,11 +66,11 @@ namespace dawn_of_worlds.CelestialPowers
             foreach (Modifier domain in creator.Domains)
             {
                 if (domain.IncreaseCost != null)
-                    for (int i = 0; i < domain.IncreaseCost.Length; i++)
+                    for (int i = 0; i < domain.IncreaseCost.Count; i++)
                         if (Tags.Contains(domain.IncreaseCost[i]))
                             cost += CostChange;
                 if (domain.DecreaseCost != null)
-                    for (int j = 0; j < domain.DecreaseCost.Length; j++)
+                    for (int j = 0; j < domain.DecreaseCost.Count; j++)
                         if (Tags.Contains(domain.DecreaseCost[j]))
                             cost -= CostChange;
             }
@@ -100,11 +100,11 @@ namespace dawn_of_worlds.CelestialPowers
             foreach (Modifier domain in creator.Domains)
             {
                 if (domain.IncreasesWeight != null)
-                    for (int i = 0; i < domain.IncreasesWeight.Length; i++)
+                    for (int i = 0; i < domain.IncreasesWeight.Count; i++)
                         if (Tags.Contains(domain.IncreasesWeight[i]))
                             weight += WeightChange;
                 if (domain.DecreasesWeight != null)
-                    for (int j = 0; j < domain.DecreasesWeight.Length; j++)
+                    for (int j = 0; j < domain.DecreasesWeight.Count; j++)
                         if (Tags.Contains(domain.DecreasesWeight[j]))
                             weight -= WeightChange;
             }
@@ -121,7 +121,7 @@ namespace dawn_of_worlds.CelestialPowers
 
             rnd = new Random(Identifier);
 
-            Tags = new List<CreationTag>();
+            Tags = new List<string>();
         }
 
         public override string ToString()

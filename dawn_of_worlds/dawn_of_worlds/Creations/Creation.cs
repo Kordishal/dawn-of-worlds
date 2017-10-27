@@ -26,7 +26,7 @@ namespace dawn_of_worlds.Creations
         [JsonIgnore]
         public Deity Creator { get; set; }
 
-        public List<CreationTag> Tags { get; set; }
+        public List<string> Tags { get; set; }
 
         public Creation(string name, Deity creator)
         {
@@ -35,7 +35,7 @@ namespace dawn_of_worlds.Creations
 
             Name = name;
             Creator = creator;
-            Tags = new List<CreationTag>();
+            Tags = new List<string>();
             rnd = new Random(Identifier);
         }
 

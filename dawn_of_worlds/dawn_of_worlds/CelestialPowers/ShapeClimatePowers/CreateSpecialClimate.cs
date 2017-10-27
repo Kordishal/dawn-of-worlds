@@ -15,11 +15,11 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         {
             base.initialize();
             Name = "Create Special Climate (" + _climate.ToString() + ")";
-            Tags = new List<CreationTag>() { CreationTag.Climate };
+            Tags = new List<string>() { "climate" };
             switch (_climate)
             {
                 case Climate.Inferno:
-                     Tags.AddRange(new List<CreationTag>() { CreationTag.Fire, CreationTag.Heat, CreationTag.Destruction });
+                     Tags.AddRange(new List<string>() { "fire", "heat", "destruction" });
                     break;
             }
         }

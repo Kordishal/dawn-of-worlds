@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             base.initialize();
             Name = "Create Desert";
             isPrimary = true;
-            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Plain, CreationTag.Dry };
+            Tags = new List<string>() { "creation", "plain", "dry" };
         }
 
         public override int Effect(Deity creator)

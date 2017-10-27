@@ -16,7 +16,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
         {
             base.initialize();
             Name = "Construct Building";
-            Tags = new List<CreationTag>() { CreationTag.Construction };
+            Tags = new List<string>() { "construction" };
         }
 
         public override int Effect(Deity creator)

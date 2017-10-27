@@ -62,7 +62,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
                 foreach (Modifier modifier in province.ProvincialModifiers)
                 {
                     if (modifier.Forbids != null)
-                        for (int i = 0; i < modifier.Forbids.Length; i++)
+                        for (int i = 0; i < modifier.Forbids.Count; i++)
                             if (Tags.Contains(modifier.Forbids[i]))
                                 add_province = false;                                    
                 }
@@ -80,7 +80,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
 
                 foreach(Modifier modifier in weighted_province.Object.ProvincialModifiers)
                     if (modifier.IncreasesWeight != null)
-                        for (int i = 0; i <modifier.IncreasesWeight.Length; i++)
+                        for (int i = 0; i <modifier.IncreasesWeight.Count; i++)
                             if (Tags.Contains(modifier.IncreasesWeight[i]))
                                 weighted_province.Weight += WeightChange;
 

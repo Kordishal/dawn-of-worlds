@@ -19,7 +19,7 @@ namespace dawn_of_worlds.CelestialPowers.EventPowers.ProvincialEvents
             {
                 {
                     if (modifier.Forbids != null)
-                        for (int i = 0; i < modifier.Forbids.Length; i++)
+                        for (int i = 0; i < modifier.Forbids.Count; i++)
                             if (Tags.Contains(modifier.Forbids[i]))
                                 return false;
                 }

@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandCityPowers
         {
             base.initialize();
             Name = "Raise Army: " + _commanded_city.Name;
-            Tags = new List<CreationTag>() { CreationTag.Peace, CreationTag.Diplomacy };
+            Tags = new List<string>() { "peace", "diplomacy" };
         }
 
         public override bool Precondition(Deity creator)

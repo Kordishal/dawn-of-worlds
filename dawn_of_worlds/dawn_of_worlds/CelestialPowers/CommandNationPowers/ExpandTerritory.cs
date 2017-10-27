@@ -28,7 +28,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             base.initialize();
             Name = "Expand National Territory: " + _commanded_nation.Name;
-            Tags = new List<CreationTag>() { CreationTag.Expansion };
+            Tags = new List<string>() { "expansion" };
             ExpansionTargetProvinces = new List<Province>();
             foreach (Province province in _commanded_nation.Territory)
             {

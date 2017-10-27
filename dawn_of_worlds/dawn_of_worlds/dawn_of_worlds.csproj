@@ -116,7 +116,7 @@
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateMountainRange.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\CreateRiver.cs" />
     <Compile Include="CelestialPowers\ShapeLandPowers\ShapeLand.cs" />
-    <Compile Include="CreationData\Attribute.cs" />
+    <Compile Include="CreationData\CreationAttribute.cs" />
     <Compile Include="Creations\Civilisations\CivilisationTags.cs" />
     <Compile Include="Creations\Civilisations\Polity.cs" />
     <Compile Include="Creations\Conflict\Battle.cs" />
@@ -153,7 +153,6 @@
     <Compile Include="Main\GameState.cs" />
     <Compile Include="Main\Simulation.cs" />
     <Compile Include="Main\TimeLine.cs" />
-    <Compile Include="Effects\CreationTag.cs" />
     <Compile Include="Effects\Modifier.cs" />
     <Compile Include="Effects\ModifierTag.cs" />
     <Compile Include="Names\GenerateNames.cs" />
@@ -167,6 +166,9 @@
     <Compile Include="SupportClasses\TokenClasses\Token.cs" />
     <Compile Include="SupportClasses\TokenClasses\TokenDefinition.cs" />
     <Compile Include="SupportClasses\TokenClasses\TokenPosition.cs" />
+    <Compile Include="TagThesaurus\TagEntry.cs" />
+    <Compile Include="TagThesaurus\Thesaurus.cs" />
+    <Compile Include="Utility\TemporaryClass.cs" />
     <Compile Include="WorldGeneration\BasicWorldGeneration.cs" />
     <Compile Include="WorldModel\Area.cs" />
     <Compile Include="WorldModel\Climate.cs" />

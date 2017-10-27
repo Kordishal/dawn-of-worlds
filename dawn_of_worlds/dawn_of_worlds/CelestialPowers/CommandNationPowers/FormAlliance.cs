@@ -21,7 +21,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             base.initialize();
             Name = "Form Alliance: " + _commanded_nation.Name;
-            Tags = new List<CreationTag>() { CreationTag.Alliance, CreationTag.Diplomacy };
+            Tags = new List<string>() { "alliance", "diplomacy" };
         }
 
         public override bool Precondition(Deity creator)

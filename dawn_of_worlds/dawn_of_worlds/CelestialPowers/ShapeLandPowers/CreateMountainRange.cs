@@ -17,7 +17,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
         {
             base.initialize();
             Name = "Create Mountain Range";
-            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Mountainous, CreationTag.Earth };
+            Tags = new List<string>() { "creation", "mountain", "earth" };
         }
 
         public override int Effect(Deity creator)

@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             base.initialize();
             Name = "Create Cave";
             isPrimary = false;
-            Tags = new List<CreationTag>() { CreationTag.Subterranean, CreationTag.Earth };
+            Tags = new List<string>() { "underground", "earth" };
         }
 
         public override int Effect(Deity creator)

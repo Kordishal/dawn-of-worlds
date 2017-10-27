@@ -17,7 +17,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             base.initialize();
             Name = "Declare War: " + _commanded_nation.Name;
-            Tags = new List<CreationTag>() { CreationTag.War };
+            Tags = new List<string>() { "war" };
         }
 
         public override bool Precondition(Deity creator)

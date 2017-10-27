@@ -22,7 +22,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             base.initialize();
             Name = "Surrender War (" + _commanded_nation.Name + ")";
-            Tags = new List<CreationTag>() { CreationTag.Peace, CreationTag.Diplomacy };
+            Tags = new List<string>() { "peace", "diplomacy" };
         }
 
         public override bool isObsolete

@@ -20,7 +20,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandRacePowers
         {
             base.initialize();
             Name = "Settle Province (" + _settling_area.ToString() + ")";
-            Tags = new List<CreationTag>() { CreationTag.Exploration };
+            Tags = new List<string>() { "exploration" };
         }
 
         public override int Weight(Deity creator)

@@ -28,7 +28,7 @@ namespace dawn_of_worlds.Effects
         Earth,
         Water,
         Fire,
-        Wind,
+        Air,
 
         Heat,
         Cold,

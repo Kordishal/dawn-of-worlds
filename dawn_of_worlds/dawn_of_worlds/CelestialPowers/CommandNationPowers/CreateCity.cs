@@ -24,7 +24,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             base.initialize();
             Name = "Create City: " + _commanded_nation.Name + " in Area " + _commanded_nation.Territory[0].Name;
-            Tags = new List<CreationTag>() { CreationTag.Community, CreationTag.Construction, CreationTag.Trade };
+            Tags = new List<string>() { "community", "construction", "trade" };
         }
 
 

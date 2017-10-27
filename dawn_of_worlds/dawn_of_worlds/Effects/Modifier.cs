@@ -19,13 +19,13 @@ namespace dawn_of_worlds.Effects
 
         public List<ModifierTag> Excludes { get; set; }
 
-        public CreationTag[] Forbids { get; set; }
+        public List<string> Forbids { get; set; }
 
-        public CreationTag[] IncreasesWeight { get; set; }
-        public CreationTag[] DecreasesWeight { get; set; }
+        public List<string> IncreasesWeight { get; set; }
+        public List<string> DecreasesWeight { get; set; }
 
-        public CreationTag[] IncreaseCost { get; set; }
-        public CreationTag[] DecreaseCost { get; set; }
+        public List<string> IncreaseCost { get; set; }
+        public List<string> DecreaseCost { get; set; }
 
         public Modifier(ModifierCategory category, ModifierTag tag)
         {
@@ -52,185 +52,185 @@ namespace dawn_of_worlds.Effects
                 case ModifierTag.Architecture:                
                     Excludes = null;
                     Forbids = null;
-                    IncreasesWeight = new CreationTag[] { CreationTag.Construction };
+                    IncreasesWeight = new List<string> { "construction" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Construction };
+                    DecreaseCost = new List<string> { "construction" };
                     break;
                 case ModifierTag.Battle:                  
                     Excludes = new List<ModifierTag>() { ModifierTag.Peace };
                     Forbids = null;
-                    IncreasesWeight = new CreationTag[] { CreationTag.Military, CreationTag.Battle, CreationTag.Combat };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Peace };
+                    IncreasesWeight = new List<string> { "military", "battle", "combat" };
+                    DecreasesWeight = new List<string> { "peace" };
 
-                    IncreaseCost = new CreationTag[] { CreationTag.Peace };
-                    DecreaseCost = new CreationTag[] { CreationTag.Battle };
+                    IncreaseCost = new List<string> { "peace" };
+                    DecreaseCost = new List<string> { "battle" };
                     break;
                 case ModifierTag.Cold:                 
                     Excludes = new List<ModifierTag>() { ModifierTag.Heat, ModifierTag.Fire };
-                    Forbids = new CreationTag[] { CreationTag.Heat };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Cold };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Fire, CreationTag.Heat };
+                    Forbids = new List<string> { "heat" };
+                    IncreasesWeight = new List<string> { "cold" };
+                    DecreasesWeight = new List<string> { "fire", "fire" };
 
-                    IncreaseCost = new CreationTag[] { CreationTag.Cold };
-                    DecreaseCost = new CreationTag[] { CreationTag.Heat };
+                    IncreaseCost = new List<string> { "cold" };
+                    DecreaseCost = new List<string> { "heat" };
                     break;
                 case ModifierTag.Community:                
                     Excludes = new List<ModifierTag>() { ModifierTag.Solitary };
-                    Forbids = new CreationTag[] { CreationTag.Solitary };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Community };
+                    Forbids = new List<string> { "solitary" };
+                    IncreasesWeight = new List<string> { "community" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Community };
+                    DecreaseCost = new List<string> { "community" };
                     break;
                 case ModifierTag.Conquest:                
                     Excludes = new List<ModifierTag>() { ModifierTag.Peace };
                     Forbids = null;
-                    IncreasesWeight = new CreationTag[] { CreationTag.Military, CreationTag.War, CreationTag.Expansion };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Peace };
+                    IncreasesWeight = new List<string> { "military", "war", "expansion" };
+                    DecreasesWeight = new List<string> { "peace" };
 
-                    IncreaseCost = new CreationTag[] { CreationTag.Peace };
-                    DecreaseCost = new CreationTag[] { CreationTag.Expansion };
+                    IncreaseCost = new List<string> { "peace" };
+                    DecreaseCost = new List<string> { "expansion" };
                     break;
                 case ModifierTag.Creation:                 
                     Excludes = null;
                     Forbids = null;
-                    IncreasesWeight = new CreationTag[] { CreationTag.Creation };
+                    IncreasesWeight = new List<string> { "creation" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Creation };
+                    DecreaseCost = new List<string> { "creation" };
                     break;
                 case ModifierTag.Drought:           
                     Excludes = new List<ModifierTag>() { ModifierTag.Water };
-                    Forbids = new CreationTag[] { CreationTag.Water };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Dry };
+                    Forbids = new List<string> { "water" };
+                    IncreasesWeight = new List<string> { "dry" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Dry };
+                    DecreaseCost = new List<string> { "dry" };
                     break;
                 case ModifierTag.Earth:                   
                     Excludes = new List<ModifierTag>() { ModifierTag.Water };
-                    Forbids = new CreationTag[] { CreationTag.Water };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Earth };
+                    Forbids = new List<string> { "water" };
+                    IncreasesWeight = new List<string> { "earth" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Earth };
+                    DecreaseCost = new List<string> { "earth" };
                     break;
                 case ModifierTag.Exploration:                
                     Excludes = null;
                     Forbids = null;
-                    IncreasesWeight = new CreationTag[] { CreationTag.Exploration, CreationTag.Expansion };
+                    IncreasesWeight = new List<string> { "exploration", "expansion" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Exploration };
+                    DecreaseCost = new List<string> { "exploration" };
                     break;
                 case ModifierTag.Fire:                  
                     Excludes = new List<ModifierTag>() { ModifierTag.Water };
-                    Forbids = new CreationTag[] { CreationTag.Water };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Fire, CreationTag.Heat, CreationTag.Resurrection };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Cold };
+                    Forbids = new List<string> { "water" };
+                    IncreasesWeight = new List<string> { "fire", "heat", "resurrection" };
+                    DecreasesWeight = new List<string> { "cold" };
 
-                    IncreaseCost = new CreationTag[] { CreationTag.Cold };
-                    DecreaseCost = new CreationTag[] { CreationTag.Fire };
+                    IncreaseCost = new List<string> { "cold" };
+                    DecreaseCost = new List<string> { "fire" };
                     break;
                 case ModifierTag.Heat:                   
                     Excludes = new List<ModifierTag>() { ModifierTag.Cold };
-                    Forbids = new CreationTag[] { CreationTag.Cold };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Heat, CreationTag.Fire };
+                    Forbids = new List<string> { "cold" };
+                    IncreasesWeight = new List<string> { "heat", "fire" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Heat };
+                    DecreaseCost = new List<string> { "heat" };
                     break;
-                case ModifierTag.Magic:                 
+                case ModifierTag.Magic:
                     Excludes = new List<ModifierTag>() { ModifierTag.AntiMagic };
-                    Forbids = new CreationTag[] { CreationTag.AntiMagic };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Magic };
+                    Forbids = new List<string> { "anti-magic" };
+                    IncreasesWeight = new List<string> { "magic" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Magic };
+                    DecreaseCost = new List<string> { "magic" };
                     break;
                 case ModifierTag.Metallurgy:
                     
                     Excludes = null;
                     Forbids = null;
-                    IncreasesWeight = new CreationTag[] { CreationTag.Metal };
+                    IncreasesWeight = new List<string> { "metal" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Metal };
+                    DecreaseCost = new List<string> { "metal" };
                     break;
                 case ModifierTag.Nature:                
                     Excludes = null;
                     Forbids = null;
-                    IncreasesWeight = new CreationTag[] { CreationTag.Nature };
+                    IncreasesWeight = new List<string> { "nature" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Nature };
+                    DecreaseCost = new List<string> { "nature" };
                     break;
                 case ModifierTag.Peace:                 
                     Excludes = new List<ModifierTag>() { ModifierTag.War };
-                    Forbids = new CreationTag[] { CreationTag.War };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Peace, CreationTag.Alliance };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Military, CreationTag.Battle };
+                    Forbids = new List<string> { "war" };
+                    IncreasesWeight = new List<string> { "peace", "alliance" };
+                    DecreasesWeight = new List<string> { "military", "battle" };
 
-                    IncreaseCost = new CreationTag[] { CreationTag.Military };
-                    DecreaseCost = new CreationTag[] { CreationTag.Peace };
+                    IncreaseCost = new List<string> { "military" };
+                    DecreaseCost = new List<string> { "peace" };
                     break;
                 case ModifierTag.Pestilence:
                     
                     Excludes = new List<ModifierTag>() { ModifierTag.Health };
-                    Forbids = new CreationTag[] { CreationTag.Health };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Disease };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Healing };
+                    Forbids = new List<string> { "health" };
+                    IncreasesWeight = new List<string> { "disease" };
+                    DecreasesWeight = new List<string> { "healing" };
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Disease };
+                    DecreaseCost = new List<string> { "disease" };
                     break;
                 case ModifierTag.Solitary:              
                     Excludes = new List<ModifierTag>() { ModifierTag.Community };
                     Forbids = null;
-                    IncreasesWeight = new CreationTag[] { CreationTag.Solitary, CreationTag.Isolationism };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Community, CreationTag.Diplomacy };
+                    IncreasesWeight = new List<string> { "solitary", "isolation" };
+                    DecreasesWeight = new List<string> { "community", "diplomacy" };
 
-                    IncreaseCost = new CreationTag[] { CreationTag.Community };
-                    DecreaseCost = new CreationTag[] { CreationTag.Solitary };
+                    IncreaseCost = new List<string> { "community" };
+                    DecreaseCost = new List<string> { "solitary" };
                     break;
                 case ModifierTag.War:              
                     Excludes = new List<ModifierTag>() { ModifierTag.Peace };
-                    Forbids = new CreationTag[] { CreationTag.Peace };
-                    IncreasesWeight = new CreationTag[] { CreationTag.War, CreationTag.Military };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Alliance };
+                    Forbids = new List<string> { "peace" };
+                    IncreasesWeight = new List<string> { "war", "miliary" };
+                    DecreasesWeight = new List<string> { "alliance" };
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.War };
+                    DecreaseCost = new List<string> { "war" };
                     break;
                 case ModifierTag.Water:
                     
                     Excludes = new List<ModifierTag>() { ModifierTag.Fire };
-                    Forbids = new CreationTag[] { CreationTag.Fire };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Water };
-                    DecreasesWeight = new CreationTag[] { CreationTag.Earth, CreationTag.Dry };
+                    Forbids = new List<string> { "fire" };
+                    IncreasesWeight = new List<string> { "water" };
+                    DecreasesWeight = new List<string> { "earth", "dry" };
 
-                    IncreaseCost = new CreationTag[] { CreationTag.Dry };
-                    DecreaseCost = new CreationTag[] { CreationTag.Water };
+                    IncreaseCost = new List<string> { "dry" };
+                    DecreaseCost = new List<string> { "water" };
                     break;
-                case ModifierTag.Wind:             
+                case ModifierTag.Air:             
                     Excludes = new List<ModifierTag>() { ModifierTag.Earth };
-                    Forbids = new CreationTag[] { CreationTag.Earth };
-                    IncreasesWeight = new CreationTag[] { CreationTag.Wind };
+                    Forbids = new List<string> { "earth" };
+                    IncreasesWeight = new List<string> { "air" };
                     DecreasesWeight = null;
 
                     IncreaseCost = null;
-                    DecreaseCost = new CreationTag[] { CreationTag.Wind };
+                    DecreaseCost = new List<string> { "air" };
                     break;
             }
         }
@@ -241,17 +241,17 @@ namespace dawn_of_worlds.Effects
             {
                 case ModifierTag.ThePlague:
                     Excludes = null;
-                    Forbids = new CreationTag[] { CreationTag.Creation };
+                    Forbids = new List<string> { "creation" };
                     IncreasesWeight = null;
-                    DecreasesWeight = new CreationTag[] { CreationTag.Conquest, CreationTag.Construction, CreationTag.Army };
+                    DecreasesWeight = new List<string> { "conquest", "construction", "army" };
                     IncreaseCost = null;
                     DecreaseCost = null;
                     break;
                 case ModifierTag.Permafrost:
                     Excludes = null;
-                    Forbids = new CreationTag[] { CreationTag.Tree };
+                    Forbids = new List<string> { "tree" };
                     IncreasesWeight = null;
-                    DecreasesWeight = new CreationTag[] { CreationTag.Life };
+                    DecreasesWeight = new List<string> { "life" };
                     IncreaseCost = null;
                     DecreaseCost = null;
                     break;

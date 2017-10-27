@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             base.initialize();
             Name = "Create Forest";
             isPrimary = true;
-            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Nature, CreationTag.Tree };
+            Tags = new List<string>() { "creation", "nature", "tree" };
         }
 
         public override int Effect(Deity creator)

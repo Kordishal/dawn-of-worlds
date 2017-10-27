@@ -17,7 +17,7 @@ namespace dawn_of_worlds.CelestialPowers.CommandNationPowers
         {
             base.initialize();
             Name = "White Peace (" + _white_peaced_war.Name + ")";
-            Tags = new List<CreationTag>() { CreationTag.Peace, CreationTag.Diplomacy };
+            Tags = new List<string>() { "peace", "diplomacy" };
         }
 
         public override bool isObsolete

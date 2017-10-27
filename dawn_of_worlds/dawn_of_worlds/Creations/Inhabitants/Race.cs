@@ -40,7 +40,7 @@ namespace dawn_of_worlds.Creations.Inhabitants
         public Race(string name, Deity creator) : base(name, creator)
         {
             Modifiers = new List<Modifier>();
-            Tags = new List<CreationTag>();
+            Tags = new List<string>();
             SettledProvinces = new List<Province>();
 
             PreferredTerrain = new List<RacialPreferredHabitatTerrain>();

@@ -17,7 +17,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeClimatePowers
         {
             base.initialize();
             Name = "Make Climate Warmer";
-            Tags = new List<CreationTag>() { CreationTag.Heat, CreationTag.Fire, CreationTag.Climate };
+            Tags = new List<string>() { "heat", "fire", "climate"};
         }
 
         public override bool Precondition(Deity creator)

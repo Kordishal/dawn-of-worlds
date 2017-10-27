@@ -24,7 +24,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             BaseWeight = new int[] { 20, 15, 10 };
             WeightChange = 5;
 
-            Tags = new List<CreationTag>() {  CreationTag.Metal, CreationTag.Trade };
+            Tags = new List<string>() {  "metal", "trade" };
         }
     }
 }

@@ -18,7 +18,7 @@ namespace dawn_of_worlds.CelestialPowers.ShapeLandPowers
             base.initialize();
             Name = "Create Lake";
             isPrimary = false;
-            Tags = new List<CreationTag>() { CreationTag.Creation, CreationTag.Water };
+            Tags = new List<string>() { "creation", "fresh-water", "water" };
         }
 
         protected override bool selectionModifier(Province province)
